@@ -8,26 +8,26 @@
       "section": "intro",
       "content": [
         {
-          "type": "IntroSub",
+          "type": "IntroScreen",
           "value": {
             "p1": "Every word you see on this page is one of the most commonly used words in English.",
             "p2": "They come from a 2023 list(*) of about 2,800 words that has been found to cover over 90% of everyday general English use."
           }
         },
         {
-          "type": "IntroSub",
+          "type": "IntroScreen",
           "value": {
             "p1": "That 2023 list is based on an older one(*), made back in 1953, with about 2,300 words identified as the core vocabulary most essential to everyday life at the time."
           }
         },
         {
-          "type": "IntroSub",
+          "type": "IntroScreen",
           "value": {
             "p1": "Between the two lists, seventy years apart, about 600 words were dropped, and over 1,100 were added. The rest remained as is."
           }
         },
         {
-          "type": "IntroSub",
+          "type": "IntroScreen",
           "value": {
             "p1": "Some of the changes make immediate sense: <span class=gsl>Telegraph</span> dropped out; <span class=ngsl>computer</span> was added. <span class=gsl>tobacco</span> was replaced by <span class=ngsl>cigarette</span>. <span class=gsl>Motherhood</span> became <span class=ngsl>mom</span>, and <span class=ngsl>dad</span> was added too, though <i>fatherhood</i> was never on the list to begin with. The world changed, and the vocabulary followed.",
             "p2": "But also: <span class=ngsl>Dog</span> stayed, but <span class=gsl>goat</span> didn’t make the cut. <span class=ngsl>Knife</span> stayed, but <span class=gsl>axe, hammer, needle,</span> and <span class=gsl>spade</span> didn’t. <span class=ngsl>Bread</span> stayed, but <span class=gsl>flour</span> and <span class=gsl>wheat</span> – the stuff you’d use to make the bread – dropped. The basic terms survived, but the more specific, hands-on words thinned out.",

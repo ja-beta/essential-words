@@ -92,11 +92,27 @@ svg {
 	height: auto;
 }
 
-/* story.css */
+/* global styles */
 .gsl{
 	font-style: italic;
 }
 
 .ngsl{
 	font-style: italic;
+}
+
+/* intro */
+.intro-screen {
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: -8rem;
+}
+
+.intro-screen-grid {
+	display: grid;
+	position: absolute;
 }
