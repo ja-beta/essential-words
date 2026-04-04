@@ -1,3 +1,12 @@
+export const INTRO_SCREEN_SETS = [
+    ["added", "remained"], //ngsl
+    ["removed", "remained"], //gsl
+    ["removed", "added"], //diff
+    ["removed", "remained", "added"] //both
+];
+
+export const INTRO_SCREEN_LONG = [false, false, false, true];
+
 
 export function buildIntroWordPools(rows) {
 	const removed = [];
@@ -23,22 +32,31 @@ function seededUnit(seed) {
 }
 
 
-export function pickWordsForScreen(pools, screenIndex, count = 36) {
-	const { removed, remained, added } = pools;
-	const sources = [
-		{ set: "removed", list: removed },
-		{ set: "remained", list: remained },
-		{ set: "added", list: added }
-	];
+export function pickWordsForScreen(
+	pools,
+	screenIndex,
+	count = 36,
+	allowedSets = INTRO_SCREEN_SETS[screenIndex] ?? INTRO_SCREEN_SETS.at(-1)
+) {
+	const bySet = {
+		removed: pools.removed,
+		remained: pools.remained,
+		added: pools.added
+	};
+
+	const sources = allowedSets
+		.map((set) => ({ set, list: bySet[set] ?? [] }))
+		.filter((s) => s.list.length);
+
+	if (!sources.length) return [];
 
 	const out = [];
 	let seed = screenIndex * 7919;
 
 	for (let i = 0; i < count; i++) {
 		seed += i * 17;
-		const si = i % 3;
+		const si = i % sources.length;
 		const { set, list } = sources[si];
-		if (!list.length) continue;
 		const j = Math.floor(seededUnit(seed) * list.length);
 		out.push({ text: list[j], set });
 	}

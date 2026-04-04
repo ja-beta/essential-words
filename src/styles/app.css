@@ -27,10 +27,10 @@
 	--radius-md: 0.5rem;
 	--radius-lg: 1rem;
 	
-	--color-bg: var(--color-white);
+	--color-bg: #FFFFF1;
 	--color-fg: var(--color-gray-900);
 	--color-fg-light: var(--color-gray-500);
-	--color-primary: var(--color-black);
+	--color-primary: #5B5B5B;
 	--color-link: var(--color-black);
 	--color-link-hover: var(--color-black);
 	--color-focus: var(--color-gray-500);
@@ -60,6 +60,11 @@
 	:root {
 		--1s: 1s;
 	}
+}
+
+body{
+	background-color: var(--color-bg, white);
+	color: var(--color-primary, black);
 }
 
 h1 {
@@ -101,18 +106,3 @@ svg {
 	font-style: italic;
 }
 
-/* intro */
-.intro-screen {
-	height: 100vh;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: -8rem;
-}
-
-.intro-screen-grid {
-	display: grid;
-	position: absolute;
-}
