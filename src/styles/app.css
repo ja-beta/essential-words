@@ -47,6 +47,9 @@
 	--color-input-bg: var(--color-gray-50);
 	--color-input-fg: var(--color-gray-900);
 	--color-placeholder: var(--color-gray-500);
+	--color-gsl: #FFAA4A;
+	--color-ngsl: #F493FF;
+	--color-highlight-text: #494949;
 
 	/* "1" second duration */
 	--1s: 1ms;
@@ -97,6 +100,7 @@ h6 {
 p, li{
 	font-size: var(--p-font-size, 1.25rem);
 	margin-bottom: 2rem;
+	line-height: 1.5;
 }
 
 svg {
@@ -108,10 +112,17 @@ svg {
 /* global styles */
 .gsl{
 	font-style: italic;
+	background-color: var(--color-gsl);
 }
 
 .ngsl{
 	font-style: italic;
+	background-color: var(--color-ngsl);
+}
+
+.gsl, .ngsl{
+	padding: 0 0.35rem 0 0.25rem;
+	color: var(--color-highlight-text);
 }
 
 .story-section {
