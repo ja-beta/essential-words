@@ -5,6 +5,7 @@
 		"gdoc": "node tasks/fetch-google.js",
 		"style": "node tasks/style-dictionary.js",
 		"dev": "vite dev",
+		"staging": "make staging",
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier --check --plugin-search-dir=. .",
