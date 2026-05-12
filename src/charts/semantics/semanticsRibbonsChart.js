@@ -1,12 +1,12 @@
 import * as d3 from "d3";
 
-const CHANGE_THRESHOLD = 15;
+const CHANGE_THRESHOLD = 20;
 
 const LAYOUT = {
 	margin: { top: 50, right: 200, bottom: 50, left: 200 },
 	colW: 0,
 	gapW: 640,
-	bandGap: 16,
+	bandGap: 13,
 	plotH: 760
 };
 
@@ -15,6 +15,31 @@ const BASE_SLOPE_WIDTH = LAYOUT.colW + LAYOUT.gapW + LAYOUT.colW;
 function cssNumber(el, name, fallback) {
 	const value = Number.parseFloat(getComputedStyle(el).getPropertyValue(name));
 	return Number.isFinite(value) ? value : fallback;
+}
+
+function splitLabelTwoLines(text, targetChars) {
+	const raw = String(text ?? "").trim();
+	if (!raw) return [""];
+	if (raw.length <= targetChars) return [raw];
+
+	const words = raw.split(/\s+/).filter(Boolean);
+	if (words.length === 1) {
+		const cut = Math.max(4, Math.min(raw.length - 3, targetChars));
+		return [raw.slice(0, cut), raw.slice(cut)];
+	}
+
+	let line1 = "";
+	let i = 0;
+	while (i < words.length) {
+		const candidate = line1 ? `${line1} ${words[i]}` : words[i];
+		if (candidate.length > targetChars && line1) break;
+		line1 = candidate;
+		i += 1;
+	}
+
+	const line2 = words.slice(i).join(" ");
+	if (!line2) return [line1];
+	return [line1, line2];
 }
 
 function ribbonPath(c, gslX1, ngslX0, mx) {
@@ -108,7 +133,21 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const chartW = containerEl.clientWidth || BASE_SLOPE_WIDTH;
 	const layoutScale = chartW / BASE_SLOPE_WIDTH;
 	const fontScale = cssNumber(containerEl, "--sem-font-scale", 1);
-	const minBandFontSize = cssNumber(containerEl, "--sem-min-band-font-size");
+	const minBandFontSize = cssNumber(containerEl, "--sem-min-band-font-size", 15);
+	const responsiveBreakpoint = cssNumber(containerEl, "--sem-responsive-breakpoint", 1080);
+	const compactBreakpoint = cssNumber(containerEl, "--sem-compact-breakpoint", 700);
+	const mobileOuterMargin = cssNumber(containerEl, "--sem-mobile-margin", 20);
+	const mobileOuterMarginRight = cssNumber(containerEl, "--sem-mobile-margin-right", mobileOuterMargin);
+	const mobileLabelMaxPct = cssNumber(containerEl, "--sem-mobile-label-max-pct", 0.25);
+	const mobileLabelMin = cssNumber(containerEl, "--sem-mobile-label-min", 88);
+	const mobileRightLabelMaxPct = cssNumber(containerEl, "--sem-mobile-right-label-max-pct", 0.1);
+	const mobileRightLabelMin = cssNumber(containerEl, "--sem-mobile-right-label-min", 48);
+	const mobileSlopeMin = cssNumber(containerEl, "--sem-mobile-slope-min", 260);
+	const debugLayout = cssNumber(containerEl, "--sem-debug-layout", 0) > 0;
+	const viewportW =
+		typeof window !== "undefined" && Number.isFinite(window.innerWidth) ? window.innerWidth : chartW;
+	const useResponsiveBudget = viewportW <= responsiveBreakpoint;
+	const useCompactLabels = viewportW <= compactBreakpoint;
 
 	const margin = {
 		top: LAYOUT.margin.top * layoutScale,
@@ -117,13 +156,35 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		left: 0
 	};
 	const colW = LAYOUT.colW * layoutScale;
-	const gapW = LAYOUT.gapW * layoutScale;
+	let gapW = LAYOUT.gapW * layoutScale;
 	const bandGap = LAYOUT.bandGap * layoutScale;
 	const plotH = LAYOUT.plotH * layoutScale;
 	const W = chartW;
 	const H = margin.top + plotH + margin.bottom;
 
-	const gslX1 = margin.left + colW;
+	let gslX1 = margin.left + colW;
+	let leftLabelZone = 0;
+	let rightLabelZone = 0;
+	if (useResponsiveBudget) {
+		const innerW = Math.max(chartW - mobileOuterMargin - mobileOuterMarginRight, 260);
+		const leftLabelMax = innerW * mobileLabelMaxPct;
+		const rightLabelMax = innerW * mobileRightLabelMaxPct;
+		let leftZone = Math.max(leftLabelMax, mobileLabelMin);
+		let rightZone = Math.max(rightLabelMax, mobileRightLabelMin);
+		let slopeCandidate = innerW - leftZone - rightZone;
+		if (slopeCandidate < mobileSlopeMin) {
+			rightZone = Math.max(0, innerW - mobileSlopeMin - leftZone);
+			slopeCandidate = innerW - leftZone - rightZone;
+			if (slopeCandidate < mobileSlopeMin) {
+				leftZone = Math.max(0, innerW - mobileSlopeMin - rightZone);
+				slopeCandidate = innerW - leftZone - rightZone;
+			}
+		}
+		leftLabelZone = Math.max(0, leftZone);
+		rightLabelZone = Math.max(0, rightZone);
+		gapW = Math.max(140, slopeCandidate);
+		gslX1 = mobileOuterMargin + leftLabelZone + colW;
+	}
 	const ngslX0 = gslX1 + gapW;
 	const mx = (gslX1 + ngslX0) / 2;
 
@@ -137,8 +198,18 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const leftLabelOffset = cssNumber(containerEl, "--sem-left-label-offset", 16) * layoutScale;
 	const rightChangeOffset = cssNumber(containerEl, "--sem-right-change-offset", 46) * layoutScale;
 	const leftLabelHoverShift = cssNumber(containerEl, "--sem-left-label-hover-shift", 30) * layoutScale;
+	if (!useResponsiveBudget) {
+		leftLabelZone = Math.max(0, leftLabelOffset + leftLabelHoverShift + 24 * layoutScale);
+		rightLabelZone = Math.max(0, rightChangeOffset + 48 * layoutScale);
+	}
 	const categoryLabelRestX = gslX1 - leftLabelOffset;
 	const categoryLabelHoverX = categoryLabelRestX - leftLabelHoverShift;
+	const labelWrapChars = Math.max(
+		8,
+		Math.floor(
+			((useCompactLabels ? leftLabelZone : chartW * 0.2) - leftLabelOffset) / Math.max(5, 13 * fontScale * 0.56)
+		)
+	);
 	const hoverLabelTransitionMs = 160;
 	const marqueeSpeed = 25;
 	const antsSpeed = 18;
@@ -188,6 +259,66 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		.style("overflow", "visible");
 
 	svg.append("rect").attr("width", W).attr("height", H).attr("fill", "var(--color-bg)");
+
+	if (debugLayout) {
+		const leftX0 = Math.max(0, gslX1 - leftLabelZone);
+		const leftX1 = gslX1;
+		const slopeX0 = gslX1;
+		const slopeX1 = ngslX0;
+		const rightX0 = ngslX0;
+		const rightX1 = Math.min(W, ngslX0 + rightLabelZone);
+
+		const guides = svg.append("g").attr("class", "sem-debug-layout");
+		guides
+			.append("rect")
+			.attr("x", leftX0)
+			.attr("y", margin.top)
+			.attr("width", Math.max(0, leftX1 - leftX0))
+			.attr("height", plotH)
+			.attr("fill", "#3b82f6")
+			.attr("fill-opacity", 0.12);
+		guides
+			.append("rect")
+			.attr("x", slopeX0)
+			.attr("y", margin.top)
+			.attr("width", Math.max(0, slopeX1 - slopeX0))
+			.attr("height", plotH)
+			.attr("fill", "#22c55e")
+			.attr("fill-opacity", 0.12);
+		guides
+			.append("rect")
+			.attr("x", rightX0)
+			.attr("y", margin.top)
+			.attr("width", Math.max(0, rightX1 - rightX0))
+			.attr("height", plotH)
+			.attr("fill", "#f97316")
+			.attr("fill-opacity", 0.12);
+
+		for (const x of [gslX1, ngslX0]) {
+			guides
+				.append("line")
+				.attr("x1", x)
+				.attr("x2", x)
+				.attr("y1", margin.top - 20)
+				.attr("y2", margin.top + plotH + 20)
+				.attr("stroke", "#111827")
+				.attr("stroke-width", 1)
+				.attr("stroke-dasharray", "4 4")
+				.attr("stroke-opacity", 0.6);
+		}
+
+		guides
+			.append("text")
+			.attr("x", 8)
+			.attr("y", 16)
+			.attr("font-size", "11px")
+			.attr("fill", "#111827")
+			.text(
+				`debug layout  vw:${Math.round(viewportW)}  chart:${Math.round(chartW)}  left:${Math.round(
+					leftLabelZone
+				)}  slope:${Math.round(gapW)}  right:${Math.round(rightLabelZone)}`
+			);
+	}
 
 	svg
 		.append("text")
@@ -299,20 +430,35 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			.style("pointer-events", "none")
 			.text(`${c.gslPct.toFixed(1)}%`);
 
-		cg
+		const labelEl = cg
 			.append("text")
 			.attr("class", "category-name")
 			.attr("x", categoryLabelRestX)
 			.attr("y", gMidY)
 			.attr("text-anchor", "end")
-			.attr("dominant-baseline", "central")
+			.attr("dominant-baseline", "middle")
 			.attr("font-family", "\"Source Serif 4\", serif")
 			.attr("font-size", `${13 * fontScale}px`)
 			.attr("fill", "var(--sem-ribbon-label)")
 			.attr("font-weight", 500)
 			.attr("letter-spacing", "0.02em")
-			.style("pointer-events", "none")
-			.text(c.shortName);
+			.style("pointer-events", "none");
+
+		const labelLines = useCompactLabels ? splitLabelTwoLines(c.shortName, labelWrapChars) : [c.shortName];
+		if (labelLines.length > 1) {
+			labelEl
+				.append("tspan")
+				.attr("x", categoryLabelRestX)
+				.attr("dy", "-0.45em")
+				.text(labelLines[0]);
+			labelEl
+				.append("tspan")
+				.attr("x", categoryLabelRestX)
+				.attr("dy", "1.05em")
+				.text(labelLines[1]);
+		} else {
+			labelEl.text(labelLines[0]);
+		}
 
 		const nH = c.ngslY1 - c.ngslY0;
 		const nMidY = c.ngslY0 + nH / 2;
@@ -330,7 +476,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			.style("pointer-events", "none")
 			.text(`${c.ngslPct.toFixed(1)}%`);
 
-		if (c.relChange != null) {
+		if (c.relChange != null && !useResponsiveBudget) {
 			const arrow = c.relChange > 0 ? "↑" : "↓";
 			const changeColor = c.relChange > 0 ? "var(--sem-ribbon-up)" : "var(--sem-ribbon-down)";
 			cg
