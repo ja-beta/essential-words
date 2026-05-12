@@ -42,6 +42,14 @@ function splitLabelTwoLines(text, targetChars) {
 	return [line1, line2];
 }
 
+function normalizeCategoryKey(value) {
+	return String(value ?? "")
+		.toLowerCase()
+		.replace(/&/g, "and")
+		.replace(/[^a-z0-9]+/g, " ")
+		.trim();
+}
+
 function ribbonPath(c, gslX1, ngslX0, mx) {
 	return (
 		`M${gslX1},${c.gslY0}` +
@@ -525,6 +533,107 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	});
 
 	const hoverLayer = svg.append("g").attr("class", "hover-layer").style("pointer-events", "none");
+	const forcedLayer = svg.append("g").attr("class", "forced-layer").style("pointer-events", "none");
+	let interactionLocked = false;
+	let forcedFocusSet = null;
+	const focusTransitionMs = 240;
+
+	function resetVisualState() {
+		catGroups.selectAll(".cat-group").interrupt().attr("opacity", 1);
+		catGroups.selectAll(".cat-group .ribbon").attr("fill-opacity", 0.5).attr("stroke-opacity", 0.5).attr("stroke-width", 0.5);
+		catGroups.selectAll(".cat-group .category-name").attr("x", categoryLabelRestX);
+		catGroups.selectAll(".cat-group .side-percent").attr("opacity", 0);
+
+		hoverLayer.selectAll("*").remove();
+		forcedLayer.selectAll("*").remove();
+		for (const c of cats) {
+			c._hoverActive = false;
+			c._hoverTpNode = null;
+			c._forcedActive = false;
+			c._forcedTpNode = null;
+			if (c._antsPath) d3.select(c._antsPath).style("display", null);
+		}
+	}
+
+	function drawForcedThinOverlay(c) {
+		forcedLayer
+			.append("path")
+			.attr("d", expandedRibbonPath(c, gslX1, ngslX0, mx, thinThreshold))
+			.attr("fill", c.dirColor)
+			.attr("fill-opacity", 0.2)
+			.attr("stroke", "none");
+
+		const text = forcedLayer
+			.append("text")
+			.attr("clip-path", `url(#${c._expClipId})`)
+			.attr("font-family", c._wordFontFamily)
+			.attr("font-size", `${defaultFontSize}px`)
+			.attr("font-weight", c._wordFontWeight)
+			.attr("font-style", c._wordFontStyle)
+			.attr("letter-spacing", "0.04em")
+			.attr("fill", c.dirTextColor)
+			.attr("fill-opacity", 1)
+			.style("pointer-events", "none");
+
+		text.append("textPath").attr("href", `#${c._expPathId}`).attr("startOffset", "0").text(c._wordStr);
+
+		c._forcedTpNode = text.select("textPath").node();
+		c._forcedActive = true;
+		c._forcedCycleLen = c._forcedTpNode ? c._forcedTpNode.getComputedTextLength() / c._repeatCount : 2000;
+		c._forcedOffset = wrapLeftToRightOffset(c._offset, c._forcedCycleLen);
+		if (c._forcedTpNode) c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
+	}
+
+	function applyForcedFocus(indices) {
+		const nextSet = indices && indices.length ? new Set(indices) : null;
+		forcedFocusSet = nextSet;
+
+		hoverLayer.selectAll("*").remove();
+		forcedLayer.interrupt().attr("opacity", 0).selectAll("*").remove();
+		for (const c of cats) {
+			c._hoverActive = false;
+			c._hoverTpNode = null;
+			c._forcedActive = false;
+			c._forcedTpNode = null;
+			if (c._antsPath) d3.select(c._antsPath).style("display", null);
+		}
+
+		catGroups.selectAll(".cat-group").interrupt();
+		catGroups.selectAll(".cat-group").each(function eachGroup() {
+			const group = d3.select(this);
+			const i = Number(group.attr("data-i"));
+			const focused = nextSet?.has(i);
+			group.raise().transition().duration(focusTransitionMs).attr("opacity", nextSet ? (focused ? 1 : 0.08) : 1);
+			group
+				.select(".ribbon")
+				.transition()
+				.duration(focusTransitionMs)
+				.attr("fill-opacity", focused ? 0.4 : 0.5)
+				.attr("stroke-opacity", focused ? 0.7 : 0.5)
+				.attr("stroke-width", focused ? 1 : 0.5);
+			group
+				.select(".category-name")
+				.transition()
+				.duration(focusTransitionMs)
+				.attr("x", focused ? categoryLabelHoverX : categoryLabelRestX);
+			group
+				.selectAll(".side-percent")
+				.transition()
+				.duration(focusTransitionMs)
+				.attr("opacity", nextSet ? (focused ? 1 : 0) : 0);
+		});
+
+		if (!nextSet) return;
+		forcedLayer.attr("opacity", 0);
+		for (const idx of nextSet) {
+			const c = cats[idx];
+			if (c._thin) {
+				if (c._antsPath) d3.select(c._antsPath).style("display", "none");
+				drawForcedThinOverlay(c);
+			}
+		}
+		forcedLayer.transition().duration(focusTransitionMs).attr("opacity", 1);
+	}
 
 	cats.forEach((c, i) => {
 		if (!c._thin) return;
@@ -559,6 +668,10 @@ export function renderSemanticsRibbons(containerEl, payload) {
 				c._hoverOffset = wrapLeftToRightOffset(c._hoverOffset + marqueeSpeed * dt, c._hoverCycleLen);
 				c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
 			}
+			if (c._forcedActive && c._forcedTpNode) {
+				c._forcedOffset = wrapLeftToRightOffset(c._forcedOffset + marqueeSpeed * dt, c._forcedCycleLen);
+				c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
+			}
 			if (c._thin && c._antsPath) {
 				c._antsOffset = (c._antsOffset - antsSpeed * dt) % 10;
 				c._antsPath.setAttribute("stroke-dashoffset", c._antsOffset);
@@ -575,6 +688,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		const c = cats[i];
 
 		el.on("mouseenter", () => {
+			if (interactionLocked) return;
 			catGroups.selectAll(".cat-group").transition().duration(120).attr("opacity", 0.08);
 			el.raise().transition().duration(120).attr("opacity", 1);
 			el.select(".ribbon").attr("fill-opacity", 0.4).attr("stroke-opacity", 0.7).attr("stroke-width", 1);
@@ -615,6 +729,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 		})
 			.on("mouseleave", () => {
+				if (interactionLocked) return;
 				catGroups.selectAll(".cat-group").transition().duration(200).attr("opacity", 1);
 				el.select(".ribbon").attr("fill-opacity", 0.4).attr("stroke-opacity", 0.4).attr("stroke-width", 0.5);
 				el.select(".category-name").transition().duration(hoverLabelTransitionMs).attr("x", categoryLabelRestX);
@@ -630,8 +745,32 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			});
 	});
 
-	return () => {
-		cancelAnimationFrame(rafId);
-		svg.remove();
+	const categoryIndexByName = new Map();
+	cats.forEach((c, i) => {
+		categoryIndexByName.set(normalizeCategoryKey(c.name), i);
+		categoryIndexByName.set(normalizeCategoryKey(c.shortName), i);
+	});
+
+	return {
+		setInteractionLocked(locked) {
+			interactionLocked = Boolean(locked);
+			if (!interactionLocked && !forcedFocusSet) {
+				applyForcedFocus([]);
+			}
+		},
+		setFocus(categoryNames = []) {
+			const indices = categoryNames
+				.map((name) => categoryIndexByName.get(normalizeCategoryKey(name)))
+				.filter((v) => Number.isInteger(v));
+			applyForcedFocus(indices);
+		},
+		clearFocus() {
+			forcedFocusSet = null;
+			applyForcedFocus([]);
+		},
+		destroy() {
+			cancelAnimationFrame(rafId);
+			svg.remove();
+		}
 	};
 }

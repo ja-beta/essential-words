@@ -40,14 +40,17 @@
       "overlays": [
         {
           "label": "Overlay 1 – focus on abstract band",
-          "html": "The biggest category in the 1953 list was already General & Abstract Terms, with words like <span class=\"gsl\">maybe, discover, regular, important, success.</span> It grew even more in 2023, adding words like <span class=\"ngsl\">possibility, responsibility, concept, justify,</span> and <span class=\"ngsl\">perspective.</span> Words for reasoning about the world were already central. They became more so."
+          "focusCategories": "General and Abstract Terms",
+          "html": "The biggest category in the 1953 list was already General & Abstract Terms, with words like <span class=\"remained\">maybe, discover, regular, important, success.</span> It grew even more in 2023, adding words like <span class=\"ngsl\">possibility, responsibility, concept, justify,</span> and <span class=\"ngsl\">perspective.</span> Words for reasoning about the world were already central. They became more so."
         },
         {
           "label": "Overlay 2 – focus on drops",
+          "focusCategories": "Substances, Materials, Objects and Equipment | Emotion | The Body and the Individual | Food and Farming",
           "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words like <span class=\"gsl\">clay, corn, hammer, beard, towel,</span> and <span class=\"gsl\">goat</span> were dropped from the core vocabulary. The words for what you grow, make, and hold in your hand all thinned out."
         },
         {
           "label": "Overlay 3 – focus on Psych Processes vs. Emotion",
+          "focusCategories": "Emotion | Psychological Actions, States and Processes",
           "html": "And while words about emotions shrank by 1.8 percentage points, words about psychological processes and reasoning grew by 1.7. That’s a nearly equal shift in the opposite direction. The vocabulary of inner life moved from something you experience to something you work through. Less feeling, more thinking."
         }
       ]

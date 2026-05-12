@@ -131,8 +131,13 @@ svg {
 	background-color: var(--color-ngsl-highlight);
 }
 
-.gsl, .ngsl{
-	padding: 0 0.35rem 0 0.25rem;
+.remained{
+	font-style: italic;
+	background-color: var(--color-remained-highlight);
+}
+
+.gsl, .ngsl, .remained{
+	padding: 0 0.35rem;
 	color: var(--color-highlight-text);
 }
 
