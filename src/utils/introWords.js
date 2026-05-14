@@ -14,9 +14,9 @@ export const INTRO_SEQUENCE_DEFAULTS = {
 	baseWordRequestFraction: 0.5,
 	baseFillFraction: 0.38,
 	removedFillRatio: 0.25,
-	centerExclusionWidth: 0.46,
+	centerExclusionWidth: 0.33,
 	centerExclusionHeight: 0.5,
-	centerExclusionNoise: 0.8,
+	centerExclusionNoise: 0.1,
 	baseSeed: 101,
 	removedSeed: 202,
 	exclusionSeed: 3001,
@@ -51,7 +51,7 @@ function seededUnit(seed) {
 export function pickWordsForScreen(
 	pools,
 	screenIndex,
-	count = 64,
+	count = 100,
 	allowedSets = INTRO_SCREEN_SETS[screenIndex] ?? INTRO_SCREEN_SETS.at(-1)
 ) {
 	const bySet = {

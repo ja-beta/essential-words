@@ -156,7 +156,6 @@
 	const stickyY = $derived(stickyProgress * stickyTotalVh);
 	const part1End = $derived(timing.part1Scroll);
 	const part1Progress = $derived(clamp01(stickyY / Math.max(1, timing.part1Scroll)));
-	const part1ToPart2 = $derived(clamp01((stickyY - part1End) / Math.max(1, timing.part2Pre)));
 	const part2Cut = $derived(part1End + timing.part2Pre);
 	const part2End = $derived(part2Cut + timing.part2Add);
 	const part3TextEnd = $derived(part2End + timing.part3Text);
@@ -165,22 +164,20 @@
 	const part3RemainEnd = $derived(part3AddEnd + timing.part3Remain);
 	const part3HoldEnd = $derived(part3RemainEnd + timing.part3Hold);
 	const part4FadeEnd = $derived(part3HoldEnd + timing.part4Fade);
-	const part4SwapEnd = $derived(part4FadeEnd + timing.part4Swap);
 
-	const removedReveal = $derived(clamp01((stickyY - part2Cut) / Math.max(1, timing.part2Add)));
-	const part3Swap = $derived(clamp01((stickyY - part2End) / Math.max(1, timing.part3Text)));
-	const part4Swap = $derived(clamp01((stickyY - part4FadeEnd) / Math.max(1, timing.part4Swap)));
-	const dropAlpha = $derived(clamp01((stickyY - part3TextEnd) / Math.max(1, timing.part3Drop)));
-	const addAlpha = $derived(clamp01((stickyY - part3DropEnd) / Math.max(1, timing.part3Add)));
-	const remainAlpha = $derived(clamp01((stickyY - part3AddEnd) / Math.max(1, timing.part3Remain)));
-	const part4Overlay = $derived(clamp01((stickyY - part3HoldEnd) / Math.max(1, timing.part4Fade)));
-	const highlightActive = $derived(stickyY < part3HoldEnd);
+	const phase = $derived.by(() => {
+		if (stickyY >= part4FadeEnd) return 4;
+		if (stickyY >= part2End) return 3;
+		if (stickyY >= part1End) return 2;
+		return 1;
+	});
+	const removedOn = $derived(stickyY >= part2Cut);
+	const dropOn = $derived(stickyY >= part3TextEnd && stickyY < part3HoldEnd);
+	const addOn = $derived(stickyY >= part3DropEnd && stickyY < part3HoldEnd);
+	const remainOn = $derived(stickyY >= part3AddEnd && stickyY < part3HoldEnd);
+	const part4OverlayOn = $derived(stickyY >= part3HoldEnd);
 	const part1BgTravelVh = $derived(Math.max(0, geometry.bgTotalVh - geometry.stageVh));
 	const part1BgShift = $derived(-part1Progress * part1BgTravelVh);
-
-	const dropOn = $derived(highlightActive && dropAlpha >= 1);
-	const addOn = $derived(highlightActive && addAlpha >= 1);
-	const remainOn = $derived(highlightActive && remainAlpha >= 1);
 
 	function measureProgress() {
 		if (stickyTrackMount) {
@@ -224,6 +221,7 @@
 				class:is-focus-drop={dropOn}
 				class:is-focus-add={addOn}
 				class:is-focus-remain={remainOn}
+				class:is-reveal-removed={removedOn}
 				style:grid-template-columns="repeat({gridCols}, minmax(0, 1fr))"
 				style:grid-template-rows="repeat({gridRows}, minmax(0, 1fr))"
 				style:transform={"translateY(" + part1BgShift + "vh)"}
@@ -232,16 +230,10 @@
 					<div class="intro-bg-cell">
 						{#if cell}
 							{@const baseCell = baseCells[i]}
-							{@const isExtraRemoved = !baseCell && cell.set === "removed"}
-							{#if !isExtraRemoved || removedReveal > 0}
-								<span
-									class="word word--{cell.set}"
-									class:word--removed-reveal={isExtraRemoved}
-									style:--removedReveal={isExtraRemoved ? removedReveal : 1}
-								>
-									{cell.text}
-								</span>
-							{/if}
+							{@const isExtraRemoved = !baseCell && cell?.set === "removed"}
+							<span class="word word--{cell?.set ?? ''}" class:word--removed-extra={isExtraRemoved}>
+								{cell.text}
+							</span>
 						{/if}
 					</div>
 				{/each}
@@ -249,19 +241,19 @@
 
 			<div class="intro-copy intro-copy--sticky">
 				<div class="intro-copy-veil" aria-hidden="true"></div>
-				<div class="intro-copy-layer" style:opacity={1 - part1ToPart2}>
+				<div class="intro-copy-layer" class:is-visible={phase === 1}>
 					{#each part1Paragraphs as p}
 						<p>{@html p}</p>
 					{/each}
 				</div>
-				<div class="intro-copy-layer" style:opacity={part1ToPart2 * (1 - part3Swap)}>
+				<div class="intro-copy-layer" class:is-visible={phase === 2}>
 					{#each part2Paragraphs as p}
 						<p>{@html p}</p>
 					{/each}
 				</div>
 				<div
 					class="intro-copy-layer intro-copy-layer--part3"
-					style:opacity={part3Swap * (1 - part4Swap)}
+					class:is-visible={phase === 3}
 					class:is-highlight-drop={dropOn}
 					class:is-highlight-add={addOn}
 					class:is-highlight-remain={remainOn}
@@ -270,13 +262,13 @@
 						<p>{@html p}</p>
 					{/each}
 				</div>
-				<div class="intro-copy-layer intro-copy-layer--part4" style:opacity={part4Swap}>
+				<div class="intro-copy-layer intro-copy-layer--part4" class:is-visible={phase === 4}>
 					{#each part4Paragraphs as p}
 						<p>{@html p}</p>
 					{/each}
 				</div>
 			</div>
-			<div class="intro-fade-overlay" style:opacity={part4Overlay} aria-hidden="true"></div>
+			<div class="intro-fade-overlay" class:is-visible={part4OverlayOn} aria-hidden="true"></div>
 		</div>
 	</section>
 </div>
@@ -302,7 +294,16 @@
 		--intro-grid-row-scale: 4.2;
 		--intro-grid-rows: -1; /* set >0 to force exact rows */
 		--intro-base-word-request-fraction: 0.5;
+		--intro-base-fill-fraction: 0.38;
+		--intro-removed-fill-ratio: 0.45;
+		--intro-center-exclusion-w: 0.33;
+		--intro-center-exclusion-h: 0.8;
+		--intro-center-exclusion-noise: 0.85;
 		--intro-copy-veil-size: 50% 20%;
+		--intro-copy-fade-ms: 420ms;
+		--intro-highlight-fade-ms: 320ms;
+		--intro-overlay-fade-ms: 460ms;
+		--intro-removed-reveal-ms: 520ms;
 		position: relative;
 		width: 100%;
 	}
@@ -369,10 +370,15 @@
 		font-family: var(--font-serif);
 	}
 
-	.word--removed-reveal {
-		opacity: var(--removedReveal);
-		transform: translateY(calc((1 - var(--removedReveal)) * 8px));
-		transition: opacity 220ms ease, transform 220ms ease;
+	.word--removed-extra {
+		opacity: 0;
+		transform: translateY(8px);
+		transition: opacity var(--intro-removed-reveal-ms) ease, transform var(--intro-removed-reveal-ms) ease;
+	}
+
+	.intro-bg-grid--stage.is-reveal-removed .word--removed-extra {
+		opacity: 0.7;
+		transform: translateY(0);
 	}
 
 	.intro-bg-grid--stage.is-focus-drop .word--removed {
@@ -405,6 +411,11 @@
 		background: var(--color-bg);
 		opacity: 0;
 		pointer-events: none;
+		transition: opacity var(--intro-overlay-fade-ms) ease;
+	}
+
+	.intro-fade-overlay.is-visible {
+		opacity: 0.7;
 	}
 
 	.intro-copy {
@@ -448,6 +459,12 @@
 		flex-direction: column;
 		justify-content: flex-start;
 		padding-top: var(--intro-part1-sticky-top);
+		opacity: 0;
+		transition: opacity var(--intro-copy-fade-ms) ease;
+	}
+
+	.intro-copy-layer.is-visible {
+		opacity: 1;
 	}
 
 	.intro-copy-layer--part4{
@@ -466,14 +483,17 @@
 
 	.intro-copy-layer--part3.is-highlight-drop :global(.gsl) {
 		background-color: var(--color-gsl-highlight);
+		transition: background-color var(--intro-highlight-fade-ms) ease;
 	}
 
 	.intro-copy-layer--part3.is-highlight-add :global(.ngsl) {
 		background-color: var(--color-ngsl-highlight);
+		transition: background-color var(--intro-highlight-fade-ms) ease;
 	}
 
 	.intro-copy-layer--part3.is-highlight-remain :global(.remained) {
 		background-color: var(--color-remained-highlight);
+		transition: background-color var(--intro-highlight-fade-ms) ease;
 	}
 
 </style>
