@@ -284,8 +284,8 @@
 		--intro-part3-drop-vh: 25;
 		--intro-part3-add-vh: 25;
 		--intro-part3-remain-vh: 25;
-		--intro-part3-hold-vh: 25;
-		--intro-part4-fade-vh: 20;
+		--intro-part3-hold-vh: 35;
+		--intro-part4-fade-vh: 70;
 		--intro-part4-swap-vh: 20;
 		--intro-part4-hold-vh: 18;
 		--intro-stage-vh: 100;

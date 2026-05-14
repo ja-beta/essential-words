@@ -2,7 +2,8 @@
 	import { getContext } from "svelte";
 	import Footer from "$components/Footer.svelte";
 	import IntroSequence from "$components/IntroSequence.svelte";
-import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
+	import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
+	import Title from "$components/Title.svelte";
 
 	const copy = getContext("copy");
 	const storyBlocks = $derived(Array.isArray(copy?.story) ? copy.story : []);
@@ -22,7 +23,8 @@ import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
 		{#each mainBlocks as block, i}
 			{#if block.type === "hero"}
 				<section class="story-section story-section--hero">
-					<h1 class="story-heading">{@html block.h1}</h1>
+					<!-- <h1 class="story-heading">{@html block.h1}</h1> -->
+					<Title/>
 					{#if block.dek}
 						<p class="story-dek">{@html block.dek}</p>
 					{/if}
