@@ -8,6 +8,30 @@ function readCssPx(el, varName, fallback) {
 	return Number.isFinite(n) ? n : fallback;
 }
 
+/**
+ * @param {import("d3").Selection<SVGGElement, unknown, null, undefined>} g
+ * @param {"left" | "right"} direction tip direction
+ * @param {number} size width in px
+ * @param {string} strokeColor
+ * @param {number} [height]
+ */
+function drawChevronHorizontal(g, direction, size, strokeColor, height = 8) {
+	const cy = -1;
+	const halfH = height / 2;
+	let path;
+	if (direction === "right") {
+		path = `M 0 ${cy - halfH} L ${size} ${cy} L 0 ${cy + halfH}`;
+	} else {
+		path = `M ${size} ${cy - halfH} L 0 ${cy} L ${size} ${cy + halfH}`;
+	}
+	g.append("path")
+		.attr("d", path)
+		.attr("stroke", strokeColor)
+		.attr("stroke-width", 1.5)
+		.attr("fill", "none")
+		.attr("class", "concr-bands-dir-chevron");
+}
+
 export function readConcretenessBandsMetrics(containerEl) {
 	const root = containerEl?.closest?.(".concr-bands") ?? containerEl;
 	const px = (name, fb) => readCssPx(root, name, fb);
@@ -111,16 +135,16 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.append("rect")
 		.attr("x", margin.left)
 		.attr("y", 0)
-		.attr("width", halfW + halfGap)
+		.attr("width", halfW)
 		.attr("height", chartH);
 
 	defs
 		.append("clipPath")
 		.attr("id", wideAdded)
 		.append("rect")
-		.attr("x", centerX - halfGap)
+		.attr("x", centerX + halfGap)
 		.attr("y", 0)
-		.attr("width", halfW + halfGap)
+		.attr("width", halfW)
 		.attr("height", chartH);
 
 	svg
@@ -133,28 +157,55 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.attr("stroke-width", 1)
 		.attr("stroke-opacity", 0.6);
 
-	const dirY = margin.top - m.dirLabelOffsetY;
+	const dirY = margin.top - m.dirLabelOffsetY - 18;
+	const dirChevronSize = 6;
+	const dirChevronGap = 9;
+	const removedDirX = centerX - halfGap - m.dirLabelOffsetX - 8;
+	const addedDirX = centerX + halfGap + m.dirLabelOffsetX + 8;
+
 	svg
 		.append("text")
-		.attr("x", centerX - halfGap - m.dirLabelOffsetX)
+		.attr("class", "label")
+		.attr("x", removedDirX)
 		.attr("y", dirY)
 		.attr("text-anchor", "end")
+		.attr("dominant-baseline", "central")
 		.attr("font-size", `${m.dirLabelSizePx}px`)
 		.attr("font-weight", 600)
 		.attr("letter-spacing", "0.08em")
 		.attr("fill", colors.removed.text)
-		.text("REMOVED ←");
+		.text("removed from the 1953 list");
+
+	drawChevronHorizontal(
+		svg
+			.append("g")
+			.attr("transform", `translate(${removedDirX + dirChevronGap},${dirY})`),
+		"left",
+		dirChevronSize,
+		colors.removed.text
+	);
 
 	svg
 		.append("text")
-		.attr("x", centerX + halfGap + m.dirLabelOffsetX)
+		.attr("class", "label")
+		.attr("x", addedDirX)
 		.attr("y", dirY)
 		.attr("text-anchor", "start")
+		.attr("dominant-baseline", "central")
 		.attr("font-size", `${m.dirLabelSizePx}px`)
 		.attr("font-weight", 600)
 		.attr("letter-spacing", "0.08em")
 		.attr("fill", colors.added.text)
-		.text("→ ADDED");
+		.text("added to the 2023 list");
+
+	drawChevronHorizontal(
+		svg
+			.append("g")
+			.attr("transform", `translate(${addedDirX - dirChevronGap - dirChevronSize},${dirY})`),
+		"right",
+		dirChevronSize,
+		colors.added.text
+	);
 
 	function yForLabel(v) {
 		if (v <= 1.0) return binY(0);
@@ -205,6 +256,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 	svg
 		.append("text")
+		.attr("class", "endpoint-text")
 		.attr("x", centerX)
 		.attr("y", margin.top - m.endpointOffsetTop)
 		.attr("text-anchor", "middle")
@@ -215,6 +267,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 	svg
 		.append("text")
+		.attr("class", "endpoint-text")
 		.attr("x", centerX)
 		.attr("y", binY(numBins - 1) + bandH + m.endpointOffsetBottom)
 		.attr("text-anchor", "middle")
@@ -447,36 +500,87 @@ export function renderConcretenessBands(container, payload, { width }) {
 	}
 
 	let hoveredBand = null;
+
+	let pendingHoverRestore = null;
+	const HOVER_TRANSITION_MS = 200;
+	const hoverEase = d3.easeCubicOut;
+	const TR_FADE_OUT = "concr-hover-out";
+	const TR_FADE_IN = "concr-hover-in";
+
 	const hoverLayer = svg.append("g").attr("class", "hover-layer");
+
+	function finishHoverCleanup(band) {
+		band.hovered = false;
+		band.txt.attr("clip-path", `url(#${band.clipId})`);
+		band.hoverAnchor = null;
+	}
+
+	function clearHoverLayer() {
+		hoverLayer.selectAll("*").remove();
+	}
+
+	function interruptHoverTransitions() {
+		hoverLayer.selectAll(".hover-bg").interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
+		if (pendingHoverRestore) {
+			const b = pendingHoverRestore;
+			pendingHoverRestore = null;
+			finishHoverCleanup(b);
+		}
+
+		clearHoverLayer();
+		bandsG.selectAll(".band-group").attr("opacity", 1);
+	}
 
 	function clearHover() {
 		if (!hoveredBand) return;
 		const band = hoveredBand;
-		band.hovered = false;
-		bandsG.selectAll(".band-group").attr("opacity", 1);
-		band.txt.attr("clip-path", `url(#${band.clipId})`);
-		band.hoverAnchor = null;
-		hoverLayer.selectAll("*").remove();
 		hoveredBand = null;
+		pendingHoverRestore = null;
+		bandsG.selectAll(".band-group").attr("opacity", 1);
+
+		finishHoverCleanup(band);
+
+		const bg = hoverLayer.select(".hover-bg");
+		if (bg.empty()) {
+			clearHoverLayer();
+			return;
+		}
+
+		bg.transition(TR_FADE_OUT)
+			.duration(HOVER_TRANSITION_MS)
+			.ease(hoverEase)
+			.attr("opacity", 0)
+			.on("end.hoverDone", clearHoverLayer);
 	}
 
 	function showHover(band) {
 		if (hoveredBand === band) return;
-		clearHover();
+		interruptHoverTransitions();
+
+		if (hoveredBand) {
+			const prev = hoveredBand;
+			hoveredBand = null;
+			finishHoverCleanup(prev);
+			clearHoverLayer();
+			bandsG.selectAll(".band-group").attr("opacity", 1);
+		}
+
 		hoveredBand = band;
 		band.hovered = true;
 
-		bandsG.selectAll(".band-group").attr("opacity", 0.07);
-		band.group.attr("opacity", 1);
+		bandsG.selectAll(".band-group").each(function eachGroup() {
+			d3.select(this).attr("opacity", this === band.group.node() ? 1 : 0.07);
+		});
+
 		band.txt.attr("clip-path", `url(#${band.wideId})`);
 
 		if (band.direction === "rtl") band.hoverAnchor = centerX - halfGap;
 		else band.hoverAnchor = centerX + halfGap;
 
-		const bgX = band.direction === "rtl" ? margin.left : centerX - halfGap;
-		const bgW = halfW + halfGap;
+		const bgX = band.direction === "rtl" ? margin.left : centerX + halfGap;
+		const bgW = halfW;
 
-		hoverLayer
+		const bg = hoverLayer
 			.append("rect")
 			.attr("class", "hover-bg")
 			.attr("x", bgX)
@@ -484,7 +588,13 @@ export function renderConcretenessBands(container, payload, { width }) {
 			.attr("width", bgW)
 			.attr("height", bandH)
 			.attr("fill", colors[band.set].bg)
-			.attr("rx", 1);
+			.attr("rx", 1)
+			.attr("opacity", 0);
+
+		bg.transition(TR_FADE_IN)
+			.duration(HOVER_TRANSITION_MS)
+			.ease(hoverEase)
+			.attr("opacity", 1);
 
 		band.group.raise();
 
@@ -515,7 +625,13 @@ export function renderConcretenessBands(container, payload, { width }) {
 			marqueeRunning = false;
 			cancelAnimationFrame(rafId);
 			rafId = 0;
-			clearHover();
+			interruptHoverTransitions();
+			if (hoveredBand) {
+				finishHoverCleanup(hoveredBand);
+				hoveredBand = null;
+			}
+			bandsG.selectAll(".band-group").attr("opacity", 1);
+			clearHoverLayer();
 			svg.remove();
 		}
 	};

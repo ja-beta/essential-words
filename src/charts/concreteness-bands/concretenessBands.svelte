@@ -2,6 +2,8 @@
 	import { getContext, onDestroy, onMount } from "svelte";
 	import { renderConcretenessBands } from "./concretenessBandsChart.js";
 
+	let { note = "" } = $props();
+
 	const getData = getContext("data");
 
 	let chartMount = $state(null);
@@ -69,33 +71,22 @@
 		<div class="concr-bands-chart-wrap" bind:this={chartWrap}>
 			<div class="concr-bands-chart" bind:this={chartMount}></div>
 		</div>
-		<div class="concr-bands-legend" aria-hidden="true">
-			<span class="concr-bands-legend-item">
-				<span class="concr-bands-swatch concr-bands-swatch--removed"></span>
-				Words removed from 1953 list
-			</span>
-			<span class="concr-bands-legend-item">
-				<span class="concr-bands-swatch concr-bands-swatch--added"></span>
-				Words added to 2023 list
-			</span>
-		</div>
-		<p class="concr-bands-note">
-			Width = share of that word set in this concreteness range (removed ÷ {payload.totalRemoved}
-			words; added ÷ {payload.totalAdded} words), on a shared scale. Hover to read the words.
-		</p>
+		{#if note}
+			<p class="chart-note">{@html note}</p>
+		{/if}
 	{/if}
 </div>
 
 <style>
 	
 	.concr-bands {
-		--concr-bands-margin-top: 72px;
+		--concr-bands-margin-top: 64px;
 		--concr-bands-margin-right: 24px;
-		--concr-bands-margin-bottom: 72px;
+		--concr-bands-margin-bottom: 32px;
 		--concr-bands-margin-left: 24px;
 		--concr-bands-band-h: 36px;
 		--concr-bands-band-gap: 8px;
-		--concr-bands-center-gap: 24px;
+		--concr-bands-center-gap: 32px;
 		--concr-bands-marquee-font-size: 28px;
 		--concr-bands-marquee-speed: 16;
 		--concr-bands-min-bar-width: 4px;
@@ -103,14 +94,14 @@
 		--concr-bands-axis-line-pad: 8px;
 		--concr-bands-dir-label-offset-y: 28px;
 		--concr-bands-dir-label-offset-x: 8px;
-		--concr-bands-endpoint-offset-top: 10px;
-		--concr-bands-endpoint-offset-bottom: 20px;
+		--concr-bands-endpoint-offset-top: 12px;
+		--concr-bands-endpoint-offset-bottom: 28px;
 		--concr-bands-axis-label-w: 28px;
 		--concr-bands-axis-label-h: 14px;
-		--concr-bands-dir-label-size: 11px;
-		--concr-bands-axis-whole-size: 11px;
-		--concr-bands-axis-half-size: 9px;
-		--concr-bands-endpoint-size: 12px;
+		--concr-bands-dir-label-size: 15px;
+		--concr-bands-axis-whole-size: 13px;
+		--concr-bands-axis-half-size: 13px;
+		--concr-bands-endpoint-size: 15px;
 
 		width: 100%;
 		max-width: min(100%, var(--max-chart-width));
@@ -150,44 +141,23 @@
 		overflow: visible;
 	}
 
-	.concr-bands-legend {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem 1.5rem;
-		justify-content: center;
-		margin-top: 1.125rem;
-		font-size: 11px;
-		color: var(--color-secondary);
+    .concr-bands-chart :global(.endpoint-text) {
+        font-size: 15px;
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+        color: var(--color-primary);
+        font-weight: 600;
+        letter-spacing: 2%;
+    }
+
+    .concr-bands-chart :global(.label) {
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+    }
+
+	.concr-bands-chart :global(.all-bands .band-group) {
+		transition: opacity 220ms cubic-bezier(0.33, 1, 0.68, 1);
 	}
 
-	.concr-bands-legend-item {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
-	}
-
-	.concr-bands-swatch {
-		width: 11px;
-		height: 11px;
-		border-radius: 1px;
-		flex-shrink: 0;
-	}
-
-	.concr-bands-swatch--removed {
-		background: var(--concr-bands-removed-bg, rgba(237, 144, 39, 0.3));
-		border: 1px solid var(--color-gsl);
-	}
-
-	.concr-bands-swatch--added {
-		background: var(--concr-bands-added-bg, rgba(219, 106, 232, 0.25));
-		border: 1px solid var(--color-ngsl);
-	}
-
-	.concr-bands-note {
-		text-align: center;
-		font-size: 0.69rem;
-		color: var(--color-secondary);
-		margin-top: 0.5rem;
-	}
 
 </style>

@@ -78,7 +78,7 @@
 			<div class="concr-kde-annotation">{@html annotation}</div>
 		{/if}
 		<div class="concr-kde-chart" bind:this={chartMount}></div>
-		<p class="concr-kde-source" style={sourceStyle}>
+		<p class="chart-note" style={sourceStyle}>
 			Kernel density estimation, bandwidth {payload.bandwidth}. · Data source: Brysbaert et al. (2014)
 		</p>
 	{/if}
@@ -141,6 +141,10 @@
         background-repeat: no-repeat;
         background-size: 100% 1.15em;
         background-position: 0 67%;
+    }
+
+    .concr-kde-chart .chart-note {
+        margin-top: 2rem;
     }
 
 

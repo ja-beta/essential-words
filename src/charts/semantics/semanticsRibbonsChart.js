@@ -266,7 +266,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		.style("height", `${H}px`)
 		.style("overflow", "visible");
 
-	svg.append("rect").attr("width", W).attr("height", H).attr("fill", "var(--color-bg)");
+	svg.append("rect").attr("width", W).attr("height", H).attr("fill", "transparent");
 
 	if (debugLayout) {
 		const leftX0 = Math.max(0, gslX1 - leftLabelZone);

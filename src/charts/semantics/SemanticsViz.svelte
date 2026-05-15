@@ -3,7 +3,7 @@
 	import { onDestroy, onMount } from "svelte";
 	import { renderSemanticsRibbons } from "./semanticsRibbonsChart.js";
 
-	let { overlays = [] } = $props();
+	let { overlays = [], note = "" } = $props();
 
 	const getData = getContext("data");
 	const DEFAULT_STEP_FOCUS = [
@@ -161,6 +161,9 @@
 				</div>
 			{/if}
 		</div>
+		{#if note}
+			<p class="chart-note">{@html note}</p>
+		{/if}
 	{:else}
 		<p class="semantics-viz-error" role="alert">No semantics ribbon payload. Check semantics.csv and column names (word, set, usas_top_level_name).</p>
 	{/if}
@@ -202,7 +205,6 @@
 		margin-inline: auto;
 		min-height: 8rem;
 		overflow: visible;
-		margin-bottom: 4rem;
 	}
 
 	.semantics-viz-chart {

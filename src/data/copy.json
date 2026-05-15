@@ -37,6 +37,7 @@
       "chartId": "semanticsSlopegraph",
       "title": "Less About Objects and Feelings. More About Abstract Ideas and Mental Processes.",
       "subhead": "Each band is one of 21 semantic categories, sized by its share of each list. Hover to focus on each category.",
+      "note": "Data source: all words run through the UCREL Semantic Analysis System (USAS).",
       "overlays": [
         {
           "label": "Overlay 1 – focus on abstract band",
@@ -64,6 +65,7 @@
       "chartId": "semanticsScope",
       "title": "The Vocabulary Moved Outward",
       "subhead": "From the self at the center, to abstract/universal at the edge. Hover the tiles to explore the words in each domain.",
+      "note": "Data source: all words run through the UCREL Semantic Analysis System (USAS), then grouped into five top categories:",
       "overlays": [
         {
           "label": "Overlay 1 – focus on the self",
@@ -127,6 +129,7 @@
       "chartId": "concretenessBands",
       "title": "The Concrete End Got Hollowed Out. Something Murkier Filled In.",
       "subhead": "Removed words (left) and added words (right), grouped by concreteness rating. Each bar’s width is proportional to its share of each set. Hover to read more words.",
+      "note": "Data source: Brysbaert Concreteness ratings for 40 thousand generally known English word lemmas. The dataset provided 99.7% coverage of the words in both lists.",
       "overlays": [
         {
           "label": "Overlay 1 – focus on band 4.5–5 (most concrete)",
@@ -154,7 +157,8 @@
       "type": "chart",
       "chartId": "posDiagram",
       "title": "How Much? How Often? How Certain? Adverbs Nearly Doubled in the New List",
-      "subhead": "Part-of-speech breakdown for each list."
+      "subhead": "Part-of-speech breakdown for each list.",
+      "note": "Data source: NLTK (Natural Language Toolkit), with manual correction of wrongly tagged words."
     },
     {
       "type": "prose",

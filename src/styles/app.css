@@ -205,6 +205,16 @@ svg {
 	margin-top: 0;
 }
 
+.chart-note {
+	font-family: var(--font-sans);
+	line-height: 1.45;
+	max-width: var(--max-prose-width);
+	margin: 1rem auto 2.5rem auto;
+	text-align: center;
+	font-size: 13px;
+	color: var(--color-secondary);
+}
+
 .chart-placeholder {
 	border: 1px dashed var(--color-border);
 	border-radius: var(--radius-md);

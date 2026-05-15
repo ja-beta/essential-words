@@ -47,12 +47,13 @@
 						<SemanticsViz
 							title={block.title}
 							subhead={block.subhead}
+							note={block.note}
 							overlays={block.overlays ?? []}
 						/>
 					{:else if block.chartId === "concretenessDistribution"}
 						<ConcretenessKde annotation={block.annotation} />
 					{:else if block.chartId === "concretenessBands"}
-						<ConcretenessBands />
+						<ConcretenessBands note={block.note} />
 					{:else}
 						<div class="chart-placeholder" data-chart-id={block.chartId}>
 							<p class="chart-placeholder-label">Chart not wired yet: {block.chartId}</p>
