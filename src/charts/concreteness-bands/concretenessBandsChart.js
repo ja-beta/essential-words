@@ -239,7 +239,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 			.attr("width", labelW)
 			.attr("height", labelH)
 			.attr("fill", cfg.colors.background)
-			.attr("fill-opacity", 0.9)
+			.attr("fill-opacity", 1)
 			.attr("rx", 1);
 
 		svg
@@ -356,7 +356,9 @@ export function renderConcretenessBands(container, payload, { width }) {
 				y,
 				w: bw,
 				set: "removed",
-				bin: b
+				bin: b,
+				lo: bin.lo,
+				hi: bin.hi
 			});
 		}
 
@@ -431,7 +433,9 @@ export function renderConcretenessBands(container, payload, { width }) {
 				y,
 				w: bw,
 				set: "added",
-				bin: b
+				bin: b,
+				lo: bin.lo,
+				hi: bin.hi
 			});
 		}
 	});
@@ -502,6 +506,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 	let hoveredBand = null;
 
 	let pendingHoverRestore = null;
+let interactionLocked = false;
+let focusRanges = [];
 	const HOVER_TRANSITION_MS = 200;
 	const hoverEase = d3.easeCubicOut;
 	const TR_FADE_OUT = "concr-hover-out";
@@ -531,6 +537,23 @@ export function renderConcretenessBands(container, payload, { width }) {
 		bandsG.selectAll(".band-group").attr("opacity", 1);
 	}
 
+function isBandFocused(band) {
+	if (!focusRanges.length) return true;
+	return focusRanges.some((range) => band.lo >= range.lo && band.hi <= range.hi);
+}
+
+function applyFocusState() {
+	const hasForcedFocus = interactionLocked && focusRanges.length > 0;
+	if (!hasForcedFocus) {
+		bandsG.selectAll(".band-group").attr("opacity", 1);
+		return;
+	}
+	bandsG.selectAll(".band-group").each(function eachGroup() {
+		const band = allBands.find((b) => b.group.node() === this);
+		d3.select(this).attr("opacity", band && isBandFocused(band) ? 1 : 0.07);
+	});
+}
+
 	function clearHover() {
 		if (!hoveredBand) return;
 		const band = hoveredBand;
@@ -554,6 +577,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 	}
 
 	function showHover(band) {
+	if (interactionLocked) return;
 		if (hoveredBand === band) return;
 		interruptHoverTransitions();
 
@@ -569,7 +593,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 		band.hovered = true;
 
 		bandsG.selectAll(".band-group").each(function eachGroup() {
-			d3.select(this).attr("opacity", this === band.group.node() ? 1 : 0.07);
+			d3.select(this).attr("opacity", this === band.group.node() ? 1 : 0.2);
 		});
 
 		band.txt.attr("clip-path", `url(#${band.wideId})`);
@@ -611,6 +635,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 	}
 
 	bandsG.selectAll(".band-hit").on("mouseenter", function onEnter() {
+	if (interactionLocked) return;
 		const band = allBands.find((b) => b.group.node() === this.parentNode);
 		if (band) showHover(band);
 	});
@@ -621,6 +646,34 @@ export function renderConcretenessBands(container, payload, { width }) {
 	rafId = requestAnimationFrame(animateMarquee);
 
 	return {
+	setInteractionLocked(locked) {
+		const next = Boolean(locked);
+		if (interactionLocked === next) return;
+		interactionLocked = next;
+		interruptHoverTransitions();
+		if (hoveredBand) {
+			const prev = hoveredBand;
+			hoveredBand = null;
+			finishHoverCleanup(prev);
+		}
+		applyFocusState();
+	},
+	setFocus(ranges = []) {
+		focusRanges = (Array.isArray(ranges) ? ranges : [])
+			.map((range) => {
+				if (!range || typeof range !== "object") return null;
+				const lo = Number(range.lo ?? range.min ?? range.from);
+				const hi = Number(range.hi ?? range.max ?? range.to);
+				if (!Number.isFinite(lo) || !Number.isFinite(hi)) return null;
+				return { lo: Math.min(lo, hi), hi: Math.max(lo, hi) };
+			})
+			.filter(Boolean);
+		applyFocusState();
+	},
+	clearFocus() {
+		focusRanges = [];
+		applyFocusState();
+	},
 		destroy() {
 			marqueeRunning = false;
 			cancelAnimationFrame(rafId);

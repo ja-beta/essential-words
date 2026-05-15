@@ -2,19 +2,82 @@
 	import { getContext, onDestroy, onMount } from "svelte";
 	import { renderConcretenessBands } from "./concretenessBandsChart.js";
 
-	let { note = "" } = $props();
+	let { note = "", overlays = [] } = $props();
 
 	const getData = getContext("data");
+	const DEFAULT_STEP_FOCUS = [
+		[{ lo: 4.5, hi: 5.0 }],
+		[{ lo: 2.0, hi: 2.5 }],
+		[{ lo: 1.0, hi: 2.0 }]
+	];
 
 	let chartMount = $state(null);
 	let chartWrap = $state(null);
+	let scrollyMount = $state(null);
 	let chartController = null;
 	let resizeObserver;
+	let stepObserver;
 	let rafId = 0;
+	let activeStep = $state(-1);
 	let lastRenderedWidth = 0;
 
 	const payload = $derived(getData?.()?.concretenessBandsPayload ?? null);
 	const payloadError = $derived(getData?.()?.concretenessBandsError ?? null);
+
+	function normalizeFocusRanges(raw) {
+		if (Array.isArray(raw)) {
+			return raw
+				.map((entry) => {
+					if (Array.isArray(entry) && entry.length >= 2) {
+						const lo = Number(entry[0]);
+						const hi = Number(entry[1]);
+						if (Number.isFinite(lo) && Number.isFinite(hi)) return { lo: Math.min(lo, hi), hi: Math.max(lo, hi) };
+						return null;
+					}
+					if (entry && typeof entry === "object") {
+						const lo = Number(entry.lo ?? entry.min ?? entry.from);
+						const hi = Number(entry.hi ?? entry.max ?? entry.to);
+						if (Number.isFinite(lo) && Number.isFinite(hi)) return { lo: Math.min(lo, hi), hi: Math.max(lo, hi) };
+						return null;
+					}
+					return null;
+				})
+				.filter(Boolean);
+		}
+		if (typeof raw === "string") {
+			return raw
+				.split("|")
+				.map((part) => part.trim())
+				.filter(Boolean)
+				.map((part) => {
+					const [a, b] = part.split("-").map((v) => Number(v.trim()));
+					if (Number.isFinite(a) && Number.isFinite(b)) return { lo: Math.min(a, b), hi: Math.max(a, b) };
+					return null;
+				})
+				.filter(Boolean);
+		}
+		return [];
+	}
+
+	const overlaySteps = $derived.by(() =>
+		(overlays ?? []).map((step, i) => ({
+			...step,
+			focusRanges: normalizeFocusRanges(step?.focusRanges).length
+				? normalizeFocusRanges(step?.focusRanges)
+				: DEFAULT_STEP_FOCUS[i] ?? []
+		}))
+	);
+
+	function applyStepFocus() {
+		if (!chartController) return;
+		if (activeStep < 0 || activeStep >= overlaySteps.length) {
+			chartController.setInteractionLocked(false);
+			chartController.clearFocus();
+			return;
+		}
+		chartController.setInteractionLocked(true);
+		chartController.setFocus(overlaySteps[activeStep].focusRanges ?? []);
+	}
 
 	function renderChart() {
 		if (!chartMount || !payload || payloadError) {
@@ -29,6 +92,7 @@
 		chartController?.destroy();
 		lastRenderedWidth = width;
 		chartController = renderConcretenessBands(chartMount, payload, { width });
+		applyStepFocus();
 	}
 
 	function scheduleRender() {
@@ -39,8 +103,46 @@
 		});
 	}
 
+	function setupStepObserver() {
+		stepObserver?.disconnect();
+		if (!scrollyMount || !overlaySteps.length) return;
+		const nodes = [...scrollyMount.querySelectorAll(".chart-overlay-step")];
+		if (!nodes.length) return;
+
+		stepObserver = new IntersectionObserver(
+			(entries) => {
+				let best = null;
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue;
+					if (!best || entry.intersectionRatio > best.intersectionRatio) best = entry;
+				}
+				if (best) {
+					const idx = Number(best.target.getAttribute("data-step"));
+					if (Number.isInteger(idx) && idx !== activeStep) {
+						activeStep = idx;
+						applyStepFocus();
+					}
+					return;
+				}
+
+				const firstTop = nodes[0].getBoundingClientRect().top;
+				const lastBottom = nodes.at(-1)?.getBoundingClientRect().bottom ?? 0;
+				const midY = window.innerHeight * 0.5;
+				const next = firstTop > midY || lastBottom < midY ? -1 : activeStep;
+				if (next !== activeStep) {
+					activeStep = next;
+					applyStepFocus();
+				}
+			},
+			{ root: null, rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.2, 0.5, 0.8, 1] }
+		);
+
+		for (const node of nodes) stepObserver.observe(node);
+	}
+
 	onMount(() => {
 		scheduleRender();
+		setupStepObserver();
 		const resizeTarget = chartWrap ?? chartMount;
 		if (!resizeTarget) return;
 		resizeObserver = new ResizeObserver(() => scheduleRender());
@@ -50,6 +152,7 @@
 	onDestroy(() => {
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
+		stepObserver?.disconnect();
 		chartController?.destroy();
 		chartController = null;
 	});
@@ -68,8 +171,25 @@
 	{:else if !payload}
 		<p class="concr-bands-error" role="alert">No concreteness bands data loaded.</p>
 	{:else}
-		<div class="concr-bands-chart-wrap" bind:this={chartWrap}>
-			<div class="concr-bands-chart" bind:this={chartMount}></div>
+		<div class="chart-overlay-scrolly" bind:this={scrollyMount}>
+			<div class="chart-overlay-stage concr-bands-stage">
+				<div class="concr-bands-chart-wrap" bind:this={chartWrap}>
+					<div class="concr-bands-chart" bind:this={chartMount}></div>
+				</div>
+			</div>
+			{#if overlaySteps.length}
+				<div class="chart-overlay-steps">
+					<div class="chart-overlay-step-spacer" aria-hidden="true"></div>
+					{#each overlaySteps as step, i}
+						<article class="chart-overlay-step" data-step={i}>
+							<div class="chart-overlay-step-card" class:chart-overlay-step-card--active={i === activeStep}>
+								{@html step.html ?? ""}
+							</div>
+						</article>
+					{/each}
+					<div class="chart-overlay-step-spacer" aria-hidden="true"></div>
+				</div>
+			{/if}
 		</div>
 		{#if note}
 			<p class="chart-note">{@html note}</p>
@@ -80,7 +200,7 @@
 <style>
 	
 	.concr-bands {
-		--concr-bands-margin-top: 64px;
+		--concr-bands-margin-top: 56px;
 		--concr-bands-margin-right: 24px;
 		--concr-bands-margin-bottom: 32px;
 		--concr-bands-margin-left: 24px;
@@ -126,7 +246,7 @@
 	}
 
 	.concr-bands-chart-wrap {
-		overflow-x: auto;
+		overflow: visible;
 		width: 100%;
 	}
 
@@ -157,6 +277,11 @@
 
 	.concr-bands-chart :global(.all-bands .band-group) {
 		transition: opacity 220ms cubic-bezier(0.33, 1, 0.68, 1);
+	}
+
+	.concr-bands-stage {
+		--chart-overlay-stage-height: 85vh;
+		--chart-overlay-stage-top: 8vh;
 	}
 
 

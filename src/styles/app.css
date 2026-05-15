@@ -205,6 +205,7 @@ svg {
 	margin-top: 0;
 }
 
+
 .chart-note {
 	font-family: var(--font-sans);
 	line-height: 1.45;
@@ -213,6 +214,56 @@ svg {
 	text-align: center;
 	font-size: 13px;
 	color: var(--color-secondary);
+}
+
+.chart-overlay-scrolly {
+	position: relative;
+}
+
+.chart-overlay-stage {
+	position: sticky;
+	top: var(--chart-overlay-stage-top, 10vh);
+	height: var(--chart-overlay-stage-height, 80vh);
+	display: flex;
+	align-items: center;
+	z-index: 1;
+}
+
+.chart-overlay-steps {
+	position: relative;
+	z-index: 2;
+	margin-top: calc(-1 * var(--chart-overlay-stage-height, 80vh));
+	padding-top: var(--chart-overlay-steps-top-pad, 85vh);
+	padding-bottom: var(--chart-overlay-steps-bottom-pad, 80vh);
+	pointer-events: none;
+}
+
+.chart-overlay-step {
+	min-height: var(--chart-overlay-step-min-h, 75vh);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.chart-overlay-step-card {
+	max-width: min(var(--chart-overlay-card-max-w, 400px), 88vw);
+	pointer-events: auto;
+	opacity: 0.45;
+	transition: opacity 180ms ease;
+	background-color: var(--color-bg);
+	border: 1px solid var(--color-secondary);
+	border-radius: var(--radius-md);
+	padding: 1rem;
+	font-size: 1.125rem;
+	line-height: 1.5;
+}
+
+.chart-overlay-step-card--active {
+	opacity: 1;
+}
+
+.chart-overlay-step-spacer {
+	height: var(--chart-overlay-step-spacer-h, 70vh);
 }
 
 .chart-placeholder {

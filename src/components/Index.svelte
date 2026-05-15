@@ -53,7 +53,7 @@
 					{:else if block.chartId === "concretenessDistribution"}
 						<ConcretenessKde annotation={block.annotation} />
 					{:else if block.chartId === "concretenessBands"}
-						<ConcretenessBands note={block.note} />
+						<ConcretenessBands note={block.note} overlays={block.overlays ?? []} />
 					{:else}
 						<div class="chart-placeholder" data-chart-id={block.chartId}>
 							<p class="chart-placeholder-label">Chart not wired yet: {block.chartId}</p>

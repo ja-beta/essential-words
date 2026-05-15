@@ -143,21 +143,21 @@
 	{#if payloadError}
 		<p class="semantics-viz-error" role="alert">{payloadError}</p>
 	{:else if payload}
-		<div class="semantics-scrolly" bind:this={scrollyMount}>
-			<div class="semantics-stage">
+		<div class="semantics-scrolly chart-overlay-scrolly" bind:this={scrollyMount}>
+			<div class="semantics-stage chart-overlay-stage">
 				<div class="semantics-viz-chart" bind:this={chartMount}></div>
 			</div>
 			{#if overlaySteps.length}
-				<div class="semantics-steps">
-					<div class="semantics-step-spacer" aria-hidden="true"></div>
+				<div class="semantics-steps chart-overlay-steps">
+					<div class="chart-overlay-step-spacer" aria-hidden="true"></div>
 					{#each overlaySteps as step, i}
-						<article class="semantics-step" data-step={i}>
-							<div class="semantics-step-card" class:semantics-step-card--active={i === activeStep}>
+						<article class="semantics-step chart-overlay-step" data-step={i}>
+							<div class="semantics-step-card chart-overlay-step-card" class:chart-overlay-step-card--active={i === activeStep}>
 								{@html step.html ?? ""}
 							</div>
 						</article>
 					{/each}
-					<div class="semantics-step-spacer" aria-hidden="true"></div>
+					<div class="chart-overlay-step-spacer" aria-hidden="true"></div>
 				</div>
 			{/if}
 		</div>
@@ -200,6 +200,12 @@
 		--sem-ribbon-label: #8f8a77;
 		--sem-ribbon-header: #706b66;
 		--sem-ribbon-header-sub: #9a948c;
+		--chart-overlay-stage-top: 10vh;
+		--chart-overlay-stage-height: 80vh;
+		--chart-overlay-steps-top-pad: 85vh;
+		--chart-overlay-steps-bottom-pad: 80vh;
+		--chart-overlay-step-min-h: 75vh;
+		--chart-overlay-step-spacer-h: 70vh;
 		width: 100%;
 		max-width: 980px;
 		margin-inline: auto;
@@ -211,56 +217,6 @@
 		width: min(100%, var(--sem-slope-width));
 		margin-inline: auto;
 		overflow: visible;
-	}
-
-	.semantics-scrolly {
-		position: relative;
-	}
-
-	.semantics-stage {
-		position: sticky;
-		top: 10vh;
-		height: 80vh;
-		display: flex;
-		align-items: center;
-		z-index: 1;
-	}
-
-	.semantics-steps {
-		position: relative;
-		z-index: 2;
-		margin-top: -80vh;
-		padding-top: 85vh;
-		padding-bottom: 80vh;
-		pointer-events: none;
-	}
-
-	.semantics-step {
-		min-height: 75vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.semantics-step-card {
-		max-width: min(400px, 88vw);
-		pointer-events: auto;
-		opacity: 0.45;
-		transition: opacity 180ms ease;
-		background-color: var(--color-bg);
-		border: 1px solid var(--color-secondary);
-		border-radius: var(--radius-md);
-		padding: 1rem;
-		font-size: 1.125rem;
-		line-height: 1.5;
-	}
-
-	.semantics-step-card--active {
-		opacity: 1;
-	}
-
-	.semantics-step-spacer {
-		height: 70vh;
 	}
 
 	@media (max-width: 1080px) {
