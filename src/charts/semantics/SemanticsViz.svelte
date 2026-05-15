@@ -35,6 +35,7 @@
 	let scrollyMount = $state(null);
 	let activeStep = $state(-1);
 	let rafId = 0;
+	let lastRenderedWidth = 0;
 
 	const payload = $derived(getData?.()?.semanticsRibbonsPayload ?? null);
 	const payloadError = $derived(getData?.()?.semanticsRibbonsError ?? null);
@@ -60,9 +61,17 @@
 	}
 
 	function renderChart() {
+		if (!chartMount || !payload || payloadError) {
+			chartController?.destroy();
+			chartController = null;
+			return;
+		}
+		const width = chartMount.clientWidth;
+		if (chartController && width > 0 && Math.abs(width - lastRenderedWidth) < 2) return;
+
 		chartController?.destroy();
 		chartController = null;
-		if (!chartMount || !payload || payloadError) return;
+		lastRenderedWidth = width;
 		chartController = renderSemanticsRibbons(chartMount, payload);
 		applyStepFocus();
 	}

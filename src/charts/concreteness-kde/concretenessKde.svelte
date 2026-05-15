@@ -9,6 +9,8 @@
 	let chartMount = $state(null);
 	let chartController = null;
 	let resizeObserver;
+	let rafId = 0;
+	let lastRenderedWidth = 0;
 
 	const payload = $derived(getData?.()?.concretenessKdePayload ?? null);
 	const payloadError = $derived(getData?.()?.concretenessKdeError ?? null);
@@ -20,30 +22,47 @@
 	const errorStyle = $derived(`font-size:${cfg.error.fontSize}`);
 
 	function renderChart() {
-		chartController?.destroy();
-		chartController = null;
-		if (!chartMount || !payload || payloadError) return;
+		if (!chartMount || !payload || payloadError) {
+			chartController?.destroy();
+			chartController = null;
+			return;
+		}
 		const width = chartMount.clientWidth;
 		if (width < 1) return;
+		if (chartController && Math.abs(width - lastRenderedWidth) < 2) return;
+
+		chartController?.destroy();
+		lastRenderedWidth = width;
 		chartController = renderConcretenessKde(chartMount, payload, { width });
 	}
 
+	function scheduleRender() {
+		if (rafId) cancelAnimationFrame(rafId);
+		rafId = requestAnimationFrame(() => {
+			rafId = 0;
+			renderChart();
+		});
+	}
+
 	onMount(() => {
-		renderChart();
+		scheduleRender();
 		if (!chartMount) return;
-		resizeObserver = new ResizeObserver(() => renderChart());
+		resizeObserver = new ResizeObserver(() => scheduleRender());
 		resizeObserver.observe(chartMount);
 	});
 
 	onDestroy(() => {
+		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
 		chartController?.destroy();
+		chartController = null;
 	});
 
 	$effect(() => {
 		payload;
 		payloadError;
-		renderChart();
+		lastRenderedWidth = 0;
+		scheduleRender();
 	});
 </script>
 

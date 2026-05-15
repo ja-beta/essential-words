@@ -32,7 +32,8 @@
 	--radius-lg: 1rem;
 
 	--max-prose-width: 650px;
-	--max-wide-width: 850px;
+	--max-med-width: 850px;
+	--max-chart-width: 1200px;
 	
 	--color-bg: #FFFFF1;
 	--color-fg: var(--color-gray-900);
@@ -168,7 +169,7 @@ svg {
 .story-section--hero{
 	text-align: center;
 	margin: 0 auto;
-	max-width: var(--max-wide-width);
+	max-width: var(--max-med-width);
 }
 
 .story-section--hero .story-dek{
@@ -196,10 +197,12 @@ svg {
 	font-size: var(--chart-header-font-size);
 	font-weight: 500;
 	line-height: 1.2;
+	margin-top: 0.75rem;
+	margin-bottom: 0.5rem;
 }
 
 .chart-subhead {
-	
+	margin-top: 0;
 }
 
 .chart-placeholder {

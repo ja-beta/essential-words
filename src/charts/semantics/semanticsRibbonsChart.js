@@ -653,9 +653,11 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	});
 
 	let rafId = 0;
+	let marqueeRunning = true;
 	let lastT = performance.now();
 
 	function animateMarquee(now) {
+		if (!marqueeRunning) return;
 		let dt = (now - lastT) / 1000;
 		lastT = now;
 		if (dt > 0.5) dt = 0.016;
@@ -678,7 +680,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			}
 		}
 
-		rafId = requestAnimationFrame(animateMarquee);
+		if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
 	}
 	rafId = requestAnimationFrame(animateMarquee);
 
@@ -769,7 +771,9 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			applyForcedFocus([]);
 		},
 		destroy() {
+			marqueeRunning = false;
 			cancelAnimationFrame(rafId);
+			rafId = 0;
 			svg.remove();
 		}
 	};
