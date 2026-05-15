@@ -17,6 +17,11 @@ export default [
 		"id":"1Ems0-q7hRNolEl9E4NF_IsLY5_UvfoooyD80NnHuQPY",
 		"gid": "2043763029",
 		"filepath": "src/data/concreteness.csv"
+	},
+	{
+		"id":"1Ems0-q7hRNolEl9E4NF_IsLY5_UvfoooyD80NnHuQPY",
+		"gid": "108865968",
+		"filepath": "src/data/pos.csv"
 	}
 
 ]

@@ -218,7 +218,7 @@
 		--concr-bands-band-gap: 14px;
 		--concr-bands-center-gap: 32px;
 		--concr-bands-marquee-font-size: 36px;
-		--concr-bands-marquee-speed: 20;
+		--concr-bands-marquee-speed: 24;
 		--concr-bands-min-bar-width: 4px;
 		--concr-bands-text-pad: 4px;
 		--concr-bands-axis-line-pad: 8px;

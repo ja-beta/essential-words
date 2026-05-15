@@ -5,12 +5,14 @@
 	import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
 	import ConcretenessKde from "../charts/concreteness-kde/concretenessKde.svelte";
 	import ConcretenessBands from "../charts/concreteness-bands/concretenessBands.svelte";
+	import PosAdverbs from "../charts/part-of-speech/posAdverbs.svelte";
 	import Title from "$components/Title.svelte";
 
 	const copy = getContext("copy");
 	const storyBlocks = $derived(Array.isArray(copy?.story) ? copy.story : []);
 	const introBlocks = $derived(storyBlocks.filter((block) => block?.type === "intro"));
 	const mainBlocks = $derived(storyBlocks.filter((block) => block?.type !== "intro"));
+	const hasText = (value) => typeof value === "string" && value.trim().length > 0;
 
 </script>
 
@@ -37,12 +39,16 @@
 				</section>
 			{:else if block.type === "chart"}
 				<section class="story-section story-section--chart" id={block.chartId ?? `chart-${i}`}>
-					<header class="chart-header">
-						<h2 class="story-heading">{@html block.title}</h2>
-						{#if block.subhead}
-							<p class="chart-subhead">{@html block.subhead}</p>
-						{/if}
-					</header>
+					{#if hasText(block.title) || hasText(block.subhead)}
+						<header class="chart-header">
+							{#if hasText(block.title)}
+								<h2 class="story-heading">{@html block.title}</h2>
+							{/if}
+							{#if hasText(block.subhead)}
+								<p class="chart-subhead">{@html block.subhead}</p>
+							{/if}
+						</header>
+					{/if}
 					{#if block.chartId === "semanticsSlopegraph"}
 						<SemanticsViz
 							title={block.title}
@@ -54,6 +60,8 @@
 						<ConcretenessKde annotation={block.annotation} />
 					{:else if block.chartId === "concretenessBands"}
 						<ConcretenessBands note={block.note} overlays={block.overlays ?? []} />
+					{:else if block.chartId === "adverbsAdded"}
+						<PosAdverbs />
 					{:else}
 						<div class="chart-placeholder" data-chart-id={block.chartId}>
 							<p class="chart-placeholder-label">Chart not wired yet: {block.chartId}</p>

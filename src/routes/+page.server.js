@@ -1,6 +1,7 @@
 import introRows from "$data/intro_screen.csv";
 import semanticsRows from "$data/semantics.csv";
 import concretenessRows from "$data/concreteness.csv";
+import posRows from "$data/pos.csv";
 import { buildIntroWordPools } from "$utils/introWords.js";
 import { buildSemanticsRibbonsPayload } from "../charts/semantics/semanticsRibbonsPayload.js";
 import { buildConcretenessKdePayload } from "../charts/concreteness-kde/concretenessKdePayload.js";
@@ -40,6 +41,7 @@ export async function load() {
 		concretenessKdePayload,
 		concretenessKdeError,
 		concretenessBandsPayload,
-		concretenessBandsError
+		concretenessBandsError,
+		posRows
 	};
 }

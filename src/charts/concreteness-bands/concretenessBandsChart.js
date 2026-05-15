@@ -68,11 +68,11 @@ export const CONCRETENESS_BANDS_CONFIG = {
 		repeat: 12
 	},
 	colors: {
-		background: "var(--concr-bands-bg, var(--color-bg, #fffff1))",
-		removedBg: "var(--concr-bands-removed-bg, rgba(237,144,39,0.3))",
-		removedText: "var(--concr-bands-removed-text, #ED9027)",
+		background: "transparent",
+		removedBg: "var(--concr-bands-removed-bg, rgba(237,144,39,0.25))",
+		removedText: "var(--color-gsl)",
 		addedBg: "var(--concr-bands-added-bg, rgba(219,106,232,0.25))",
-		addedText: "var(--concr-bands-added-text, #DB6AE8)",
+		addedText: "var(--color-ngsl)",
 		grid: "var(--concr-bands-grid, #d5d0c8)",
 		gridText: "var(--concr-bands-grid-text, #a8a098)",
 		muted: "var(--concr-bands-muted, #8F8A77)"
@@ -513,6 +513,7 @@ let focusRanges = [];
 	const TR_FADE_OUT = "concr-hover-out";
 	const TR_FADE_IN = "concr-hover-in";
 
+const forcedLayer = svg.insert("g", ".all-bands").attr("class", "forced-focus-layer");
 	const hoverLayer = svg.append("g").attr("class", "hover-layer");
 
 	function finishHoverCleanup(band) {
@@ -524,6 +525,10 @@ let focusRanges = [];
 	function clearHoverLayer() {
 		hoverLayer.selectAll("*").remove();
 	}
+
+function clearForcedLayer() {
+	forcedLayer.selectAll("*").remove();
+}
 
 	function interruptHoverTransitions() {
 		hoverLayer.selectAll(".hover-bg").interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
@@ -545,13 +550,53 @@ function isBandFocused(band) {
 function applyFocusState() {
 	const hasForcedFocus = interactionLocked && focusRanges.length > 0;
 	if (!hasForcedFocus) {
+		clearForcedLayer();
+		for (const band of allBands) {
+			band.hovered = false;
+			band.hoverAnchor = null;
+			band.txt.attr("clip-path", `url(#${band.clipId})`);
+		}
 		bandsG.selectAll(".band-group").attr("opacity", 1);
 		return;
 	}
+
+	clearHoverLayer();
+	clearForcedLayer();
+
+	const focusedBands = [];
 	bandsG.selectAll(".band-group").each(function eachGroup() {
 		const band = allBands.find((b) => b.group.node() === this);
-		d3.select(this).attr("opacity", band && isBandFocused(band) ? 1 : 0.07);
+		const focused = Boolean(band && isBandFocused(band));
+		if (focused) focusedBands.push(band);
+		d3.select(this).attr("opacity", focused ? 1 : 0.07);
 	});
+
+	for (const band of allBands) {
+		if (!focusedBands.includes(band)) {
+			band.hovered = false;
+			band.hoverAnchor = null;
+			band.txt.attr("clip-path", `url(#${band.clipId})`);
+		}
+	}
+
+	for (const band of focusedBands) {
+		band.hovered = true;
+		band.hoverAnchor = band.direction === "rtl" ? centerX - halfGap : centerX + halfGap;
+		band.txt.attr("clip-path", `url(#${band.wideId})`);
+
+		const bgX = band.direction === "rtl" ? margin.left : centerX + halfGap;
+		const bgW = halfW;
+		forcedLayer
+			.append("rect")
+			.attr("class", "forced-focus-bg")
+			.attr("x", bgX)
+			.attr("y", band.y)
+			.attr("width", bgW)
+			.attr("height", bandH)
+			.attr("fill", colors[band.set].bg)
+			.attr("rx", 1)
+			.attr("opacity", 1);
+	}
 }
 
 	function clearHover() {
@@ -577,7 +622,7 @@ function applyFocusState() {
 	}
 
 	function showHover(band) {
-	if (interactionLocked) return;
+		if (interactionLocked) return;
 		if (hoveredBand === band) return;
 		interruptHoverTransitions();
 
@@ -684,6 +729,7 @@ function applyFocusState() {
 				hoveredBand = null;
 			}
 			bandsG.selectAll(".band-group").attr("opacity", 1);
+		clearForcedLayer();
 			clearHoverLayer();
 			svg.remove();
 		}

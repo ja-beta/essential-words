@@ -162,13 +162,11 @@
     },
     {
       "type": "prose",
-      "html": "<p>This makes a certain sense. <span class=gsl>Axe</span> doesn’t need a modifier, you know what it is. But implication, involvement, and policy come with conditions, qualifications, degrees that need to be spelled out. Abstract language tends to float free of sensory experience, and so it needs other words to pin it down. Adverbs are precisely that: language calibrating language. Look through all the ones that were added:</p>"
+      "html": "<p>This makes a certain sense. <span class=gsl>Axe</span> doesn’t need a modifier, you know what it is. But implication, involvement, and policy come with conditions, qualifications, degrees that need to be spelled out. Abstract language tends to float free of sensory experience, and so it needs other words to pin it down. Adverbs are precisely that: language calibrating language. \r\n<br>Look through all the ones that were added:</p>"
     },
     {
       "type": "chart",
-      "chartId": "adverbsAdded",
-      "title": "All added adverbs",
-      "subhead": "TK — full list renders in the graphic."
+      "chartId": "adverbsAdded"
     },
     {
       "type": "prose",
