@@ -40,7 +40,8 @@ export function readScopeMetrics(containerEl) {
 		ringLabelSize: px("--scope-ring-label-size", 12),
 		pctLabelSize: px("--scope-pct-label-size", 10),
 		// transitions
-		focusFadeMs: px("--scope-focus-fade-ms", 220)
+		focusFadeMs: px("--scope-focus-fade-ms", 220),
+		dividerExpandMs: px("--scope-divider-expand-ms", 700)
 	};
 }
 
@@ -218,7 +219,7 @@ export function renderScopeChart(container, payload) {
 	const dividerClearance = 24;
 	const padTop = dividerClearance;
 	const padBottom = dividerClearance;
-	const padX = m.rectW; 
+	const padX = m.rectW;
 	const vbX = cx - plotR - padX;
 	const vbY = cy - plotR - padTop;
 	const vbW = plotR * 2 + padX * 2;
@@ -245,12 +246,13 @@ export function renderScopeChart(container, payload) {
 	}
 
 	const ringArcsG = svg.append("g").attr("class", "scope-ring-arcs");
-	bands.forEach((band) => {
+	bands.forEach((band, ringIdx) => {
 		for (const side of ["left", "right"]) {
 			for (const r of [band.rMin, band.rMax]) {
 				if (r <= m.centerR + 0.5) continue;
 				ringArcsG
 					.append("path")
+					.attr("data-ring", ringIdx + 1)
 					.attr("d", semiArc(r, side))
 					.attr("fill", "none")
 					.attr("stroke", SCOPE_COLORS.ringStroke)
@@ -259,13 +261,14 @@ export function renderScopeChart(container, payload) {
 		}
 	});
 
-	// Center divider line
-	svg.append("line")
+	const ring1R = bands[0]?.rMax ?? m.centerR;
+	const divider = svg
+		.append("line")
 		.attr("class", "scope-divider")
 		.attr("x1", cx)
 		.attr("x2", cx)
-		.attr("y1", cy - plotR - 12)
-		.attr("y2", cy + plotR + 12)
+		.attr("y1", cy - ring1R - 12)
+		.attr("y2", cy + ring1R + 12)
 		.attr("stroke", SCOPE_COLORS.divider)
 		.attr("stroke-width", 0.5)
 		.attr("stroke-dasharray", "5,5")
@@ -427,6 +430,7 @@ export function renderScopeChart(container, payload) {
 	let interactionLocked = false;
 	/** @type {Set<number>} ring ids (1-5) */
 	let focusRings = new Set();
+	let visibleRings = 1;
 
 	const onHoverChange = { listeners: [] };
 	function notifyHover(payload) {
@@ -459,36 +463,39 @@ export function renderScopeChart(container, payload) {
 
 	function applyFocusState() {
 		const hasForcedFocus = interactionLocked && focusRings.size > 0;
-		if (!hasForcedFocus) {
-			dotLayer.selectAll(".scope-dot").transition().duration(m.focusFadeMs).style("opacity", 1);
-			labelLayer.selectAll(".scope-ring-label").transition().duration(m.focusFadeMs).style("opacity", 1);
-			return;
+
+		function dotOp(ring) {
+			if (ring > visibleRings) return 0;
+			if (!hasForcedFocus) return 1;
+			return focusRings.has(ring) ? 1 : 0.07;
 		}
-		dotLayer
-			.selectAll(".scope-dot")
-			.transition()
-			.duration(m.focusFadeMs)
-			.style("opacity", function () {
-				const ring = Number(this.getAttribute("data-ring"));
-				return focusRings.has(ring) ? 1 : 0.07;
-			});
-		labelLayer
-			.selectAll(".scope-ring-label")
-			.transition()
-			.duration(m.focusFadeMs)
-			.style("opacity", function () {
-				const ring = Number(this.getAttribute("data-ring"));
-				return focusRings.has(ring) ? 1 : 0.25;
-			});
+		function labelOp(ring) {
+			if (ring > visibleRings) return 0;
+			if (!hasForcedFocus) return 1;
+			return focusRings.has(ring) ? 1 : 0.25;
+		}
+		function arcOp(ring) {
+			if (ring > visibleRings) return 0;
+			if (!hasForcedFocus) return 1;
+			return focusRings.has(ring) ? 1 : 0.25;
+		}
+
+		dotLayer.selectAll(".scope-dot").transition().duration(m.focusFadeMs)
+			.style("opacity", function () { return dotOp(Number(this.getAttribute("data-ring"))); });
+		labelLayer.selectAll(".scope-ring-label").transition().duration(m.focusFadeMs)
+			.style("opacity", function () { return labelOp(Number(this.getAttribute("data-ring"))); });
+		ringArcsG.selectAll("path").transition().duration(m.focusFadeMs)
+			.style("opacity", function () { return arcOp(Number(this.getAttribute("data-ring"))); });
 	}
 
 	hitSel.on("mouseenter", function onEnter(_event, d) {
-		if (interactionLocked) return;
+		const ring = d._ringIdx + 1;
+		if (ring > visibleRings) return;
+		if (interactionLocked && !focusRings.has(ring)) return;
 		if (hoveredId === d._id) return;
 		setHover(d);
 	});
 	hitSel.on("mouseleave", function onLeave() {
-		if (interactionLocked) return;
 		if (hoveredId == null) return;
 		setHover(null);
 	});
@@ -519,6 +526,29 @@ export function renderScopeChart(container, payload) {
 		},
 		clearFocus() {
 			focusRings = new Set();
+			applyFocusState();
+		},
+		expandDivider() {
+			const y1Start = cy - ring1R - 12;
+			const y2Start = cy + ring1R + 12;
+			const y1End = cy - plotR - 12;
+			const y2End = cy + plotR + 12;
+			divider
+				.interrupt()
+				.transition()
+				.duration(m.dividerExpandMs)
+				.ease(d3.easeCubicInOut)
+				.attrTween("y1", () => d3.interpolateNumber(y1Start, y1End))
+				.attrTween("y2", () => d3.interpolateNumber(y2Start, y2End));
+		},
+		setVisibleRings(n) {
+			const next = Math.max(1, Math.min(nRings, Math.floor(Number(n) || 1)));
+			if (next === visibleRings) return;
+			if (hoveredId != null) {
+				const dot = allDots.find((d) => d._id === hoveredId);
+				if (dot && dot._ringIdx + 1 > next) setHover(null);
+			}
+			visibleRings = next;
 			applyFocusState();
 		},
 		destroy() {

@@ -48,9 +48,22 @@
 		}))
 	);
 
+	let dividerExpanded = false;
+
 	function applyStepFocus() {
 		if (!chartController) return;
-		if (activeStep < 0 || activeStep >= overlaySteps.length) {
+		const N = overlaySteps.length;
+
+		// Reveal rings one per step; show all once past the last step
+		const reveal = activeStep < 0 ? 1 : activeStep >= N ? nRings : Math.min(activeStep + 1, nRings);
+		chartController.setVisibleRings(reveal);
+
+		if (activeStep >= 0 && !dividerExpanded) {
+			dividerExpanded = true;
+			chartController.expandDivider();
+		}
+
+		if (activeStep < 0 || activeStep >= N) {
 			chartController.setInteractionLocked(false);
 			chartController.clearFocus();
 			return;
@@ -58,6 +71,8 @@
 		chartController.setInteractionLocked(true);
 		chartController.setFocus(overlaySteps[activeStep].focusRings ?? []);
 	}
+
+	const nRings = $derived(payload?.rings?.length ?? 5);
 
 	function renderChart() {
 		if (!chartMount || !payload || payloadError) {
@@ -68,6 +83,7 @@
 
 		unsubscribeHover?.();
 		chartController?.destroy();
+		dividerExpanded = false;
 		chartController = renderScopeChart(chartMount, payload);
 		unsubscribeHover = chartController?.onHover((dot) => {
 			hoverInfo = dot;
@@ -112,7 +128,9 @@
 				const firstTop = nodes[0].getBoundingClientRect().top;
 				const lastBottom = nodes.at(-1)?.getBoundingClientRect().bottom ?? 0;
 				const midY = window.innerHeight * 0.5;
-				const next = firstTop > midY || lastBottom < midY ? -1 : activeStep;
+				let next = activeStep;
+				if (firstTop > midY) next = -1;           // above the section
+				else if (lastBottom < midY) next = nodes.length; // past all steps
 				if (next !== activeStep) {
 					activeStep = next;
 					applyStepFocus();
@@ -163,11 +181,13 @@
 		<div class="chart-overlay-scrolly" bind:this={scrollyMount}>
 			<div class="chart-overlay-stage scope-stage">
 				<div class="scope-chart-wrap">
-					<div class="scope-list-headers" aria-hidden="true">
-						<span class="scope-list-headers-left">1953 list</span>
-						<span class="scope-list-headers-right">2023 list</span>
+					<div class="scope-chart-panel">
+						<div class="scope-list-headers" aria-hidden="true">
+							<span class="scope-list-headers-left">1953 list</span>
+							<span class="scope-list-headers-right">2023 list</span>
+						</div>
+						<div class="scope-chart" bind:this={chartMount}></div>
 					</div>
-					<div class="scope-chart" bind:this={chartMount}></div>
 					<div class="scope-legend" aria-hidden="true">
 						<span class="scope-legend-item">
 							<span class="scope-legend-dot scope-legend-dot--remained"></span>
@@ -197,7 +217,7 @@
 							</div>
 						</article>
 					{/each}
-					<div class="chart-overlay-step-spacer" aria-hidden="true"></div>
+					<div class="chart-overlay-step-spacer scope-overlay-spacer-bottom" aria-hidden="true"></div>
 				</div>
 			{/if}
 		</div>
@@ -247,6 +267,15 @@
 		--scope-pct-label-size: 13;
 
 		--scope-focus-fade-ms: 220;
+		--scope-divider-expand-ms: 700;
+
+		--scope-intro-offset: -35vh;
+		--scope-final-hold: calc(100vh - var(--scope-intro-offset));
+
+		--chart-overlay-steps-top-pad: 25vh;
+		--chart-overlay-steps-bottom-pad: 0;
+		--chart-overlay-step-min-h: 125vh;
+		--chart-overlay-step-spacer-h: 0;
 
 		--scope-color-remained: var(--color-secondary);
 		--scope-color-removed: var(--color-gsl);
@@ -267,33 +296,50 @@
 		color: var(--color-secondary);
 	}
 
+	.scope :global(.chart-overlay-scrolly) {
+		margin-bottom: var(--scope-intro-offset);
+	}
+
 	.scope-stage {
-		--chart-overlay-stage-height: 90vh;
-		--chart-overlay-stage-top: 5vh;
-		justify-content: center;
+		--chart-overlay-stage-height: auto;
+		--chart-overlay-stage-top: 35vh;
+	}
+
+	.scope :global(.scope-overlay-spacer-bottom) {
+		height: var(--scope-final-hold);
+	}
+
+	.scope > .chart-note {
+		margin-top: 1rem;
 	}
 
 	.scope-chart-wrap {
 		width: fit-content;
+		margin-inline: auto;
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
+		transform: translateY(var(--scope-intro-offset));
+	}
+
+	.scope-chart-panel {
+		position: relative;
 	}
 
 	.scope-list-headers {
+		position: absolute;
+		inset: 0;
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
+		pointer-events: none;
 		font-family: var(--font-mono);
 		font-size: 1rem;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 2%;
 		color: var(--color-primary);
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
+		padding: 0 2%;
 	}
 
 	.scope-list-headers-left {
@@ -451,7 +497,6 @@
 
 		.scope-list-headers {
 			font-size: 0.7rem;
-			padding: 0 4%;
 		}
 	}
 </style>

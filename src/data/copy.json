@@ -69,23 +69,23 @@
       "overlays": [
         {
           "label": "Overlay 1 – focus on the self",
-          "html": "The 2023 list has fewer words relating to the self. Among what left: ache, wrist, comb, razor, shave, soap. Courage, greed, loyalty, mercy, shame. What arrived reads differently: cancer, clinical, disorder, gene, surgery, therapy, treatment. The self that the 2023 list describes reads more as something that you manage than something you inhabit—less that of a felt presence, and more that of a clinical one."
+          "html": "The 2023 list has fewer words relating to the self. Among what left: <span class=gsl>ache, wrist, comb, razor, shave, soap. Courage, greed, loyalty, mercy, shame.</span> What arrived reads differently: <span class=ngsl>cancer, clinical, disorder, gene, surgery, therapy, treatment.</span> The self that the 2023 list describes reads more as something that you manage than something you inhabit."
         },
         {
           "label": "Overlay 2 – focus on local/immediate",
-          "html": "The Local ring shrank too. Some of what left: donkey, elephant, goat, pigeon. Bake, butter, harvest, roast. Bay, cliff, moonlight, tide. That’s the immediate world, the one within reach. And what arrived: climate, environment, organic, solar, pollution – words for the world as a system."
+          "html": "The Local ring shrank too. Some of what left: <span class=gsl>donkey, elephant, goat, pigeon. Bake, butter, harvest, roast. Bay, cliff, moonlight, tide.</span> That’s the immediate world, the one within reach. And what arrived: <span class=ngsl>climate, environment, organic, solar, pollution</span> – words for the world as a system."
         },
         {
           "label": "Overlay 3 – focus on institutional",
-          "html": "Within the Institutional ring, words that left include: merchant, salesman, bargain, treasury, calculator, inventor. Among what arrived: corporation, budget, mortgage, unemployment, pension, legislation, regulation, democracy, voter. It still names jobs, money, and the state, but the vocabulary sounds less like storefronts and ledgers, and more like filings, markets, and processes."
+          "html": "Within the Institutional ring, words that left include: <span class=gsl>merchant, salesman, bargain, treasury, calculator, inventor.</span> Among what arrived: <span class=ngsl>corporation, budget, mortgage, unemployment, pension, legislation, regulation, democracy, voter.</span> It still names jobs, money, and the state, but the vocabulary sounds less like storefronts and ledgers, and more like filings, markets, and processes."
         },
         {
           "label": "Overlay 4 – focus on social/communication",
-          "html": "The Social & Communication ring barely changed in relative size. But nearly a quarter of its 1953 words are gone, and 39% of its 2023 words are new. Humble, loyalty, fellowship, generous, polite, and companionship gave way to community, identity, organization, ethnic, gender, and narrative. The social world shifted from something you navigate through personal relationships to something you identify with through categories. Fewer words for the people directly around you, but more for belonging at a distance."
+          "html": "The Social & Communication ring barely changed in relative size. But nearly a quarter of its 1953 words are gone, and 39% of its 2023 words are new. <span class=gsl>Humble, loyalty, fellowship, generous, polite, companionship</span> gave way to <span class=ngsl>community, identity, organization, ethnic, gender,</span> and <span class=ngsl>narrative.</span> The social world shifted from something you navigate through personal relationships to something you identify with through categories. Fewer words for the people directly around you, but more for belonging at a distance."
         },
         {
           "label": "Overlay 5 – focus on universal/abstract (zoomed out)",
-          "html": "The outermost ring, the one containing words that don’t belong in any one specific domain, is the only one that meaningfully expanded. What grew wasn’t merely more abstraction, but machinery for reasoning: analyze, assess, assume, concept, conclude."
+          "html": "The outermost ring, the one containing words that don’t belong in any one specific domain, is the only one that meaningfully expanded. What grew wasn’t merely more abstraction, but machinery for reasoning: <span class=ngsl>analyze, assess, assume, concept, conclude.</span>"
         }
       ]
     },
