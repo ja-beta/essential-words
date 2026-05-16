@@ -4,6 +4,7 @@ import concretenessRows from "$data/concreteness.csv";
 import posRows from "$data/pos.csv";
 import { buildIntroWordPools } from "$utils/introWords.js";
 import { buildSemanticsRibbonsPayload } from "../charts/semantics/semanticsRibbonsPayload.js";
+import { buildScopePayload } from "../charts/scope/scopePayload.js";
 import { buildConcretenessKdePayload } from "../charts/concreteness-kde/concretenessKdePayload.js";
 import { buildConcretenessBandsPayload } from "../charts/concreteness-bands/concretenessBandsPayload.js";
 
@@ -16,6 +17,14 @@ export async function load() {
 		semanticsRibbonsPayload = buildSemanticsRibbonsPayload(semanticsRows);
 	} catch (e) {
 		semanticsRibbonsError = e instanceof Error ? e.message : String(e);
+	}
+
+	let scopePayload = null;
+	let scopeError = null;
+	try {
+		scopePayload = buildScopePayload(semanticsRows);
+	} catch (e) {
+		scopeError = e instanceof Error ? e.message : String(e);
 	}
 
 	let concretenessKdePayload = null;
@@ -38,6 +47,8 @@ export async function load() {
 		introWordPools,
 		semanticsRibbonsPayload,
 		semanticsRibbonsError,
+		scopePayload,
+		scopeError,
 		concretenessKdePayload,
 		concretenessKdeError,
 		concretenessBandsPayload,

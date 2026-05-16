@@ -3,6 +3,7 @@
 	import Footer from "$components/Footer.svelte";
 	import IntroSequence from "$components/IntroSequence.svelte";
 	import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
+	import Scope from "../charts/scope/scope.svelte";
 	import ConcretenessKde from "../charts/concreteness-kde/concretenessKde.svelte";
 	import ConcretenessBands from "../charts/concreteness-bands/concretenessBands.svelte";
 	import PosAdverbs from "../charts/part-of-speech/posAdverbs.svelte";
@@ -57,6 +58,8 @@
 							note={block.note}
 							overlays={block.overlays ?? []}
 						/>
+					{:else if block.chartId === "semanticsScope"}
+						<Scope note={block.note} overlays={block.overlays ?? []} />
 					{:else if block.chartId === "concretenessDistribution"}
 						<ConcretenessKde annotation={block.annotation} />
 					{:else if block.chartId === "concretenessBands"}
