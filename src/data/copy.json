@@ -30,7 +30,7 @@
     },
     {
       "type": "prose",
-      "html": "<p>These “essential vocabulary” lists are called the <a href=\"\">General Service List</a> (1953) and the <a href=\"\">New General Service List</a> (2013, revised in 2023).</p>\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data, and extensively tested. The words on them were found to be the most useful and common words, across the widest range of everyday situations. A word made the list because it appeared often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society.</p>\r\n\r\n\r\n<p>That's what makes them interesting beyond language education. Both lists cover most of the language people encounter in everyday use – over 90% for the 2023 list[1], and about 84% for the 1953 one[2]. That makes them, in effect, two portraits of ordinary life, seventy years apart. Each one is a record of what the world, at that time, asked people to have words for.</p>\r\n\r\n\r\n<p>To get at what exactly ordinary life consists of, according to the lists, I ran all the words through a semantic tagging framework common in linguistics research. It assigns each word to a subject category based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Twenty-one categories overall. Together, they suggest what kind of world each list was built for.</p>"
+      "html": "<p>These “essential vocabulary” lists are called the <a href=\"\">General Service List</a> (1953) and the <a href=\"\">New General Service List</a> (2013, revised in 2023).</p>\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data, and extensively tested. The words on them were found to be the most useful and common words, across the widest range of everyday situations. A word made the list because it appeared often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society.</p>\r\n\r\n\r\n<p>That's what makes them interesting beyond language education. Both lists cover most of the language people encounter in everyday use – over 90% for the 2023 list[1], and about 84% for the 1953 one[2]. That makes them, in effect, two portraits of ordinary life, seventy years apart. Each one is a record of what the world, at that time, asked people to have words for.</p>\r\n\r\n\r\n<p>To get at what exactly ordinary life consists of, according to the lists, I started by running all the words through a semantic tagging framework common in linguistics research. It assigns each word to a subject category based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Twenty-one categories overall. Together, they suggest what kind of world each list was built for.</p>"
     },
     {
       "type": "chart",
@@ -47,7 +47,7 @@
         {
           "label": "Overlay 2 – focus on drops",
           "focusCategories": "Substances, Materials, Objects and Equipment | Emotion | The Body and the Individual | Food and Farming",
-          "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words like <span class=gsl>clay, corn, hammer, beard, towel,</span> and <span class=gsl>goat</span> were dropped from the core vocabulary. The words for what you grow, make, and hold in your hand all thinned out."
+          "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words like <span class=gsl>clay, corn, hammer, beard, towel,</span> and <span class=gsl>weave</span> were dropped from the core vocabulary. The words for what you grow, make, and hold in your hand all thinned out."
         },
         {
           "label": "Overlay 3 – focus on Psych Processes vs. Emotion",
@@ -58,7 +58,7 @@
     },
     {
       "type": "prose",
-      "html": "<p>These 21 categories have somewhat of a spatial logic to them. Some describe you: the body, emotions. Some describe what’s <i>immediately around you:</i> food, objects, the natural world. Others name <i>systems you participate in:</i> government, institutions, society, culture. And some <i>have no fixed location at all:</i> abstract concepts, reasoning, and processes. Grouped by <i>scope</i>, the pattern of change points in a specific direction.</p>"
+      "html": "<p>These 21 categories have somewhat of a spatial logic to them. Some describe <i>you:</i> the body, emotions. Some describe what’s <i>immediately around you:</i> food, objects, the natural world. Others name <i>systems you participate in:</i> government, institutions, society, culture. And some <i>have no fixed location at all:</i> abstract concepts, reasoning, and processes. Grouped by <i>scope</i>, the pattern of change points in a specific direction.</p>"
     },
     {
       "type": "chart",
@@ -91,7 +91,7 @@
     },
     {
       "type": "prose",
-      "html": "<p>In hindsight, the shift makes sense. By 1957, four years after the original list was published, white-collar workers outnumbered blue-collar for the first time in US history. And by 2000, fewer than one in four workers did manual labor. The stuff people encountered in their daily lives, what they needed to talk about, the systems they had to navigate – all changed.</p>"
+      "html": "<p>In hindsight, the shift makes sense. By 1957, four years after the original list was published, <a href=https://time.com/archive/6613167/new-problem-for-unions-the-rise-of-the-white-collar-worker/ target=_blank>white-collar workers outnumbered blue-collar for the first time in US history.</a> And by 2000, <a href=https://www.bls.gov/opub/mlr/2006/03/art3full.pdf target=_blank>fewer than one in four workers did manual labor.</a> The stuff people encountered in their daily lives, what they needed to talk about, the systems they had to navigate – all changed.</p>"
     },
     {
       "type": "prose",
@@ -151,18 +151,18 @@
     },
     {
       "type": "prose",
-      "html": "<p>Nouns still dominate both lists, as nouns do. Verbs and adjectives remained relatively stable. Adverbs nearly doubled. Of 1,148 words added, 107 are adverbs. Only 8 were dropped.</p>"
+      "html": "<p>Nouns still dominate both lists, as nouns do. Verbs remained steady, and adjectives grew only modestly. But adverbs nearly doubled.</p>"
     },
     {
       "type": "chart",
       "chartId": "posDiagram",
-      "title": "How Much? How Often? How Certain? Adverbs Nearly Doubled in the New List",
-      "subhead": "Part-of-speech breakdown for each list.",
-      "note": "Data source: NLTK (Natural Language Toolkit), with manual correction of wrongly tagged words."
+      "title": "More Words for How",
+      "subhead": "Each square is one word, grouped by part-of-speech in each list. Hover the cells to see the words.",
+      "note": "The 2023 list contains more words overall (2,801 vs. 2,274). All changes mentioned in the text reflect each category's share of its list, not raw counts. Data source: NLTK (Natural Language Toolkit), with manual correction of wrongly tagged words."
     },
     {
       "type": "prose",
-      "html": "<p>This makes a certain sense. <span class=gsl>Axe</span> doesn’t need a modifier, you know what it is. But implication, involvement, and policy come with conditions, qualifications, degrees that need to be spelled out. Abstract language tends to float free of sensory experience, and so it needs other words to pin it down. Adverbs are precisely that: language calibrating language. \r\n<br>Look through all the ones that were added:</p>"
+      "html": "<p>Of 1,148 words added, 107 are adverbs. Only 8 were dropped. This makes a certain sense. <span class=gsl>Axe</span> doesn’t need a modifier, you know what it is. But <span class=ngsl>implication, involvement,</span> and <span class=ngsl>policy</span> come with conditions, qualifications, degrees that need to be spelled out. Abstract language tends to float free of sensory experience, and so it needs other words to pin it down. Adverbs are precisely that: language calibrating language. \r\n<br>Look through all the ones that were added:</p>"
     },
     {
       "type": "chart",
@@ -182,7 +182,7 @@
     },
     {
       "type": "prose",
-      "html": "<p>These lists were never designed to say anything about society. They were designed to answer a very practical question: which words do people need most? But in answering it, they ended up creating a record of something else; of what we are expected to engage with, and need to deal with, in our daily lives. Language, it turns out, can’t help itself. It keeps track.</p>"
+      "html": "<p>These lists were never designed to say anything about society. They were designed to answer a very practical question: <br><i>which words do people need most?</i> <br>The thing is, in answering it, they ended up creating a record of something else; of what we are expected to engage with, and need to deal with, in our daily lives. Language, it turns out, can’t help itself. It keeps track.</p>"
     }
   ]
 }

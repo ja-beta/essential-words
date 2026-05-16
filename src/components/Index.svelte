@@ -6,6 +6,7 @@
 	import ConcretenessKde from "../charts/concreteness-kde/concretenessKde.svelte";
 	import ConcretenessBands from "../charts/concreteness-bands/concretenessBands.svelte";
 	import PosAdverbs from "../charts/part-of-speech/posAdverbs.svelte";
+	import PosWaffle from "../charts/part-of-speech/posWaffle.svelte";
 	import Title from "$components/Title.svelte";
 
 	const copy = getContext("copy");
@@ -60,6 +61,8 @@
 						<ConcretenessKde annotation={block.annotation} />
 					{:else if block.chartId === "concretenessBands"}
 						<ConcretenessBands note={block.note} overlays={block.overlays ?? []} />
+					{:else if block.chartId === "posDiagram"}
+						<PosWaffle note={block.note} />
 					{:else if block.chartId === "adverbsAdded"}
 						<PosAdverbs />
 					{:else}
