@@ -1,1 +1,0 @@
-import{j as m,h as o,a as p,k as v,o as y,p as f,s as l,m as i,q as T,c as A}from"./Bs3EBm-E.js";import{B as R}from"./BPKAutoX.js";function E(d,_,s){var e;o&&(e=A,p());var r=new R(d);m(()=>{var a=_()??null;if(o){var h=y(e),c=h===T,u=a!==null;if(c!==u){var t=f();l(t),r.anchor=t,i(!1),r.ensure(a,a&&(n=>s(n,a))),i(!0);return}}r.ensure(a,a&&(n=>s(n,a)))},v)}export{E as c};
