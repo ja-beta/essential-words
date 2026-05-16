@@ -215,9 +215,8 @@ export function renderScopeChart(container, payload) {
 
 	const plotR = Math.max(m.maxR, outerR);
 
-	const labelClearance = m.labelOuterPad + m.ringLabelSize + 6;
 	const dividerClearance = 24;
-	const padTop = Math.max(labelClearance, dividerClearance);
+	const padTop = dividerClearance;
 	const padBottom = dividerClearance;
 	const padX = m.rectW; 
 	const vbX = cx - plotR - padX;
@@ -265,8 +264,8 @@ export function renderScopeChart(container, payload) {
 		.attr("class", "scope-divider")
 		.attr("x1", cx)
 		.attr("x2", cx)
-		.attr("y1", cy - plotR - 24)
-		.attr("y2", cy + plotR + 24)
+		.attr("y1", cy - plotR - 12)
+		.attr("y2", cy + plotR + 12)
 		.attr("stroke", SCOPE_COLORS.divider)
 		.attr("stroke-width", 0.5)
 		.attr("stroke-dasharray", "5,5")
@@ -318,22 +317,30 @@ export function renderScopeChart(container, payload) {
 	const spc = "\u00A0\u00A0\u00A0\u00A0";
 	const span = 1.4;
 
+	function appendLabelTspans(parent, ring) {
+		parent
+			.append("tspan")
+			.attr("class", "scope-pct scope-pct--gsl")
+			.attr("font-size", m.pctLabelSize)
+			.text(`${ring.gslPct.toFixed(1)}%`);
+
+		parent.append("tspan").text(spc);
+
+		parent
+			.append("tspan")
+			.attr("class", "scope-ring-name")
+			.text(ring.name.toUpperCase());
+
+		parent.append("tspan").text(spc);
+
+		parent
+			.append("tspan")
+			.attr("class", "scope-pct scope-pct--ngsl")
+			.attr("font-size", m.pctLabelSize)
+			.text(`${ring.ngslPct.toFixed(1)}%`);
+	}
+
 	rings.forEach((ring, i) => {
-		const r =
-			i < nRings - 1
-				? bands[i].rMax + m.ringGap * m.labelGapBias
-				: bands[i].rMax + m.labelOuterPad;
-
-		const a1 = -Math.PI / 2 - span;
-		const a2 = -Math.PI / 2 + span;
-		const x1 = cx + r * Math.cos(a1);
-		const y1 = cy + r * Math.sin(a1);
-		const x2 = cx + r * Math.cos(a2);
-		const y2 = cy + r * Math.sin(a2);
-
-		const arcId = `scope-ring-arc-${i}`;
-		defs.append("path").attr("id", arcId).attr("d", `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`);
-
 		const text = labelLayer
 			.append("text")
 			.attr("class", "scope-ring-label")
@@ -346,32 +353,73 @@ export function renderScopeChart(container, payload) {
 			.attr("stroke-linecap", "round")
 			.attr("stroke-linejoin", "round");
 
+		if (i === 0) {
+			text
+				.attr("x", cx)
+				.attr("y", cy)
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "middle");
+
+			const nameWords = ring.name.toUpperCase().split(/\s+/).filter(Boolean);
+
+			if (nameWords.length >= 2) {
+				// top line: first word
+				text
+					.append("tspan")
+					.attr("class", "scope-ring-name")
+					.attr("x", cx)
+					.attr("dy", "-0.5em")
+					.text(nameWords[0]);
+
+				// middle line: percentages flanking
+				const middle = text.append("tspan").attr("x", cx).attr("dy", "0");
+				middle
+					.append("tspan")
+					.attr("class", "scope-pct scope-pct--gsl")
+					.attr("font-size", m.pctLabelSize)
+					.text(`${ring.gslPct.toFixed(1)}%`);
+				middle.append("tspan").text(spc);
+				middle.append("tspan").text(spc);
+				middle
+					.append("tspan")
+					.attr("class", "scope-pct scope-pct--ngsl")
+					.attr("font-size", m.pctLabelSize)
+					.text(`${ring.ngslPct.toFixed(1)}%`);
+
+				// bottom line: remaining word(s)
+				text
+					.append("tspan")
+					.attr("class", "scope-ring-name")
+					.attr("x", cx)
+					.attr("dy", "1em")
+					.text(nameWords.slice(1).join(" "));
+			} else {
+				appendLabelTspans(text, ring);
+			}
+			return;
+		}
+
+	
+		const innerPad = m.ringGap * m.labelGapBias;
+		const r = bands[i].rMin - innerPad - m.ringLabelSize;
+
+		const a1 = -Math.PI / 2 - span;
+		const a2 = -Math.PI / 2 + span;
+		const x1 = cx + r * Math.cos(a1);
+		const y1 = cy + r * Math.sin(a1);
+		const x2 = cx + r * Math.cos(a2);
+		const y2 = cy + r * Math.sin(a2);
+
+		const arcId = `scope-ring-arc-${i}`;
+		defs.append("path").attr("id", arcId).attr("d", `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`);
+
 		const textPath = text
 			.append("textPath")
 			.attr("href", `#${arcId}`)
 			.attr("startOffset", "50%")
 			.attr("text-anchor", "middle");
 
-		textPath
-			.append("tspan")
-			.attr("class", "scope-pct scope-pct--gsl")
-			.attr("font-size", m.pctLabelSize)
-			.text(`${ring.gslPct.toFixed(1)}%`);
-
-		textPath.append("tspan").text(spc);
-
-		textPath
-			.append("tspan")
-			.attr("class", "scope-ring-name")
-			.text(ring.name.toUpperCase());
-
-		textPath.append("tspan").text(spc);
-
-		textPath
-			.append("tspan")
-			.attr("class", "scope-pct scope-pct--ngsl")
-			.attr("font-size", m.pctLabelSize)
-			.text(`${ring.ngslPct.toFixed(1)}%`);
+		appendLabelTspans(textPath, ring);
 	});
 
 	// ---- Hover state ----

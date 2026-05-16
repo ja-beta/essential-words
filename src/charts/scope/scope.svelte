@@ -233,7 +233,7 @@
 		--scope-ring-gap: 40;
 		--scope-min-ring-depth: 10;
 		--scope-split-gap: 8;
-		--scope-label-gap-bias: 0.25;
+		--scope-label-gap-bias: 0.05;
 		--scope-label-outer-pad: 8;
 
 		--scope-rect-w: 10;
@@ -317,11 +317,16 @@
         font-size: var(--scope-ring-label-size);
         font-weight: 400;
         letter-spacing: 4%;
+        line-height: 1;
     }
 
 	.scope-chart :global(.scope-ring-label) {
 		font-family: var(--font-sans);
 	}
+
+    .scope-chart :global(.scope-pct){
+        display: none;
+    }
 
 	.scope-chart :global(.scope-pct--gsl) {
 		fill: var(--scope-color-removed);
