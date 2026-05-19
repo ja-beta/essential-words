@@ -39,9 +39,13 @@ export function readScopeMetrics(containerEl) {
 		// typography
 		ringLabelSize: px("--scope-ring-label-size", 12),
 		pctLabelSize: px("--scope-pct-label-size", 10),
+		// typography
+		headerFontSize: px("--scope-header-font-size", 16),
 		// transitions
 		focusFadeMs: px("--scope-focus-fade-ms", 220),
-		dividerExpandMs: px("--scope-divider-expand-ms", 700)
+		dividerExpandMs: px("--scope-divider-expand-ms", 700),
+		listHeaderGap: px("--scope-list-header-gap", 32),
+		listHeaderTransitionMs: px("--scope-list-header-transition-ms", 700)
 	};
 }
 
@@ -54,6 +58,8 @@ export const SCOPE_COLORS = {
 	divider: "var(--scope-divider, var(--color-primary, #5B5B5B))",
 	label: "var(--scope-label, var(--color-primary, #504a44))"
 };
+
+export const SCOPE_RING_STROKE_WIDTH = 0.5;
 
 const SET_LABELS = {
 	remained: "in both lists",
@@ -256,7 +262,7 @@ export function renderScopeChart(container, payload) {
 					.attr("d", semiArc(r, side))
 					.attr("fill", "none")
 					.attr("stroke", SCOPE_COLORS.ringStroke)
-					.attr("stroke-width", 0.5);
+					.attr("stroke-width", SCOPE_RING_STROKE_WIDTH);
 			}
 		}
 	});
@@ -500,10 +506,60 @@ export function renderScopeChart(container, payload) {
 		setHover(null);
 	});
 
+	// ---- List header labels (in SVG so position is always exact) ----
+	function headerXForRing(n) {
+		const outerStrokeR = bands[n - 1].rMax + SCOPE_RING_STROKE_WIDTH / 2;
+		return {
+			left: cxLeft - outerStrokeR - m.listHeaderGap,
+			right: cxRight + outerStrokeR + m.listHeaderGap
+		};
+	}
+
+	const initHPos = headerXForRing(1);
+	const headerLabelsG = svg.append("g").attr("class", "scope-header-labels");
+
+	const headerLabelLeft = headerLabelsG
+		.append("text")
+		.attr("class", "scope-header-label scope-header-label--left")
+		.attr("x", initHPos.left)
+		.attr("y", cy)
+		.attr("text-anchor", "end")
+		.attr("dominant-baseline", "middle")
+		.attr("font-size", m.headerFontSize)
+		.text("1953 LIST");
+
+	const headerLabelRight = headerLabelsG
+		.append("text")
+		.attr("class", "scope-header-label scope-header-label--right")
+		.attr("x", initHPos.right)
+		.attr("y", cy)
+		.attr("text-anchor", "start")
+		.attr("dominant-baseline", "middle")
+		.attr("font-size", m.headerFontSize)
+		.text("2023 LIST");
+
+	function moveHeaders(n, animate) {
+		const pos = headerXForRing(n);
+		if (animate) {
+			headerLabelLeft
+				.transition("header")
+				.duration(m.listHeaderTransitionMs)
+				.ease(d3.easeCubicInOut)
+				.attr("x", pos.left);
+			headerLabelRight
+				.transition("header")
+				.duration(m.listHeaderTransitionMs)
+				.ease(d3.easeCubicInOut)
+				.attr("x", pos.right);
+		} else {
+			headerLabelLeft.attr("x", pos.left);
+			headerLabelRight.attr("x", pos.right);
+		}
+	}
+
 	container.replaceChildren(svg.node());
 
 	return {
-
 		onHover(fn) {
 			onHoverChange.listeners.push(fn);
 			return () => {
@@ -550,6 +606,7 @@ export function renderScopeChart(container, payload) {
 			}
 			visibleRings = next;
 			applyFocusState();
+			moveHeaders(next, true);
 		},
 		destroy() {
 			onHoverChange.listeners = [];

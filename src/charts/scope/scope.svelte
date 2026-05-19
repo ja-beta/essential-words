@@ -164,6 +164,11 @@
 	});
 
 	$effect(() => {
+		chartAnchor;
+		setupHeaderResizeObserver();
+	});
+
+	$effect(() => {
 		payload;
 		payloadError;
 		scheduleRender();
@@ -182,10 +187,6 @@
 			<div class="chart-overlay-stage scope-stage">
 				<div class="scope-chart-wrap">
 					<div class="scope-chart-panel">
-						<div class="scope-list-headers" aria-hidden="true">
-							<span class="scope-list-headers-left">1953 list</span>
-							<span class="scope-list-headers-right">2023 list</span>
-						</div>
 						<div class="scope-chart" bind:this={chartMount}></div>
 					</div>
 					<div class="scope-legend" aria-hidden="true">
@@ -268,6 +269,9 @@
 
 		--scope-focus-fade-ms: 220;
 		--scope-divider-expand-ms: 700;
+		--scope-list-header-gap: 32;
+		--scope-list-header-transition-ms: 700;
+		--scope-header-font-size: 16;
 
 		--scope-intro-offset: -35vh;
 		--scope-final-hold: calc(100vh - var(--scope-intro-offset));
@@ -323,36 +327,20 @@
 	}
 
 	.scope-chart-panel {
-		position: relative;
-	}
-
-	.scope-list-headers {
-		position: absolute;
-		inset: 0;
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		pointer-events: none;
-		font-family: var(--font-mono);
-		font-size: 1rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 2%;
-		color: var(--color-primary);
-		padding: 0 2%;
-	}
-
-	.scope-list-headers-left {
-		text-align: left;
-	}
-
-	.scope-list-headers-right {
-		text-align: right;
+		justify-content: center;
 	}
 
 	.scope-chart {
-		display: flex;
-		justify-content: center;
+		display: block;
+	}
+
+	.scope-chart :global(.scope-header-label) {
+		font-family: var(--font-mono);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		fill: var(--color-primary);
 	}
 
 	.scope-chart :global(svg) {
@@ -493,10 +481,7 @@
 			--scope-ring-label-size: 11;
 			--scope-pct-label-size: 9;
 			--scope-split-gap: 6;
-		}
-
-		.scope-list-headers {
-			font-size: 0.7rem;
+			--scope-header-font-size: 11;
 		}
 	}
 </style>
