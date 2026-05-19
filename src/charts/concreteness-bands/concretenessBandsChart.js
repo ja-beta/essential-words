@@ -78,7 +78,8 @@ export const CONCRETENESS_BANDS_CONFIG = {
 		muted: "var(--concr-bands-muted, #8F8A77)"
 	},
 	typography: {
-		fontFamily: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)'
+		fontFamily: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)',
+		removedFontFamily: 'var(--font-serif)'
 	}
 };
 
@@ -326,7 +327,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				.attr("font-style", "italic")
 				.attr("letter-spacing", "0.05em")
 				.attr("fill", colors.removed.text)
-				.attr("font-family", cfg.typography.fontFamily)
+				.attr("font-family", cfg.typography.removedFontFamily)
 				.text(repeated);
 
 			bg.append("rect")
@@ -344,7 +345,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				cycle,
 				textStyle: {
 					fontSize: `${fontSize}px`,
-					fontFamily: cfg.typography.fontFamily,
+					fontFamily: cfg.typography.removedFontFamily,
 					fontWeight: 400,
 					fontStyle: "italic",
 					letterSpacing: "0.05em"
