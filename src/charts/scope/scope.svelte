@@ -164,11 +164,6 @@
 	});
 
 	$effect(() => {
-		chartAnchor;
-		setupHeaderResizeObserver();
-	});
-
-	$effect(() => {
 		payload;
 		payloadError;
 		scheduleRender();
