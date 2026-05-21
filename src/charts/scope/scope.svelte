@@ -191,7 +191,7 @@
 						</span>
 						<span class="scope-legend-item">
 							<span class="scope-legend-dot scope-legend-dot--removed"></span>
-							removed words
+							discarded words
 						</span>
 						<span class="scope-legend-item">
 							<span class="scope-legend-dot scope-legend-dot--added"></span>
@@ -381,9 +381,12 @@
 		gap: 0.5rem 1.25rem;
 		justify-content: center;
 		margin-top: 0.5rem;
-		font-family: var(--font-sans);
-		font-size: 0.78rem;
+		margin-bottom: 1rem;
+		font-family: var(--font-mono);
+		font-size: 13px;
 		color: var(--color-secondary);
+		text-transform: uppercase;
+		letter-spacing: 2%;
 	}
 
 	.scope-legend-item {
@@ -393,9 +396,8 @@
 	}
 
 	.scope-legend-dot {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
+		width: 4px;
+		height: 12px;
 		flex-shrink: 0;
 	}
 
