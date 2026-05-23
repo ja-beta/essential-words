@@ -9,6 +9,7 @@
 	import PosAdverbs from "../charts/part-of-speech/posAdverbs.svelte";
 	import PosWaffle from "../charts/part-of-speech/posWaffle.svelte";
 	import Title from "$components/Title.svelte";
+	import Explorer from "$components/Explorer.svelte";
 
 	const copy = getContext("copy");
 	const storyBlocks = $derived(Array.isArray(copy?.story) ? copy.story : []);
@@ -17,6 +18,8 @@
 	const hasText = (value) => typeof value === "string" && value.trim().length > 0;
 
 </script>
+
+<Explorer />
 
 <article class="story">
 	{#if storyBlocks.length}

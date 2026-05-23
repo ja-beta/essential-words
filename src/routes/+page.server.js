@@ -2,7 +2,7 @@ import introRows from "$data/intro_screen.csv";
 import semanticsRows from "$data/semantics.csv";
 import concretenessRows from "$data/concreteness.csv";
 import posRows from "$data/pos.csv";
-import { buildIntroWordPools } from "$utils/introWords.js";
+import { buildExplorerWordLists, buildIntroWordPools } from "$utils/introWords.js";
 import { buildSemanticsRibbonsPayload } from "../charts/semantics/semanticsRibbonsPayload.js";
 import { buildScopePayload } from "../charts/scope/scopePayload.js";
 import { buildConcretenessKdePayload } from "../charts/concreteness-kde/concretenessKdePayload.js";
@@ -10,6 +10,7 @@ import { buildConcretenessBandsPayload } from "../charts/concreteness-bands/conc
 
 export async function load() {
 	const introWordPools = buildIntroWordPools(introRows);
+	const explorerWordLists = buildExplorerWordLists(introRows);
 
 	let semanticsRibbonsPayload = null;
 	let semanticsRibbonsError = null;
@@ -45,6 +46,7 @@ export async function load() {
 
 	return {
 		introWordPools,
+		explorerWordLists,
 		semanticsRibbonsPayload,
 		semanticsRibbonsError,
 		scopePayload,

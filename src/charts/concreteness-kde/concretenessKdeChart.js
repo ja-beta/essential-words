@@ -28,7 +28,7 @@ export const CONCRETENESS_KDE_CONFIG = {
 	},
 	typography: {
 		fontFamily: "var(--font-mono)",
-		tickLabelSizePx: 11,
+		tickLabelSizePx: 15,
 		axisEndLabelSizePx: 15
 	},
 	axis: {

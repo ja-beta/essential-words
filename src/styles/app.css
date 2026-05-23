@@ -56,8 +56,8 @@
 	--color-placeholder: var(--color-gray-500);
 	--color-gsl: #ED9027;
 	--color-gsl-highlight: #FFAA4A;
-	--color-ngsl: #DB6AE8;
-	--color-ngsl-highlight: #F493FF;
+	--color-ngsl: #DB6AE8; /* #DB6AE8*/
+	--color-ngsl-highlight: #F493FF; /* F493FF */
 	--color-remained-highlight: #DBD4BC;
 	--color-highlight-text: #494949;
 

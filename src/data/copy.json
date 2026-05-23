@@ -6,7 +6,7 @@
   "story": [
     {
       "type": "intro",
-      "p1": "Every word you see on this page is one of the most commonly used words in the English language.",
+      "p1": "Look at the words scattered around this paragraph. Every one of them is among the most commonly used words in the English language.",
       "p2": "They come from a 2023 list of about 2,800 words, shown to cover over 90% of general English use, intended for people learning the language."
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "type": "prose",
-      "html": "<p>These “essential vocabulary” lists are called the <a href=\"\">General Service List</a> (1953) and the <a href=\"\">New General Service List</a> (2013, revised in 2023).</p>\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data, and extensively tested. The aim was a minimum: as few words as possible, as much coverage as possible. According to the language researchers who made them, the words on them were found to be among the most useful and common words, across the widest range of everyday situations. A word made the list because it appeared often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society. </p>\r\n\r\n\r\n<p>That's what makes them interesting beyond language education. Both lists cover most of the language people encounter in everyday use – over 90% for the 2023 list[1], and about 84% for the 1953 one[2]. That makes them, in effect, two portraits of ordinary life, seventy years apart. Each one is a record of what the world, at that time, asked people to have words for.</p>\r\n\r\n\r\n<p>To get at what exactly ordinary life consists of, according to the lists, I started by running all the words through a semantic tagging framework common in linguistics research. It assigns each word to a subject category based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Twenty-one categories overall. Together, they suggest what kind of world each list was built for.</p>"
+      "html": "<p>These “essential vocabulary” lists are called the <a href=\"\">General Service List</a> (1953) and the <a href=\"\">New General Service List</a> (2013, revised in 2023).</p>\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data, and extensively tested. The aim was a minimum: as few words as possible, as much coverage as possible. According to the language researchers who made them, the words on them were found to be among the most useful and common words, across the widest range of everyday situations. A word made the list because it appeared often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society. </p>\r\n\r\n\r\n<p>That's what makes them interesting beyond language education. Both lists cover most of the language people encounter in everyday use – over 90% for the 2023 list[1], and about 84% for the 1953 one[2]. That makes them, in effect, two portraits of ordinary life, seventy years apart. Each one is a record of what the world, at that time, asked people to have words for.</p>\r\n\r\n\r\n<p>To get at what exactly ordinary life consists of, according to the lists, I went through the differences from a few angles: what the words are about, how tangible they are, and what kind of grammatical work they do in a sentence. Examined together, the gaps all seem to point to a certain kind of world, one that got both bigger and less immediate at the same time.</p>\r\n\r\n\r\n<p>I started by running all the words through a semantic tagging framework common in linguistics research. It assigns each word to a subject category based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Twenty-one categories overall. Together, they suggest what kind of world each list was built for.</p>"
     },
     {
       "type": "chart",
@@ -42,23 +42,23 @@
         {
           "label": "Overlay 1 – focus on abstract band",
           "focusCategories": "General and Abstract Terms",
-          "html": "The biggest category in the 1953 list was already General & Abstract Terms, with words like <span class=remained>maybe, discover, regular, important, success.</span> It grew even more in 2023, adding words like <span class=ngsl>possibility, responsibility, concept, justify,</span> and <span class=ngsl>perspective.</span> Words for reasoning about the world were already central. They became more so."
+          "html": "The biggest category in the 1953 list was already General & Abstract Terms, with words like <span class=remained>maybe, discover, regular, important, success.</span> It grew even more in 2023, adding words like <span class=ngsl>possibility, responsibility, concept, justify,</span> and <span class=ngsl>perspective.</span> Abstract concepts were already the vocabulary’s biggest category. The world, by 2023, needed even more of it."
         },
         {
           "label": "Overlay 2 – focus on drops",
           "focusCategories": "Substances, Materials, Objects and Equipment | Emotion | The Body and the Individual | Food and Farming",
-          "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words like <span class=gsl>clay, corn, hammer, beard, towel,</span> and <span class=gsl>weave</span> were dropped from the core vocabulary. The words for what you grow, make, and hold in your hand all thinned out."
+          "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words like <span class=gsl>clay, corn, hammer, beard, towel,</span> and <span class=gsl>weave</span> – words for what you grow, make, and hold in your hand – all thinned out."
         },
         {
           "label": "Overlay 3 – focus on Psych Processes vs. Emotion",
           "focusCategories": "Emotion | Psychological Actions, States and Processes",
-          "html": "And while words about emotions shrank by 1.8 percentage points, words about psychological processes and reasoning grew by 1.7. That’s a nearly equal shift in the opposite direction. The vocabulary of inner life moved from something you experience to something you work through. Less feeling, more thinking."
+          "html": "And while words about emotions shrank by 1.8 percentage points, words about psychological processes and reasoning grew by 1.7. That’s a nearly equal shift in the opposite direction. The vocabulary of inner life moved from something you simply react to, to something you work through. Less feeling, more thinking."
         }
       ]
     },
     {
       "type": "prose",
-      "html": "<p>These 21 categories have somewhat of a spatial logic to them. Some describe <i>you:</i> the body, emotions. Some describe what’s <i>immediately around you:</i> food, objects, the natural world. Others name <i>systems you participate in:</i> government, institutions, society, culture. And some <i>have no fixed location at all:</i> abstract concepts, reasoning, and processes. Grouped by <i>scope</i>, the pattern of change points in a specific direction.</p>"
+      "html": "<p>What stands out, looking at the whole chart, is where the big shifts are concentrated, and how the categories cluster. The ones that shrank are mostly the ones that have to do with the immediate, physical world, while the gains are mostly in those furthest from it.</p>\r\n<p>The 21 categories have somewhat of a spatial logic to them. Some describe you: the body, emotions. Some describe what’s immediately around you: food, objects, the natural world. Others name systems you participate in: government, institutions, society, culture. And some have no fixed location at all: abstract concepts, reasoning, and processes. Grouped by <i>scope,</i> the pattern of change seems to point in a specific direction.</p>"
     },
     {
       "type": "chart",

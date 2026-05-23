@@ -41,6 +41,33 @@ export function buildIntroWordPools(rows) {
 	return { removed, remained, added };
 }
 
+export function buildExplorerWordLists(rows) {
+	const list1953 = [];
+	const list2023 = [];
+
+	for (const row of rows) {
+		const remained = row.Remained?.trim();
+		const removed = row.Removed?.trim();
+		const added = row.Added?.trim();
+
+		if (remained) {
+			list1953.push({ text: remained, status: "remained" });
+			list2023.push({ text: remained, status: "remained" });
+		}
+		if (removed) {
+			list1953.push({ text: removed, status: "removed" });
+		}
+		if (added) {
+			list2023.push({ text: added, status: "added" });
+		}
+	}
+
+	const byText = (a, b) => a.text.localeCompare(b.text);
+	list1953.sort(byText);
+	list2023.sort(byText);
+
+	return { list1953, list2023 };
+}
 
 function seededUnit(seed) {
 	const x = Math.sin(seed + 1) * 10000;
