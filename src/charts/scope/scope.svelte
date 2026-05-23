@@ -15,6 +15,7 @@
 	let stepObserver;
 	let unsubscribeHover = null;
 	let rafId = 0;
+	let chartReady = $state(false);
 	let activeStep = $state(-1);
 
 	let hoverInfo = $state(null);
@@ -147,7 +148,7 @@
 	}
 
 	onMount(() => {
-		scheduleRender();
+		chartReady = true;
 		setupStepObserver();
 		window.addEventListener("resize", handleWindowResize);
 	});
@@ -164,6 +165,7 @@
 	});
 
 	$effect(() => {
+		if (!chartReady) return;
 		payload;
 		payloadError;
 		scheduleRender();
@@ -235,7 +237,7 @@
 		{/if}
 
 		{#if note}
-			<p class="chart-note">{@html note}</p>
+			<div class="chart-note">{@html note}</div>
 		{/if}
 	{/if}
 </div>

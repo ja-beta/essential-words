@@ -1,6 +1,8 @@
 <script>
 	import { getContext } from "svelte";
 
+	let { visible = false } = $props();
+
 	const getData = getContext("data");
 
 	let isOpen = $state(false);
@@ -8,6 +10,10 @@
 	const explorerWordLists = $derived(getData?.()?.explorerWordLists ?? null);
 	const list1953 = $derived(explorerWordLists?.list1953 ?? []);
 	const list2023 = $derived(explorerWordLists?.list2023 ?? []);
+
+	$effect(() => {
+		if (!visible) isOpen = false;
+	});
 
 	function toggleOpen() {
 		isOpen = !isOpen;
@@ -22,7 +28,13 @@
 	}
 </script>
 
-<aside class="explorer" class:is-open={isOpen} aria-label="Word list explorer">
+<aside
+	class="explorer"
+	class:is-open={isOpen}
+	class:is-visible={visible}
+	aria-label="Word list explorer"
+	inert={!visible}
+>
 	<div class="explorer-drawer">
 		<div class="explorer-rail">
 			<div class="explorer-btn">
@@ -34,11 +46,11 @@
 					aria-label="Close word lists"
 				>
 					<span aria-hidden="true">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
 								d="M6 6L18 18M18 6L6 18"
 								stroke="currentColor"
-								stroke-width="2"
+								stroke-width="1"
 								stroke-linecap="round"
 							/>
 						</svg>
@@ -60,7 +72,6 @@
 		<div
 			class="explorer-panel"
 			id="explorer-panel"
-			aria-hidden={!isOpen}
 			inert={!isOpen}
 		>
 			<div class="explorer-columns">
@@ -134,8 +145,24 @@
 		overflow: hidden;
 		z-index: var(--z-modal);
 		border-left: 1px solid var(--color-border);
-		transition: width var(--explorer-transition-duration) var(--explorer-transition-ease);
-        box-shadow: -6px 0 16px 0 rgba(173, 161, 148, 0.17);
+		box-shadow: -6px 0 16px 0 rgba(173, 161, 148, 0.17);
+		transform: translateX(100%);
+		pointer-events: none;
+		visibility: hidden;
+		transition:
+			transform var(--explorer-transition-duration) var(--explorer-transition-ease),
+			width var(--explorer-transition-duration) var(--explorer-transition-ease),
+			visibility 0s linear var(--explorer-transition-duration);
+	}
+
+	.explorer.is-visible {
+		transform: translateX(0);
+		pointer-events: auto;
+		visibility: visible;
+		transition:
+			transform var(--explorer-transition-duration) var(--explorer-transition-ease),
+			width var(--explorer-transition-duration) var(--explorer-transition-ease),
+			visibility 0s linear 0s;
 	}
 
 	.explorer.is-open {
@@ -164,6 +191,7 @@
 	}
 
     .explorer-btn{
+        color: var(--color-secondary);
         transform: rotateZ(45deg);
         transition: transform 0.3s ease-in-out;
     }

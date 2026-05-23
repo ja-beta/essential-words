@@ -1,5 +1,5 @@
 <script>
-	import { getContext } from "svelte";
+	import { getContext, onMount } from "svelte";
 	import Footer from "$components/Footer.svelte";
 	import IntroSequence from "$components/IntroSequence.svelte";
 	import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
@@ -17,9 +17,51 @@
 	const mainBlocks = $derived(storyBlocks.filter((block) => block?.type !== "intro"));
 	const hasText = (value) => typeof value === "string" && value.trim().length > 0;
 
+	let explorerVisible = $state(false);
+	let rafId = 0;
+
+	const EXPLORER_INTRO_OFFSET_PX = 500;
+	const EXPLORER_FOOTER_OFFSET_PX = 100;
+
+	function updateExplorerVisibility() {
+		const intro = document.getElementById("intro");
+		const footer = document.querySelector("footer");
+
+		let visible = true;
+
+		if (intro) {
+			visible = intro.getBoundingClientRect().bottom <= EXPLORER_INTRO_OFFSET_PX;
+		}
+
+		if (visible && footer) {
+			visible = footer.getBoundingClientRect().top >= window.innerHeight - EXPLORER_FOOTER_OFFSET_PX;
+		}
+
+		explorerVisible = visible;
+	}
+
+	function scheduleExplorerVisibilityUpdate() {
+		if (rafId) cancelAnimationFrame(rafId);
+		rafId = requestAnimationFrame(() => {
+			rafId = 0;
+			updateExplorerVisibility();
+		});
+	}
+
+	onMount(() => {
+		updateExplorerVisibility();
+		window.addEventListener("scroll", scheduleExplorerVisibilityUpdate, { passive: true });
+		window.addEventListener("resize", scheduleExplorerVisibilityUpdate);
+
+		return () => {
+			if (rafId) cancelAnimationFrame(rafId);
+			window.removeEventListener("scroll", scheduleExplorerVisibilityUpdate);
+			window.removeEventListener("resize", scheduleExplorerVisibilityUpdate);
+		};
+	});
 </script>
 
-<Explorer />
+<Explorer visible={explorerVisible} />
 
 <article class="story">
 	{#if storyBlocks.length}
@@ -87,5 +129,5 @@
 </article>
 
 <svelte:boundary onerror={(e) => console.error(e)}>
-	<!-- <Footer recirc={true} /> -->
+	<Footer recirc={true} />
 </svelte:boundary>

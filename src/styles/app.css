@@ -60,7 +60,7 @@
 	--color-ngsl-highlight: #F493FF; /* F493FF */
 	--color-remained-highlight: #DBD4BC;
 	--color-highlight-text: #494949;
-
+	--color-footer-bg: #F0F0D6;
 	/* "1" second duration */
 	--1s: 1ms;
 }
@@ -160,10 +160,6 @@ svg {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-}
-
-.story-section:last-child{
-	padding-bottom: 8rem;
 }
 
 .story-section--hero{
@@ -301,5 +297,9 @@ svg {
 
 .story-section--chart.is-concr-bands-overlay-active .chart-header {
 	opacity: 0.32;
+}
+
+.story > .story-section:last-child .story-prose > p:last-child {
+	margin-bottom: 0;
 }
 

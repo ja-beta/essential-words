@@ -10,6 +10,7 @@
 	let chartController = null;
 	let resizeObserver;
 	let rafId = 0;
+	let chartReady = $state(false);
 	let lastRenderedWidth = 0;
 
 	const payload = $derived(getData?.()?.concretenessKdePayload ?? null);
@@ -45,7 +46,7 @@
 	}
 
 	onMount(() => {
-		scheduleRender();
+		chartReady = true;
 		if (!chartMount) return;
 		resizeObserver = new ResizeObserver(() => scheduleRender());
 		resizeObserver.observe(chartMount);
@@ -59,6 +60,7 @@
 	});
 
 	$effect(() => {
+		if (!chartReady) return;
 		payload;
 		payloadError;
 		lastRenderedWidth = 0;

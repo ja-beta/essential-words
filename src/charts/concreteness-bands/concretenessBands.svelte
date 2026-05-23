@@ -20,6 +20,7 @@
 	let stepObserver;
 	let chartSectionEl = null;
 	let rafId = 0;
+	let chartReady = $state(false);
 	let activeStep = $state(-1);
 	let lastRenderedWidth = 0;
 
@@ -144,8 +145,8 @@
 	}
 
 	onMount(() => {
+		chartReady = true;
 		chartSectionEl = rootMount?.closest?.(".story-section--chart") ?? null;
-		scheduleRender();
 		setupStepObserver();
 		const resizeTarget = chartWrap ?? chartMount;
 		if (!resizeTarget) return;
@@ -163,6 +164,7 @@
 	});
 
 	$effect(() => {
+		if (!chartReady) return;
 		payload;
 		payloadError;
 		lastRenderedWidth = 0;

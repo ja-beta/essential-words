@@ -1,22 +1,28 @@
 <script>
-	import { getContext } from "svelte";
+	import { getContext, onMount } from "svelte";
 
 	const getData = getContext("data");
 
 	const rows = $derived(getData?.()?.posRows ?? []);
-	const shuffledAdverbs = $derived.by(() =>
+	const adverbWords = $derived.by(() =>
 		rows
 			.filter((row) => row?.set === "added" && row?.pos === "adverb")
 			.map((row) => String(row.word ?? "").trim())
 			.filter(Boolean)
-			.sort(() => Math.random() - 0.5)
+			.sort((a, b) => a.localeCompare(b))
 	);
+
+	let displayAdverbs = $state([]);
+
+	onMount(() => {
+		displayAdverbs = [...adverbWords].sort(() => Math.random() - 0.5);
+	});
 </script>
 
 <div class="pos-adverbs">
-	{#if shuffledAdverbs.length}
+	{#if adverbWords.length}
 		<div class="pos-adverbs-grid" aria-label="Added adverbs">
-			{#each shuffledAdverbs as word}
+			{#each (displayAdverbs.length ? displayAdverbs : adverbWords) as word}
 				<span class="pos-adverbs-word">{word}</span>
 			{/each}
 		</div>
