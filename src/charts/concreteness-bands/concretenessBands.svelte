@@ -234,6 +234,8 @@
 		--concr-bands-axis-whole-size: 13px;
 		--concr-bands-axis-half-size: 13px;
 		--concr-bands-endpoint-size: 15px;
+		--concr-bands-removed-bg-row: rgba(237, 144, 39, 0.12);
+		--concr-bands-added-bg-row: rgba(219, 106, 232, 0.12);
 
 		width: 100%;
 		max-width: min(100%, var(--max-chart-width));
@@ -290,6 +292,11 @@
 
 	.concr-bands-chart :global(.all-bands .band-group) {
 		transition: opacity 220ms cubic-bezier(0.33, 1, 0.68, 1);
+	}
+
+	.concr-bands-chart :global(.all-bands .band-row-highlight) {
+		transition: opacity 200ms cubic-bezier(0.33, 1, 0.68, 1);
+		pointer-events: none;
 	}
 
 	.concr-bands .chart-note {

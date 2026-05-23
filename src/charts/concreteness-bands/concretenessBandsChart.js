@@ -70,8 +70,10 @@ export const CONCRETENESS_BANDS_CONFIG = {
 	colors: {
 		background: "transparent",
 		removedBg: "var(--concr-bands-removed-bg, rgba(237,144,39,0.25))",
+		removedBgRow: "var(--concr-bands-removed-bg-row, var(--concr-bands-removed-bg, rgba(237,144,39,0.25)))",
 		removedText: "var(--color-gsl)",
 		addedBg: "var(--concr-bands-added-bg, rgba(219,106,232,0.25))",
+		addedBgRow: "var(--concr-bands-added-bg-row, var(--concr-bands-added-bg, rgba(219,106,232,0.25)))",
 		addedText: "var(--color-ngsl)",
 		grid: "var(--concr-bands-grid, #d5d0c8)",
 		gridText: "var(--concr-bands-grid-text, #a8a098)",
@@ -109,8 +111,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 	const chartH = margin.top + numBins * bandH + (numBins - 1) * bandGap + margin.bottom;
 
 	const colors = {
-		removed: { bg: cfg.colors.removedBg, text: cfg.colors.removedText },
-		added: { bg: cfg.colors.addedBg, text: cfg.colors.addedText }
+		removed: { bg: cfg.colors.removedBg, bgRow: cfg.colors.removedBgRow, text: cfg.colors.removedText },
+		added: { bg: cfg.colors.addedBg, bgRow: cfg.colors.addedBgRow, text: cfg.colors.addedText }
 	};
 
 	const uid = `cb-${Math.random().toString(36).slice(2, 9)}`;
@@ -302,7 +304,19 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 			const bg = bandsG.append("g").attr("class", "band-group");
 
-			bg.append("rect")
+			const highlightRect = bg
+				.append("rect")
+				.attr("class", "band-row-highlight")
+				.attr("x", margin.left)
+				.attr("y", y)
+				.attr("width", halfW)
+				.attr("height", bandH)
+				.attr("fill", colors.removed.bgRow)
+				.attr("rx", 1)
+				.attr("opacity", 0);
+
+			const bgRect = bg
+				.append("rect")
 				.attr("class", "band-bg")
 				.attr("x", bx)
 				.attr("y", y)
@@ -341,6 +355,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 			allBands.push({
 				group: bg,
+				bgRect,
+				highlightRect,
 				txt,
 				cycle,
 				textStyle: {
@@ -379,7 +395,19 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 			const bg = bandsG.append("g").attr("class", "band-group");
 
-			bg.append("rect")
+			const highlightRect = bg
+				.append("rect")
+				.attr("class", "band-row-highlight")
+				.attr("x", centerX + halfGap)
+				.attr("y", y)
+				.attr("width", halfW)
+				.attr("height", bandH)
+				.attr("fill", colors.added.bgRow)
+				.attr("rx", 1)
+				.attr("opacity", 0);
+
+			const bgRect = bg
+				.append("rect")
 				.attr("class", "band-bg")
 				.attr("x", bx)
 				.attr("y", y)
@@ -418,6 +446,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 			allBands.push({
 				group: bg,
+				bgRect,
+				highlightRect,
 				txt,
 				cycle,
 				textStyle: {
@@ -514,8 +544,25 @@ let focusRanges = [];
 	const TR_FADE_OUT = "concr-hover-out";
 	const TR_FADE_IN = "concr-hover-in";
 
-const forcedLayer = svg.insert("g", ".all-bands").attr("class", "forced-focus-layer");
-	const hoverLayer = svg.append("g").attr("class", "hover-layer");
+const hoverLayer = svg.append("g").attr("class", "hover-layer");
+
+	function showRowHighlight(band, animate = false) {
+		const sel = band.highlightRect.interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
+		if (animate) {
+			sel.transition(TR_FADE_IN).duration(HOVER_TRANSITION_MS).ease(hoverEase).attr("opacity", 1);
+		} else {
+			sel.attr("opacity", 1);
+		}
+	}
+
+	function hideRowHighlight(band, animate = false) {
+		const sel = band.highlightRect.interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
+		if (animate) {
+			sel.transition(TR_FADE_OUT).duration(HOVER_TRANSITION_MS).ease(hoverEase).attr("opacity", 0);
+		} else {
+			sel.attr("opacity", 0);
+		}
+	}
 
 	function finishHoverCleanup(band) {
 		band.hovered = false;
@@ -527,16 +574,13 @@ const forcedLayer = svg.insert("g", ".all-bands").attr("class", "forced-focus-la
 		hoverLayer.selectAll("*").remove();
 	}
 
-function clearForcedLayer() {
-	forcedLayer.selectAll("*").remove();
-}
-
 	function interruptHoverTransitions() {
-		hoverLayer.selectAll(".hover-bg").interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
+		hoverLayer.selectAll(".hover-hit").interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
 		if (pendingHoverRestore) {
 			const b = pendingHoverRestore;
 			pendingHoverRestore = null;
 			finishHoverCleanup(b);
+			hideRowHighlight(b);
 		}
 
 		clearHoverLayer();
@@ -551,18 +595,17 @@ function isBandFocused(band) {
 function applyFocusState() {
 	const hasForcedFocus = interactionLocked && focusRanges.length > 0;
 	if (!hasForcedFocus) {
-		clearForcedLayer();
 		for (const band of allBands) {
 			band.hovered = false;
 			band.hoverAnchor = null;
 			band.txt.attr("clip-path", `url(#${band.clipId})`);
+			hideRowHighlight(band);
 		}
 		bandsG.selectAll(".band-group").attr("opacity", 1);
 		return;
 	}
 
 	clearHoverLayer();
-	clearForcedLayer();
 
 	const focusedBands = [];
 	bandsG.selectAll(".band-group").each(function eachGroup() {
@@ -577,6 +620,7 @@ function applyFocusState() {
 			band.hovered = false;
 			band.hoverAnchor = null;
 			band.txt.attr("clip-path", `url(#${band.clipId})`);
+			hideRowHighlight(band);
 		}
 	}
 
@@ -584,19 +628,7 @@ function applyFocusState() {
 		band.hovered = true;
 		band.hoverAnchor = band.direction === "rtl" ? centerX - halfGap : centerX + halfGap;
 		band.txt.attr("clip-path", `url(#${band.wideId})`);
-
-		const bgX = band.direction === "rtl" ? margin.left : centerX + halfGap;
-		const bgW = halfW;
-		forcedLayer
-			.append("rect")
-			.attr("class", "forced-focus-bg")
-			.attr("x", bgX)
-			.attr("y", band.y)
-			.attr("width", bgW)
-			.attr("height", bandH)
-			.attr("fill", colors[band.set].bg)
-			.attr("rx", 1)
-			.attr("opacity", 1);
+		showRowHighlight(band);
 	}
 }
 
@@ -608,18 +640,8 @@ function applyFocusState() {
 		bandsG.selectAll(".band-group").attr("opacity", 1);
 
 		finishHoverCleanup(band);
-
-		const bg = hoverLayer.select(".hover-bg");
-		if (bg.empty()) {
-			clearHoverLayer();
-			return;
-		}
-
-		bg.transition(TR_FADE_OUT)
-			.duration(HOVER_TRANSITION_MS)
-			.ease(hoverEase)
-			.attr("opacity", 0)
-			.on("end.hoverDone", clearHoverLayer);
+		clearHoverLayer();
+		hideRowHighlight(band, true);
 	}
 
 	function showHover(band) {
@@ -631,6 +653,7 @@ function applyFocusState() {
 			const prev = hoveredBand;
 			hoveredBand = null;
 			finishHoverCleanup(prev);
+			hideRowHighlight(prev);
 			clearHoverLayer();
 			bandsG.selectAll(".band-group").attr("opacity", 1);
 		}
@@ -650,21 +673,7 @@ function applyFocusState() {
 		const bgX = band.direction === "rtl" ? margin.left : centerX + halfGap;
 		const bgW = halfW;
 
-		const bg = hoverLayer
-			.append("rect")
-			.attr("class", "hover-bg")
-			.attr("x", bgX)
-			.attr("y", band.y)
-			.attr("width", bgW)
-			.attr("height", bandH)
-			.attr("fill", colors[band.set].bg)
-			.attr("rx", 1)
-			.attr("opacity", 0);
-
-		bg.transition(TR_FADE_IN)
-			.duration(HOVER_TRANSITION_MS)
-			.ease(hoverEase)
-			.attr("opacity", 1);
+		showRowHighlight(band, true);
 
 		band.group.raise();
 
@@ -730,7 +739,6 @@ function applyFocusState() {
 				hoveredBand = null;
 			}
 			bandsG.selectAll(".band-group").attr("opacity", 1);
-		clearForcedLayer();
 			clearHoverLayer();
 			svg.remove();
 		}
