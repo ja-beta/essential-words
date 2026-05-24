@@ -18,14 +18,6 @@
 	function toggleOpen() {
 		isOpen = !isOpen;
 	}
-
-	function closePanel() {
-		isOpen = false;
-	}
-
-	function handleCloseClick() {
-		if (isOpen) closePanel();
-	}
 </script>
 
 <aside
@@ -36,38 +28,27 @@
 	inert={!visible}
 >
 	<div class="explorer-drawer">
-		<div class="explorer-rail">
-			<div class="explorer-btn">
-				<button
-					type="button"
-					onclick={handleCloseClick}
-					aria-expanded={isOpen}
-					aria-controls="explorer-panel"
-					aria-label="Close word lists"
-				>
-					<span aria-hidden="true">
-						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path
-								d="M6 6L18 18M18 6L6 18"
-								stroke="currentColor"
-								stroke-width="1"
-								stroke-linecap="round"
-							/>
-						</svg>
-					</span>
-				</button>
-			</div>
+		<button
+			type="button"
+			class="explorer-rail"
+			onclick={toggleOpen}
+			aria-expanded={isOpen}
+			aria-controls="explorer-panel"
+			aria-label={isOpen ? "Close word lists" : "Open word lists"}
+		>
+			<span class="explorer-btn" aria-hidden="true">
+				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M6 6L18 18M18 6L6 18"
+						stroke="currentColor"
+						stroke-width="1"
+						stroke-linecap="round"
+					/>
+				</svg>
+			</span>
 
-			<button
-				type="button"
-				class="explorer-tab"
-				onclick={toggleOpen}
-				aria-expanded={isOpen}
-				aria-controls="explorer-panel"
-			>
-				<span class="explorer-tab-label">View word lists</span>
-			</button>
-		</div>
+			<span class="explorer-tab-label">word lists</span>
+		</button>
 
 		<div
 			class="explorer-panel"
@@ -184,13 +165,21 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 1rem;
+		width: 100%;
+		height: 100%;
 		padding-block: 1rem;
+		padding-inline: 0;
 		background-color: var(--color-bg);
+		border: none;
 		border-right: 1px solid var(--color-border);
-        cursor: pointer;
+		color: inherit;
+		cursor: pointer;
 	}
 
     .explorer-btn{
+		display: flex;
+		align-items: center;
+		justify-content: center;
         color: var(--color-secondary);
         transform: rotateZ(45deg);
         transition: transform 0.3s ease-in-out;
@@ -201,30 +190,11 @@
         transition: transform 0.3s ease-in-out;
     }
 
-	.explorer-btn button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.25rem;
-		background: none;
-		border: none;
-		color: inherit;
-	}
-
-	.explorer-tab {
+	.explorer-tab-label {
 		flex: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		padding: 0;
-		background: none;
-		border: none;
-		color: inherit;
-		cursor: pointer;
-	}
-
-	.explorer-tab-label {
 		writing-mode: vertical-rl;
 		text-orientation: mixed;
 		transform: rotate(180deg);
@@ -234,6 +204,9 @@
 		letter-spacing: 4%;
 		text-transform: uppercase;
 		white-space: nowrap;
+        color: var(--color-secondary);
+        transition: all 0.2s ease-in-out;
+
 	}
 
 	.explorer-panel {
@@ -242,6 +215,10 @@
 		overflow: hidden;
 		background-color: var(--color-bg);
 	}
+
+    .explorer-rail:hover .explorer-tab-label{
+        color: var(--color-primary);
+    }
 
 	.explorer-columns {
 		display: grid;

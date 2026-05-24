@@ -207,7 +207,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const rightChangeOffset = cssNumber(containerEl, "--sem-right-change-offset", 46) * layoutScale;
 	const leftLabelHoverShift = cssNumber(containerEl, "--sem-left-label-hover-shift", 30) * layoutScale;
 	if (!useResponsiveBudget) {
-		leftLabelZone = Math.max(0, leftLabelOffset + leftLabelHoverShift + 24 * layoutScale);
+		leftLabelZone = Math.max(0, leftLabelOffset + leftLabelHoverShift + 32 * layoutScale);
 		rightLabelZone = Math.max(0, rightChangeOffset + 48 * layoutScale);
 	}
 	const categoryLabelRestX = gslX1 - leftLabelOffset;
@@ -498,6 +498,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 				.attr("fill", changeColor)
 				.attr("font-weight", 500)
 				.attr("opacity", 0)
+				.style("display", "none")
 				.style("pointer-events", "none")
 				.text(`${arrow}${Math.abs(c.relChange).toFixed(1)}%`);
 		}

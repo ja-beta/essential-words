@@ -81,7 +81,7 @@
         },
         {
           "label": "Overlay 4 – focus on social/communication",
-          "html": "The Social & Communication ring barely changed in relative size. But nearly a quarter of its 1953 words are gone, and 39% of its 2023 words are new. <span class=gsl>Humble, loyalty, fellowship, generous, polite, companionship</span> gave way to <span class=ngsl>community, identity, organization, ethnic, gender,</span> and <span class=ngsl>narrative.</span> The social world shifted from something you navigate through personal relationships to something you identify with through categories. Fewer words for the people directly around you, but more for belonging at a distance."
+          "html": "The Social & Communication ring barely changed in relative size. But nearly a quarter of its 1953 words are gone, and 39% of its 2023 words are new. <span class=gsl>Humble, loyalty, fellowship, generous, polite, companionship</span> gave way to <span class=ngsl>community, identity, organization, ethnic, gender,</span> and <span class=ngsl>narrative.</span> The social world shifted from something you navigate through personal relationships to something you identify with through categories. It offers fewer words for the people directly around you, but more for belonging at a distance."
         },
         {
           "label": "Overlay 5 – focus on universal/abstract (zoomed out)",
@@ -128,7 +128,7 @@
       "type": "chart",
       "chartId": "concretenessBands",
       "title": "The Concrete End Got Hollowed Out. Something Murkier Filled In.",
-      "subhead": "Removed words (left) and added words (right), grouped by concreteness rating. Each bar’s width is proportional to its share of each set. Hover to read more words.",
+      "subhead": "Each row is a concreteness range. Bar length shows what proportional share of the removed words (left) and the added words (right) falls there. A longer bar means a larger share of the words scored in that range. Hover to see more words.",
       "note": "Data source: Brysbaert Concreteness ratings for 40 thousand generally known English word lemmas. The dataset provided 99.7% coverage of the words in both lists.",
       "overlays": [
         {

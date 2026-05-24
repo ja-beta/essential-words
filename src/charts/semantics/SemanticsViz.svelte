@@ -174,7 +174,7 @@
 		--sem-slope-width: var(--max-prose-width, 650px);
 		--sem-font-scale: 1;
 		--sem-min-band-font-size: 15px;
-		--sem-left-label-offset: 16;
+		--sem-left-label-offset: 18;
 		--sem-left-label-hover-shift: 30;
 		--sem-left-percent-offset: 8;
 		--sem-right-percent-offset: 8;

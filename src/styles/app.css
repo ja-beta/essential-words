@@ -11,6 +11,11 @@
 	--font-serif: "Source Serif 4", Times New Roman, Times, serif;
 	--font-mono: "Source Code Pro", Menlo, Consolas, Monaco, monospace;
 
+	/* 
+	--font-sans: "Atlas Grotesk", Helvetica, Arial, sans-serif;
+	--font-serif: "Publico Text",Times serif;
+	--font-mono: "Atlas Typewriter", monospace; */
+
 	/* font sizes*/
 	--p-font-size: 1.25rem;
 	--chart-header-font-size: 1.75rem;
