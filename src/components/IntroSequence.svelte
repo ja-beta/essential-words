@@ -66,9 +66,7 @@
 		part3Add: 25,
 		part3Remain: 25,
 		part3Hold: 25,
-		part4Fade: 20,
-		part4Swap: 20,
-		part4Hold: 18
+		part3Release: 25
 	});
 	let geometry = $state({
 		stageVh: 100,
@@ -103,9 +101,7 @@
 			part3Add: cssVhNumber("--intro-part3-add-vh", 25),
 			part3Remain: cssVhNumber("--intro-part3-remain-vh", 25),
 			part3Hold: cssVhNumber("--intro-part3-hold-vh", 25),
-			part4Fade: cssVhNumber("--intro-part4-fade-vh", 20),
-			part4Swap: cssVhNumber("--intro-part4-swap-vh", 20),
-			part4Hold: cssVhNumber("--intro-part4-hold-vh", 18)
+			part3Release: cssVhNumber("--intro-part3-release-vh", 40)
 		};
 		geometry = {
 			stageVh: cssVhNumber("--intro-stage-vh", 100),
@@ -148,9 +144,7 @@
 			timing.part3Add +
 			timing.part3Remain +
 			timing.part3Hold +
-			timing.part4Fade +
-			timing.part4Swap +
-			timing.part4Hold
+			timing.part3Release
 	);
 
 	const stickyY = $derived(stickyProgress * stickyTotalVh);
@@ -163,10 +157,8 @@
 	const part3AddEnd = $derived(part3DropEnd + timing.part3Add);
 	const part3RemainEnd = $derived(part3AddEnd + timing.part3Remain);
 	const part3HoldEnd = $derived(part3RemainEnd + timing.part3Hold);
-	const part4FadeEnd = $derived(part3HoldEnd + timing.part4Fade);
 
 	const phase = $derived.by(() => {
-		if (stickyY >= part4FadeEnd) return 4;
 		if (stickyY >= part2End) return 3;
 		if (stickyY >= part1End) return 2;
 		return 1;
@@ -175,7 +167,8 @@
 	const dropOn = $derived(stickyY >= part3TextEnd && stickyY < part3HoldEnd);
 	const addOn = $derived(stickyY >= part3DropEnd && stickyY < part3HoldEnd);
 	const remainOn = $derived(stickyY >= part3AddEnd && stickyY < part3HoldEnd);
-	const part4OverlayOn = $derived(stickyY >= part3HoldEnd);
+	const overlayOn = $derived(stickyY >= part3HoldEnd);
+	const part4Visible = $derived(stickyY >= part3HoldEnd);
 	const part1BgTravelVh = $derived(Math.max(0, geometry.bgTotalVh - geometry.stageVh));
 	const part1BgShift = $derived(-part1Progress * part1BgTravelVh);
 
@@ -253,7 +246,7 @@
 				</div>
 				<div
 					class="intro-copy-layer intro-copy-layer--part3"
-					class:is-visible={phase === 3}
+					class:is-visible={phase === 3 && stickyY < part3HoldEnd}
 					class:is-highlight-drop={dropOn}
 					class:is-highlight-add={addOn}
 					class:is-highlight-remain={remainOn}
@@ -262,34 +255,41 @@
 						<p>{@html p}</p>
 					{/each}
 				</div>
-				<div class="intro-copy-layer intro-copy-layer--part4" class:is-visible={phase === 4}>
-					{#each part4Paragraphs as p}
-						<p>{@html p}</p>
-					{/each}
-					<div class="intro-copy-layer-legend">
-						<div class="intro-legend-item">
-							<div class="intro-legend-rect"><span class="ngsl">A</span></div>
-							<div class="intro-legend-text">Added to 2023 list</div>
-						</div>
-						<div class="intro-legend-item">
-							<div class="intro-legend-rect"><span class="gsl">A</span></div>
-							<div class="intro-legend-text">Removed from 1953 list</div>
-						</div>
-						<div class="intro-legend-item">
-							<div class="intro-legend-rect"><span class="remained">A</span></div>
-							<div class="intro-legend-text">In both lists</div>
-						</div>
-					</div>
-				</div>
 			</div>
-			<div class="intro-fade-overlay" class:is-visible={part4OverlayOn} aria-hidden="true"></div>
+			<div class="intro-fade-overlay" class:is-visible={overlayOn} aria-hidden="true"></div>
 		</div>
 	</section>
+
+	<section class="intro-copy intro-copy--part4" class:is-visible={part4Visible}>
+
+		{#each part4Paragraphs as p}
+			<p>{@html p}</p>
+		{/each}
+		<div class="intro-legend-container">
+			<div class="intro-legend">
+				<div class="intro-legend-item">
+					<div class="intro-legend-rect"><span class="ngsl">A</span></div>
+					<div class="intro-legend-text">Added to 2023 list</div>
+				</div>
+				<div class="intro-legend-item">
+					<div class="intro-legend-rect"><span class="gsl">A</span></div>
+					<div class="intro-legend-text">Removed from 1953 list</div>
+				</div>
+				<div class="intro-legend-item">
+					<div class="intro-legend-rect"><span class="remained">A</span></div>
+					<div class="intro-legend-text">In both lists</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
 </div>
 
 <style>
 	.intro-sequence {
 		margin: -8rem 0 8rem 0;
+
+		--intro-copy-width: 525px;
 		--intro-part1-vh: 200;
 		--intro-bg-total-vh: 200;
 		--intro-part2-pre-vh: 33;
@@ -299,9 +299,7 @@
 		--intro-part3-add-vh: 25;
 		--intro-part3-remain-vh: 25;
 		--intro-part3-hold-vh: 35;
-		--intro-part4-fade-vh: 70;
-		--intro-part4-swap-vh: 20;
-		--intro-part4-hold-vh: 18;
+		--intro-part3-release-vh: 35;
 		--intro-stage-vh: 100;
 		--intro-part1-sticky-top: 36vh;
 		--intro-grid-cols: 8;
@@ -318,6 +316,8 @@
 		--intro-highlight-fade-ms: 420ms;
 		--intro-overlay-fade-ms: 460ms;
 		--intro-removed-reveal-ms: 520ms;
+		--intro-part4-fade-ms: 600ms;
+		--intro-part4-translate: 16px;
 		--intro-highlight-fill-height: 1.25em;
 		position: relative;
 		width: 100%;
@@ -336,9 +336,7 @@
 					var(--intro-part3-add-vh) +
 					var(--intro-part3-remain-vh) +
 					var(--intro-part3-hold-vh) +
-					var(--intro-part4-fade-vh) +
-					var(--intro-part4-swap-vh) +
-					var(--intro-part4-hold-vh)
+					var(--intro-part3-release-vh)
 				) * 1vh
 		);
 	}
@@ -441,13 +439,13 @@
 	}
 
 	.intro-fade-overlay.is-visible {
-		opacity: 0.7;
+		opacity: 0.95;
 	}
 
 	.intro-copy {
 		position: relative;
 		z-index: 2;
-		max-width: 525px;
+		max-width: var(--intro-copy-width);
 		margin: 0 auto;
 		padding-inline: 1rem;
 		text-align: center;
@@ -493,11 +491,29 @@
 		opacity: 1;
 	}
 
-	.intro-copy-layer--part4{
-		padding-top: 6rem; 
+	.intro-copy--part4 {
+		position: relative;
+		z-index: 5;
+		max-width: var(--intro-copy-width);
+		margin-top: calc(var(--intro-stage-vh) * -1vh);
+		padding-top: 4rem;
+		padding-bottom: 2rem;
+		background: var(--color-bg);
+		text-align: left;
+		opacity: 0;
+		transform: translateY(var(--intro-part4-translate));
+		transition:
+			opacity var(--intro-part4-fade-ms) ease,
+			transform var(--intro-part4-fade-ms) ease;
+		will-change: opacity, transform;
 	}
 
-	.intro-copy-layer--part4 p{
+	.intro-copy--part4.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.intro-copy--part4 p {
 		text-align: left;
 	}
 
@@ -529,14 +545,23 @@
 		background-size: 100% var(--intro-highlight-fill-height);
 	}
 
-	.intro-copy-layer-legend {
-		position:absolute;
-		bottom: 3rem;
-		right: 1rem;
+	.intro-legend-container {
+		display: none;
+		width: fit-content;
+		position: sticky;
+		bottom: 2rem;
+		/* left: -20vw;
+		transform: translateX(-150%); */
+	}
+
+	.intro-legend {
 		display: flex;
+		width: fit-content;
 		flex-direction: row;
-		justify-content: center;
-		gap: 1rem;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		gap: 0.5rem 1rem;
+		margin-top: 2rem;
 		font-family: var(--font-mono);
 		text-transform: uppercase;
 		letter-spacing: 2%;
@@ -553,6 +578,7 @@
 		flex-direction: row;
 		align-items: center;
 		gap: 4px;
+		white-space: nowrap;
 	}
 
 </style>
