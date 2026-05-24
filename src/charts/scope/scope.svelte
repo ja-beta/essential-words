@@ -59,9 +59,11 @@
 		const reveal = activeStep < 0 ? 1 : activeStep >= N ? nRings : Math.min(activeStep + 1, nRings);
 		chartController.setVisibleRings(reveal);
 
-		if (activeStep >= 0 && !dividerExpanded) {
-			dividerExpanded = true;
-			chartController.expandDivider();
+	const shouldExpandDivider = activeStep >= 0;
+	if (shouldExpandDivider !== dividerExpanded) {
+		dividerExpanded = shouldExpandDivider;
+		if (shouldExpandDivider) chartController.expandDivider();
+		else chartController.collapseDivider();
 		}
 
 		if (activeStep < 0 || activeStep >= N) {

@@ -266,6 +266,20 @@
 					{#each part4Paragraphs as p}
 						<p>{@html p}</p>
 					{/each}
+					<div class="intro-copy-layer-legend">
+						<div class="intro-legend-item">
+							<div class="intro-legend-rect"><span class="ngsl">A</span></div>
+							<div class="intro-legend-text">Added to 2023 list</div>
+						</div>
+						<div class="intro-legend-item">
+							<div class="intro-legend-rect"><span class="gsl">A</span></div>
+							<div class="intro-legend-text">Removed from 1953 list</div>
+						</div>
+						<div class="intro-legend-item">
+							<div class="intro-legend-rect"><span class="remained">A</span></div>
+							<div class="intro-legend-text">In both lists</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="intro-fade-overlay" class:is-visible={part4OverlayOn} aria-hidden="true"></div>
@@ -513,6 +527,32 @@
 	.intro-copy-layer--part3.is-highlight-remain :global(.remained) {
 		background-image: linear-gradient(var(--color-remained-highlight), var(--color-remained-highlight));
 		background-size: 100% var(--intro-highlight-fill-height);
+	}
+
+	.intro-copy-layer-legend {
+		position:absolute;
+		bottom: 3rem;
+		right: 1rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 1rem;
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		letter-spacing: 2%;
+		font-weight: 600;
+		font-size: 13px;
+		background: var(--color-bg);
+		padding: 0.5rem;
+		border-radius: 0.25rem;
+		border: 1px solid var(--color-border);
+	}
+
+	.intro-legend-item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 4px;
 	}
 
 </style>

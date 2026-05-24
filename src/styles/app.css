@@ -64,7 +64,7 @@
 	--color-ngsl: #DB6AE8; /* #DB6AE8*/
 	--color-ngsl-highlight: #F493FF; /* F493FF */
 	--color-remained-highlight: #DBD4BC;
-	--color-highlight-text: #494949;
+	--color-highlight-text: #262626; /* 494949 */
 	--color-footer-bg: #F0F0D6;
 	/* "1" second duration */
 	--1s: 1ms;
@@ -143,6 +143,20 @@ svg {
 	background-image: linear-gradient(var(--color-ngsl-highlight), var(--color-ngsl-highlight));
 
 }
+
+/* .gsl::before{
+	content: "- ";
+}
+
+.ngsl::before{
+	content: "+ ";
+}
+
+.gsl::before, .ngsl::before{
+	white-space: nowrap;
+	font-size: 16px;
+	font-weight: 700;
+} */
 
 .remained{
 	font-family: var(--font-sans);

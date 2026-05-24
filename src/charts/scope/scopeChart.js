@@ -268,13 +268,17 @@ export function renderScopeChart(container, payload) {
 	});
 
 	const ring1R = bands[0]?.rMax ?? m.centerR;
+	const dividerCollapsedY1 = cy - ring1R - 12;
+	const dividerCollapsedY2 = cy + ring1R + 12;
+	const dividerExpandedY1 = cy - plotR - 12;
+	const dividerExpandedY2 = cy + plotR + 12;
 	const divider = svg
 		.append("line")
 		.attr("class", "scope-divider")
 		.attr("x1", cx)
 		.attr("x2", cx)
-		.attr("y1", cy - ring1R - 12)
-		.attr("y2", cy + ring1R + 12)
+		.attr("y1", dividerCollapsedY1)
+		.attr("y2", dividerCollapsedY2)
 		.attr("stroke", SCOPE_COLORS.divider)
 		.attr("stroke-width", 0.5)
 		.attr("stroke-dasharray", "5,5")
@@ -557,6 +561,16 @@ export function renderScopeChart(container, payload) {
 		}
 	}
 
+	function setDividerExpanded(expanded) {
+		divider
+			.interrupt()
+			.transition("divider")
+			.duration(m.dividerExpandMs)
+			.ease(d3.easeCubicInOut)
+			.attr("y1", expanded ? dividerExpandedY1 : dividerCollapsedY1)
+			.attr("y2", expanded ? dividerExpandedY2 : dividerCollapsedY2);
+	}
+
 	container.replaceChildren(svg.node());
 
 	return {
@@ -585,17 +599,10 @@ export function renderScopeChart(container, payload) {
 			applyFocusState();
 		},
 		expandDivider() {
-			const y1Start = cy - ring1R - 12;
-			const y2Start = cy + ring1R + 12;
-			const y1End = cy - plotR - 12;
-			const y2End = cy + plotR + 12;
-			divider
-				.interrupt()
-				.transition()
-				.duration(m.dividerExpandMs)
-				.ease(d3.easeCubicInOut)
-				.attrTween("y1", () => d3.interpolateNumber(y1Start, y1End))
-				.attrTween("y2", () => d3.interpolateNumber(y2Start, y2End));
+			setDividerExpanded(true);
+		},
+		collapseDivider() {
+			setDividerExpanded(false);
 		},
 		setVisibleRings(n) {
 			const next = Math.max(1, Math.min(nRings, Math.floor(Number(n) || 1)));
