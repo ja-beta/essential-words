@@ -286,6 +286,10 @@
 </div>
 
 <style>
+	:global(#intro){
+		margin-bottom: 8rem;	
+	}
+
 	.intro-sequence {
 		margin: -8rem 0 8rem 0;
 
@@ -439,7 +443,7 @@
 	}
 
 	.intro-fade-overlay.is-visible {
-		opacity: 0.95;
+		opacity: 0.7;
 	}
 
 	.intro-copy {
@@ -495,10 +499,10 @@
 		position: relative;
 		z-index: 5;
 		max-width: var(--intro-copy-width);
-		margin-top: calc(var(--intro-stage-vh) * -1vh);
+		margin-top: calc(var(--intro-stage-vh) * -0.8vh);
 		padding-top: 4rem;
 		padding-bottom: 2rem;
-		background: var(--color-bg);
+		/* background: var(--color-bg); */
 		text-align: left;
 		opacity: 0;
 		transform: translateY(var(--intro-part4-translate));
@@ -520,6 +524,7 @@
 	.intro-copy-layer--part3 :global(.gsl),
 	.intro-copy-layer--part3 :global(.ngsl),
 	.intro-copy-layer--part3 :global(.remained) {
+		padding: 0;
 		background-image: linear-gradient(transparent, transparent);
 		background-repeat: no-repeat;
 		background-size: 0% var(--intro-highlight-fill-height);
@@ -527,22 +532,29 @@
 		box-decoration-break: clone;
 		transition:
 			background-size var(--intro-highlight-fade-ms) ease,
-			color var(--intro-highlight-fade-ms) ease;
+			color var(--intro-highlight-fade-ms) ease,
+			padding var(--intro-highlight-fade-ms) ease;
 	}
 
 	.intro-copy-layer--part3.is-highlight-drop :global(.gsl) {
 		background-image: linear-gradient(var(--color-gsl-highlight), var(--color-gsl-highlight));
 		background-size: 100% var(--intro-highlight-fill-height);
+		padding: 0 0.35rem;
+
 	}
 
 	.intro-copy-layer--part3.is-highlight-add :global(.ngsl) {
 		background-image: linear-gradient(var(--color-ngsl-highlight), var(--color-ngsl-highlight));
 		background-size: 100% var(--intro-highlight-fill-height);
+		padding: 0 0.35rem;
+
 	}
 
 	.intro-copy-layer--part3.is-highlight-remain :global(.remained) {
 		background-image: linear-gradient(var(--color-remained-highlight), var(--color-remained-highlight));
 		background-size: 100% var(--intro-highlight-fill-height);
+		padding: 0 0.35rem;
+
 	}
 
 	.intro-legend-container {

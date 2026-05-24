@@ -302,4 +302,14 @@
         color: var(--color-ngsl);
     }
 
+    @media (max-width: 720px){
+        .explorer {
+            --explorer-rail-width: 1.5rem;
+        }
+
+        .explorer-rail .explorer-tab-label{
+            font-size: 13px;
+        }
+    }
+
 </style>

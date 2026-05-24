@@ -175,6 +175,11 @@
 </div>
 
 <style>
+	/* NOTE TO SELF: FIX POS DIAGRAM!!!!!!!! this is a temporary bandaid for mobile so I can work on other things */
+	:global(#posDiagram){
+		overflow: hidden;
+	}
+
 	.pos-waffle {
 		--pos-cell-size: 5px;
 		--pos-cell-gap: 1px;

@@ -39,6 +39,7 @@
 	--max-prose-width: 650px;
 	--max-med-width: 850px;
 	--max-chart-width: 1200px;
+	--prose-margins: 1rem;
 	
 	--color-bg: #FFFFF1;
 	--color-fg: var(--color-gray-900);
@@ -66,6 +67,7 @@
 	--color-remained-highlight: #DBD4BC;
 	--color-highlight-text: #262626; /* 494949 */
 	--color-footer-bg: #F0F0D6;
+	--color-hero-headline: #494949;
 	/* "1" second duration */
 	--1s: 1ms;
 }
@@ -200,6 +202,12 @@ svg {
 
 .story-prose{
 	max-width: var(--max-prose-width);
+}
+
+@media (max-width: 720px){
+	.story-section{
+		margin: 0 calc(2.5 * var(--prose-margins)) 0 var(--prose-margins);
+	}
 }
 
 

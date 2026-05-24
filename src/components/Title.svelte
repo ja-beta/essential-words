@@ -52,10 +52,30 @@
         font-size: 90px;
         font-weight: 200;
         padding: 0 1.2rem 0 0.75rem;
-        color: var(--color-highlight-text);
+        color: var(--color-hero-headline);
         box-decoration-break: clone;
         background-repeat: no-repeat;
         background-size: 100% 0.9em;
+    }
+
+    @media (max-width: 920px) {
+        .title{
+            width: auto;
+        }
+
+        #goat, #despite{
+            font-size: 64px;
+        }
+        .tofrom{
+            font-size: 28px;
+            position: relative;
+            right: 0;
+        }
+
+        #couple-first, #couple-second{
+            display: flex;
+            align-items: flex-start;
+        }
     }
 
     #despite{
