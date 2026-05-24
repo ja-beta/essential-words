@@ -172,6 +172,7 @@
 		background-color: var(--color-bg);
 		border: none;
 		border-right: 1px solid var(--color-border);
+        border-radius: 0;
 		color: inherit;
 		cursor: pointer;
 	}

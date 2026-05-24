@@ -232,7 +232,7 @@ svg {
 	text-align: left;
 	font-size: 13px;
 	line-height: 1.25;
-	margin-bottom: 0.5rem;
+	margin: 0.5rem 0;
 }
 
 .chart-overlay-scrolly {

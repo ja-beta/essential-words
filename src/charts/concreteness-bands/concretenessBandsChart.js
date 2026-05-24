@@ -222,15 +222,17 @@ export function renderConcretenessBands(container, payload, { width }) {
 		const y = yForLabel(v);
 		const isWhole = Number.isInteger(v);
 
-		for (const side of [-1, 1]) {
-			svg
-				.append("line")
-				.attr("x1", centerX + side * halfGap * 0.3)
-				.attr("x2", centerX + side * halfGap * 0.7)
-				.attr("y1", y)
-				.attr("y2", y)
-				.attr("stroke", cfg.colors.grid)
-				.attr("stroke-width", 0.8);
+		if (isWhole) {
+			for (const side of [-1, 1]) {
+				svg
+					.append("line")
+					.attr("x1", centerX + side * halfGap * 0.3)
+					.attr("x2", centerX + side * halfGap * 0.7)
+					.attr("y1", y)
+					.attr("y2", y)
+					.attr("stroke", cfg.colors.grid)
+					.attr("stroke-width", 0.8);
+			}
 		}
 
 		const labelW = m.axisLabelW;

@@ -270,7 +270,7 @@
 		--scope-list-header-transition-ms: 700;
 		--scope-header-font-size: 16;
 
-		--scope-intro-offset: -35vh;
+		--scope-intro-offset: -25vh;
 		--scope-final-hold: calc(100vh - var(--scope-intro-offset));
 
 		--chart-overlay-steps-top-pad: 25vh;
@@ -311,7 +311,8 @@
 	}
 
 	.scope > .chart-note {
-		margin-top: 1rem;
+		margin-top: 2rem;
+		text-align: left;
 	}
 
 	.scope-chart-wrap {
@@ -439,13 +440,13 @@
 
 	.scope-tooltip-word {
 		font-weight: 600;
-		font-size: 0.95rem;
+		font-size: 1rem;
 		margin-bottom: 0.15rem;
 		text-transform: lowercase;
 	}
 
 	.scope-tooltip-meta {
-		font-size: 0.75rem;
+		font-size: 13px;
 		color: var(--color-secondary);
 		text-transform: lowercase;
 	}

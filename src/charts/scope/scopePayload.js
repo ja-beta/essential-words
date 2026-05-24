@@ -25,7 +25,7 @@ export const SCOPE_CATEGORY_TO_RING = {
 	"Language and Communication": 4,
 	"Movement, Location, Travel and Transport": 4,
 	"Social Actions, States and Processes": 4,
-	"Arts and Crafts": 5,
+	"Arts and Crafts": 4,
 	"General and Abstract Terms": 5,
 	"Names and Grammar": 5,
 	"Numbers and Measurement": 5,

@@ -224,15 +224,15 @@
 		--concr-bands-min-bar-width: 4px;
 		--concr-bands-text-pad: 4px;
 		--concr-bands-axis-line-pad: 8px;
-		--concr-bands-dir-label-offset-y: 28px;
+		--concr-bands-dir-label-offset-y: 36px;
 		--concr-bands-dir-label-offset-x: 8px;
-		--concr-bands-endpoint-offset-top: 12px;
-		--concr-bands-endpoint-offset-bottom: 28px;
+		--concr-bands-endpoint-offset-top: 20px;
+		--concr-bands-endpoint-offset-bottom: 34px;
 		--concr-bands-axis-label-w: 28px;
-		--concr-bands-axis-label-h: 14px;
+		--concr-bands-axis-label-h: 18px;
 		--concr-bands-dir-label-size: 15px;
-		--concr-bands-axis-whole-size: 13px;
-		--concr-bands-axis-half-size: 13px;
+		--concr-bands-axis-whole-size: 14px;
+		--concr-bands-axis-half-size: 14px;
 		--concr-bands-endpoint-size: 15px;
 		--concr-bands-removed-bg-row: rgba(237, 144, 39, 0.12);
 		--concr-bands-added-bg-row: rgba(219, 106, 232, 0.12);
@@ -277,7 +277,7 @@
 	}
 
     .concr-bands-chart :global(.endpoint-text) {
-        font-size: 15px;
+        font-size: 18px;
         font-family: var(--font-mono);
         text-transform: uppercase;
         color: var(--color-primary);
