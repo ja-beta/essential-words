@@ -29,6 +29,7 @@
         line-height: 0.8;
         gap: var(--title-word-gap);
         color: var(--color-highlight-text);
+        box-sizing: border-box;
     }
 
     #couple-first, #couple-second{
@@ -58,25 +59,7 @@
         background-size: 100% 0.9em;
     }
 
-    @media (max-width: 920px) {
-        .title{
-            width: auto;
-        }
-
-        #goat, #despite{
-            font-size: 64px;
-        }
-        .tofrom{
-            font-size: 28px;
-            position: relative;
-            right: 0;
-        }
-
-        #couple-first, #couple-second{
-            display: flex;
-            align-items: flex-start;
-        }
-    }
+    
 
     #despite{
         letter-spacing: -1%;
@@ -104,6 +87,52 @@
     }
 
     #g-t{
+    }
+
+    @media (max-width: 920px) {
+
+        
+        .title {
+            --title-word-gap: clamp(0.5rem, 2.5vw, 1.25rem);
+            --title-display-size: clamp(2rem, 10.5vw, 4rem);
+            --title-meta-size: clamp(0.8125rem, 3.6vw, 1.75rem);
+            width: auto;
+            max-width: 100%;
+        }
+
+        #goat,
+        #despite {
+            font-size: var(--title-display-size);
+            line-height: 1;
+            padding: 0 clamp(0.35rem, 1.75vw, 1.2rem) 0 clamp(0.25rem, 1.25vw, 0.75rem);
+        }
+
+        .tofrom {
+            font-size: var(--title-meta-size);
+            position: relative;
+            right: 0;
+            margin-right: clamp(0.35rem, 1.5vw, var(--title-word-gap));
+            flex-shrink: 0;
+        }
+
+        #couple-first,
+        #couple-second {
+            display: flex;
+            align-items: flex-start;
+            min-width: 0;
+        }
+
+        #goat,
+        #despite {
+            min-width: 0;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .title {
+            --title-display-size: clamp(1.75rem, 9.5vw, 2.75rem);
+            --title-meta-size: clamp(0.75rem, 3.2vw, 1rem);
+        }
     }
 
 </style>

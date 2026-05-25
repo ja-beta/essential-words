@@ -37,13 +37,9 @@
 			aria-label={isOpen ? "Close word lists" : "Open word lists"}
 		>
 			<span class="explorer-btn" aria-hidden="true">
-				<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="M6 6L18 18M18 6L6 18"
-						stroke="currentColor"
-						stroke-width="1"
-						stroke-linecap="round"
-					/>
+				<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<line x1="10" y1="4" x2="10" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<line x1="4" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
 				</svg>
 			</span>
 
@@ -181,13 +177,23 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		flex-shrink: 0;
+		width: 1.25rem;
+		height: 1.25rem;
         color: var(--color-secondary);
-        transform: rotateZ(45deg);
+        transform: rotate(0deg);
+        transform-origin: center;
         transition: transform 0.3s ease-in-out;
     }
 
+	.explorer-btn svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
     .explorer.is-open .explorer-btn{
-        transform: rotateZ(0);
+        transform: rotate(45deg);
         transition: transform 0.3s ease-in-out;
     }
 

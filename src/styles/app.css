@@ -190,6 +190,7 @@ svg {
 }
 
 .story-section--hero .story-dek{
+	max-width: var(--max-chart-width);	
 	margin: 3rem auto 3rem auto;
 	font-family: var(--font-serif);
 	font-weight: 300;
@@ -204,17 +205,12 @@ svg {
 	max-width: var(--max-prose-width);
 }
 
-@media (max-width: 720px){
-	.story-section{
-		margin: 0 calc(2.5 * var(--prose-margins)) 0 var(--prose-margins);
-	}
-}
-
 
 .chart-header {
 	width: 100%;
 	max-width: var(--max-prose-width);
 	margin-bottom: 1.5rem;
+	z-index: var(--z-base);
 }
 
 .story-heading{
@@ -328,5 +324,27 @@ svg {
 
 .story > .story-section:last-child .story-prose > p:last-child {
 	margin-bottom: 0;
+}
+
+@media (max-width: 920px){
+	:root{
+		--max-chart-width: 85vw;
+	}
+	.story-section--hero .story-dek{
+		font-size: 1.75rem;
+	}
+}
+
+@media (max-width: 720px){
+	:root{
+		--p-font-size: 1.125rem;
+		--chart-header-font-size: 1.5rem;
+	}
+
+	.story-section{
+		margin: 0 calc(2.5 * var(--prose-margins)) 0 var(--prose-margins);
+	}
+
+	
 }
 
