@@ -68,6 +68,7 @@ export const CONCRETENESS_BANDS_CONFIG = {
 		repeat: 12
 	},
 	colors: {
+		primary: "var(--color-primary)",
 		background: "transparent",
 		removedBg: "var(--concr-bands-removed-bg, rgba(237,144,39,0.25))",
 		removedBgRow: "var(--concr-bands-removed-bg-row, var(--concr-bands-removed-bg, rgba(237,144,39,0.25)))",
@@ -378,7 +379,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 				set: "removed",
 				bin: b,
 				lo: bin.lo,
-				hi: bin.hi
+				hi: bin.hi,
+				pct: bin.pct_removed
 			});
 		}
 
@@ -469,7 +471,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 				set: "added",
 				bin: b,
 				lo: bin.lo,
-				hi: bin.hi
+				hi: bin.hi,
+				pct: bin.pct_added
 			});
 		}
 	});
@@ -548,6 +551,8 @@ let focusRanges = [];
 	const TR_FADE_IN = "concr-hover-in";
 
 	const ROW_HIGHLIGHT_ENABLED = false;
+	/** Dimmed band opacity — shared by scroll focus and mouse hover. */
+	const DIMMED_BAND_OPACITY = 0.07;
 
 const hoverLayer = svg.append("g").attr("class", "hover-layer");
 
@@ -580,6 +585,91 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 		hoverLayer.selectAll("*").remove();
 	}
 
+
+	const ANNOT = { leader: 16, dotR: 2.5, stackStep: 30, textGap: 16, textInset: 6 };
+
+	const formatPct = (p) => {
+		const v = Math.round((Number(p) || 0) * 10) / 10;
+		return Number.isInteger(v) ? String(v) : v.toFixed(1);
+	};
+
+	function drawBandAnnotations(bands) {
+		const list = (bands || []).filter((b) => b && Number.isFinite(b.pct));
+		if (!list.length) return;
+
+		for (const side of ["removed", "added"]) {
+			const sideBands = list.filter((b) => b.set === side).sort((a, b) => a.y - b.y);
+			if (!sideBands.length) continue;
+
+			const maxBottom = Math.max(...sideBands.map((b) => b.y + bandH));
+			const stroke = colors[side].text;
+			const label = side === "removed" ? "DISCARDED" : "ADDED";
+
+			const textAnchor = side === "removed" ? "end" : "start";
+
+			sideBands.forEach((band, i) => {
+				const bx = side === "removed" ? band.anchor - band.w : band.anchor;
+				const cx = bx + band.w / 2;
+				const dotY = maxBottom + ANNOT.leader + i * ANNOT.stackStep;
+				const textX =
+					side === "removed" ? cx + ANNOT.textInset : cx - ANNOT.textInset;
+
+				const g = hoverLayer
+					.append("g")
+					.attr("class", "band-annotation")
+					.style("pointer-events", "none");
+
+				g.append("rect")
+					.attr("x", bx)
+					.attr("y", band.y)
+					.attr("width", band.w)
+					.attr("height", bandH)
+					.attr("fill", "none")
+					.attr("stroke", stroke)
+					.attr("stroke-width", 1)
+					.attr("rx", 1);
+
+				g.append("line")
+					.attr("x1", cx)
+					.attr("x2", cx)
+					.attr("y1", band.y + bandH)
+					.attr("y2", dotY)
+					.attr("stroke", stroke)
+					.attr("stroke-width", 1);
+
+				g.append("circle")
+					.attr("cx", cx)
+					.attr("cy", dotY)
+					.attr("r", ANNOT.dotR)
+					.attr("fill", stroke);
+
+				const labelText = g
+					.append("text")
+					.attr("class", "concr-bands-annotation-text")
+					.attr("x", textX)
+					.attr("y", dotY + ANNOT.textGap)
+					.attr("text-anchor", textAnchor)
+					.attr("dominant-baseline", "hanging")
+					.attr("font-family", "var(--font-mono)")
+					.attr("font-size", "16px")
+					.attr("font-weight", 600)
+					.attr("fill", cfg.colors.primary);
+
+				labelText
+					.append("tspan")
+					.attr("x", textX)
+					.attr("dy", 0)
+					.text(`${formatPct(band.pct)}% OF`);
+				labelText
+					.append("tspan")
+					.attr("x", textX)
+					.attr("dy", "1.2em")
+					.text(`${label} WORDS`);
+
+			});
+		}
+	}
+
 	function interruptHoverTransitions() {
 		hoverLayer.selectAll(".hover-hit").interrupt(TR_FADE_OUT).interrupt(TR_FADE_IN);
 		if (pendingHoverRestore) {
@@ -599,6 +689,7 @@ function isBandFocused(band) {
 }
 
 function applyFocusState() {
+	clearHoverLayer();
 	const hasForcedFocus = interactionLocked && focusRanges.length > 0;
 	if (!hasForcedFocus) {
 		for (const band of allBands) {
@@ -611,14 +702,12 @@ function applyFocusState() {
 		return;
 	}
 
-	clearHoverLayer();
-
 	const focusedBands = [];
 	bandsG.selectAll(".band-group").each(function eachGroup() {
 		const band = allBands.find((b) => b.group.node() === this);
 		const focused = Boolean(band && isBandFocused(band));
 		if (focused) focusedBands.push(band);
-		d3.select(this).attr("opacity", focused ? 1 : 0.07);
+		d3.select(this).attr("opacity", focused ? 1 : DIMMED_BAND_OPACITY);
 	});
 
 	for (const band of allBands) {
@@ -636,6 +725,8 @@ function applyFocusState() {
 		band.txt.attr("clip-path", `url(#${band.wideId})`);
 		showRowHighlight(band);
 	}
+
+	drawBandAnnotations(focusedBands);
 }
 
 	function clearHover() {
@@ -668,7 +759,7 @@ function applyFocusState() {
 		band.hovered = true;
 
 		bandsG.selectAll(".band-group").each(function eachGroup() {
-			d3.select(this).attr("opacity", this === band.group.node() ? 1 : 0.2);
+			d3.select(this).attr("opacity", this === band.group.node() ? 1 : DIMMED_BAND_OPACITY);
 		});
 
 		band.txt.attr("clip-path", `url(#${band.wideId})`);
@@ -693,6 +784,8 @@ function applyFocusState() {
 			.attr("fill", "transparent")
 			.style("cursor", "default")
 			.on("mouseleave", clearHover);
+
+		drawBandAnnotations([band]);
 	}
 
 	bandsG.selectAll(".band-hit").on("mouseenter", function onEnter() {
