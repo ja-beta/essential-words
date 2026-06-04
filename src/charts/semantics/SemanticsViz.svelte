@@ -2,6 +2,7 @@
 	import { getContext } from "svelte";
 	import { onDestroy, onMount } from "svelte";
 	import { renderSemanticsRibbons } from "./semanticsRibbonsChart.js";
+	import { observeChartVisibility } from "$utils/chartVisibility.js";
 
 	let { overlays = [], note = "" } = $props();
 
@@ -32,8 +33,10 @@
 	let chartController = null;
 	let resizeObserver;
 	let stepObserver;
+	let visibilityObserver;
 	let scrollyMount = $state(null);
 	let activeStep = $state(-1);
+	let chartSectionVisible = false;
 	let rafId = 0;
 	let lastRenderedWidth = 0;
 
@@ -49,6 +52,10 @@
 			};
 		})
 	);
+
+	function syncMarqueeActive() {
+		chartController?.setMarqueeActive(chartSectionVisible);
+	}
 
 	function applyStepFocus() {
 		if (!chartController) return;
@@ -75,6 +82,17 @@
 		lastRenderedWidth = width;
 		chartController = renderSemanticsRibbons(chartMount, payload);
 		applyStepFocus();
+		syncMarqueeActive();
+	}
+
+	function setupVisibilityObserver() {
+		visibilityObserver?.disconnect();
+		const target = chartMount?.closest?.(".story-section--chart") ?? chartMount;
+		if (!target) return;
+		visibilityObserver = observeChartVisibility(target, (visible) => {
+			chartSectionVisible = visible;
+			syncMarqueeActive();
+		});
 	}
 
 	function scheduleRender() {
@@ -125,6 +143,7 @@
 	onMount(() => {
 		renderChart();
 		setupStepObserver();
+		setupVisibilityObserver();
 		if (!chartMount) return;
 		resizeObserver = new ResizeObserver(() => {
 			scheduleRender();
@@ -136,6 +155,7 @@
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
 		stepObserver?.disconnect();
+		visibilityObserver?.disconnect();
 		chartController?.destroy();
 	});
 </script>

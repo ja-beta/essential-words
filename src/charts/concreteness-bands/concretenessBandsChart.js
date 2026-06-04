@@ -521,9 +521,25 @@ export function renderConcretenessBands(container, payload, { width }) {
 		}
 	}
 
-	let marqueeRunning = true;
+	let marqueeRunning = false;
 	let rafId = 0;
 	let lastT = performance.now();
+
+	function setMarqueeActive(active) {
+		const next = Boolean(active);
+		if (next === marqueeRunning) return;
+		if (next) {
+			marqueeRunning = true;
+			lastT = performance.now();
+			if (!rafId) rafId = requestAnimationFrame(animateMarquee);
+			return;
+		}
+		marqueeRunning = false;
+		if (rafId) {
+			cancelAnimationFrame(rafId);
+			rafId = 0;
+		}
+	}
 
 	function animateMarquee(now) {
 		if (!marqueeRunning) return;
@@ -796,8 +812,6 @@ function applyFocusState() {
 
 	container.replaceChildren(svg.node());
 	measureBandCycles();
-	lastT = performance.now();
-	rafId = requestAnimationFrame(animateMarquee);
 
 	return {
 	setInteractionLocked(locked) {
@@ -828,10 +842,9 @@ function applyFocusState() {
 		focusRanges = [];
 		applyFocusState();
 	},
+	setMarqueeActive,
 		destroy() {
-			marqueeRunning = false;
-			cancelAnimationFrame(rafId);
-			rafId = 0;
+			setMarqueeActive(false);
 			interruptHoverTransitions();
 			if (hoveredBand) {
 				finishHoverCleanup(hoveredBand);

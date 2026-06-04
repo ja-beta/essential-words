@@ -1,6 +1,7 @@
 <script>
 	import { getContext, onDestroy, onMount } from "svelte";
 	import { renderConcretenessBands } from "./concretenessBandsChart.js";
+	import { observeChartVisibility } from "$utils/chartVisibility.js";
 
 	let { note = "", overlays = [] } = $props();
 
@@ -18,7 +19,9 @@
 	let chartController = null;
 	let resizeObserver;
 	let stepObserver;
+	let visibilityObserver;
 	let chartSectionEl = null;
+	let chartSectionVisible = false;
 	let rafId = 0;
 	let chartReady = $state(false);
 	let activeStep = $state(-1);
@@ -72,6 +75,10 @@
 	);
 	const overlayModeActive = $derived(activeStep >= 0 && activeStep < overlaySteps.length);
 
+	function syncMarqueeActive() {
+		chartController?.setMarqueeActive(chartSectionVisible);
+	}
+
 	function applyStepFocus() {
 		if (!chartController) return;
 		if (activeStep < 0 || activeStep >= overlaySteps.length) {
@@ -97,6 +104,17 @@
 		lastRenderedWidth = width;
 		chartController = renderConcretenessBands(chartMount, payload, { width });
 		applyStepFocus();
+		syncMarqueeActive();
+	}
+
+	function setupVisibilityObserver() {
+		visibilityObserver?.disconnect();
+		const target = chartSectionEl ?? rootMount?.closest?.(".story-section--chart") ?? chartWrap ?? chartMount;
+		if (!target) return;
+		visibilityObserver = observeChartVisibility(target, (visible) => {
+			chartSectionVisible = visible;
+			syncMarqueeActive();
+		});
 	}
 
 	function scheduleRender() {
@@ -148,6 +166,7 @@
 		chartReady = true;
 		chartSectionEl = rootMount?.closest?.(".story-section--chart") ?? null;
 		setupStepObserver();
+		setupVisibilityObserver();
 		const resizeTarget = chartWrap ?? chartMount;
 		if (!resizeTarget) return;
 		resizeObserver = new ResizeObserver(() => scheduleRender());
@@ -159,6 +178,7 @@
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
 		stepObserver?.disconnect();
+		visibilityObserver?.disconnect();
 		chartController?.destroy();
 		chartController = null;
 	});

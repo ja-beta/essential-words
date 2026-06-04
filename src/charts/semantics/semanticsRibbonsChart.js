@@ -893,8 +893,24 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	}
 
 	let rafId = 0;
-	let marqueeRunning = true;
+	let marqueeRunning = false;
 	let lastT = performance.now();
+
+	function setMarqueeActive(active) {
+		const next = Boolean(active);
+		if (next === marqueeRunning) return;
+		if (next) {
+			marqueeRunning = true;
+			lastT = performance.now();
+			if (!rafId) rafId = requestAnimationFrame(animateMarquee);
+			return;
+		}
+		marqueeRunning = false;
+		if (rafId) {
+			cancelAnimationFrame(rafId);
+			rafId = 0;
+		}
+	}
 
 	function animateMarquee(now) {
 		if (!marqueeRunning) return;
@@ -922,7 +938,6 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 		if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
 	}
-	rafId = requestAnimationFrame(animateMarquee);
 
 	catGroups.selectAll(".cat-group").each(function eachCat() {
 		const el = d3.select(this);
@@ -989,10 +1004,9 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		clearFocus() {
 			applyForcedFocus([]);
 		},
+		setMarqueeActive,
 		destroy() {
-			marqueeRunning = false;
-			cancelAnimationFrame(rafId);
-			rafId = 0;
+			setMarqueeActive(false);
 			svg.remove();
 		}
 	};
