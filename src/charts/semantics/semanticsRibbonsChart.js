@@ -3,7 +3,7 @@ import * as d3 from "d3";
 const CHANGE_THRESHOLD = 20;
 
 const LAYOUT = {
-	margin: { top: 50, right: 200, bottom: 50, left: 200 },
+	margin: { top: 24, right: 200, bottom: 0, left: 200 },
 	colW: 0,
 	gapW: 640,
 	bandGap: 13,

@@ -30,6 +30,7 @@
 	}
 
 	let chartMount = $state(null);
+	let stageMount = $state(null);
 	let chartController = null;
 	let resizeObserver;
 	let stepObserver;
@@ -68,6 +69,26 @@
 		chartController.setFocus(overlaySteps[activeStep].focusCategories ?? []);
 	}
 
+
+	function updateStageTop() {
+		if (!stageMount || !chartMount || !scrollyMount) return;
+		const svgEl = chartMount.querySelector("svg");
+		if (!svgEl) return;
+		const chartH = Math.round(svgEl.getBoundingClientRect().height);
+		const vh = window.innerHeight;
+		const minTopRaw = getComputedStyle(scrollyMount).getPropertyValue("--sem-stage-top").trim();
+		const minTop = minTopRaw.endsWith("px")
+			? parseFloat(minTopRaw)
+			: minTopRaw.endsWith("vh")
+				? (parseFloat(minTopRaw) / 100) * vh
+				: 20;
+		const centered = Math.floor((vh - chartH) / 2);
+
+		const top = Math.max(minTop, centered);
+		scrollyMount.style.setProperty("--chart-overlay-stage-top", `${top}px`);
+		scrollyMount.style.setProperty("--chart-overlay-stage-height", `${chartH}px`);
+	}
+
 	function renderChart() {
 		if (!chartMount || !payload || payloadError) {
 			chartController?.destroy();
@@ -83,6 +104,8 @@
 		chartController = renderSemanticsRibbons(chartMount, payload);
 		applyStepFocus();
 		syncMarqueeActive();
+		// Run after the browser has painted the SVG so getBoundingClientRect is accurate.
+		requestAnimationFrame(updateStageTop);
 	}
 
 	function setupVisibilityObserver() {
@@ -100,6 +123,9 @@
 		rafId = requestAnimationFrame(() => {
 			rafId = 0;
 			renderChart();
+			// If the chart didn't re-render (same width), still re-check the top offset
+			// because the viewport height may have changed (e.g. mobile toolbar show/hide).
+			requestAnimationFrame(updateStageTop);
 		});
 	}
 
@@ -165,7 +191,7 @@
 		<p class="semantics-viz-error" role="alert">{payloadError}</p>
 	{:else if payload}
 		<div class="semantics-scrolly chart-overlay-scrolly" bind:this={scrollyMount}>
-			<div class="semantics-stage chart-overlay-stage">
+			<div class="semantics-stage chart-overlay-stage" bind:this={stageMount}>
 				<div class="semantics-viz-chart" bind:this={chartMount}></div>
 			</div>
 			{#if overlaySteps.length}
@@ -225,6 +251,7 @@
 		--sem-chart-bg: var(--color-bg, #fffff1);
 		--chart-overlay-stage-top: 10vh;
 		--chart-overlay-stage-height: 80vh;
+		--sem-stage-top: 32px;
 		--chart-overlay-steps-top-pad: 85vh;
 		--chart-overlay-steps-bottom-pad: 80vh;
 		--chart-overlay-step-min-h: 75vh;
