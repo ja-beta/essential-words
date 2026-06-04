@@ -332,37 +332,37 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		.append("text")
 		.attr("x", gslX1)
 		.attr("y", margin.top - 20)
+		.attr("class", "list-head")
 		.attr("text-anchor", "start")
 		.attr("fill", "var(--sem-ribbon-header)")
-		.attr("font-size", `${13 * fontScale}px`)
-		.attr("font-weight", 600)
+		.attr("font-size", `${15 * fontScale}px`)
 		.text("1953 list");
-	svg
-		.append("text")
-		.attr("x", gslX1)
-		.attr("y", margin.top - 7)
-		.attr("text-anchor", "start")
-		.attr("fill", "var(--sem-ribbon-header-sub)")
-		.attr("font-size", `${9.5 * fontScale}px`)
-		.text(`${payload.nGsl.toLocaleString()} words`);
+	// svg
+	// 	.append("text")
+	// 	.attr("x", gslX1)
+	// 	.attr("y", margin.top - 7)
+	// 	.attr("text-anchor", "start")
+	// 	.attr("fill", "var(--sem-ribbon-header-sub)")
+	// 	.attr("font-size", `${9.5 * fontScale}px`)
+	// 	.text(`${payload.nGsl.toLocaleString()} words`);
 
 	svg
 		.append("text")
 		.attr("x", ngslX0)
 		.attr("y", margin.top - 20)
+		.attr("class", "list-head")
 		.attr("text-anchor", "end")
 		.attr("fill", "var(--sem-ribbon-header)")
-		.attr("font-size", `${13 * fontScale}px`)
-		.attr("font-weight", 600)
+		.attr("font-size", `${15 * fontScale}px`)
 		.text("2023 list");
-	svg
-		.append("text")
-		.attr("x", ngslX0)
-		.attr("y", margin.top - 7)
-		.attr("text-anchor", "end")
-		.attr("fill", "var(--sem-ribbon-header-sub)")
-		.attr("font-size", `${9.5 * fontScale}px`)
-		.text(`${payload.nNgsl.toLocaleString()} words`);
+	// svg
+	// 	.append("text")
+	// 	.attr("x", ngslX0)
+	// 	.attr("y", margin.top - 7)
+	// 	.attr("text-anchor", "end")
+	// 	.attr("fill", "var(--sem-ribbon-header-sub)")
+	// 	.attr("font-size", `${9.5 * fontScale}px`)
+	// 	.text(`${payload.nNgsl.toLocaleString()} words`);
 
 	const defs = svg.append("defs");
 	const catGroups = svg.append("g").attr("class", "cats");

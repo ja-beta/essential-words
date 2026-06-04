@@ -219,6 +219,12 @@
 		overflow: visible;
 	}
 
+	.semantics-viz-chart :global(.list-head){
+		text-transform: uppercase;
+		font-weight: 600;
+		font-family: var(--font-mono);
+	}
+
 	@media (max-width: 1080px) {
 		.semantics-viz {
 			--sem-slope-width: 100%;

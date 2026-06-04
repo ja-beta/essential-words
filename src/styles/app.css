@@ -18,6 +18,8 @@
 
 	/* font sizes*/
 	--p-font-size: 1.25rem;
+	--title-sub-font-size: 2.5rem;
+	--section-header-font-size: 2.5rem;
 	--chart-header-font-size: 1.75rem;
 
 	/* z-index */
@@ -198,7 +200,7 @@ svg {
 	margin: 3rem auto 2.5rem auto;
 	font-family: var(--font-serif);
 	font-weight: 300;
-	font-size: 2.75rem;
+	font-size: var(--title-sub-font-size);
 	line-height: 1.15;
 	letter-spacing: 3%;
 	text-transform: uppercase;
@@ -215,6 +217,17 @@ svg {
 	max-width: var(--max-prose-width);
 }
 
+.section-header{
+	font-family: var(--font-serif);
+	font-size: var(--section-header-font-size);
+	font-weight: 400;
+	margin: 5rem 0 1.5rem -3rem;
+	text-transform: uppercase;
+	letter-spacing: 3%;
+	line-height: 1.2;
+
+}
+
 
 .chart-header {
 	width: 100%;
@@ -223,7 +236,7 @@ svg {
 	z-index: var(--z-base);
 }
 
-.story-heading{
+.chart-heading{
 	font-size: var(--chart-header-font-size);
 	font-weight: 400;
 	line-height: 1.2;

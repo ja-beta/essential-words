@@ -91,7 +91,7 @@
 					{#if hasText(block.title) || hasText(block.subhead)}
 						<header class="chart-header">
 							{#if hasText(block.title)}
-								<h2 class="story-heading">{@html block.title}</h2>
+								<h3 class="chart-heading">{@html block.title}</h3>
 							{/if}
 							{#if hasText(block.subhead)}
 								<p class="chart-subhead">{@html block.subhead}</p>

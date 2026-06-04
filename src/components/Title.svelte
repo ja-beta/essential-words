@@ -28,7 +28,6 @@
         font-family: var(--font-sans);
         line-height: 0.8;
         gap: var(--title-word-gap);
-        color: var(--color-highlight-text);
         box-sizing: border-box;
     }
 
@@ -37,6 +36,7 @@
     }
 
     .tofrom{
+        color: var(--color-primary);
         font-family: var(--font-mono);
         font-size: 35px;
         letter-spacing: 5%;
