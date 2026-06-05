@@ -665,4 +665,40 @@
 		white-space: nowrap;
 	}
 
+	@media (max-width: 1024px){
+		.intro-sequence{
+			--intro-grid-cols: 4;
+			--intro-grid-row-scale: 8.4;
+		}
+	}
+
+	@media (max-width: 720px){
+		.intro-stage{
+			margin: 0 calc(-2.5 * var(--prose-margins)) 0 calc(var(--prose-margins) * -1);
+		}
+
+		.intro-bg-grid{
+			margin: 0 1rem;
+		}
+
+		.intro-sequence{
+			--intro-part1-sticky-top: 30vh;
+			--intro-grid-cols: 3;
+			--intro-grid-row-scale: 10.2;
+		}
+
+		.intro-copy p {
+			font-size: 1.125rem;
+			line-height: 1.3;
+		}
+
+		.word{
+			font-size: 0.875rem;
+		}
+	}
+
+	@media (max-width: 540px){
+		
+	}
+
 </style>

@@ -231,9 +231,10 @@
 				<div class="scope-tooltip-word">{hoverInfo.w}</div>
 				<div class="scope-tooltip-meta">
 					{hoverInfo.c}
-					{#if hoverInfo.s === "remained"}<span> · in both lists</span>
-					{:else if hoverInfo.s === "removed"}<span> · removed</span>
-					{:else if hoverInfo.s === "added"}<span> · added</span>{/if}
+					{#if hoverInfo.s === "remained"}<br><span class="scope-tooltip-meta-label">In both lists</span>
+					{:else if hoverInfo.s === "removed"}<br><span class="scope-tooltip-meta-label">Removed</span>
+					{:else if hoverInfo.s === "added"}<br><span class="scope-tooltip-meta-label">Added</span>
+					{/if}
 				</div>
 			</div>
 		{/if}
@@ -291,12 +292,6 @@
 		max-width: min(100%, var(--max-chart-width));
 		margin-inline: auto;
 		box-sizing: border-box;
-	}
-
-	.scope-error {
-		text-align: center;
-		font-size: 0.95rem;
-		color: var(--color-secondary);
 	}
 
 	.scope :global(.chart-overlay-scrolly) {
@@ -420,16 +415,16 @@
 
 	.scope-tooltip {
 		position: fixed;
-		z-index: 100;
+		z-index: var(--z-overlay);
 		pointer-events: none;
 		background: rgba(255, 255, 241, 0.95);
 		color: var(--color-primary);
 		border: 1px solid #ededd8;
 		border-radius: 2px;
-		padding: 0.4rem 0.65rem;
+		padding: 0.75rem 0.75rem;
 		max-width: 240px;
-		font-family: var(--font-sans);
-		font-size: 0.85rem;
+		font-family: var(--font-mono);
+		font-size: 15px;
 		line-height: 1.35;
 		opacity: 0;
 		transform: translate(14px, -50%);
@@ -441,28 +436,43 @@
 	}
 
 	.scope-tooltip-word {
-		font-weight: 600;
-		font-size: 1rem;
-		margin-bottom: 0.15rem;
-		text-transform: lowercase;
+		font-size: 1.25rem;
+		margin-bottom: 0.5rem;
+		color: var(--color-highlight-text);
+		font-style: italic;
+		display: inline-block;
+		padding: 0 0.35rem;
+		box-decoration-break: clone;
+		background-repeat: no-repeat;
+		background-size: 100% 1.15em;
+		background-position: 0 67%; 
 	}
 
 	.scope-tooltip-meta {
 		font-size: 13px;
 		color: var(--color-secondary);
-		text-transform: lowercase;
+	}
+
+	.scope-tooltip-meta-label {
+		display: inline-block;
+		text-transform: uppercase;
+		letter-spacing: 2%;
+		margin-top: 0.5rem;
 	}
 
 	.scope-tooltip--removed .scope-tooltip-word {
-		color: var(--scope-color-removed);
+		background-image: linear-gradient(var(--color-gsl-highlight), var(--color-gsl-highlight));
+		font-family: var(--font-serif);
 	}
 
 	.scope-tooltip--added .scope-tooltip-word {
-		color: var(--scope-color-added);
+		background-image: linear-gradient(var(--color-ngsl-highlight), var(--color-ngsl-highlight));
+		font-family: var(--font-sans);
 	}
 
 	.scope-tooltip--remained .scope-tooltip-word {
-		color: var(--color-primary);
+		background-image: linear-gradient(var(--color-remained-highlight), var(--color-remained-highlight));
+		font-family: var(--font-sans);
 	}
 
 	@media (max-width: 1080px) {
