@@ -43,6 +43,7 @@
 	--max-med-width: 850px;
 	--max-chart-width: 1200px;
 	--prose-margins: 1rem;
+	--mobile-margins: 1rem;
 	
 	--color-bg: #FFFFF1;
 	--color-fg: var(--color-gray-900);
