@@ -232,7 +232,8 @@
 <style>
 	
 	.concr-bands {
-		--concr-bands-margin-top: 56px;
+		--concr-bands-margin-top: 100px;
+		--concr-bands-axis-tick-offset: 62px;
 		--concr-bands-margin-right: 24px;
 		--concr-bands-margin-bottom: 32px;
 		--concr-bands-margin-left: 24px;
@@ -244,16 +245,16 @@
 		--concr-bands-min-bar-width: 4px;
 		--concr-bands-text-pad: 4px;
 		--concr-bands-axis-line-pad: 8px;
-		--concr-bands-dir-label-offset-y: 36px;
-		--concr-bands-dir-label-offset-x: 8px;
-		--concr-bands-endpoint-offset-top: 20px;
-		--concr-bands-endpoint-offset-bottom: 34px;
+		--concr-bands-dir-label-offset-y: 56px;
+		--concr-bands-dir-label-offset-x: 0px;
+		--concr-bands-endpoint-offset-top: 18px;
+		--concr-bands-endpoint-offset-bottom: 30px;
 		--concr-bands-axis-label-w: 28px;
 		--concr-bands-axis-label-h: 18px;
-		--concr-bands-dir-label-size: 15px;
+		--concr-bands-dir-label-size: 16px;
 		--concr-bands-axis-whole-size: 14px;
 		--concr-bands-axis-half-size: 14px;
-		--concr-bands-endpoint-size: 15px;
+		--concr-bands-endpoint-size: 14px;
 		--concr-bands-removed-bg-row: rgba(237, 144, 39, 0.12);
 		--concr-bands-added-bg-row: rgba(219, 106, 232, 0.12);
 
@@ -268,8 +269,9 @@
 		.concr-bands {
 			--concr-bands-band-h: 28px;
 			--concr-bands-marquee-font-size: 18px;
-			--concr-bands-margin-top: 48px;
-			--concr-bands-margin-bottom: 48px;
+		--concr-bands-margin-top: 72px;
+		--concr-bands-axis-tick-offset: 36px;
+		--concr-bands-margin-bottom: 48px;
 			--concr-bands-dir-label-offset-y: 22px;
 		}
 	}
@@ -292,11 +294,11 @@
 	}
 
     .concr-bands-chart :global(.endpoint-text) {
-        font-size: 18px;
+        font-size: 14px;
         font-family: var(--font-mono);
         text-transform: uppercase;
         color: var(--color-primary);
-        font-weight: 600;
+        font-weight: 500;
         letter-spacing: 2%;
     }
 

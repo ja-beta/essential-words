@@ -8,29 +8,6 @@ function readCssPx(el, varName, fallback) {
 	return Number.isFinite(n) ? n : fallback;
 }
 
-/**
- * @param {import("d3").Selection<SVGGElement, unknown, null, undefined>} g
- * @param {"left" | "right"} direction tip direction
- * @param {number} size width in px
- * @param {string} strokeColor
- * @param {number} [height]
- */
-function drawChevronHorizontal(g, direction, size, strokeColor, height = 8) {
-	const cy = -1;
-	const halfH = height / 2;
-	let path;
-	if (direction === "right") {
-		path = `M 0 ${cy - halfH} L ${size} ${cy} L 0 ${cy + halfH}`;
-	} else {
-		path = `M ${size} ${cy - halfH} L 0 ${cy} L ${size} ${cy + halfH}`;
-	}
-	g.append("path")
-		.attr("d", path)
-		.attr("stroke", strokeColor)
-		.attr("stroke-width", 1.5)
-		.attr("fill", "none")
-		.attr("class", "concr-bands-dir-chevron");
-}
 
 export function readConcretenessBandsMetrics(containerEl) {
 	const root = containerEl?.closest?.(".concr-bands") ?? containerEl;
@@ -59,7 +36,8 @@ export function readConcretenessBandsMetrics(containerEl) {
 		dirLabelSizePx: px("--concr-bands-dir-label-size", 11),
 		axisWholeSizePx: px("--concr-bands-axis-whole-size", 11),
 		axisHalfSizePx: px("--concr-bands-axis-half-size", 9),
-		endpointSizePx: px("--concr-bands-endpoint-size", 12)
+		endpointSizePx: px("--concr-bands-endpoint-size", 12),
+		axisTickOffset: px("--concr-bands-axis-tick-offset", 40)
 	};
 }
 
@@ -78,11 +56,13 @@ export const CONCRETENESS_BANDS_CONFIG = {
 		addedText: "var(--color-ngsl)",
 		grid: "var(--concr-bands-grid, #d5d0c8)",
 		gridText: "var(--concr-bands-grid-text, #a8a098)",
-		muted: "var(--concr-bands-muted, #8F8A77)"
+		muted: "var(--concr-bands-muted, #8F8A77)",
+		axisLabelBg: "var(--color-bg, #FFFFF1)"
 	},
 	typography: {
-		fontFamily: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)',
-		removedFontFamily: 'var(--font-serif)'
+		sansFont: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)',
+		serifFont: 'var(--font-serif, "Source Serif 4", serif)',
+		monoFont: 'var(--font-mono, "Source Code Pro", monospace)'
 	}
 };
 
@@ -102,11 +82,17 @@ export function renderConcretenessBands(container, payload, { width }) {
 	const centerGap = m.centerGap;
 	const fontSize = m.fontSize;
 
-	const { bins, numBins, binW } = payload;
+	const { bins, numBins, binW, maxPct } = payload;
 	const plotW = W - margin.left - margin.right;
 	const centerX = margin.left + plotW / 2;
 	const halfGap = centerGap / 2;
 	const halfW = (plotW - centerGap) / 2;
+
+	const niceMax = Math.ceil((maxPct || 1) / 10) * 10;
+	const tickStep = niceMax <= 30 ? 10 : 20;
+	const axisTicks = d3.range(0, niceMax + 0.001, tickStep);
+	const axisTickPx = (pct) => (pct / niceMax) * halfW;
+	const axisY = margin.top - m.axisTickOffset;
 
 	const binY = (b) => margin.top + b * (bandH + bandGap);
 	const chartH = margin.top + numBins * bandH + (numBins - 1) * bandGap + margin.bottom;
@@ -152,21 +138,59 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.attr("width", W - (centerX + halfGap))
 		.attr("height", chartH);
 
-	svg
-		.append("line")
-		.attr("x1", centerX)
-		.attr("x2", centerX)
-		.attr("y1", margin.top - m.axisLinePad)
-		.attr("y2", binY(numBins - 1) + bandH + m.axisLinePad)
-		.attr("stroke", cfg.colors.grid)
-		.attr("stroke-width", 1)
-		.attr("stroke-opacity", 0.6);
+	// x axis ───────────────
+	for (const [x1, x2] of [
+		[margin.left, centerX - halfGap],
+		[centerX + halfGap, W - margin.right]
+	]) {
+		svg
+			.append("line")
+			.attr("x1", x1)
+			.attr("x2", x2)
+			.attr("y1", axisY)
+			.attr("y2", axisY)
+			.attr("stroke", cfg.colors.grid)
+			.attr("stroke-width", 1)
+			.attr("stroke-opacity", 0.8)
+			.attr("stroke-linecap", "butt" )
+			.attr("stroke-dasharray", "4 5");
+	}
 
-	const dirY = margin.top - m.dirLabelOffsetY - 18;
-	const dirChevronSize = 6;
-	const dirChevronGap = 9;
-	const removedDirX = centerX - halfGap - m.dirLabelOffsetX - 8;
-	const addedDirX = centerX + halfGap + m.dirLabelOffsetX + 8;
+	// tick marks and labels ────────────────────────────────────────────
+	for (const side of ["removed", "added"]) {
+		for (const tick of axisTicks) {
+			const xOff = axisTickPx(tick);
+			const tickX =
+				side === "removed" ? centerX - halfGap - xOff : centerX + halfGap + xOff;
+
+			svg
+				.append("line")
+				.attr("x1", tickX)
+				.attr("x2", tickX)
+				.attr("y1", axisY)
+				.attr("y2", axisY + 6)
+				.attr("stroke", cfg.colors.grid)
+				.attr("stroke-width", 1);
+
+			svg
+				.append("text")
+				.attr("x", tickX)
+				.attr("y", axisY + 20)
+				.attr("text-anchor", "middle")
+				.attr("dominant-baseline", "auto")
+				.attr("font-size", `${m.axisHalfSizePx}px`)
+				.attr("fill", cfg.colors.gridText)
+				.attr("font-weight", 500)
+				.attr("letter-spacing", "0.08em")
+				.attr("font-family", cfg.typography.monoFont)
+				.text(`${tick}%`);
+		}
+	}
+
+	// direction labels ─────────────────────────────────────────
+	const dirY = axisY - 22;
+	const removedDirX = centerX - halfGap - m.dirLabelOffsetX;
+	const addedDirX = centerX + halfGap + m.dirLabelOffsetX;
 
 	svg
 		.append("text")
@@ -179,16 +203,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.attr("font-weight", 600)
 		.attr("letter-spacing", "0.08em")
 		.attr("fill", colors.removed.text)
-		.text("removed from the 1953 list");
-
-	drawChevronHorizontal(
-		svg
-			.append("g")
-			.attr("transform", `translate(${removedDirX + dirChevronGap},${dirY})`),
-		"left",
-		dirChevronSize,
-		colors.removed.text
-	);
+		.text("removed from the 1953 list <");
 
 	svg
 		.append("text")
@@ -201,16 +216,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.attr("font-weight", 600)
 		.attr("letter-spacing", "0.08em")
 		.attr("fill", colors.added.text)
-		.text("added to the 2023 list");
-
-	drawChevronHorizontal(
-		svg
-			.append("g")
-			.attr("transform", `translate(${addedDirX - dirChevronGap - dirChevronSize},${dirY})`),
-		"right",
-		dirChevronSize,
-		colors.added.text
-	);
+		.text("> added to the 2023 list");
 
 	function yForLabel(v) {
 		if (v <= 1.0) return binY(0);
@@ -219,7 +225,24 @@ export function renderConcretenessBands(container, payload, { width }) {
 		return binY(bAbove) + bandH + bandGap / 2;
 	}
 
+	const yAxisTop = yForLabel(1.0);
+	const yAxisBottom = yForLabel(5.0);
+
+	svg
+		.append("line")
+		.attr("class", "concr-bands-y-axis")
+		.attr("x1", centerX)
+		.attr("x2", centerX)
+		.attr("y1", yAxisTop)
+		.attr("y2", yAxisBottom)
+		.attr("stroke", cfg.colors.grid)
+		.attr("stroke-width", 1)
+		.attr("stroke-opacity", 0.8)
+		.attr("stroke-dasharray", "4 4");
+
 	const axisValues = [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
+	const labelPadX = 4;
+	const labelPadY = 2;
 	for (const v of axisValues) {
 		const y = yForLabel(v);
 		const isWhole = Number.isInteger(v);
@@ -237,15 +260,16 @@ export function renderConcretenessBands(container, payload, { width }) {
 			}
 		}
 
-		const labelW = m.axisLabelW;
-		const labelH = m.axisLabelH;
+		const labelW = m.axisLabelW + labelPadX * 2;
+		const labelH = m.axisLabelH + labelPadY * 2;
 		svg
 			.append("rect")
+			.attr("class", "concr-bands-axis-label-bg")
 			.attr("x", centerX - labelW / 2)
 			.attr("y", y - labelH / 2)
 			.attr("width", labelW)
 			.attr("height", labelH)
-			.attr("fill", cfg.colors.background)
+			.attr("fill", cfg.colors.axisLabelBg)
 			.attr("fill-opacity", 1)
 			.attr("rx", 1);
 
@@ -255,6 +279,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 			.attr("y", y)
 			.attr("text-anchor", "middle")
 			.attr("dominant-baseline", "central")
+			.attr("font-family", cfg.typography.monoFont)
 			.attr("font-size", `${isWhole ? m.axisWholeSizePx : m.axisHalfSizePx}px`)
 			.attr("font-weight", isWhole ? 600 : 400)
 			.attr("fill", isWhole ? cfg.colors.muted : cfg.colors.gridText)
@@ -268,7 +293,6 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.attr("y", margin.top - m.endpointOffsetTop)
 		.attr("text-anchor", "middle")
 		.attr("font-size", `${m.endpointSizePx}px`)
-		.attr("letter-spacing", "0.04em")
 		.attr("fill", cfg.colors.gridText)
 		.text("abstract");
 
@@ -279,7 +303,6 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.attr("y", binY(numBins - 1) + bandH + m.endpointOffsetBottom)
 		.attr("text-anchor", "middle")
 		.attr("font-size", `${m.endpointSizePx}px`)
-		.attr("letter-spacing", "0.04em")
 		.attr("fill", cfg.colors.gridText)
 		.text("concrete");
 
@@ -293,7 +316,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 		const y = binY(b);
 
 		if (bin.removed.length > 0) {
-			const bw = Math.max(bin.frac_removed * halfW, m.minBarWidth);
+			const bw = Math.max((bin.pct_removed / niceMax) * halfW, m.minBarWidth);
 			const bx = centerX - halfGap - bw;
 			const clipId = `${uid}-clip-${b}-removed`;
 
@@ -345,7 +368,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				.attr("font-style", "italic")
 				.attr("letter-spacing", "0.05em")
 				.attr("fill", colors.removed.text)
-				.attr("font-family", cfg.typography.removedFontFamily)
+				.attr("font-family", cfg.typography.serifFont)
 				.text(repeated);
 
 			bg.append("rect")
@@ -365,7 +388,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				cycle,
 				textStyle: {
 					fontSize: `${fontSize}px`,
-					fontFamily: cfg.typography.removedFontFamily,
+					fontFamily: cfg.typography.serifFont,
 					fontWeight: 400,
 					fontStyle: "italic",
 					letterSpacing: "0.05em"
@@ -385,7 +408,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 		}
 
 		if (bin.added.length > 0) {
-			const bw = Math.max(bin.frac_added * halfW, m.minBarWidth);
+			const bw = Math.max((bin.pct_added / niceMax) * halfW, m.minBarWidth);
 			const bx = centerX + halfGap;
 			const clipId = `${uid}-clip-${b}-added`;
 
@@ -437,7 +460,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				.attr("font-style", "italic")
 				.attr("letter-spacing", "0.05em")
 				.attr("fill", colors.added.text)
-				.attr("font-family", cfg.typography.fontFamily)
+				.attr("font-family", cfg.typography.sansFont)
 				.text(repeated);
 
 			bg.append("rect")
@@ -457,7 +480,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				cycle,
 				textStyle: {
 					fontSize: `${fontSize}px`,
-					fontFamily: cfg.typography.fontFamily,
+					fontFamily: cfg.typography.sansFont,
 					fontWeight: 400,
 					fontStyle: "italic",
 					letterSpacing: "0.05em"
