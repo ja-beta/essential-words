@@ -234,7 +234,7 @@ function bandFontSize(c) {
 const PCT_CAP_LABEL_FONT_SIZE = 14;
 
 function percentCapLabelLayout(y, h, midY, thinThreshold, capLabelBottomPad) {
-	if (h >= thinThreshold + 2) {
+	if (h >= thinThreshold) {
 		return { labelY: midY, baseline: "central", hidden: false };
 	}
 
@@ -386,7 +386,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const ngslX0 = gslX1 + gapW;
 
 	const defaultFontSize = Math.max(14 * fontScale, minBandFontSize);
-	const thinThreshold = 13 * layoutScale;
+	const thinThreshold = 16 * layoutScale;
 	const antsYOffset = -2 * layoutScale;
 	const antsStrokeWidth = 1 * layoutScale;
 	const antsDashArray = `${4 * layoutScale} ${7 * layoutScale}`;
@@ -432,7 +432,6 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		ribbonSel.attr("fill", targetFill ?? c?.dirColor).attr("fill-opacity", focusRibbonFillOpacity);
 		ribbonSel.attr("stroke-width", 0).attr("stroke-opacity", 0);
 
-		// Thin-band fill and outline are toggled together — no stroke fade lag.
 		const outlineDuration = c?._thin ? 0 : duration;
 		const outlineApply = outlineDuration > 0 ? outlineSel.transition().duration(outlineDuration) : outlineSel;
 		outlineApply

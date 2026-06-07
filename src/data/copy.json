@@ -11,7 +11,7 @@
     },
     {
       "type": "intro",
-      "p1": "This list is an update of an earlier one, made in 1953, which identified about 2,300 words as the essential vocabulary to everyday life."
+      "p1": "This 2023 list is an update of an earlier one, made in 1953, which identified about 2,300 words as the essential vocabulary to everyday life at the time."
     },
     {
       "type": "intro",
@@ -21,23 +21,24 @@
       "type": "intro",
       "p1": "Some of the changes make immediate sense: <span class=gsl>Telegraph</span> dropped out; <span class=ngsl>computer</span> was added, along with <span class=ngsl>website</span> and <span class=ngsl>blog.</span> <span class=gsl>Tobacco</span> was replaced by <span class=ngsl>cigarette.</span> <span class=gsl>Motherhood</span> became <span class=ngsl>mom,</span> and <span class=ngsl>dad</span> was added too, though <i>fatherhood</i> was never on the list to begin with. The world changed and vocabulary surely followed.",
       "p2": "But also: <span class=gsl>apple</span> didn’t make the new list. Neither did <span class=gsl>fork, soap, umbrella</span> or <span class=gsl>leaf,</span> for example. It’s not that these things vanished from everyday life, but many hands-on words became less central to the core vocabulary. <span class=remained>Dog</span> stayed; <span class=gsl>goat</span> and <span class=gsl>donkey</span> didn’t. <span class=remained>Bread</span> stayed; breadmaking ingredients—<span class=gsl>flour</span> and <span class=gsl>wheat</span>—dropped. <span class=remained>Cook</span> is on the new list. <span class=gsl>Boil, bake,</span> and <span class=gsl>fry</span> are not.",
-      "p3": "And many of the words that were added, words such as <span class=ngsl>mortgage, corporation, appropriate, analysis, fairly,</span> and <span class=ngsl>despite,</span> don’t look anything like the ones that were discarded. In fact, they mostly don’t look like anything at all."
+      "p3": "And many of the words that were added, words such as <span class=ngsl>mortgage, corporation, appropriate, analysis, fairly,</span> and <span class=ngsl>despite,</span> don’t look anything like the ones that were discarded. In fact, they are mostly things that don’t look like anything at all."
     },
     {
-      "type": "hero",
+      "type": "title",
       "h1": "From Goat to Despite",
       "dek": "How the words we teach English language learners changed, and what that says about us",
       "byline": "By Jasmine Nackash"
     },
     {
       "type": "prose",
-      "html": "<p>These “essential vocabulary” lists are called the <a href=https://en.wikipedia.org/wiki/General_Service_List target=_blank>General Service List</a> (1953) and the <a href=https://en.wikipedia.org/wiki/New_General_Service_List target=_blank>New General Service List</a> (2013, revised in 2023).</p>\r\n\r\n\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data and extensively tested. The aim was a vocabulary list with as few words and as much coverage of everyday English usage as possible. That coverage is high. Over 90% for the 2023 list<sup>[1]</sup> and about 84% for the 1953 list.<sup>[2]</sup> A word earned its place by appearing often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society.</p>\r\n\r\n\r\n<p>That’s why the lists are interesting beyond language education. To account for that much of the language, they had to track whatever people were actually reading and saying. While these were practical tools, built to capture which words people need most, the answer also doubles as a snapshot of ordinary life, seventy years apart: what people were expected to engage with, and had to deal with, in their daily lives.</p>\r\n\r\n\r\n<p>Treating the lists as this indirect record of the day-to-day, I went through the differences between them from a few angles: what the words were about, how tangible they were, and what parts of speech they belonged to. Examined together, the gaps all seem to point to a certain kind of world, one that got both bigger and less immediate at the same time.</p>\r\n\r\n\r\n<h2 class=section-header>The Expanding World</h2>\r\n<p>First, I started by running all the words through a tool that sorts words by meaning,<sup>[3]</sup> common in linguistics research. It assigns each word to one of 21 subject categories, based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Together, they suggest what kind of world each list was built from.</p>"
+      "html": "<p>These “essential vocabulary” lists are called the <a href=https://en.wikipedia.org/wiki/General_Service_List target=_blank>General Service List</a> (1953) and the <a href=https://en.wikipedia.org/wiki/New_General_Service_List target=_blank>New General Service List</a> (2013, revised in 2023).</p>\r\n\r\n\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data and extensively tested. The aim was a vocabulary list with as few words and as much coverage of everyday English usage as possible. That coverage is high. Over 90% for the 2023 list<sup>[1]</sup> and about 84% for the 1953 list.<sup>[2]</sup> To account for that much of the language, they had to track a significant portion of whatever people were actually reading and saying. A word earned its place by appearing often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society.</p>\r\n\r\n\r\n<p>While these were practical tools, built to capture which words people need most, the answer also doubles as a snapshot of ordinary life, seventy years apart: what people were expected to engage with, and had to deal with, in their daily lives.</p>\r\n\r\n\r\n<p>Treating the lists as this indirect record of the day-to-day, I went through the differences between them from a few angles: what the words were about, how tangible they were, and what parts of speech they belonged to.</p>\r\n\r\n\r\n<h2 class=section-header>The Expanding World</h2>\r\n<p>First, I started by running all the words through a tool that sorts words by meaning,<sup>[3]</sup> common in linguistics research. It assigns each word to one of 21 subject categories, based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Together, they suggest what kind of world each list was built for.</p>"
     },
     {
       "type": "chart",
       "chartId": "semanticsSlopegraph",
-      "title": "Less About Objects and Feelings. More About Abstract Ideas and Mental Processes.",
-      "subhead": "Each band is one of 21 semantic categories, sized by its share of each list. Hover to focus on each category.",
+      "title": "The New List Devotes More Space to Abstract Concepts, and Less to the Physical World.",
+      "titleOld": "Less About Objects and Feelings. More About Abstract Ideas and Mental Processes.",
+      "subhead": "Each band is one of 21 semantic categories, sized and sorted by its share of each list.",
       "note": "Data source: all words run through the UCREL Semantic Analysis System (USAS).",
       "overlays": [
         {
@@ -48,12 +49,12 @@
         {
           "label": "Overlay 2 – focus on drops",
           "focusCategories": "Substances, Materials, Objects and Equipment | Emotion | The Body and the Individual | Food and Farming",
-          "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words such as <span class=gsl>clay, corn, hammer, beard, towel,</span> and <span class=gsl>weave</span>— words for what you grow, make, and hold in your hand—all thinned out."
+          "html": "The sharpest drops were in the most tangible categories: Substances & Objects, the Body & the Individual, Food & Farming, Life & Living Things. Words such as <span class=gsl>clay, corn, hammer, beard, towel,</span> and <span class=gsl>weave</span>—words for what you grow, make, and hold in your hand—all thinned out."
         },
         {
           "label": "Overlay 3 – focus on Psych Processes vs. Emotion",
           "focusCategories": "Emotion | Psychological Actions, States and Processes",
-          "html": "While words about emotions shrank by 1.8 percentage points, words about psychological processes and reasoning grew by 1.7. That’s a nearly equal shift in the opposite direction. The vocabulary of inner life moved from something you simply react to, to something you work through. Less feeling and more thinking."
+          "html": "While words for emotions shrank by 1.8 percentage points, words for psychological processes grew by 1.7. <br>Plain sentiments such as <span class=remained>happy, sad, afraid,</span> and <span class=remained>angry</span> stayed. But the vocabulary of inner life dropped words for feelings such as<span class=gsl>patience, pity, despair,</span> and <span class=gsl>sorrow,</span> and picked up more words for thinking: <span class=ngsl>focus, judgment, investigate, and logic.</span>"
         }
       ]
     },
@@ -65,7 +66,7 @@
       "type": "chart",
       "chartId": "semanticsScope",
       "title": "The Vocabulary Moved Outward",
-      "subhead": "21 semantic categories, grouped by their scale of reach: the self, the immediate world, institutions, social life and communication, and abstract terms. Hover the tiles to explore the words in each domain.",
+      "subhead": "21 semantic categories, grouped by their scale of reach: the self, the immediate world, institutions, social life and communication, and abstract terms.",
       "note": "Data source: all words run through the UCREL Semantic Analysis System (USAS), then grouped into five umbrella-term domains: <ol class=note-list> <li class=note-list-item><b>The Self:</b> Emotion | The Body and the Individual</li> <li class=note-list-item><b>Local/Immediate:</b> Substances, Materials, Objects and Equipment | Food and Farming | Life and Living Things | Architecture, Housing and the Home | World and Environment</li> <li class=note-list-item><b>Institutional:</b> Money and Commerce in Industry | Government and Public | Education | Science and Technology</li> <li class=note-list-item><b>Social/Communicative:</b> Social Actions, States, and Processes | Movement, Location, Travel and Transport | Language and Communication | Entertainment, Sports and Games | Arts and Crafts</li> <li class=note-list-item><b>Universal/Abstract:</b> General and Abstract Terms | Psychological Actions, States and Processes | Numbers and Measurement | Names and Grammar | Time</li> </ol>",
       "overlays": [
         {
@@ -114,15 +115,15 @@
       "overlays": [
         {
           "label": "Overlay 1 – focus on band 4.5–5 (most concrete)",
-          "html": "Nearly a third of all the words that were removed scored as the most concrete. Only 7.3% of words added scored that high. <span class=gsl>Rust, umbrella, silk, screw,</span> and <span class=gsl>soap</span> all were discarded. Instead, <span class=ngsl>magazine, jail, apartment, bomb,</span> and <span class=ngsl>guitar</span> were added."
+          "html": "Nearly a third of all the words that were removed scored as the most concrete. Only 7.3% of words added scored that high. <span class=gsl>Rust, brick, silk, screw,</span> and <span class=gsl>cage</span> all were discarded. Instead, <span class=ngsl>magazine, jail, apartment, bomb,</span> and <span class=ngsl>guitar</span> were added."
         },
         {
           "label": "Overlay 2 – focus on bands 2–2.5 (mid-abstract)",
-          "html": "Nearly a quarter of all added words land in the middle, not quite picturable, but not entirely vague either—words such as <span class=ngsl>regulation, reform, cooperation, obligation, initiative, negotiate,</span> and <span class=ngsl>perception.</span> For comparison, the discarded words that have a similar score include: <span class=gsl>shame, despair, spite, fellowship, companionship.</span>"
+          "html": "Nearly a quarter of all added words land in the middle, not quite picturable, but not entirely vague either—words such as <span class=ngsl>regulation, reform, cooperation, obligation, initiative, negotiate,</span> and <span class=ngsl>perception.</span> For comparison, the discarded words that have a similar score include: <span class=gsl>shame, convenience, spite, fellowship, companionship.</span>"
         },
         {
           "label": "Overlay 3 – focus on bands 1–2",
-          "html": "Among the removed abstract words: <span class=gsl>courage, wisdom, mercy, loyalty, greed, fate, revenge,</span> and <span class=gsl>honesty…</span> Abstract, yes, yet carrying emotions grounded in experience. You can’t point to <span class=gsl>mercy</span> but you’ve felt it. The abstract words that were added are nothing like that: <span class=ngsl>interpretation, involvement, theoretical, somewhat, evaluate, despite.</span> They describe how things are structured and how processes unfold. They are language-based, through and through."
+          "html": "Among the removed abstract words: <span class=gsl>courage, wisdom, mercy, loyalty, greed, fate, revenge,</span> and <span class=gsl>honesty…</span> Abstract, yes, yet carrying emotions grounded in experience. You can’t point to <span class=gsl>mercy</span> but you’ve felt it. The abstract words that were added are nothing like that: <span class=ngsl>interpretation, involvement, theoretical, somewhat, evaluate, justify.</span> They describe how things are structured and how processes unfold. They are language-based, through and through."
         }
       ]
     },
@@ -139,7 +140,7 @@
     },
     {
       "type": "prose",
-      "html": "<p><span class=gsl>Axe</span> doesn’t need an adverb to modify it; you know what it is. But <span class=ngsl>implication, involvement,</span> and <span class=ngsl>policy</span> come with conditions, qualifications, and degrees that need to be spelled out. Adverbs do precisely that: language to calibrate language. \r\n<br>Look through all the adverbs that were added:</p>"
+      "html": "<p><span class=gsl>Axe</span> doesn’t need an adverb to modify it; you know what it is. But <span class=ngsl>acceptable, relevant,</span> and <span class=ngsl>adequate</span> come with conditions, qualifications, and degrees that need to be spelled out. Adverbs do precisely that: language to calibrate language. \r\n<br>Look through all the adverbs that were added:</p>"
     },
     {
       "type": "chart",

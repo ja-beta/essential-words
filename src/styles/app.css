@@ -191,13 +191,13 @@ svg {
 	align-items: center;
 }
 
-.story-section--hero{
+.story-section--title{
 	text-align: center;
 	margin: 0 auto;
 	max-width: var(--max-med-width);
 }
 
-.story-section--hero .story-dek{
+.story-section--title .story-dek{
 	max-width: var(--max-chart-width);	
 	margin: 3rem auto 2.5rem auto;
 	font-family: var(--font-serif-headline);
@@ -374,7 +374,7 @@ svg {
 
 @media (max-width: 768px) {
 
-	#intro.story-section {
+	.story-section--title {
 		margin-inline: var(--mobile-margins);
 	}
 }
