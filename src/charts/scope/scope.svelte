@@ -117,8 +117,13 @@
 	}
 
 	function handlePointerMove(event) {
+		if (!hoverInfo) return;
 		mouseX = event.clientX;
 		mouseY = event.clientY;
+	}
+
+	function handleChartPointerLeave() {
+		hoverInfo = null;
 	}
 
 	function setupStepObserver() {
@@ -190,8 +195,6 @@
 	});
 </script>
 
-<svelte:window onmousemove={handlePointerMove} />
-
 <div class="scope">
 	{#if payloadError}
 		<p class="scope-error" role="alert">{payloadError}</p>
@@ -200,7 +203,11 @@
 	{:else}
 		<div class="chart-overlay-scrolly" bind:this={scrollyMount}>
 			<div class="chart-overlay-stage scope-stage">
-				<div class="scope-chart-wrap">
+				<div
+					class="scope-chart-wrap"
+					onmousemove={handlePointerMove}
+					onmouseleave={handleChartPointerLeave}
+				>
 					<div class="scope-chart-panel">
 						<div class="scope-chart" bind:this={chartMount}></div>
 					</div>

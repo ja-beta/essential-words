@@ -81,19 +81,61 @@
 		updateTooltipPosition(event);
 	}
 
-	function moveTooltip(event) {
-		if (!tooltipVisible) return;
+	function hideTooltip() {
+		tooltipVisible = false;
+	}
+
+	/** @param {Event} event */
+	function cellFromEvent(event) {
+		const target = event.target;
+		if (!(target instanceof Element)) return null;
+		return target.closest(".pos-cell");
+	}
+
+	/** @param {MouseEvent} event */
+	function handleCellOver(event) {
+		const cell = cellFromEvent(event);
+		if (!cell) return;
+		showTooltip(cell.dataset.word ?? "", cell.dataset.set ?? "", event);
+	}
+
+	/** @param {MouseEvent} event */
+	function handleCellOut(event) {
+		const cell = cellFromEvent(event);
+		if (!cell) return;
+		const related = event.relatedTarget;
+		if (related instanceof Node && cell.contains(related)) return;
+		if (related instanceof Element && related.closest(".pos-cell")) return;
+		hideTooltip();
+	}
+
+	/** @param {MouseEvent} event */
+	function handleCellMove(event) {
+		if (!tooltipVisible || !cellFromEvent(event)) return;
 		updateTooltipPosition(event);
 	}
 
-	function hideTooltip() {
-		tooltipVisible = false;
+	/** @param {MouseEvent} event */
+	function handleWaffleLeave(event) {
+		const related = event.relatedTarget;
+		if (related instanceof Node && event.currentTarget.contains(related)) return;
+		hideTooltip();
 	}
 </script>
 
 <div class="pos-waffle" style:--pos-cell-size={`${CELL_SIZE}px`} style:--pos-cell-gap={`${CELL_GAP}px`}>
 	{#if lists[0]?.posCells && lists[1]?.posCells}
-		<div class="pos-waffle-inner">
+		<!-- Decorative hover tooltips only; cells are aria-hidden. -->
+		<!-- svelte-ignore a11y_mouse_events_have_key_events -->
+		<div
+			class="pos-waffle-inner"
+			role="group"
+			aria-label="Parts of speech waffle chart"
+			onmouseover={handleCellOver}
+			onmouseout={handleCellOut}
+			onmousemove={handleCellMove}
+			onmouseleave={handleWaffleLeave}
+		>
 				<div class="pos-layout-row pos-layout-row--bottom">
 					<div class="pos-label-cell">{lists[0].label}</div>
 					<div class="pos-chart-area pos-chart-area--bottom">
@@ -107,11 +149,10 @@
 									{#each lists[0].posCells[pos] as cell}
 										<span
 											class={`pos-cell pos-cell--${cell.set}`}
+											data-word={cell.word}
+											data-set={cell.set}
 											role="presentation"
 											aria-hidden="true"
-											onmouseenter={(event) => showTooltip(cell.word, cell.set, event)}
-											onmousemove={moveTooltip}
-											onmouseleave={hideTooltip}
 										></span>
 									{/each}
 								</div>
@@ -142,11 +183,10 @@
 									{#each lists[1].posCells[pos] as cell}
 										<span
 											class={`pos-cell pos-cell--${cell.set}`}
+											data-word={cell.word}
+											data-set={cell.set}
 											role="presentation"
 											aria-hidden="true"
-											onmouseenter={(event) => showTooltip(cell.word, cell.set, event)}
-											onmousemove={moveTooltip}
-											onmouseleave={hideTooltip}
 										></span>
 									{/each}
 								</div>

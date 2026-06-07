@@ -6,7 +6,7 @@
 	const getData = getContext("data");
 
 	let isOpen = $state(false);
-	/** Word lists are heavy (~5k nodes); build once on first open, then keep. */
+
 	let listsMounted = $state(false);
 
 	const explorerWordLists = $derived(getData?.()?.explorerWordLists ?? null);
