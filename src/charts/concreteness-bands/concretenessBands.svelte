@@ -22,6 +22,7 @@
 	let visibilityObserver;
 	let chartSectionEl = null;
 	let chartSectionVisible = false;
+	let documentVisible = true;
 	let rafId = 0;
 	let chartReady = $state(false);
 	let activeStep = $state(-1);
@@ -76,7 +77,12 @@
 	const overlayModeActive = $derived(activeStep >= 0 && activeStep < overlaySteps.length);
 
 	function syncMarqueeActive() {
-		chartController?.setMarqueeActive(chartSectionVisible);
+		chartController?.setMarqueeActive(chartSectionVisible && documentVisible);
+	}
+
+	function handleDocumentVisibility() {
+		documentVisible = !document.hidden;
+		syncMarqueeActive();
 	}
 
 	function applyStepFocus() {
@@ -165,6 +171,8 @@
 	}
 
 	onMount(() => {
+		documentVisible = !document.hidden;
+		document.addEventListener("visibilitychange", handleDocumentVisibility);
 		chartReady = true;
 		chartSectionEl = rootMount?.closest?.(".story-section--chart") ?? null;
 		setupStepObserver();
@@ -176,6 +184,9 @@
 	});
 
 	onDestroy(() => {
+		if (typeof document !== "undefined") {
+			document.removeEventListener("visibilitychange", handleDocumentVisibility);
+		}
 		chartSectionEl?.classList.remove("is-concr-bands-overlay-active");
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();

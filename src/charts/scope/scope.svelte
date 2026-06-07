@@ -20,6 +20,7 @@
 	let chartReady = $state(false);
 	let chartSectionVisible = false;
 	let activeStep = $state(-1);
+	let lastRenderedWidth = 0;
 
 	let hoverInfo = $state(null);
 	let mouseX = $state(0);
@@ -86,10 +87,13 @@
 			chartController = null;
 			return;
 		}
+		const width = typeof window !== "undefined" ? window.innerWidth : 0;
+		if (chartController && width > 0 && Math.abs(width - lastRenderedWidth) < 2) return;
 
 		unsubscribeHover?.();
 		chartController?.destroy();
 		dividerExpanded = false;
+		lastRenderedWidth = width;
 		chartController = renderScopeChart(chartMount, payload);
 		unsubscribeHover = chartController?.onHover((dot) => {
 			hoverInfo = dot;
@@ -191,6 +195,7 @@
 		if (!chartReady || !chartSectionVisible) return;
 		payload;
 		payloadError;
+		lastRenderedWidth = 0;
 		scheduleRender();
 	});
 </script>
@@ -205,6 +210,8 @@
 			<div class="chart-overlay-stage scope-stage">
 				<div
 					class="scope-chart-wrap"
+					role="group"
+					aria-label="Word scope chart"
 					onmousemove={handlePointerMove}
 					onmouseleave={handleChartPointerLeave}
 				>

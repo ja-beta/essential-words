@@ -110,6 +110,7 @@
 	let writeReveal = $state(false);
 	let rafId = 0;
 	let writeRevealTimer = 0;
+	let scrollListenerActive = false;
 
 	let timing = $state({
 		part1Scroll: 200,
@@ -291,11 +292,21 @@
 	const part1BgTravelVh = $derived(Math.max(0, geometry.bgTotalVh - geometry.stageVh));
 	const part1BgShift = $derived(-part1Progress * part1BgTravelVh);
 
+	function detachScrollListener() {
+		if (!scrollListenerActive) return;
+		scrollListenerActive = false;
+		window.removeEventListener("scroll", scheduleMeasure);
+	}
+
 	function measureProgress() {
 		if (stickyTrackMount) {
 			const rect = stickyTrackMount.getBoundingClientRect();
 			const scrollable = Math.max(1, rect.height - window.innerHeight);
 			stickyProgress = clamp01((-rect.top) / scrollable);
+		}
+		if (rootMount && rootMount.getBoundingClientRect().bottom <= 0) {
+			stickyProgress = 1;
+			detachScrollListener();
 		}
 	}
 
@@ -336,13 +347,14 @@
 		measureProgress();
 		startWriteReveal();
 		layoutMq.addEventListener("change", syncLayout);
+		scrollListenerActive = true;
 		window.addEventListener("scroll", scheduleMeasure, { passive: true });
 		window.addEventListener("resize", handleResize);
 		return () => {
 			if (rafId) cancelAnimationFrame(rafId);
 			if (writeRevealTimer) clearTimeout(writeRevealTimer);
 			layoutMq.removeEventListener("change", syncLayout);
-			window.removeEventListener("scroll", scheduleMeasure);
+			detachScrollListener();
 			window.removeEventListener("resize", handleResize);
 		};
 	});

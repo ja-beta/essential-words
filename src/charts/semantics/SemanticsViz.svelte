@@ -38,6 +38,7 @@
 	let scrollyMount = $state(null);
 	let activeStep = $state(-1);
 	let chartSectionVisible = false;
+	let documentVisible = true;
 	let rafId = 0;
 	let lastRenderedWidth = 0;
 
@@ -55,7 +56,12 @@
 	);
 
 	function syncMarqueeActive() {
-		chartController?.setMarqueeActive(chartSectionVisible);
+		chartController?.setMarqueeActive(chartSectionVisible && documentVisible);
+	}
+
+	function handleDocumentVisibility() {
+		documentVisible = !document.hidden;
+		syncMarqueeActive();
 	}
 
 	function applyStepFocus() {
@@ -168,6 +174,8 @@
 	}
 
 	onMount(() => {
+		documentVisible = !document.hidden;
+		document.addEventListener("visibilitychange", handleDocumentVisibility);
 		setupStepObserver();
 		setupVisibilityObserver();
 		if (!chartMount) return;
@@ -178,6 +186,9 @@
 	});
 
 	onDestroy(() => {
+		if (typeof document !== "undefined") {
+			document.removeEventListener("visibilitychange", handleDocumentVisibility);
+		}
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
 		stepObserver?.disconnect();

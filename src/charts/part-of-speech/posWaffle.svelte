@@ -1,5 +1,6 @@
 <script>
-	import { getContext } from "svelte";
+	import { getContext, onDestroy, onMount } from "svelte";
+	import { observeChartVisibility } from "$utils/chartVisibility.js";
 
 	let { note = "" } = $props();
 
@@ -57,6 +58,10 @@
 		}
 		return widths;
 	});
+
+	let rootMount = $state(null);
+	let gridMounted = $state(false);
+	let visibilityObserver;
 
 	let tooltipWord = $state("");
 	let tooltipSet = $state("");
@@ -121,10 +126,28 @@
 		if (related instanceof Node && event.currentTarget.contains(related)) return;
 		hideTooltip();
 	}
+
+	function setupVisibilityObserver() {
+		visibilityObserver?.disconnect();
+		const target = rootMount?.closest?.(".story-section--chart") ?? rootMount;
+		if (!target) return;
+		visibilityObserver = observeChartVisibility(target, (visible) => {
+			if (visible) gridMounted = true;
+		});
+	}
+
+	onMount(() => setupVisibilityObserver());
+	onDestroy(() => visibilityObserver?.disconnect());
 </script>
 
-<div class="pos-waffle" style:--pos-cell-size={`${CELL_SIZE}px`} style:--pos-cell-gap={`${CELL_GAP}px`}>
+<div
+	class="pos-waffle"
+	bind:this={rootMount}
+	style:--pos-cell-size={`${CELL_SIZE}px`}
+	style:--pos-cell-gap={`${CELL_GAP}px`}
+>
 	{#if lists[0]?.posCells && lists[1]?.posCells}
+		{#if gridMounted}
 		<!-- Decorative hover tooltips only; cells are aria-hidden. -->
 		<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 		<div
@@ -195,6 +218,7 @@
 					</div>
 				</div>
 			</div>
+		{/if}
 		<div
 			class="pos-tooltip"
 			class:is-visible={tooltipVisible}
