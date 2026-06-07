@@ -6,6 +6,8 @@
 	const getData = getContext("data");
 
 	let isOpen = $state(false);
+	/** Word lists are heavy (~5k nodes); build once on first open, then keep. */
+	let listsMounted = $state(false);
 
 	const explorerWordLists = $derived(getData?.()?.explorerWordLists ?? null);
 	const list1953 = $derived(explorerWordLists?.list1953 ?? []);
@@ -16,7 +18,9 @@
 	});
 
 	function toggleOpen() {
-		isOpen = !isOpen;
+		const next = !isOpen;
+		isOpen = next;
+		if (next) listsMounted = true;
 	}
 </script>
 
@@ -52,56 +56,58 @@
 			inert={!isOpen}
 		>
 			<div class="explorer-columns">
-				<div class="explorer-column">
-					<div class="explorer-column-header">
-						<h3 class="exp-col-name">1953 list</h3>
-						<div class="exp-col-desc-container">
-							<div class="exp-col-desc-icon" aria-hidden="true">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
-                                </svg>
-                            </div>
-							<p class="exp-col-desc removed">removed words</p>
+				{#if listsMounted}
+					<div class="explorer-column">
+						<div class="explorer-column-header">
+							<h3 class="exp-col-name">1953 list</h3>
+							<div class="exp-col-desc-container">
+								<div class="exp-col-desc-icon" aria-hidden="true">
+	                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+	                                    <line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
+	                                </svg>
+	                            </div>
+								<p class="exp-col-desc removed">removed words</p>
+							</div>
 						</div>
+						<ul class="exp-word-list">
+							{#each list1953 as word (word.text + word.status)}
+								<li
+									class="exp-word"
+									class:exp-word--removed={word.status === "removed"}
+									class:exp-word--remained={word.status === "remained"}
+								>
+									{word.text}
+								</li>
+							{/each}
+						</ul>
 					</div>
-					<ul class="exp-word-list">
-						{#each list1953 as word (word.text + word.status)}
-							<li
-								class="exp-word"
-								class:exp-word--removed={word.status === "removed"}
-								class:exp-word--remained={word.status === "remained"}
-							>
-								{word.text}
-							</li>
-						{/each}
-					</ul>
-				</div>
 
-				<div class="explorer-column">
-					<div class="explorer-column-header">
-						<h3 class="exp-col-name">2023 list</h3>
-						<div class="exp-col-desc-container">
-							<div class="exp-col-desc-icon" aria-hidden="true">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                                    <line x1="7" y1="3" x2="7" y2="11" stroke="currentColor" stroke-width="2" />
-                                    <line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
-                                </svg>
-                            </div>
-							<p class="exp-col-desc added">added words</p>
+					<div class="explorer-column">
+						<div class="explorer-column-header">
+							<h3 class="exp-col-name">2023 list</h3>
+							<div class="exp-col-desc-container">
+								<div class="exp-col-desc-icon" aria-hidden="true">
+	                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+	                                    <line x1="7" y1="3" x2="7" y2="11" stroke="currentColor" stroke-width="2" />
+	                                    <line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
+	                                </svg>
+	                            </div>
+								<p class="exp-col-desc added">added words</p>
+							</div>
 						</div>
+						<ul class="exp-word-list">
+							{#each list2023 as word (word.text + word.status)}
+								<li
+									class="exp-word"
+									class:exp-word--added={word.status === "added"}
+									class:exp-word--remained={word.status === "remained"}
+								>
+									{word.text}
+								</li>
+							{/each}
+						</ul>
 					</div>
-					<ul class="exp-word-list">
-						{#each list2023 as word (word.text + word.status)}
-							<li
-								class="exp-word"
-								class:exp-word--added={word.status === "added"}
-								class:exp-word--remained={word.status === "remained"}
-							>
-								{word.text}
-							</li>
-						{/each}
-					</ul>
-				</div>
+				{/if}
 			</div>
 		</div>
 	</div>

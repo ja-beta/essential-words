@@ -1,5 +1,5 @@
 
-/** ~half a viewport above/below; IO only accepts px or %, not vh. */
+
 export const CHART_LAZY_INIT_MARGIN = "50% 0px";
 
 /**
