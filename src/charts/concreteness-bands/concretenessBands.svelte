@@ -1,7 +1,7 @@
 <script>
 	import { getContext, onDestroy, onMount } from "svelte";
 	import { renderConcretenessBands } from "./concretenessBandsChart.js";
-	import { observeChartVisibility } from "$utils/chartVisibility.js";
+	import { CHART_ONSCREEN_MARGIN, observeChartVisibility } from "$utils/chartVisibility.js";
 
 	let { note = "", overlays = [] } = $props();
 
@@ -19,8 +19,10 @@
 	let chartController = null;
 	let resizeObserver;
 	let stepObserver;
-	let visibilityObserver;
+	let initObserver;
+	let marqueeObserver;
 	let chartSectionEl = null;
+	let chartSectionNear = false;
 	let chartSectionVisible = false;
 	let documentVisible = true;
 	let rafId = 0;
@@ -113,19 +115,31 @@
 		syncMarqueeActive();
 	}
 
+	function disconnectVisibilityObservers() {
+		initObserver?.disconnect();
+		marqueeObserver?.disconnect();
+	}
+
 	function setupVisibilityObserver() {
-		visibilityObserver?.disconnect();
+		disconnectVisibilityObservers();
 		const target = chartSectionEl ?? rootMount?.closest?.(".story-section--chart") ?? chartWrap ?? chartMount;
 		if (!target) return;
-		visibilityObserver = observeChartVisibility(target, (visible) => {
-			chartSectionVisible = visible;
-			syncMarqueeActive();
-			if (visible) scheduleRender();
+		initObserver = observeChartVisibility(target, (near) => {
+			chartSectionNear = near;
+			if (near) scheduleRender();
 		});
+		marqueeObserver = observeChartVisibility(
+			target,
+			(visible) => {
+				chartSectionVisible = visible;
+				syncMarqueeActive();
+			},
+			{ rootMargin: CHART_ONSCREEN_MARGIN }
+		);
 	}
 
 	function scheduleRender() {
-		if (!chartSectionVisible) return;
+		if (!chartSectionNear) return;
 		if (rafId) cancelAnimationFrame(rafId);
 		rafId = requestAnimationFrame(() => {
 			rafId = 0;
@@ -191,13 +205,13 @@
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
 		stepObserver?.disconnect();
-		visibilityObserver?.disconnect();
+		disconnectVisibilityObservers();
 		chartController?.destroy();
 		chartController = null;
 	});
 
 	$effect(() => {
-		if (!chartReady || !chartSectionVisible) return;
+		if (!chartReady || !chartSectionNear) return;
 		payload;
 		payloadError;
 		lastRenderedWidth = 0;

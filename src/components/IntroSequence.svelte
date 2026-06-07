@@ -1,4 +1,5 @@
 <script>
+	import { browser } from "$app/environment";
 	import { getContext, onMount } from "svelte";
 	import IntroWordGrid from "$components/IntroWordGrid.svelte";
 	import {
@@ -12,9 +13,20 @@
 
 	const MOBILE_LAYOUT_MQ = "(max-width: 768px)";
 
+	function flowColsForViewport(width) {
+		if (width <= 480) return 3;
+		if (width <= 600) return 4;
+		return 5;
+	}
+
+	function readMobileLayout() {
+		if (!browser) return false;
+		return window.matchMedia(MOBILE_LAYOUT_MQ).matches;
+	}
+
 	const getData = getContext("data");
 	const pools = $derived(getData?.()?.introWordPools ?? null);
-	let isMobileLayout = $state(false);
+	let isMobileLayout = $state(readMobileLayout());
 	let gridConfig = $state({
 		cols: INTRO_SEQUENCE_DEFAULTS.cols,
 		rowScale: INTRO_SEQUENCE_DEFAULTS.rowScale,
@@ -26,7 +38,13 @@
 		centerExclusionHeight: INTRO_SEQUENCE_DEFAULTS.centerExclusionHeight,
 		centerExclusionNoise: INTRO_SEQUENCE_DEFAULTS.centerExclusionNoise
 	});
-	let flowConfig = $state({ cols: 5, rowsLong: 10, rowsShort: 5 });
+	let flowConfig = $state({
+		cols: browser ? flowColsForViewport(window.innerWidth) : 5,
+		rowsLong: 10,
+		rowsShort: 5
+	});
+
+	let layoutSynced = $state(!browser || !readMobileLayout());
 
 	const sequenceGrid = $derived(
 		pools
@@ -237,7 +255,10 @@
 			)
 		};
 		flowConfig = {
-			cols: Math.max(3, Math.round(cssRatioNumber("--intro-flow-cols", 5))),
+			cols: Math.max(
+				3,
+				Math.round(cssRatioNumber("--intro-flow-cols", flowColsForViewport(window.innerWidth)))
+			),
 			rowsLong: Math.max(1, Math.round(cssRatioNumber("--intro-flow-rows-long", 10))),
 			rowsShort: Math.max(1, Math.round(cssRatioNumber("--intro-flow-rows-short", 5)))
 		};
@@ -362,11 +383,12 @@
 		const layoutMq = window.matchMedia(MOBILE_LAYOUT_MQ);
 		const syncLayout = () => {
 			isMobileLayout = layoutMq.matches;
+			readTimingVars();
 			scheduleMeasure();
 		};
 
-		readTimingVars();
 		syncLayout();
+		layoutSynced = true;
 		measureProgress();
 		startWriteReveal();
 		layoutMq.addEventListener("change", syncLayout);
@@ -385,7 +407,7 @@
 </script>
 
 <div class="intro-sequence" class:intro-sequence--mobile={isMobileLayout} bind:this={rootMount}>
-	{#if isMobileLayout}
+	{#if layoutSynced && isMobileLayout}
 		{#if flowGridLong}
 			<IntroWordGrid
 				variant="flow"
@@ -463,7 +485,7 @@
 				<div class="intro-fade-overlay" class:is-visible={overlayOn} aria-hidden="true"></div>
 			</div>
 		</section>
-	{:else}
+	{:else if layoutSynced}
 		<section class="intro-sticky-track" bind:this={stickyTrackMount}>
 			<div class="intro-stage">
 				<IntroWordGrid

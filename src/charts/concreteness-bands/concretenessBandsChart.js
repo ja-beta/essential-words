@@ -43,7 +43,7 @@ export function readConcretenessBandsMetrics(containerEl) {
 
 export const CONCRETENESS_BANDS_CONFIG = {
 	marquee: {
-		repeat: 12
+		repeat: 6
 	},
 	colors: {
 		primary: "var(--color-primary)",
@@ -547,6 +547,9 @@ export function renderConcretenessBands(container, payload, { width }) {
 	let marqueeRunning = false;
 	let rafId = 0;
 	let lastT = performance.now();
+	const marqueeHalfRate =
+		typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+	let marqueeSkipFrame = false;
 
 	function setMarqueeActive(active) {
 		const next = Boolean(active);
@@ -566,6 +569,13 @@ export function renderConcretenessBands(container, payload, { width }) {
 
 	function animateMarquee(now) {
 		if (!marqueeRunning) return;
+		if (marqueeHalfRate) {
+			marqueeSkipFrame = !marqueeSkipFrame;
+			if (marqueeSkipFrame) {
+				if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
+				return;
+			}
+		}
 		let dt = (now - lastT) / 1000;
 		lastT = now;
 		if (dt > 0.5) dt = 0.016;

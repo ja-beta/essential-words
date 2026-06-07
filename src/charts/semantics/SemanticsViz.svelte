@@ -2,7 +2,7 @@
 	import { getContext } from "svelte";
 	import { onDestroy, onMount } from "svelte";
 	import { renderSemanticsRibbons } from "./semanticsRibbonsChart.js";
-	import { observeChartVisibility } from "$utils/chartVisibility.js";
+	import { CHART_ONSCREEN_MARGIN, observeChartVisibility } from "$utils/chartVisibility.js";
 
 	let { overlays = [], note = "" } = $props();
 
@@ -34,9 +34,11 @@
 	let chartController = null;
 	let resizeObserver;
 	let stepObserver;
-	let visibilityObserver;
+	let initObserver;
+	let marqueeObserver;
 	let scrollyMount = $state(null);
 	let activeStep = $state(-1);
+	let chartSectionNear = false;
 	let chartSectionVisible = false;
 	let documentVisible = true;
 	let rafId = 0;
@@ -114,19 +116,31 @@
 		requestAnimationFrame(updateStageTop);
 	}
 
+	function disconnectVisibilityObservers() {
+		initObserver?.disconnect();
+		marqueeObserver?.disconnect();
+	}
+
 	function setupVisibilityObserver() {
-		visibilityObserver?.disconnect();
+		disconnectVisibilityObservers();
 		const target = chartMount?.closest?.(".story-section--chart") ?? chartMount;
 		if (!target) return;
-		visibilityObserver = observeChartVisibility(target, (visible) => {
-			chartSectionVisible = visible;
-			syncMarqueeActive();
-			if (visible) scheduleRender();
+		initObserver = observeChartVisibility(target, (near) => {
+			chartSectionNear = near;
+			if (near) scheduleRender();
 		});
+		marqueeObserver = observeChartVisibility(
+			target,
+			(visible) => {
+				chartSectionVisible = visible;
+				syncMarqueeActive();
+			},
+			{ rootMargin: CHART_ONSCREEN_MARGIN }
+		);
 	}
 
 	function scheduleRender() {
-		if (!chartSectionVisible) return;
+		if (!chartSectionNear) return;
 		if (rafId) cancelAnimationFrame(rafId);
 		rafId = requestAnimationFrame(() => {
 			rafId = 0;
@@ -192,7 +206,7 @@
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
 		stepObserver?.disconnect();
-		visibilityObserver?.disconnect();
+		disconnectVisibilityObservers();
 		chartController?.destroy();
 	});
 </script>

@@ -2,6 +2,9 @@
 
 export const CHART_LAZY_INIT_MARGIN = "50% 0px";
 
+
+export const CHART_ONSCREEN_MARGIN = "0px";
+
 /**
  * Calls onChange when `target` enters or leaves the viewport.
  * @param {Element | null | undefined} target

@@ -894,6 +894,9 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	let rafId = 0;
 	let marqueeRunning = false;
 	let lastT = performance.now();
+	const marqueeHalfRate =
+		typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
+	let marqueeSkipFrame = false;
 
 	function setMarqueeActive(active) {
 		const next = Boolean(active);
@@ -913,6 +916,13 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	function animateMarquee(now) {
 		if (!marqueeRunning) return;
+		if (marqueeHalfRate) {
+			marqueeSkipFrame = !marqueeSkipFrame;
+			if (marqueeSkipFrame) {
+				if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
+				return;
+			}
+		}
 		let dt = (now - lastT) / 1000;
 		lastT = now;
 		if (dt > 0.5) dt = 0.016;
