@@ -317,7 +317,7 @@
 
 	@media (max-width: 935px) {
 		.concr-bands {
-			--concr-bands-margin-top: 130px;
+			--concr-bands-margin-top: 120px;
 			--concr-bands-axis-tick-offset: 54px;
 			--concr-bands-margin-left: 16px;
 			--concr-bands-margin-right: 16px;
@@ -332,6 +332,12 @@
 			--concr-bands-annot-font-size: 14px;
 			--concr-bands-annot-stack: 24px;
 			--concr-bands-annot-leader: 12px;
+		}
+	}
+
+	@media (max-width: 720px){
+		:global(.story-section#concretenessBands .concr-bands) {
+			margin: 0;
 		}
 	}
 

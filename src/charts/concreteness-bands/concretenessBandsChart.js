@@ -236,8 +236,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 	const halfW = (plotW - centerGap) / 2;
 
 	const niceMax = Math.ceil((maxPct || 1) / 5) * 5;
-	let tickStep = niceMax > 30 ? 20 : 10;
-	if (isCompact && niceMax > 20) tickStep = 20;
+	const tickStep = niceMax > 30 ? 20 : 10;
 	const axisTicks = d3.range(0, niceMax + 0.001, tickStep);
 	if (axisTicks.at(-1) < niceMax - 0.001) axisTicks.push(niceMax);
 	const axisTickPx = (pct) => (pct / niceMax) * halfW;
@@ -342,9 +341,9 @@ export function renderConcretenessBands(container, payload, { width }) {
 	const removedDirX = centerX - halfGap - m.dirLabelOffsetX;
 	const addedDirX = centerX + halfGap + m.dirLabelOffsetX;
 	const removedDirLines = isCompact
-		? ["from the 1953 list", "all words removed"]
-		: ["all words removed from the 1953 list"];
-	const addedDirLines = isCompact ? ["to the 2023 list", "all words added"] : ["all words added to the 2023 list"];
+		? ["the 1953 list", "removed from"]
+		: ["words removed from the 1953 list"];
+	const addedDirLines = isCompact ? ["the 2023 list", "added to"] : ["words added to the 2023 list"];
 
 	appendDirectionLabelGroup(svg, {
 		textX: removedDirX,
@@ -814,7 +813,7 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 
 			const maxBottom = Math.max(...sideBands.map((b) => b.y + bandH));
 			const stroke = colors[side].text;
-			const label = side === "removed" ? "DISCARDED" : "ADDED";
+			const label = side === "removed" ? "REMOVED" : "ADDED";
 
 			const textAnchor = side === "removed" ? "end" : "start";
 
