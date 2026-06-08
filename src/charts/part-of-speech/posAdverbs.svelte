@@ -65,14 +65,44 @@
 		color: var(--color-secondary);
 	}
 
-	@media (max-width: 700px) {
+	@media (max-width: 785px) {
+		.pos-adverbs{
+			margin: 1rem auto 3rem auto;
+		}
+
 		.pos-adverbs-grid {
-			grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-			gap: 0.35rem 0.75rem;
+			grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+			gap: 1rem 1.25rem;
 		}
 
 		.pos-adverbs-word {
-			font-size: 1.05rem;
+			font-size: 1.35rem;
+		}
+	}
+
+	@media (max-width: 720px){
+		.pos-adverbs{
+			padding: 0;
+		}
+	}
+	
+
+	@media (max-width: 560px){
+		.pos-adverbs-grid {
+			grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+			gap: 1rem 0.5rem;
+		}
+		.pos-adverbs-word{
+			font-size: 1rem;
+		}
+	}
+	
+	@media (max-width: 400px){
+		.pos-adverbs-grid {
+			grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+		}
+		.pos-adverbs-word{
+			font-size: 0.9rem;
 		}
 	}
 </style>
