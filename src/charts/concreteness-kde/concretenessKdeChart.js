@@ -1,5 +1,89 @@
 import * as d3 from "d3";
 
+function readCssPx(el, varName, fallback) {
+	if (!el) return fallback;
+	const raw = getComputedStyle(el).getPropertyValue(varName).trim();
+	if (!raw) return fallback;
+	const n = parseFloat(raw);
+	return Number.isFinite(n) ? n : fallback;
+}
+
+/** @param {HTMLElement | null | undefined} containerEl */
+export function readConcretenessKdeMetrics(containerEl) {
+	const root = containerEl?.closest?.(".concr-kde") ?? containerEl;
+	const px = (name, fb) => readCssPx(root, name, fb);
+	return {
+		narrowBreakpoint: px("--concr-kde-narrow-breakpoint", 720),
+		seriesLabelLineHeight: px("--concr-kde-series-label-line-height", 1.15)
+	};
+}
+
+/**
+ * @param {import("d3").Selection<SVGGElement, unknown, null, undefined>} g
+ * @param {{
+ *   x: number;
+ *   y: number;
+ *   lines: string[];
+ *   fontSize: number;
+ *   fill: string;
+ *   fontFamily: string;
+ *   lineHeight?: number;
+ *   className?: string;
+ *   seriesKey?: string;
+ * }} opts
+ */
+function appendSeriesLabel(g, opts) {
+	const {
+		x,
+		y,
+		lines,
+		fontSize,
+		fill,
+		fontFamily,
+		lineHeight = 1.15,
+		className = "concr-kde-series-label",
+		seriesKey
+	} = opts;
+
+	const el = g
+		.append("text")
+		.attr("class", className)
+		.attr("x", x)
+		.attr("y", y)
+		.attr("text-anchor", "start")
+		.attr("font-family", fontFamily)
+		.attr("font-size", `${fontSize}px`)
+		.attr("fill", fill);
+
+	if (seriesKey) el.attr("data-series", seriesKey);
+
+	if (lines.length <= 1) {
+		el.attr("dominant-baseline", "middle").text(lines[0] ?? "");
+		return el;
+	}
+
+	el.attr("dominant-baseline", "central");
+	for (let i = 0; i < lines.length; i++) {
+		el.append("tspan")
+			.attr("x", x)
+			.attr("dy", i === 0 ? `${-(lineHeight * (lines.length - 1)) / 2}em` : `${lineHeight}em`)
+			.text(lines[i]);
+	}
+
+	return el;
+}
+
+/** @param {string} label */
+function seriesLabelLines(label, narrow) {
+	const upper = label.toUpperCase();
+	if (!narrow) return [upper];
+	const space = label.indexOf(" ");
+	if (space > 0) {
+		return [label.slice(0, space).toUpperCase(), label.slice(space + 1).toUpperCase()];
+	}
+	return [upper];
+}
+
 export const CONCRETENESS_KDE_CONFIG = {
 	layout: {
 		/** width comes from the container at render time */
@@ -63,7 +147,6 @@ export const CONCRETENESS_KDE_CONFIG = {
 		chevronSizePx: 8
 	},
 	sourceNote: {
-		marginTop: "1rem",
 		fontSize: "13px",
 		fontFamily: "var(--font-sans)",
 		color: "var(--color-secondary)"
@@ -77,7 +160,10 @@ export const CONCRETENESS_KDE_CONFIG = {
  */
 export function renderConcretenessKde(container, payload, { width }) {
 	const c = CONCRETENESS_KDE_CONFIG;
+	const metrics = readConcretenessKdeMetrics(container);
 	const W = Math.max(1, Math.round(width));
+	const screenW = typeof window !== "undefined" ? window.innerWidth : Infinity;
+	const isNarrow = screenW <= metrics.narrowBreakpoint;
 	const H = c.layout.height;
 	const margin = c.layout.margin;
 	const plotW = W - margin.left - margin.right;
@@ -218,17 +304,16 @@ export function renderConcretenessKde(container, payload, { width }) {
 	}
 
 	for (const { sm, y } of labelEnds) {
-		g.append("text")
-			.attr("class", "concr-kde-series-label")
-			.attr("data-series", sm.key)
-			.attr("x", endLabelX)
-			.attr("y", y)
-			.attr("text-anchor", "start")
-			.attr("dominant-baseline", "middle")
-			.attr("font-family", c.typography.fontFamily)
-			.attr("font-size", `${c.seriesLabels.fontSizePx}px`)
-			.attr("fill", sm.labelColor ?? c.seriesLabels.color)
-			.text(sm.label.toUpperCase());
+		appendSeriesLabel(g, {
+			x: endLabelX,
+			y,
+			lines: seriesLabelLines(sm.label, isNarrow),
+			fontSize: c.seriesLabels.fontSizePx,
+			fill: sm.labelColor ?? c.seriesLabels.color,
+			fontFamily: c.typography.fontFamily,
+			lineHeight: metrics.seriesLabelLineHeight,
+			seriesKey: sm.key
+		});
 	}
 
 	drawDensityHint(g, c);

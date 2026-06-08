@@ -15,6 +15,7 @@
 	let chartReady = $state(false);
 	let chartSectionVisible = false;
 	let lastRenderedWidth = 0;
+	let lastRenderedNarrow = null;
 
 	const payload = $derived(getData?.()?.concretenessKdePayload ?? null);
 	const payloadError = $derived(getData?.()?.concretenessKdeError ?? null);
@@ -33,10 +34,18 @@
 		}
 		const width = chartMount.clientWidth;
 		if (width < 1) return;
-		if (chartController && Math.abs(width - lastRenderedWidth) < 2) return;
+		const narrow = window.innerWidth <= 720;
+		if (
+			chartController &&
+			Math.abs(width - lastRenderedWidth) < 2 &&
+			narrow === lastRenderedNarrow
+		) {
+			return;
+		}
 
 		chartController?.destroy();
 		lastRenderedWidth = width;
+		lastRenderedNarrow = narrow;
 		chartController = renderConcretenessKde(chartMount, payload, { width });
 	}
 
@@ -65,10 +74,12 @@
 		if (!chartMount) return;
 		resizeObserver = new ResizeObserver(() => scheduleRender());
 		resizeObserver.observe(chartMount);
+		window.addEventListener("resize", scheduleRender, { passive: true });
 	});
 
 	onDestroy(() => {
 		if (rafId) cancelAnimationFrame(rafId);
+		window.removeEventListener("resize", scheduleRender);
 		resizeObserver?.disconnect();
 		visibilityObserver?.disconnect();
 		chartController?.destroy();
@@ -80,6 +91,7 @@
 		payload;
 		payloadError;
 		lastRenderedWidth = 0;
+		lastRenderedNarrow = null;
 		scheduleRender();
 	});
 </script>
@@ -104,6 +116,9 @@
 
 <style>
 	.concr-kde {
+		--concr-kde-narrow-breakpoint: 720;
+		--concr-kde-series-label-line-height: 1.15;
+
 		width: 100%;
 		max-width: var(--max-prose-width);
 		margin: 0 auto;
@@ -123,6 +138,11 @@
 	.concr-kde-chart :global(.concr-kde-density-hint) {
 		color: var(--color-primary);
 	}
+
+    .concr-kde-chart :global(.concr-kde-series-label) {
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+    }
 
     .concr-kde-chart :global(.concr-kde-axis-end-label) {
         text-transform: uppercase;
@@ -161,9 +181,29 @@
         background-position: 0 67%;
     }
 
-    .concr-kde-chart .chart-note {
+    .concr-kde-chart + .chart-note {
         margin-top: 2rem;
     }
 
+	@media (max-width: 935px){
+		.concr-kde{
+			margin-top: 0;
+		}
+		.concr-kde-chart{
+			width: 85%;
+		}
+
+		.concr-kde-annotation{
+			font-size: 0.9rem;
+			left: 40%;
+			top: -7%;
+		}
+	}
+
+	@media (max-width: 720px){
+		.concr-kde-chart{
+			width: 90%;
+		}
+	}
 
 </style>
