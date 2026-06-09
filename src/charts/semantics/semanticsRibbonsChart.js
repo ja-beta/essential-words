@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { createMarqueeLoop } from "$utils/marqueeLoop.js";
 
 const CHANGE_THRESHOLD = 20;
 
@@ -788,7 +789,48 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	let interactionLocked = false;
 	let forcedFocusSet = null;
+	let hoverEngagedIndex = null;
 	const focusTransitionMs = 240;
+
+	function isCategoryEngaged(c, i) {
+		return (
+			c._hoverActive ||
+			c._forcedActive ||
+			hoverEngagedIndex === i ||
+			Boolean(forcedFocusSet?.has(i))
+		);
+	}
+
+	const marqueeLoop = createMarqueeLoop({
+		halfRate: typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches,
+		isEngaged: () => cats.some((c, i) => isCategoryEngaged(c, i)),
+		tick(dt, prefersReducedMotion) {
+			for (let i = 0; i < cats.length; i++) {
+				const c = cats[i];
+				const engaged = isCategoryEngaged(c, i);
+
+				if (!c._thin && (!prefersReducedMotion || engaged)) {
+					c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
+					if (c._tpNode) c._tpNode.setAttribute("startOffset", c._offset);
+				}
+
+				if (c._hoverActive && c._hoverTpNode) {
+					c._hoverOffset = wrapLeftToRightOffset(c._hoverOffset + marqueeSpeed * dt, c._hoverCycleLen);
+					c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
+				}
+
+				if (c._forcedActive && c._forcedTpNode) {
+					c._forcedOffset = wrapLeftToRightOffset(c._forcedOffset + marqueeSpeed * dt, c._forcedCycleLen);
+					c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
+				}
+
+				if (c._thin && c._antsPath && (!prefersReducedMotion || engaged)) {
+					c._antsOffset = (c._antsOffset - antsSpeed * dt) % 10;
+					c._antsPath.setAttribute("stroke-dashoffset", c._antsOffset);
+				}
+			}
+		}
+	});
 
 	function drawThinFocusOverlay(group, c) {
 		group.selectAll(".thin-band-focus-fill, .thin-band-focus-text").remove();
@@ -889,63 +931,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 				.duration(focusTransitionMs)
 				.attr("opacity", nextSet ? (focused ? 1 : 0) : 0);
 		});
-	}
-
-	let rafId = 0;
-	let marqueeRunning = false;
-	let lastT = performance.now();
-	const marqueeHalfRate =
-		typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
-	let marqueeSkipFrame = false;
-
-	function setMarqueeActive(active) {
-		const next = Boolean(active);
-		if (next === marqueeRunning) return;
-		if (next) {
-			marqueeRunning = true;
-			lastT = performance.now();
-			if (!rafId) rafId = requestAnimationFrame(animateMarquee);
-			return;
-		}
-		marqueeRunning = false;
-		if (rafId) {
-			cancelAnimationFrame(rafId);
-			rafId = 0;
-		}
-	}
-
-	function animateMarquee(now) {
-		if (!marqueeRunning) return;
-		if (marqueeHalfRate) {
-			marqueeSkipFrame = !marqueeSkipFrame;
-			if (marqueeSkipFrame) {
-				if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
-				return;
-			}
-		}
-		let dt = (now - lastT) / 1000;
-		lastT = now;
-		if (dt > 0.5) dt = 0.016;
-
-		for (let i = 0; i < cats.length; i++) {
-			const c = cats[i];
-			c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
-			if (!c._thin && c._tpNode) c._tpNode.setAttribute("startOffset", c._offset);
-			if (c._hoverActive && c._hoverTpNode) {
-				c._hoverOffset = wrapLeftToRightOffset(c._hoverOffset + marqueeSpeed * dt, c._hoverCycleLen);
-				c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
-			}
-			if (c._forcedActive && c._forcedTpNode) {
-				c._forcedOffset = wrapLeftToRightOffset(c._forcedOffset + marqueeSpeed * dt, c._forcedCycleLen);
-				c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
-			}
-			if (c._thin && c._antsPath) {
-				c._antsOffset = (c._antsOffset - antsSpeed * dt) % 10;
-				c._antsPath.setAttribute("stroke-dashoffset", c._antsOffset);
-			}
-		}
-
-		if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
+		marqueeLoop.syncEngagement();
 	}
 
 	catGroups.selectAll(".cat-group").each(function eachCat() {
@@ -955,6 +941,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 		el.on("mouseenter", () => {
 			if (interactionLocked) return;
+			hoverEngagedIndex = i;
 			catGroups.selectAll(".cat-group").transition().duration(120).attr("opacity", 0.25);
 			el.raise().transition().duration(120).attr("opacity", 1);
 			el.select(".category-name").transition().duration(hoverLabelTransitionMs).attr("x", categoryLabelHoverX);
@@ -973,9 +960,11 @@ export function renderSemanticsRibbons(containerEl, payload) {
 				setBandFocusStyle(el, true, hoverLabelTransitionMs);
 			}
 
+			marqueeLoop.syncEngagement();
 		})
 			.on("mouseleave", () => {
 				if (interactionLocked) return;
+				hoverEngagedIndex = null;
 				catGroups.selectAll(".cat-group").transition().duration(200).attr("opacity", 1);
 				el.select(".category-name").transition().duration(hoverLabelTransitionMs).attr("x", categoryLabelRestX);
 				el.selectAll(".side-percent").transition().duration(hoverLabelTransitionMs).attr("opacity", 0);
@@ -988,6 +977,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 					setBandFocusStyle(el, false, hoverLabelTransitionMs);
 				}
 
+				marqueeLoop.syncEngagement();
 			});
 	});
 
@@ -1013,9 +1003,10 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		clearFocus() {
 			applyForcedFocus([]);
 		},
-		setMarqueeActive,
+		setMarqueeActive: marqueeLoop.setMarqueeActive,
+		setPrefersReducedMotion: marqueeLoop.setPrefersReducedMotion,
 		destroy() {
-			setMarqueeActive(false);
+			marqueeLoop.destroy();
 			svg.remove();
 		}
 	};

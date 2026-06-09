@@ -15,15 +15,46 @@
 		verb: "verbs",
 		other: "other"
 	};
-	const COLS_PER_POS = {
-		noun: 40,
-		adjective: 10,
-		adverb: 10,
-		verb: 10,
-		other: 10
-	};
-	const CELL_SIZE = 6;
-	const CELL_GAP = 1;
+
+	// Screen-width tiers — same logic as @media (max-width: …).
+	const BREAKPOINTS = [
+		{
+			maxWidth: 480,
+			cellSize: 3,
+			cellGap: 1,
+			interactive: false,
+			cols: { noun: 14, adjective: 5, adverb: 5, verb: 5, other: 5 }
+		},
+		{
+			maxWidth: 660,
+			cellSize: 4,
+			cellGap: 1,
+			interactive: false,
+			cols: { noun: 35, adjective: 8, adverb: 8, verb: 8, other: 8 }
+		},
+		{
+			maxWidth: 768,
+			cellSize: 4,
+			cellGap: 1,
+			interactive: false,
+			cols: { noun: 35, adjective: 10, adverb: 10, verb: 10, other: 10 }
+		},
+		{
+			maxWidth: Infinity,
+			cellSize: 6,
+			cellGap: 1,
+			interactive: true,
+			cols: { noun: 40, adjective: 10, adverb: 10, verb: 10, other: 10 }
+		}
+	];
+
+	function breakpointForScreenWidth(width) {
+		const w = width > 0 ? width : Infinity;
+		for (const bp of BREAKPOINTS) {
+			if (w <= bp.maxWidth) return bp;
+		}
+		return BREAKPOINTS.at(-1);
+	}
 
 	function normalizePos(v) {
 		const p = String(v ?? "").trim().toLowerCase();
@@ -72,10 +103,16 @@
 		buildList(rows, "1953 list", ["remained", "removed"], { remained: 0, removed: 1 }),
 		buildList(rows, "2023 list", ["remained", "added"], { added: 0, remained: 1 })
 	]);
+	let screenWidth = $state(0);
+	const activeBreakpoint = $derived(breakpointForScreenWidth(screenWidth));
+	const colsPerPos = $derived(activeBreakpoint.cols);
+	const cellSize = $derived(activeBreakpoint.cellSize);
+	const cellGap = $derived(activeBreakpoint.cellGap);
+	const interactive = $derived(activeBreakpoint.interactive);
 	const blockWidths = $derived.by(() => {
 		const widths = {};
 		for (const pos of POS_ORDER) {
-			widths[pos] = COLS_PER_POS[pos] * (CELL_SIZE + CELL_GAP) - CELL_GAP;
+			widths[pos] = colsPerPos[pos] * (cellSize + cellGap) - cellGap;
 		}
 		return widths;
 	});
@@ -157,38 +194,47 @@
 		});
 	}
 
-	onMount(() => setupVisibilityObserver());
+	onMount(() => {
+		setupVisibilityObserver();
+		const onResize = () => {
+			screenWidth = window.innerWidth;
+		};
+		onResize();
+		window.addEventListener("resize", onResize, { passive: true });
+		return () => window.removeEventListener("resize", onResize);
+	});
 	onDestroy(() => visibilityObserver?.disconnect());
 </script>
 
 <div
 	class="pos-waffle"
 	bind:this={rootMount}
-	style:--pos-cell-size={`${CELL_SIZE}px`}
-	style:--pos-cell-gap={`${CELL_GAP}px`}
+	style:--pos-cell-size={`${cellSize}px`}
+	style:--pos-cell-gap={`${cellGap}px`}
 >
 	{#if lists[0]?.posCells && lists[1]?.posCells}
 		{#if gridMounted}
-		<!-- Decorative hover tooltips only; cells are aria-hidden. -->
+		<!-- Word tooltips are decorative desktop-only; cells are aria-hidden. -->
 		<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 		<div
 			class="pos-waffle-inner"
+			class:pos-waffle-inner--static={!interactive}
 			role="group"
 			aria-label="Parts of speech waffle chart"
-			onmouseover={handleCellOver}
-			onmouseout={handleCellOut}
-			onmousemove={handleCellMove}
-			onmouseleave={handleWaffleLeave}
+			onmouseover={interactive ? handleCellOver : undefined}
+			onmouseout={interactive ? handleCellOut : undefined}
+			onmousemove={interactive ? handleCellMove : undefined}
+			onmouseleave={interactive ? handleWaffleLeave : undefined}
 		>
 				<div class="pos-layout-row pos-layout-row--bottom">
 					<div class="pos-label-cell">{lists[0].label}</div>
 					<div class="pos-chart-area pos-chart-area--bottom">
 						{#each POS_ORDER as pos}
-							{@const layout = layoutCellsBottomUp(lists[0].posCells[pos], COLS_PER_POS[pos], "removed")}
+							{@const layout = layoutCellsBottomUp(lists[0].posCells[pos], colsPerPos[pos], "removed")}
 							<div class="pos-block" style:width={`${blockWidths[pos]}px`}>
 								<div
 									class="pos-grid"
-									style:grid-template-columns={`repeat(${COLS_PER_POS[pos]}, var(--pos-cell-size))`}
+									style:grid-template-columns={`repeat(${colsPerPos[pos]}, var(--pos-cell-size))`}
 									style:grid-template-rows={layout.rows
 										? `repeat(${layout.rows}, var(--pos-cell-size))`
 										: undefined}
@@ -227,7 +273,7 @@
 							<div class="pos-block" style:width={`${blockWidths[pos]}px`}>
 								<div
 									class="pos-grid"
-									style:grid-template-columns={`repeat(${COLS_PER_POS[pos]}, var(--pos-cell-size))`}
+									style:grid-template-columns={`repeat(${colsPerPos[pos]}, var(--pos-cell-size))`}
 									style:gap={`var(--pos-cell-gap)`}
 								>
 									{#each lists[1].posCells[pos] as cell}
@@ -246,6 +292,7 @@
 				</div>
 			</div>
 		{/if}
+		{#if interactive}
 		<div
 			class="pos-tooltip"
 			class:is-visible={tooltipVisible}
@@ -257,6 +304,7 @@
 		>
 			{tooltipWord}
 		</div>
+		{/if}
 		{#if note}
 			<p class="chart-note">{@html note}</p>
 		{/if}
@@ -366,24 +414,20 @@
 		flex: 0 0 auto;
 	}
 
-	@media (max-width: 900px) {
-		.pos-waffle-inner {
-			--pos-label-width: 92px;
-			--pos-gap: 8px;
-		}
-
-		.pos-label-cell {
-			font-size: 0.74rem;
-		}
-	}
 
 	.pos-cell:hover {
-		/* outline: 1px solid #222;
-		outline-offset: 0; */
-        /* background: var(--color-secondary); */
-        filter: brightness(0.85);
-        transform: scale(2);
-        transition: transform 0.25s ease;
+		filter: brightness(0.85);
+		transform: scale(2);
+		transition: transform 0.25s ease;
+	}
+
+	.pos-waffle-inner--static .pos-cell {
+		pointer-events: none;
+	}
+
+	.pos-waffle-inner--static .pos-cell:hover {
+		filter: none;
+		transform: none;
 	}
 
 	.pos-cell--remained {
@@ -441,4 +485,41 @@
 		font-size: 0.95rem;
 		color: var(--color-secondary);
 	}
+
+
+	@media (max-width: 900px) {
+		.pos-waffle-inner {
+			--pos-label-width: 92px;
+			--pos-gap: 8px;
+		}
+
+		.pos-label-cell {
+			font-size: 1rem;
+			line-height: 1.2;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.pos-layout-row {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+
+		.pos-label-cell {
+			position: static;
+			max-width: 5ch;
+			text-align: left;
+		}
+
+		.pos-chart-area {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.pos-header{
+			font-size: 12px;
+		}
+	}
+
 </style>

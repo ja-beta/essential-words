@@ -98,7 +98,7 @@ export const CONCRETENESS_KDE_CONFIG = {
 		domainTopPadding: 1.08
 	},
 	zones: {
-		concrete: { from: 4.5, to: 5.0, fill: "var(--color-secondary)", fillOpacity: 0.1 }
+		concrete: { from: 4.5, to: 5.0, fill: "var(--color-accent)", fillOpacity: 0.1 }
 	},
 	boundaries: {
 		xValues: [1, 2, 3, 4, 5],

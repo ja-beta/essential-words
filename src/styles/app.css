@@ -51,7 +51,7 @@
 	--color-fg-light: var(--color-gray-500);
 	--color-primary: #5B5B5B;
 	--color-secondary: #8F8A77;
-	--color-accent: #BACB73;
+	--color-accent: #5b6c14; /* #BACB73 */
 	--color-link: var(--color-primary);
 	--color-link-hover: var(--color-black);
 	--color-focus: var(--color-gray-500);
@@ -73,6 +73,7 @@
 	--color-highlight-text: #262626; /* 494949 */
 	--color-footer-bg: #F0F0D6;
 	--color-hero-headline: #494949;
+	
 	/* "1" second duration */
 	--1s: 1ms;
 }

@@ -3,6 +3,7 @@
 	import { onDestroy, onMount } from "svelte";
 	import { renderSemanticsRibbons } from "./semanticsRibbonsChart.js";
 	import { CHART_ONSCREEN_MARGIN, observeChartVisibility } from "$utils/chartVisibility.js";
+	import { subscribePrefersReducedMotion } from "$utils/prefersReducedMotion.js";
 
 	let { overlays = [], note = "" } = $props();
 
@@ -43,6 +44,7 @@
 	let documentVisible = true;
 	let rafId = 0;
 	let lastRenderedWidth = 0;
+	let prefersReducedMotionSub;
 
 	const payload = $derived(getData?.()?.semanticsRibbonsPayload ?? null);
 	const payloadError = $derived(getData?.()?.semanticsRibbonsError ?? null);
@@ -56,6 +58,10 @@
 			};
 		})
 	);
+
+	function syncPrefersReducedMotion() {
+		chartController?.setPrefersReducedMotion?.(prefersReducedMotionSub?.get() ?? false);
+	}
 
 	function syncMarqueeActive() {
 		chartController?.setMarqueeActive(chartSectionVisible && documentVisible);
@@ -110,6 +116,7 @@
 		chartController = null;
 		lastRenderedWidth = width;
 		chartController = renderSemanticsRibbons(chartMount, payload);
+		syncPrefersReducedMotion();
 		applyStepFocus();
 		syncMarqueeActive();
 
@@ -188,6 +195,9 @@
 	}
 
 	onMount(() => {
+		prefersReducedMotionSub = subscribePrefersReducedMotion(() => {
+			syncPrefersReducedMotion();
+		});
 		documentVisible = !document.hidden;
 		document.addEventListener("visibilitychange", handleDocumentVisibility);
 		setupStepObserver();
@@ -200,6 +210,7 @@
 	});
 
 	onDestroy(() => {
+		prefersReducedMotionSub?.destroy();
 		if (typeof document !== "undefined") {
 			document.removeEventListener("visibilitychange", handleDocumentVisibility);
 		}

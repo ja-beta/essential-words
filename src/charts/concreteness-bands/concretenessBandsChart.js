@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { createMarqueeLoop } from "$utils/marqueeLoop.js";
 
 function readCssPx(el, varName, fallback) {
 	if (!el) return fallback;
@@ -699,49 +700,25 @@ export function renderConcretenessBands(container, payload, { width }) {
 		}
 	}
 
-	let marqueeRunning = false;
-	let rafId = 0;
-	let lastT = performance.now();
-	const marqueeHalfRate = isPhone;
-	let marqueeSkipFrame = false;
-
-	function setMarqueeActive(active) {
-		const next = Boolean(active);
-		if (next === marqueeRunning) return;
-		if (next) {
-			marqueeRunning = true;
-			lastT = performance.now();
-			if (!rafId) rafId = requestAnimationFrame(animateMarquee);
-			return;
-		}
-		marqueeRunning = false;
-		if (rafId) {
-			cancelAnimationFrame(rafId);
-			rafId = 0;
-		}
-	}
-
-	function animateMarquee(now) {
-		if (!marqueeRunning) return;
-		if (marqueeHalfRate) {
-			marqueeSkipFrame = !marqueeSkipFrame;
-			if (marqueeSkipFrame) {
-				if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
-				return;
-			}
-		}
-		let dt = (now - lastT) / 1000;
-		lastT = now;
-		if (dt > 0.5) dt = 0.016;
-
-		for (const band of allBands) {
-			band.offset += SPEED * dt;
-			const cw = band.cycleW;
-			while (band.offset >= cw) band.offset -= cw;
+	function applyMarqueePositions(bands = allBands) {
+		for (const band of bands) {
 			band.txt.attr("x", textX(band));
 		}
-		if (marqueeRunning) rafId = requestAnimationFrame(animateMarquee);
 	}
+
+	const marqueeLoop = createMarqueeLoop({
+		halfRate: isPhone,
+		isEngaged: () => allBands.some((band) => band.hovered),
+		tick(dt, prefersReducedMotion) {
+			for (const band of allBands) {
+				if (prefersReducedMotion && !band.hovered) continue;
+				band.offset += SPEED * dt;
+				const cw = band.cycleW;
+				while (band.offset >= cw) band.offset -= cw;
+			}
+			applyMarqueePositions();
+		}
+	});
 
 	let hoveredBand = null;
 
@@ -934,6 +911,7 @@ function applyFocusState() {
 			hideRowHighlight(band);
 		}
 		bandsG.selectAll(".band-group").attr("opacity", 1);
+		marqueeLoop.syncEngagement();
 		return;
 	}
 
@@ -962,6 +940,7 @@ function applyFocusState() {
 	}
 
 	drawBandAnnotations(focusedBands, focusUsesAboveAnnotations() ? "above" : "below");
+	marqueeLoop.syncEngagement();
 }
 
 	function clearHover() {
@@ -974,6 +953,7 @@ function applyFocusState() {
 		finishHoverCleanup(band);
 		clearHoverLayer();
 		hideRowHighlight(band, true);
+		marqueeLoop.syncEngagement();
 	}
 
 	function showHover(band) {
@@ -1021,6 +1001,7 @@ function applyFocusState() {
 			.on("mouseleave", clearHover);
 
 		drawBandAnnotations([band]);
+		marqueeLoop.syncEngagement();
 	}
 
 	bandsG.selectAll(".band-hit").on("mouseenter", function onEnter() {
@@ -1031,6 +1012,7 @@ function applyFocusState() {
 
 	container.replaceChildren(svg.node());
 	measureBandCycles();
+	applyMarqueePositions();
 
 	return {
 	setInteractionLocked(locked) {
@@ -1061,9 +1043,10 @@ function applyFocusState() {
 		focusRanges = [];
 		applyFocusState();
 	},
-	setMarqueeActive,
+	setMarqueeActive: marqueeLoop.setMarqueeActive,
+	setPrefersReducedMotion: marqueeLoop.setPrefersReducedMotion,
 		destroy() {
-			setMarqueeActive(false);
+			marqueeLoop.destroy();
 			interruptHoverTransitions();
 			if (hoveredBand) {
 				finishHoverCleanup(hoveredBand);

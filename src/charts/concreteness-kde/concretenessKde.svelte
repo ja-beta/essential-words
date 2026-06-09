@@ -173,7 +173,7 @@
     }
 
 	.concr-kde-annotation :global(.annotation) {
-        background-image: linear-gradient(color-mix(in srgb, var(--color-accent) 25%, transparent), color-mix(in srgb, var(--color-accent) 25%, transparent));
+        background-image: linear-gradient(color-mix(in srgb, var(--color-accent) 20%, transparent), color-mix(in srgb, var(--color-accent) 20%, transparent));
         padding: 0 0.35rem;
         color: var(--color-highlight-text);
         box-decoration-break: clone;

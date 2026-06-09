@@ -5,6 +5,7 @@
 		renderConcretenessBands
 	} from "./concretenessBandsChart.js";
 	import { CHART_ONSCREEN_MARGIN, observeChartVisibility } from "$utils/chartVisibility.js";
+	import { subscribePrefersReducedMotion } from "$utils/prefersReducedMotion.js";
 
 	let { note = "", overlays = [] } = $props();
 
@@ -32,6 +33,7 @@
 	let chartReady = $state(false);
 	let activeStep = $state(-1);
 	let lastRenderedWidth = 0;
+	let prefersReducedMotionSub;
 
 	const payload = $derived(getData?.()?.concretenessBandsPayload ?? null);
 	const payloadError = $derived(getData?.()?.concretenessBandsError ?? null);
@@ -81,6 +83,10 @@
 	);
 	const overlayModeActive = $derived(activeStep >= 0 && activeStep < overlaySteps.length);
 
+	function syncPrefersReducedMotion() {
+		chartController?.setPrefersReducedMotion?.(prefersReducedMotionSub?.get() ?? false);
+	}
+
 	function syncMarqueeActive() {
 		chartController?.setMarqueeActive(chartSectionVisible && documentVisible);
 	}
@@ -114,6 +120,7 @@
 		chartController?.destroy();
 		lastRenderedWidth = width;
 		chartController = renderConcretenessBands(chartMount, payload, { width });
+		syncPrefersReducedMotion();
 		applyStepFocus();
 		syncMarqueeActive();
 	}
@@ -188,6 +195,9 @@
 	}
 
 	onMount(() => {
+		prefersReducedMotionSub = subscribePrefersReducedMotion(() => {
+			syncPrefersReducedMotion();
+		});
 		documentVisible = !document.hidden;
 		document.addEventListener("visibilitychange", handleDocumentVisibility);
 		chartReady = true;
@@ -201,6 +211,7 @@
 	});
 
 	onDestroy(() => {
+		prefersReducedMotionSub?.destroy();
 		if (typeof document !== "undefined") {
 			document.removeEventListener("visibilitychange", handleDocumentVisibility);
 		}
