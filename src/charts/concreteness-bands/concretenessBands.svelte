@@ -304,8 +304,8 @@
 		--concr-bands-axis-half-size: 14px;
 		--concr-bands-endpoint-size: 14px;
 		--concr-bands-annot-leader: 16px;
-		--concr-bands-annot-stack: 30px;
-		--concr-bands-annot-text-gap: 16px;
+		--concr-bands-annot-stack: 48px;
+		--concr-bands-annot-text-gap: 8px;
 		--concr-bands-annot-text-inset: 6px;
 		--concr-bands-annot-dot-r: 2.5px;
 		--concr-bands-annot-font-size: 16px;
@@ -323,62 +323,6 @@
 			width: calc(100dvw - var(--explorer-rail-width));
 			max-width: calc(100dvw - var(--explorer-rail-width));
 			margin-inline: calc(50% - 50dvw) calc(50% - 50dvw + var(--explorer-rail-width));
-		}
-	}
-
-	@media (max-width: 935px) {
-		.concr-bands {
-			--concr-bands-margin-top: 120px;
-			--concr-bands-axis-tick-offset: 54px;
-			--concr-bands-margin-left: 16px;
-			--concr-bands-margin-right: 16px;
-			--concr-bands-center-gap: 24px;
-			--concr-bands-dir-label-size: 14px;
-			--concr-bands-dir-label-gap: 36px;
-			--concr-bands-dir-label-nudge: 8px;
-			--concr-bands-dir-arrow-offset-y: 12px;
-			--concr-bands-axis-whole-size: 13px;
-			--concr-bands-axis-half-size: 13px;
-			--concr-bands-endpoint-size: 13px;
-			--concr-bands-annot-font-size: 14px;
-			--concr-bands-annot-stack: 24px;
-			--concr-bands-annot-leader: 12px;
-		}
-	}
-
-	@media (max-width: 720px){
-		:global(.story-section#concretenessBands .concr-bands) {
-			margin: 0;
-		}
-	}
-
-	@media (max-width: 520px) {
-		.concr-bands {
-			--concr-bands-band-h: 28px;
-			--concr-bands-band-gap: 18px;
-			--concr-bands-marquee-font-size: 18px;
-			--concr-bands-margin-top: 96px;
-			--concr-bands-axis-tick-offset: 48px;
-			--concr-bands-margin-bottom: 48px;
-			--concr-bands-margin-left: 12px;
-			--concr-bands-margin-right: 12px;
-			--concr-bands-center-gap: 16px;
-			--concr-bands-endpoint-offset-top: 12px;
-			--concr-bands-dir-label-size: 13px;
-			--concr-bands-dir-label-gap: 34px;
-			--concr-bands-axis-whole-size: 12px;
-			--concr-bands-axis-half-size: 10px;
-			--concr-bands-endpoint-size: 13px;
-			--concr-bands-annot-font-size: 13px;
-			--concr-bands-annot-stack: 44px;
-			--concr-bands-annot-leader: 14px;
-			--concr-bands-annot-text-gap: 8px;
-		}
-	}
-
-	@media (max-width: 400px){
-		.concr-bands{
-			--concr-bands-annot-font-size: 12px;
 		}
 	}
 
@@ -432,6 +376,76 @@
 	.concr-bands-stage {
 		--chart-overlay-stage-height: auto;
 		--chart-overlay-stage-top: 22vh;
+	}
+
+	@media (max-width: 935px) {
+		.concr-bands {
+			--concr-bands-margin-top: 120px;
+			--concr-bands-axis-tick-offset: 54px;
+			--concr-bands-margin-left: 16px;
+			--concr-bands-margin-right: 16px;
+			--concr-bands-center-gap: 24px;
+			--concr-bands-dir-label-size: 14px;
+			--concr-bands-dir-label-gap: 36px;
+			--concr-bands-dir-label-nudge: 8px;
+			--concr-bands-dir-arrow-offset-y: 12px;
+			--concr-bands-axis-whole-size: 13px;
+			--concr-bands-axis-half-size: 13px;
+			--concr-bands-endpoint-size: 13px;
+			--concr-bands-annot-font-size: 14px;
+			--concr-bands-annot-stack: 48px;
+			--concr-bands-annot-leader: 12px;
+		}
+
+
+		.concr-bands-stage {
+			--chart-overlay-stage-top: 10vh;
+		}
+	}
+
+	@media (max-width: 720px){
+		:global(.story-section#concretenessBands .concr-bands) {
+			margin: 0;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.concr-bands {
+			--concr-bands-band-h: 28px;
+			--concr-bands-band-gap: 18px;
+			--concr-bands-marquee-font-size: 18px;
+			--concr-bands-margin-top: 96px;
+			--concr-bands-axis-tick-offset: 48px;
+			--concr-bands-margin-bottom: 48px;
+			--concr-bands-margin-left: 12px;
+			--concr-bands-margin-right: 12px;
+			--concr-bands-center-gap: 16px;
+			--concr-bands-endpoint-offset-top: 12px;
+			--concr-bands-dir-label-size: 13px;
+			--concr-bands-dir-label-gap: 34px;
+			--concr-bands-axis-whole-size: 12px;
+			--concr-bands-axis-half-size: 10px;
+			--concr-bands-endpoint-size: 13px;
+			--concr-bands-annot-font-size: 13px;
+			--concr-bands-annot-stack: 44px;
+			--concr-bands-annot-leader: 14px;
+			--concr-bands-annot-text-gap: 8px;
+			--concr-bands-annot-text-inset: 2px;
+
+		}
+
+
+		.concr-bands-stage {
+			--chart-overlay-stage-height: auto;
+			--chart-overlay-stage-top: 16vh;
+		}
+	}
+
+	@media (max-width: 400px){
+		.concr-bands{
+			--concr-bands-annot-font-size: 12px;
+
+		}
 	}
 
 

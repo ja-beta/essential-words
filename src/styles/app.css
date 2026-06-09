@@ -42,8 +42,9 @@
 	--max-prose-width: 650px;
 	--max-med-width: 850px;
 	--max-chart-width: 1200px;
-	--prose-margins: 1rem;
-	--mobile-margins: 1rem;
+	--story-inline-margin: 1rem;
+	--prose-margins: var(--story-inline-margin);
+	--mobile-margins: var(--story-inline-margin);
 	--explorer-rail-width: 2.5rem;
 	
 	--color-bg: #FFFFF1;
@@ -191,6 +192,7 @@ svg {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-inline: var(--story-inline-margin);
 }
 
 .story-section--title{
@@ -354,31 +356,40 @@ svg {
 	margin-bottom: 0;
 }
 
-@media (max-width: 920px){
-	:root{
-		--max-chart-width: 85vw;
+@media (max-width: 920px) {
+	:root {
+		--story-inline-margin: 2rem;
+		--max-prose-width: min(
+			650px,
+			calc(100vw - var(--explorer-rail-width) - 2 * var(--story-inline-margin))
+		);
+		--max-chart-width: min(
+			1200px,
+			calc(100vw - var(--explorer-rail-width) - 2 * var(--story-inline-margin))
+		);
 	}
-	.story-section--hero .story-dek{
+
+	.story {
+		box-sizing: border-box;
+		padding-right: var(--explorer-rail-width);
+	}
+
+	.story-section--title .story-dek {
 		font-size: 1.75rem;
 	}
 }
 
-@media (max-width: 720px){
-	:root{
+@media (max-width: 720px) {
+	:root {
 		--p-font-size: 1.125rem;
 		--chart-header-font-size: 1.5rem;
 		--explorer-rail-width: 1.5rem;
 	}
-
-	.story-section{
-		margin: 0 calc(2.5 * var(--prose-margins)) 0 var(--prose-margins);
-	}
 }
 
-@media (max-width: 768px) {
-
-	.story-section--title {
-		margin-inline: var(--mobile-margins);
+@media (max-width: 480px) {
+	:root {
+		--story-inline-margin: 1rem;
 	}
 }
 
