@@ -27,6 +27,7 @@
 
 	const overlaySteps = $derived(overlays ?? []);
 	const nRings = $derived(payload?.rings?.length ?? 5);
+	const isOverview = $derived(activeStep >= overlaySteps.length && overlaySteps.length > 0);
 
 	function syncMarqueeActive() {
 		chartController?.setMarqueeActive(chartVisible);
@@ -179,7 +180,7 @@
 	});
 </script>
 
-<div class="scope-arcs">
+<div class="scope-arcs" class:scope-arcs--overview={isOverview}>
 	{#if payloadError}
 		<p class="scope-arcs-error" role="alert">{payloadError}</p>
 	{:else if !payload}
@@ -238,28 +239,40 @@
 		--scope-arcs-color-remained: var(--color-secondary, #8f8a77);
 		--scope-arcs-color-removed: var(--color-gsl, #ed9027);
 		--scope-arcs-color-added: var(--color-ngsl, #db6ae8);
-		--scope-arcs-band-thick: 40;
+		
+		--scope-arcs-max-width: 840px;
+		--scope-arcs-band-thick: 36;
 		--scope-arcs-band-thin: 12;
 		--scope-arcs-focus-fade-ms: 220;
 		--scope-arcs-zoom-ms: 600;
-		--scope-arcs-zoom-max: 3;
-		--scope-arcs-segment-gap-deg: 2;
-		--scope-arcs-side-gap: 8;
+		--scope-arcs-zoom-max: 6;
+		--scope-arcs-segment-gap: 4;
+		--scope-arcs-unfocused-opacity: 0.35;
+		--scope-arcs-side-gap: 24;
 		--scope-arcs-divider-color: var(--color-secondary);
 		--scope-arcs-divider-width: 1;
 		--scope-arcs-divider-dash: 5 5;
 
-		--scope-arcs-text-outset: -2;
+
+		--scope-arcs-text-outset-band: 0;
+		--scope-arcs-text-outset-ratio: -0.02;
+		--scope-arcs-text-outset: 0;
+		/* per-ring overrides: --scope-arcs-text-outset-band-N, -ratio-N, -N */
 		--scope-arcs-text-path-pad: 2;
 		--scope-arcs-marquee-speed: 10;
 		--scope-arcs-marquee-repeat: 3;
-		--scope-arcs-label-outset: 0;
-		--scope-arcs-max-width: 800px;
+		
+		--scope-arcs-label-outset: 6;
+		/* per-ring override: --scope-arcs-label-outset-1-5 */
+		--scope-arcs-label-outset-1: 2;
+		--scope-arcs-label-outset-3: 8;
+		--scope-arcs-label-outset-4: 14;
+		--scope-arcs-label-outset-5: 22;
 
-		--scope-arcs-intro-offset: -15vh;
+		--scope-arcs-intro-offset: 0vh;
 		--scope-arcs-final-hold: calc(100vh - var(--scope-arcs-intro-offset));
 
-		--chart-overlay-steps-top-pad: 35vh;
+		--chart-overlay-steps-top-pad: 30vh;
 		--chart-overlay-steps-bottom-pad: 0;
 		--chart-overlay-step-min-h: 125vh;
 		--chart-overlay-step-spacer-h: 0;
@@ -277,9 +290,21 @@
 
 	.scope-arcs-stage {
 		--chart-overlay-stage-height: auto;
-		--chart-overlay-stage-top: 20vh;
+		--chart-overlay-stage-top: 10vh;
 		width: 100%;
 		justify-content: center;
+	}
+
+
+	.scope-arcs--overview :global(.chart-overlay-steps),
+	.scope-arcs--overview :global(.chart-overlay-step),
+	.scope-arcs--overview :global(.chart-overlay-step-card),
+	.scope-arcs--overview :global(.chart-overlay-step-spacer) {
+		pointer-events: none;
+	}
+
+	.scope-arcs--overview .scope-arcs-stage {
+		z-index: 3;
 	}
 
 	.scope-arcs :global(.scope-arcs-overlay-spacer-bottom) {
@@ -351,21 +376,21 @@
 		font-size: 13px;
 		color: var(--color-secondary);
 		text-transform: uppercase;
-		letter-spacing: 0.04em;
+		letter-spacing: 2%;
 	}
 
 	.scope-arcs-legend-item {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.4rem;
+		gap: 0.5rem;
 	}
 
 	.scope-arcs-swatch {
 		display: inline-block;
-		width: 14px;
-		height: 3px;
-		border-radius: 2px;
+		width: 16px;
+		height: 8px;
 		flex-shrink: 0;
+		opacity: 0.55;
 	}
 
 	.scope-arcs-swatch--remained {
