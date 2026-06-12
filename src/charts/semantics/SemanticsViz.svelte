@@ -44,6 +44,8 @@
 	let documentVisible = true;
 	let rafId = 0;
 	let lastRenderedWidth = 0;
+	let lastLayoutTier = "";
+	let handleResize = () => {};
 	let prefersReducedMotionSub;
 
 	const payload = $derived(getData?.()?.semanticsRibbonsPayload ?? null);
@@ -103,6 +105,20 @@
 		scrollyMount.style.setProperty("--chart-overlay-stage-height", `${chartH}px`);
 	}
 
+	function layoutTierForWidth(width) {
+		if (!chartMount || width <= 0) return "";
+		const styles = getComputedStyle(chartMount);
+		const readBp = (name, fallback) => {
+			const value = Number.parseFloat(styles.getPropertyValue(name));
+			return Number.isFinite(value) ? value : fallback;
+		};
+		const vw = window.innerWidth;
+		const responsive = vw <= readBp("--sem-responsive-breakpoint", 1150);
+		const shortNames = vw <= readBp("--sem-short-name-breakpoint", 900);
+		const compact = vw <= readBp("--sem-compact-breakpoint", 480);
+		return `${responsive ? 1 : 0}:${shortNames ? 1 : 0}:${compact ? 1 : 0}`;
+	}
+
 	function renderChart() {
 		if (!chartMount || !payload || payloadError) {
 			chartController?.destroy();
@@ -110,11 +126,20 @@
 			return;
 		}
 		const width = chartMount.clientWidth;
-		if (chartController && width > 0 && Math.abs(width - lastRenderedWidth) < 2) return;
+		const layoutTier = layoutTierForWidth(width);
+		if (
+			chartController &&
+			width > 0 &&
+			Math.abs(width - lastRenderedWidth) < 2 &&
+			layoutTier === lastLayoutTier
+		) {
+			return;
+		}
 
 		chartController?.destroy();
 		chartController = null;
 		lastRenderedWidth = width;
+		lastLayoutTier = layoutTier;
 		chartController = renderSemanticsRibbons(chartMount, payload);
 		syncPrefersReducedMotion();
 		applyStepFocus();
@@ -203,16 +228,19 @@
 		setupStepObserver();
 		setupVisibilityObserver();
 		if (!chartMount) return;
-		resizeObserver = new ResizeObserver(() => {
-			scheduleRender();
-		});
+		handleResize = () => scheduleRender();
+		resizeObserver = new ResizeObserver(handleResize);
 		resizeObserver.observe(chartMount);
+		window.addEventListener("resize", handleResize);
 	});
 
 	onDestroy(() => {
 		prefersReducedMotionSub?.destroy();
 		if (typeof document !== "undefined") {
 			document.removeEventListener("visibilitychange", handleDocumentVisibility);
+		}
+		if (typeof window !== "undefined") {
+			window.removeEventListener("resize", handleResize);
 		}
 		if (rafId) cancelAnimationFrame(rafId);
 		resizeObserver?.disconnect();
@@ -261,14 +289,20 @@
 		--sem-left-label-hover-shift: 0;
 		--sem-right-change-offset: 46;
 		--sem-responsive-breakpoint: 1150;
-		--sem-compact-breakpoint: 700;
-		--sem-mobile-margin: 8;
-		--sem-mobile-margin-right: 16;
-		--sem-mobile-label-max-pct: 0.3;
-		--sem-mobile-label-min: 100;
-		--sem-mobile-right-label-max-pct: 0.08;
-		--sem-mobile-right-label-min: 44;
-		--sem-mobile-slope-min: 220;
+		--sem-short-name-breakpoint: 900;
+		--sem-compact-breakpoint: 480;
+		--sem-mobile-margin: 16;
+		--sem-mobile-margin-right: 56;
+		--sem-mobile-label-max-pct: 0.24;
+		--sem-mobile-label-min: 88;
+		--sem-mobile-label-min-short: 88;
+		--sem-mobile-right-label-max-pct: 0;
+		--sem-mobile-right-label-min: 0;
+		--sem-mobile-slope-min: 160;
+		--sem-compact-band-gap: 0;
+		--sem-mobile-vertical-scale: 1;
+		--sem-mobile-plot-max: 0;
+		--sem-ribbon-marquee: 1;
 		--sem-debug-layout: 0;
 		--sem-ribbon-up: #f493ff;
 		--sem-ribbon-down: #ffaa4a;
@@ -279,6 +313,7 @@
 		--sem-ribbon-label: #8f8a77;
 		--sem-ribbon-header: #706b66;
 		--sem-pct-cap-width: 50;
+		--sem-pct-cap-threshold: 17;
 		--sem-pct-cap-label-bottom: 2;
 		--sem-ribbon-cap-trim: -1;
 		--sem-pct-cap-up-text: #962FA2;
@@ -286,12 +321,12 @@
 		--sem-pct-cap-tan-text: #635D43;
 		--sem-chart-bg: var(--color-bg, #fffff1);
 		--chart-overlay-stage-top: 10vh;
-		--chart-overlay-stage-height: 80vh;
+		--chart-overlay-stage-height: 100vh;
 		--sem-stage-top: 32px;
 		--chart-overlay-steps-top-pad: 85vh;
 		--chart-overlay-steps-bottom-pad: 80vh;
-		--chart-overlay-step-min-h: 75vh;
-		--chart-overlay-step-spacer-h: 70vh;
+		--chart-overlay-step-min-h: 120vh;
+		--chart-overlay-step-spacer-h: 120vh;
 		width: 100%;
 		max-width: 980px;
 		margin-inline: auto;
@@ -318,28 +353,62 @@
 		letter-spacing: -0.1em;
 	}
 
+	.semantics-viz-chart :global(.category-name) {
+		font-size: 13px;
+		hyphens: auto;
+	}
+
 	@media (max-width: 1150px) {
 		.semantics-viz {
 			--sem-slope-width: 100%;
+			--sem-left-label-offset: 10;
+			max-width: none;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.semantics-viz {
+			--sem-mobile-label-min-short: 58;
+			--sem-mobile-label-max-pct: 0.15;
+			--sem-mobile-slope-min: 120;
+		}
+	}
+
+	@media (max-width: 920px) {
+		.semantics-viz {
+			--sem-mobile-margin: 16;
+			--sem-mobile-margin-right: 0;
 		}
 	}
 
 	@media (max-width: 700px) {
 		.semantics-viz {
+			--sem-compact-breakpoint: 700;
+			--sem-mobile-margin: 20;
 			--sem-min-band-font-size: 13px;
-			--sem-font-scale: 0.9;
-			--sem-left-label-offset: 8;
-			--sem-left-label-hover-shift: 14;
-			--sem-right-change-offset: 32;
-			--sem-pct-cap-width: 36;
+			--sem-font-scale: 1;
+			--sem-left-label-offset: 10;
+			--sem-pct-cap-width: 44;
+			--sem-mobile-label-max-pct: 0.1;
+			--sem-mobile-label-min: 68;
+			--sem-mobile-slope-min: 100;
+			--sem-compact-band-gap: 11;
+			--sem-mobile-vertical-scale: 1;
+			--sem-min-band-height: 2;
+			--sem-pct-cap-threshold: 0;
 		}
 	}
 
-	@media (max-width: 510px){
+	@media (max-width: 480px) {
 		.semantics-viz {
-			--sem-mobile-slope-min: 200;
-			--sem-mobile-label-max-pct: 0.5;
-			--sem-mobile-label-min: 150;
+			--sem-ribbon-marquee: 0;
+			--sem-mobile-margin: 16;
+			--sem-mobile-label-max-pct: 0.16;
+			--sem-mobile-label-min: 60;
+			--sem-mobile-slope-min: 92;
+			--sem-compact-band-gap: 15;
+			--sem-mobile-vertical-scale:1.5;
+			--sem-mobile-plot-max: 700;
 		}
 	}
 </style>

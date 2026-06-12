@@ -48,6 +48,31 @@ export const SHORT_NAMES = {
 	"Names and Grammar": "Names & Grammar"
 };
 
+
+export const MOBILE_SHORT_NAMES = {
+	"General and Abstract Terms": "General",
+	"The Body and the Individual": "Body",
+	"Arts and Crafts": "Arts",
+	Emotion: "Emotion",
+	"Food and Farming": "Food",
+	"Government and Public": "Gov't",
+	"Architecture, Housing and the Home": "Housing",
+	"Money and Commerce in Industry": "Money",
+	"Entertainment, Sports and Games": "Sports",
+	"Life and Living Things": "Life",
+	"Movement, Location, Travel and Transport": "Travel",
+	"Numbers and Measurement": "Numbers",
+	"Substances, Materials, Objects and Equipment": "Objects",
+	Education: "Education",
+	"Language and Communication": "Language",
+	"Social Actions, States and Processes": "Social",
+	Time: "Time",
+	"World and Environment": "World",
+	"Psychological Actions, States and Processes": "Psych.",
+	"Science and Technology": "Science",
+	"Names and Grammar": "Grammar"
+};
+
 function readField(row, key) {
 	if (!row || typeof row !== "object") return "";
 	if (key in row) return String(row[key] ?? "");
@@ -159,6 +184,7 @@ export function buildSemanticsRibbonsPayload(rawRows) {
 		cats.push({
 			name: cat,
 			shortName: SHORT_NAMES[cat] ?? cat,
+			mobileShortName: MOBILE_SHORT_NAMES[cat] ?? SHORT_NAMES[cat] ?? cat,
 			gslPct: Math.round(gslPct * 1000) / 1000,
 			ngslPct: Math.round(ngslPct * 1000) / 1000,
 			gslCount: gc,

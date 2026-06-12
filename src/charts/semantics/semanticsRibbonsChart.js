@@ -115,6 +115,34 @@ function snapCoord(value) {
 	return Math.round(value * 2) / 2;
 }
 
+function bandHeightsFromPcts(items, pctKey, bandArea, minBandH) {
+	if (minBandH <= 0) {
+		return items.map((c) => (c[pctKey] / 100) * bandArea);
+	}
+
+	const n = items.length;
+	const floorTotal = minBandH * n;
+	if (bandArea <= floorTotal) {
+		return items.map(() => bandArea / n);
+	}
+
+	const flexArea = bandArea - floorTotal;
+	const pctSum = items.reduce((sum, c) => sum + c[pctKey], 0);
+	return items.map((c) => minBandH + (c[pctKey] / pctSum) * flexArea);
+}
+
+function stackBandColumn(categories, pctKey, y0Key, y1Key, marginTop, bandArea, bandGap, minBandH) {
+	const order = [...categories].sort((a, b) => b[pctKey] - a[pctKey]);
+	const heights = bandHeightsFromPcts(order, pctKey, bandArea, minBandH);
+	let cum = 0;
+	order.forEach((c, i) => {
+		const h = heights[i];
+		c[y0Key] = snapCoord(marginTop + cum);
+		c[y1Key] = snapCoord(marginTop + cum + h);
+		cum += h + bandGap;
+	});
+}
+
 function ribbonYs(c, ribbonCapTrim) {
 	const gH = c.gslY1 - c.gslY0;
 	const nH = c.ngslY1 - c.ngslY0;
@@ -338,51 +366,80 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	const chartW = containerEl.clientWidth || BASE_SLOPE_WIDTH;
 	const layoutScale = chartW / BASE_SLOPE_WIDTH;
+
+	const verticalScale = Math.min(layoutScale, 1);
 	const fontScale = cssNumber(containerEl, "--sem-font-scale", 1);
 	const minBandFontSize = cssNumber(containerEl, "--sem-min-band-font-size", 15);
-	const responsiveBreakpoint = cssNumber(containerEl, "--sem-responsive-breakpoint", 1080);
-	const compactBreakpoint = cssNumber(containerEl, "--sem-compact-breakpoint", 700);
+	const responsiveBreakpoint = cssNumber(containerEl, "--sem-responsive-breakpoint", 1150);
+	const shortNameBreakpoint = cssNumber(containerEl, "--sem-short-name-breakpoint", 900);
+	const compactBreakpoint = cssNumber(containerEl, "--sem-compact-breakpoint", 480);
 	const mobileOuterMargin = cssNumber(containerEl, "--sem-mobile-margin", 20);
 	const mobileOuterMarginRight = cssNumber(containerEl, "--sem-mobile-margin-right", mobileOuterMargin);
-	const mobileLabelMaxPct = cssNumber(containerEl, "--sem-mobile-label-max-pct", 0.25);
+	const mobileLabelMaxPct = cssNumber(containerEl, "--sem-mobile-label-max-pct", 0.24);
 	const mobileLabelMin = cssNumber(containerEl, "--sem-mobile-label-min", 88);
-	const mobileRightLabelMaxPct = cssNumber(containerEl, "--sem-mobile-right-label-max-pct", 0.1);
-	const mobileRightLabelMin = cssNumber(containerEl, "--sem-mobile-right-label-min", 48);
-	const mobileSlopeMin = cssNumber(containerEl, "--sem-mobile-slope-min", 260);
+	const mobileLabelMinShort = cssNumber(containerEl, "--sem-mobile-label-min-short", mobileLabelMin);
+	const mobileRightLabelMaxPct = cssNumber(containerEl, "--sem-mobile-right-label-max-pct", 0);
+	const mobileRightLabelMin = cssNumber(containerEl, "--sem-mobile-right-label-min", 0);
+	const mobileSlopeMin = cssNumber(containerEl, "--sem-mobile-slope-min", 160);
+	const compactBandGap = cssNumber(containerEl, "--sem-compact-band-gap", 0);
+	const mobileVerticalScale = cssNumber(containerEl, "--sem-mobile-vertical-scale", 1);
+	const mobilePlotMax = cssNumber(containerEl, "--sem-mobile-plot-max", 0);
+	const showRibbonMarquee = cssNumber(containerEl, "--sem-ribbon-marquee", 1) > 0;
 	const debugLayout = cssNumber(containerEl, "--sem-debug-layout", 0) > 0;
 	const viewportW =
-		typeof window !== "undefined" && Number.isFinite(window.innerWidth) ? window.innerWidth : chartW;
+		typeof window !== "undefined" ? window.innerWidth : responsiveBreakpoint + 1;
+
 	const useResponsiveBudget = viewportW <= responsiveBreakpoint;
+	const useMobileShortNames = viewportW <= shortNameBreakpoint;
 	const useCompactLabels = viewportW <= compactBreakpoint;
+	const hoverEnabled =
+		typeof window !== "undefined" &&
+		window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+	const uiScale = useResponsiveBudget ? 1 : layoutScale;
 
 	const margin = {
-		top: LAYOUT.margin.top * layoutScale,
-		bottom: LAYOUT.margin.bottom * layoutScale,
+		top: LAYOUT.margin.top * verticalScale,
+		bottom: LAYOUT.margin.bottom * verticalScale,
 		right: 0,
 		left: 0
 	};
 	const colW = LAYOUT.colW * layoutScale;
 	let gapW = LAYOUT.gapW * layoutScale;
-	const bandGap = LAYOUT.bandGap * layoutScale;
-	const plotH = LAYOUT.plotH * layoutScale;
+	let bandGap =
+		useCompactLabels && compactBandGap > 0 ? compactBandGap : LAYOUT.bandGap * verticalScale;
+	let plotH = LAYOUT.plotH * verticalScale;
+	if (useCompactLabels) {
+
+		if (mobileVerticalScale > 0 && mobileVerticalScale !== 1) {
+			plotH *= mobileVerticalScale;
+		}
+		if (mobilePlotMax > 0) {
+			plotH = Math.min(plotH, mobilePlotMax);
+		}
+	}
 	const W = chartW;
-	const H = margin.top + plotH + margin.bottom;
+	let H = margin.top + plotH + margin.bottom;
 
 	let gslX1 = margin.left + colW;
 	let leftLabelZone = 0;
 	let rightLabelZone = 0;
 	if (useResponsiveBudget) {
 		const innerW = Math.max(chartW - mobileOuterMargin - mobileOuterMarginRight, 260);
+		const effectiveLabelMin = useCompactLabels
+			? mobileLabelMin
+			: useMobileShortNames
+				? mobileLabelMinShort
+				: mobileLabelMin;
 		const leftLabelMax = innerW * mobileLabelMaxPct;
 		const rightLabelMax = innerW * mobileRightLabelMaxPct;
-		let leftZone = Math.max(leftLabelMax, mobileLabelMin);
+		let leftZone = Math.max(leftLabelMax, effectiveLabelMin);
 		let rightZone = Math.max(rightLabelMax, mobileRightLabelMin);
 		let slopeCandidate = innerW - leftZone - rightZone;
 		if (slopeCandidate < mobileSlopeMin) {
 			rightZone = Math.max(0, innerW - mobileSlopeMin - leftZone);
 			slopeCandidate = innerW - leftZone - rightZone;
 			if (slopeCandidate < mobileSlopeMin) {
-				leftZone = Math.max(0, innerW - mobileSlopeMin - rightZone);
+				leftZone = Math.max(effectiveLabelMin, innerW - mobileSlopeMin - rightZone);
 				slopeCandidate = innerW - leftZone - rightZone;
 			}
 		}
@@ -394,31 +451,35 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const ngslX0 = gslX1 + gapW;
 
 	const defaultFontSize = Math.max(14 * fontScale, minBandFontSize);
-	const thinThreshold = 16 * layoutScale;
-	const antsYOffset = -2 * layoutScale;
+	const thinThreshold = 16 * verticalScale;
+	const minBandH = cssNumber(containerEl, "--sem-min-band-height", 0);
+	const pctCapThresholdRaw = cssNumber(containerEl, "--sem-pct-cap-threshold", Number.NaN);
+	const pctCapThreshold = Number.isFinite(pctCapThresholdRaw) ? pctCapThresholdRaw : thinThreshold;
+	const antsYOffset = -2 * verticalScale;
 	const antsStrokeWidth = 1 * layoutScale;
 	const antsDashArray = `${4 * layoutScale} ${7 * layoutScale}`;
-	const pctCapWidth = cssNumber(containerEl, "--sem-pct-cap-width", 44) * layoutScale;
-	const capLabelBottomPad = cssNumber(containerEl, "--sem-pct-cap-label-bottom", 2) * layoutScale;
+	const pctCapWidth = cssNumber(containerEl, "--sem-pct-cap-width", 44) * uiScale;
+	const capLabelBottomPad = cssNumber(containerEl, "--sem-pct-cap-label-bottom", 2) * verticalScale;
 	const ribbonLeft = gslX1 + pctCapWidth;
 	const ribbonRight = ngslX0 - pctCapWidth;
 	const mx = (ribbonLeft + ribbonRight) / 2;
-	const marqueeTailRunway = cssNumber(containerEl, "--sem-marquee-tail-runway", 20) * layoutScale;
+	const marqueeTailRunway = cssNumber(containerEl, "--sem-marquee-tail-runway", 20) * uiScale;
 	const marqueePathTailX = ngslX0 + marqueeTailRunway;
-	const marqueeClipRight = ngslX0;
-	const leftLabelOffset = cssNumber(containerEl, "--sem-left-label-offset", 16) * layoutScale;
-	const rightChangeOffset = cssNumber(containerEl, "--sem-right-change-offset", 46) * layoutScale;
-	const leftLabelHoverShift = cssNumber(containerEl, "--sem-left-label-hover-shift", 30) * layoutScale;
+	const leftLabelOffset = cssNumber(containerEl, "--sem-left-label-offset", 16) * uiScale;
+	const rightChangeOffset = cssNumber(containerEl, "--sem-right-change-offset", 46) * uiScale;
+	const leftLabelHoverShift = cssNumber(containerEl, "--sem-left-label-hover-shift", 30) * uiScale;
 	if (!useResponsiveBudget) {
 		leftLabelZone = Math.max(0, leftLabelOffset + leftLabelHoverShift + 32 * layoutScale);
 		rightLabelZone = Math.max(0, rightChangeOffset + 48 * layoutScale);
 	}
 	const categoryLabelRestX = gslX1 - leftLabelOffset;
 	const categoryLabelHoverX = categoryLabelRestX - leftLabelHoverShift;
+	const categoryLabelFontSize = Math.max(11, 11 * fontScale);
 	const labelWrapChars = Math.max(
-		8,
+		2,
 		Math.floor(
-			((useCompactLabels ? leftLabelZone : chartW * 0.2) - leftLabelOffset) / Math.max(5, 13 * fontScale * 0.56)
+			((useCompactLabels ? leftLabelZone : chartW * 0.2) - leftLabelOffset) /
+				Math.max(5, categoryLabelFontSize * 0.56)
 		)
 	);
 	const hoverLabelTransitionMs = 160;
@@ -429,7 +490,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const restRibbonBlendAlpha = 0.5;
 	const focusRibbonStrokeOpacity = 1;
 	const focusRibbonStrokeWidth = 1;
-	const ribbonCapTrim = cssNumber(containerEl, "--sem-ribbon-cap-trim", 0.5) * layoutScale;
+	const ribbonCapTrim = cssNumber(containerEl, "--sem-ribbon-cap-trim", 0.5) * verticalScale;
 
 	function setBandFocusStyle(group, focused, duration = 0) {
 		const c = group.datum();
@@ -459,25 +520,18 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const cats = payload.categories.map((d) => ({ ...d }));
 	const numCats = cats.length;
 	const totalGap = bandGap * (numCats - 1);
-	const bandArea = plotH - totalGap;
+	let bandArea = plotH - totalGap;
+	if (minBandH > 0) {
+		const minBandArea = minBandH * numCats;
+		if (bandArea < minBandArea) {
+			plotH += minBandArea - bandArea;
+			bandArea = minBandArea;
+		}
+	}
 
-	const gslOrder = [...cats].sort((a, b) => b.gslPct - a.gslPct);
-	let gslCum = 0;
-	gslOrder.forEach((c) => {
-		const h = (c.gslPct / 100) * bandArea;
-		c.gslY0 = snapCoord(margin.top + gslCum);
-		c.gslY1 = snapCoord(margin.top + gslCum + h);
-		gslCum += h + bandGap;
-	});
-
-	const ngslOrder = [...cats].sort((a, b) => b.ngslPct - a.ngslPct);
-	let ngslCum = 0;
-	ngslOrder.forEach((c) => {
-		const h = (c.ngslPct / 100) * bandArea;
-		c.ngslY0 = snapCoord(margin.top + ngslCum);
-		c.ngslY1 = snapCoord(margin.top + ngslCum + h);
-		ngslCum += h + bandGap;
-	});
+	stackBandColumn(cats, "gslPct", "gslY0", "gslY1", margin.top, bandArea, bandGap, minBandH);
+	stackBandColumn(cats, "ngslPct", "ngslY0", "ngslY1", margin.top, bandArea, bandGap, minBandH);
+	H = margin.top + plotH + margin.bottom;
 
 	const chartBg =
 		getComputedStyle(containerEl).getPropertyValue("--sem-chart-bg").trim() ||
@@ -592,18 +646,23 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		const cg = catGroups.append("g").attr("class", "cat-group").attr("data-i", i).datum(c);
 
 		const clipId = `ribbon-clip-${i}`;
-		defs
-			.append("clipPath")
-			.attr("id", clipId)
-			.append("path")
-			.attr("d", ribbonBandPath(c, ribbonLeft, marqueeClipRight, mx, ribbonCapTrim));
-
 		const fs = Math.max(bandFontSize(c) * fontScale, minBandFontSize);
+
+		if (showRibbonMarquee) {
+			defs
+				.append("clipPath")
+				.attr("id", clipId)
+				.append("path")
+				.attr("d", ribbonBandPath(c, ribbonLeft, ribbonRight, mx, ribbonCapTrim));
+		}
+
 		const pathId = `center-${i}`;
-		defs
-			.append("path")
-			.attr("id", pathId)
-			.attr("d", centerLinePath(c, ribbonLeft, ribbonRight, mx, fs, marqueePathTailX));
+		if (showRibbonMarquee) {
+			defs
+				.append("path")
+				.attr("id", pathId)
+				.attr("d", centerLinePath(c, ribbonLeft, ribbonRight, mx, fs, marqueePathTailX));
+		}
 
 		cg
 			.append("path")
@@ -615,38 +674,40 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			.attr("stroke-opacity", 0)
 			.attr("shape-rendering", "geometricPrecision")
 			.attr("class", "ribbon")
-			.style("cursor", "pointer");
+			.style("cursor", hoverEnabled ? "pointer" : null);
 
-		const { words, wordSet } = marqueeDataForCategory(c);
-		const marqueeFont = marqueeFontForWordSet(wordSet);
-		const allWords = [...new Set(words)];
-		d3.shuffle(allWords);
-		const wordStr = allWords.map((w) => w.toUpperCase()).join(",  ");
-		const repeatCount = 4;
-		const repeated = (wordStr + ",   ").repeat(repeatCount);
+		if (showRibbonMarquee) {
+			const { words, wordSet } = marqueeDataForCategory(c);
+			const marqueeFont = marqueeFontForWordSet(wordSet);
+			const allWords = [...new Set(words)];
+			d3.shuffle(allWords);
+			const wordStr = allWords.map((w) => w.toUpperCase()).join(",  ");
+			const repeatCount = 4;
+			const repeated = (wordStr + ",   ").repeat(repeatCount);
 
-		c._wordStr = repeated;
-		c._repeatCount = repeatCount;
-		c._wordFontFamily = marqueeFont.family;
-		c._wordFontStyle = marqueeFont.style;
-		c._wordFontWeight = marqueeFont.weight;
+			c._wordStr = repeated;
+			c._repeatCount = repeatCount;
+			c._wordFontFamily = marqueeFont.family;
+			c._wordFontStyle = marqueeFont.style;
+			c._wordFontWeight = marqueeFont.weight;
 
-		const scrollText = cg
-			.append("text")
-			.attr("clip-path", `url(#${clipId})`)
-			.attr("font-family", c._wordFontFamily)
-			.attr("font-size", `${fs}px`)
-			.attr("font-weight", c._wordFontWeight)
-			.attr("font-style", c._wordFontStyle)
-			.attr("letter-spacing", "0.04em")
-			.attr("fill", c.dirTextColor)
-			.attr("fill-opacity", 1)
-			.style("pointer-events", "none");
+			const scrollText = cg
+				.append("text")
+				.attr("clip-path", `url(#${clipId})`)
+				.attr("font-family", c._wordFontFamily)
+				.attr("font-size", `${fs}px`)
+				.attr("font-weight", c._wordFontWeight)
+				.attr("font-style", c._wordFontStyle)
+				.attr("letter-spacing", "0.04em")
+				.attr("fill", c.dirTextColor)
+				.attr("fill-opacity", 1)
+				.style("pointer-events", "none");
 
-		scrollText.append("textPath").attr("href", `#${pathId}`).attr("startOffset", "0").text(repeated);
+			scrollText.append("textPath").attr("href", `#${pathId}`).attr("startOffset", "0").text(repeated);
 
-		c._pathId = pathId;
-		c._offset = 0;
+			c._pathId = pathId;
+			c._offset = 0;
+		}
 
 		const gH = c.gslY1 - c.gslY0;
 		const gMidY = c.gslY0 + gH / 2;
@@ -661,22 +722,25 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			.attr("text-anchor", "end")
 			.attr("dominant-baseline", "middle")
 			.attr("font-family", "var(--font-mono)")
-			.attr("font-size", `${13 * fontScale}px`)
+			.attr("font-size", `${categoryLabelFontSize}px`)
 			.attr("fill", "var(--sem-ribbon-label)")
 			.attr("font-weight", 500)
 			.style("pointer-events", "none");
 
-		const labelLines = useCompactLabels ? splitLabelTwoLines(c.shortName, labelWrapChars) : [c.shortName];
+		const categoryLabel = useMobileShortNames ? c.mobileShortName ?? c.shortName : c.shortName;
+		const labelLines = useCompactLabels ? splitLabelTwoLines(categoryLabel, labelWrapChars) : [categoryLabel];
 		if (labelLines.length > 1) {
+			const lineDy = useCompactLabels ? "0.88em" : "1.05em";
+			const firstDy = useCompactLabels ? "-0.38em" : "-0.45em";
 			labelEl
 				.append("tspan")
 				.attr("x", categoryLabelRestX)
-				.attr("dy", "-0.45em")
+				.attr("dy", firstDy)
 				.text(labelLines[0]);
 			labelEl
 				.append("tspan")
 				.attr("x", categoryLabelRestX)
-				.attr("dy", "1.05em")
+				.attr("dy", lineDy)
 				.text(labelLines[1]);
 		} else {
 			labelEl.text(labelLines[0]);
@@ -692,7 +756,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 				.attr("y", nMidY)
 				.attr("text-anchor", "start")
 				.attr("dominant-baseline", "central")
-				.attr("font-size", `${13 * fontScale}px`)
+				.attr("font-size", `${categoryLabelFontSize}px`)
 				.attr("fill", changeColor)
 				.attr("font-weight", 500)
 				.attr("opacity", 0)
@@ -703,8 +767,8 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 		const minBandH = Math.min(gH, nH);
 		c._thin = minBandH < thinThreshold;
-		if (c._thin) {
-			scrollText.style("display", "none");
+		if (showRibbonMarquee && c._thin) {
+			cg.select("text").style("display", "none");
 			const antsPath = cg
 				.append("path")
 				.attr("d", antsLinePath(c, ribbonLeft, ribbonRight, mx, fs, antsYOffset))
@@ -756,7 +820,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			midY: gMidY,
 			pct: c.gslPct,
 			textColor: c.dirPctCapTextColor,
-			thinThreshold,
+			thinThreshold: pctCapThreshold,
 			capLabelBottomPad
 		});
 		appendPercentCapLabel(capLabelLayer, {
@@ -767,29 +831,32 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			midY: nMidY,
 			pct: c.ngslPct,
 			textColor: c.dirPctCapTextColor,
-			thinThreshold,
+			thinThreshold: pctCapThreshold,
 			capLabelBottomPad
 		});
 
-		c._tpNode = scrollText.select("textPath").node();
-		c._textLen = c._tpNode ? c._tpNode.getComputedTextLength() : 2000;
-		c._cycleLen = c._textLen / c._repeatCount;
-		c._offset = c._cycleLen > 0 ? -Math.random() * c._cycleLen : 0;
+		if (showRibbonMarquee) {
+			const tpNode = cg.select("text textPath").node();
+			c._tpNode = tpNode;
+			c._textLen = tpNode ? tpNode.getComputedTextLength() : 2000;
+			c._cycleLen = c._textLen / (c._repeatCount || 4);
+			c._offset = c._cycleLen > 0 ? -Math.random() * c._cycleLen : 0;
 
-		if (c._thin) {
-			const expClipId = `exp-clip-${i}`;
-			defs
-				.append("clipPath")
-				.attr("id", expClipId)
-				.append("path")
-				.attr("d", expandedRibbonPath(c, ribbonLeft, ribbonRight, mx, thinThreshold));
-			const expPathId = `exp-center-${i}`;
-			defs
-				.append("path")
-				.attr("id", expPathId)
-				.attr("d", expandedCenterPath(c, ribbonLeft, ribbonRight, mx, defaultFontSize, thinThreshold, marqueePathTailX));
-			c._expClipId = expClipId;
-			c._expPathId = expPathId;
+			if (c._thin) {
+				const expClipId = `exp-clip-${i}`;
+				defs
+					.append("clipPath")
+					.attr("id", expClipId)
+					.append("path")
+					.attr("d", expandedRibbonPath(c, ribbonLeft, ribbonRight, mx, thinThreshold));
+				const expPathId = `exp-center-${i}`;
+				defs
+					.append("path")
+					.attr("id", expPathId)
+					.attr("d", expandedCenterPath(c, ribbonLeft, ribbonRight, mx, defaultFontSize, thinThreshold, marqueePathTailX));
+				c._expClipId = expClipId;
+				c._expPathId = expPathId;
+			}
 		}
 	});
 
@@ -807,36 +874,43 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		);
 	}
 
-	const marqueeLoop = createMarqueeLoop({
-		halfRate: typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches,
-		isEngaged: () => cats.some((c, i) => isCategoryEngaged(c, i)),
-		tick(dt, prefersReducedMotion) {
-			for (let i = 0; i < cats.length; i++) {
-				const c = cats[i];
-				const engaged = isCategoryEngaged(c, i);
+	const marqueeLoop = showRibbonMarquee
+		? createMarqueeLoop({
+				halfRate: typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches,
+				isEngaged: () => cats.some((c, i) => isCategoryEngaged(c, i)),
+				tick(dt, prefersReducedMotion) {
+					for (let i = 0; i < cats.length; i++) {
+						const c = cats[i];
+						const engaged = isCategoryEngaged(c, i);
 
-				if (!c._thin && (!prefersReducedMotion || engaged)) {
-					c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
-					if (c._tpNode) c._tpNode.setAttribute("startOffset", c._offset);
-				}
+						if (!c._thin && (!prefersReducedMotion || engaged)) {
+							c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
+							if (c._tpNode) c._tpNode.setAttribute("startOffset", c._offset);
+						}
 
-				if (c._hoverActive && c._hoverTpNode) {
-					c._hoverOffset = wrapLeftToRightOffset(c._hoverOffset + marqueeSpeed * dt, c._hoverCycleLen);
-					c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
-				}
+						if (c._hoverActive && c._hoverTpNode) {
+							c._hoverOffset = wrapLeftToRightOffset(c._hoverOffset + marqueeSpeed * dt, c._hoverCycleLen);
+							c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
+						}
 
-				if (c._forcedActive && c._forcedTpNode) {
-					c._forcedOffset = wrapLeftToRightOffset(c._forcedOffset + marqueeSpeed * dt, c._forcedCycleLen);
-					c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
-				}
+						if (c._forcedActive && c._forcedTpNode) {
+							c._forcedOffset = wrapLeftToRightOffset(c._forcedOffset + marqueeSpeed * dt, c._forcedCycleLen);
+							c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
+						}
 
-				if (c._thin && c._antsPath && (!prefersReducedMotion || engaged)) {
-					c._antsOffset = (c._antsOffset - antsSpeed * dt) % 10;
-					c._antsPath.setAttribute("stroke-dashoffset", c._antsOffset);
+						if (c._thin && c._antsPath && (!prefersReducedMotion || engaged)) {
+							c._antsOffset = (c._antsOffset - antsSpeed * dt) % 10;
+							c._antsPath.setAttribute("stroke-dashoffset", c._antsOffset);
+						}
+					}
 				}
-			}
-		}
-	});
+			})
+		: {
+				setMarqueeActive() {},
+				setPrefersReducedMotion() {},
+				syncEngagement() {},
+				destroy() {}
+			};
 
 	function drawThinFocusOverlay(group, c) {
 		group.selectAll(".thin-band-focus-fill, .thin-band-focus-text").remove();
@@ -850,20 +924,24 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			.attr("stroke", "none")
 			.style("pointer-events", "none");
 
-		const text = group
-			.insert("text", ".band-focus-outline")
-			.attr("class", "thin-band-focus-text")
-			.attr("clip-path", `url(#${c._expClipId})`)
-			.attr("font-family", c._wordFontFamily)
-			.attr("font-size", `${defaultFontSize}px`)
-			.attr("font-weight", c._wordFontWeight)
-			.attr("font-style", c._wordFontStyle)
-			.attr("letter-spacing", "0.04em")
-			.attr("fill", c.dirTextColor)
-			.attr("fill-opacity", 1)
-			.style("pointer-events", "none");
+		const text = showRibbonMarquee
+			? group
+					.insert("text", ".band-focus-outline")
+					.attr("class", "thin-band-focus-text")
+					.attr("clip-path", `url(#${c._expClipId})`)
+					.attr("font-family", c._wordFontFamily)
+					.attr("font-size", `${defaultFontSize}px`)
+					.attr("font-weight", c._wordFontWeight)
+					.attr("font-style", c._wordFontStyle)
+					.attr("letter-spacing", "0.04em")
+					.attr("fill", c.dirTextColor)
+					.attr("fill-opacity", 1)
+					.style("pointer-events", "none")
+			: null;
 
-		text.append("textPath").attr("href", `#${c._expPathId}`).attr("startOffset", "0").text(c._wordStr);
+		if (text) {
+			text.append("textPath").attr("href", `#${c._expPathId}`).attr("startOffset", "0").text(c._wordStr);
+		}
 
 		return text;
 	}
@@ -894,6 +972,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	function drawForcedThinOverlay(c, group) {
 		setThinBandFocus(group, c, true);
+		if (!showRibbonMarquee) return;
 		const bound = bindMarqueeTextPath(c, group.select(".thin-band-focus-text"), c._offset);
 		if (!bound) return;
 		c._forcedTpNode = bound.tpNode;
@@ -918,7 +997,8 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			group.raise().transition().duration(focusTransitionMs).attr("opacity", nextSet ? (focused ? 1 : 0.08) : 1);
 			if (c._thin) {
 				if (focused) {
-					drawForcedThinOverlay(c, group);
+					if (showRibbonMarquee) drawForcedThinOverlay(c, group);
+					else setThinBandFocus(group, c, true);
 				} else {
 					if (c._antsPath) d3.select(c._antsPath).style("display", null);
 					setBandFocusStyle(group, false, 0);
@@ -945,30 +1025,30 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		const i = Number(el.attr("data-i"));
 		const c = cats[i];
 
-		el.on("mouseenter", () => {
-			if (interactionLocked) return;
-			hoverEngagedIndex = i;
-			catGroups.selectAll(".cat-group").transition().duration(120).attr("opacity", 0.25);
-			el.raise().transition().duration(120).attr("opacity", 1);
-			el.select(".category-name").transition().duration(hoverLabelTransitionMs).attr("x", categoryLabelHoverX);
-			el.selectAll(".side-percent").transition().duration(hoverLabelTransitionMs).attr("opacity", 1);
+		if (hoverEnabled) {
+			el.on("mouseenter", () => {
+				if (interactionLocked) return;
+				hoverEngagedIndex = i;
+				catGroups.selectAll(".cat-group").transition().duration(120).attr("opacity", 0.25);
+				el.raise().transition().duration(120).attr("opacity", 1);
+				el.select(".category-name").transition().duration(hoverLabelTransitionMs).attr("x", categoryLabelHoverX);
+				el.selectAll(".side-percent").transition().duration(hoverLabelTransitionMs).attr("opacity", 1);
 
-			if (c._thin) {
-				setThinBandFocus(el, c, true);
-				const bound = bindMarqueeTextPath(c, el.select(".thin-band-focus-text"), c._offset);
-				if (bound) {
-					c._hoverTpNode = bound.tpNode;
-					c._hoverActive = true;
-					c._hoverCycleLen = bound.cycleLen;
-					c._hoverOffset = bound.offset;
+				if (c._thin) {
+					setThinBandFocus(el, c, true);
+					const bound = bindMarqueeTextPath(c, el.select(".thin-band-focus-text"), c._offset);
+					if (bound) {
+						c._hoverTpNode = bound.tpNode;
+						c._hoverActive = true;
+						c._hoverCycleLen = bound.cycleLen;
+						c._hoverOffset = bound.offset;
+					}
+				} else {
+					setBandFocusStyle(el, true, hoverLabelTransitionMs);
 				}
-			} else {
-				setBandFocusStyle(el, true, hoverLabelTransitionMs);
-			}
 
-			marqueeLoop.syncEngagement();
-		})
-			.on("mouseleave", () => {
+				marqueeLoop.syncEngagement();
+			}).on("mouseleave", () => {
 				if (interactionLocked) return;
 				hoverEngagedIndex = null;
 				catGroups.selectAll(".cat-group").transition().duration(200).attr("opacity", 1);
@@ -985,12 +1065,14 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 				marqueeLoop.syncEngagement();
 			});
+		}
 	});
 
 	const categoryIndexByName = new Map();
 	cats.forEach((c, i) => {
 		categoryIndexByName.set(normalizeCategoryKey(c.name), i);
 		categoryIndexByName.set(normalizeCategoryKey(c.shortName), i);
+		categoryIndexByName.set(normalizeCategoryKey(c.mobileShortName), i);
 	});
 
 	return {
