@@ -13,9 +13,14 @@ const LAYOUT = {
 
 const BASE_SLOPE_WIDTH = LAYOUT.colW + LAYOUT.gapW + LAYOUT.colW;
 
-function cssNumber(el, name, fallback) {
-	const value = Number.parseFloat(getComputedStyle(el).getPropertyValue(name));
+function cssNumber(styles, name, fallback) {
+	const value = Number.parseFloat(styles.getPropertyValue(name));
 	return Number.isFinite(value) ? value : fallback;
+}
+
+function cssString(styles, name, fallback = "") {
+	const value = styles.getPropertyValue(name).trim();
+	return value || fallback;
 }
 
 const RIBBON_COLOR_DEFAULTS = {
@@ -65,17 +70,17 @@ function blendColors(foreground, background, alpha) {
 	});
 }
 
-function resolveCssColor(el, cssVar, defaults, key) {
-	const fromCss = getComputedStyle(el).getPropertyValue(cssVar).trim();
+function resolveCssColor(styles, cssVar, defaults, key) {
+	const fromCss = cssString(styles, cssVar);
 	return fromCss || defaults[key] || defaults.tan;
 }
 
-function resolvedRibbonHex(el, key) {
-	return resolveCssColor(el, `--sem-ribbon-${key}`, RIBBON_COLOR_DEFAULTS, key);
+function resolvedRibbonHex(styles, key) {
+	return resolveCssColor(styles, `--sem-ribbon-${key}`, RIBBON_COLOR_DEFAULTS, key);
 }
 
-function resolvedPctCapTextColor(el, key) {
-	return resolveCssColor(el, `--sem-pct-cap-${key}-text`, PCT_CAP_TEXT_DEFAULTS, key);
+function resolvedPctCapTextColor(styles, key) {
+	return resolveCssColor(styles, `--sem-pct-cap-${key}-text`, PCT_CAP_TEXT_DEFAULTS, key);
 }
 
 function splitLabelTwoLines(text, targetChars) {
@@ -364,28 +369,29 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	containerEl.innerHTML = "";
 
+	const chartStyles = getComputedStyle(containerEl);
 	const chartW = containerEl.clientWidth || BASE_SLOPE_WIDTH;
 	const layoutScale = chartW / BASE_SLOPE_WIDTH;
 
 	const verticalScale = Math.min(layoutScale, 1);
-	const fontScale = cssNumber(containerEl, "--sem-font-scale", 1);
-	const minBandFontSize = cssNumber(containerEl, "--sem-min-band-font-size", 15);
-	const responsiveBreakpoint = cssNumber(containerEl, "--sem-responsive-breakpoint", 1150);
-	const shortNameBreakpoint = cssNumber(containerEl, "--sem-short-name-breakpoint", 900);
-	const compactBreakpoint = cssNumber(containerEl, "--sem-compact-breakpoint", 480);
-	const mobileOuterMargin = cssNumber(containerEl, "--sem-mobile-margin", 20);
-	const mobileOuterMarginRight = cssNumber(containerEl, "--sem-mobile-margin-right", mobileOuterMargin);
-	const mobileLabelMaxPct = cssNumber(containerEl, "--sem-mobile-label-max-pct", 0.24);
-	const mobileLabelMin = cssNumber(containerEl, "--sem-mobile-label-min", 88);
-	const mobileLabelMinShort = cssNumber(containerEl, "--sem-mobile-label-min-short", mobileLabelMin);
-	const mobileRightLabelMaxPct = cssNumber(containerEl, "--sem-mobile-right-label-max-pct", 0);
-	const mobileRightLabelMin = cssNumber(containerEl, "--sem-mobile-right-label-min", 0);
-	const mobileSlopeMin = cssNumber(containerEl, "--sem-mobile-slope-min", 160);
-	const compactBandGap = cssNumber(containerEl, "--sem-compact-band-gap", 0);
-	const mobileVerticalScale = cssNumber(containerEl, "--sem-mobile-vertical-scale", 1);
-	const mobilePlotMax = cssNumber(containerEl, "--sem-mobile-plot-max", 0);
-	const showRibbonMarquee = cssNumber(containerEl, "--sem-ribbon-marquee", 1) > 0;
-	const debugLayout = cssNumber(containerEl, "--sem-debug-layout", 0) > 0;
+	const fontScale = cssNumber(chartStyles, "--sem-font-scale", 1);
+	const minBandFontSize = cssNumber(chartStyles, "--sem-min-band-font-size", 15);
+	const responsiveBreakpoint = cssNumber(chartStyles, "--sem-responsive-breakpoint", 1150);
+	const shortNameBreakpoint = cssNumber(chartStyles, "--sem-short-name-breakpoint", 900);
+	const compactBreakpoint = cssNumber(chartStyles, "--sem-compact-breakpoint", 480);
+	const mobileOuterMargin = cssNumber(chartStyles, "--sem-mobile-margin", 20);
+	const mobileOuterMarginRight = cssNumber(chartStyles, "--sem-mobile-margin-right", mobileOuterMargin);
+	const mobileLabelMaxPct = cssNumber(chartStyles, "--sem-mobile-label-max-pct", 0.24);
+	const mobileLabelMin = cssNumber(chartStyles, "--sem-mobile-label-min", 88);
+	const mobileLabelMinShort = cssNumber(chartStyles, "--sem-mobile-label-min-short", mobileLabelMin);
+	const mobileRightLabelMaxPct = cssNumber(chartStyles, "--sem-mobile-right-label-max-pct", 0);
+	const mobileRightLabelMin = cssNumber(chartStyles, "--sem-mobile-right-label-min", 0);
+	const mobileSlopeMin = cssNumber(chartStyles, "--sem-mobile-slope-min", 160);
+	const compactBandGap = cssNumber(chartStyles, "--sem-compact-band-gap", 0);
+	const mobileVerticalScale = cssNumber(chartStyles, "--sem-mobile-vertical-scale", 1);
+	const mobilePlotMax = cssNumber(chartStyles, "--sem-mobile-plot-max", 0);
+	const showRibbonMarquee = cssNumber(chartStyles, "--sem-ribbon-marquee", 1) > 0;
+	const debugLayout = cssNumber(chartStyles, "--sem-debug-layout", 0) > 0;
 	const viewportW =
 		typeof window !== "undefined" ? window.innerWidth : responsiveBreakpoint + 1;
 
@@ -452,22 +458,22 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	const defaultFontSize = Math.max(14 * fontScale, minBandFontSize);
 	const thinThreshold = 16 * verticalScale;
-	const minBandH = cssNumber(containerEl, "--sem-min-band-height", 0);
-	const pctCapThresholdRaw = cssNumber(containerEl, "--sem-pct-cap-threshold", Number.NaN);
+	const minBandH = cssNumber(chartStyles, "--sem-min-band-height", 0);
+	const pctCapThresholdRaw = cssNumber(chartStyles, "--sem-pct-cap-threshold", Number.NaN);
 	const pctCapThreshold = Number.isFinite(pctCapThresholdRaw) ? pctCapThresholdRaw : thinThreshold;
 	const antsYOffset = -2 * verticalScale;
 	const antsStrokeWidth = 1 * layoutScale;
 	const antsDashArray = `${4 * layoutScale} ${7 * layoutScale}`;
-	const pctCapWidth = cssNumber(containerEl, "--sem-pct-cap-width", 44) * uiScale;
-	const capLabelBottomPad = cssNumber(containerEl, "--sem-pct-cap-label-bottom", 2) * verticalScale;
+	const pctCapWidth = cssNumber(chartStyles, "--sem-pct-cap-width", 44) * uiScale;
+	const capLabelBottomPad = cssNumber(chartStyles, "--sem-pct-cap-label-bottom", 2) * verticalScale;
 	const ribbonLeft = gslX1 + pctCapWidth;
 	const ribbonRight = ngslX0 - pctCapWidth;
 	const mx = (ribbonLeft + ribbonRight) / 2;
-	const marqueeTailRunway = cssNumber(containerEl, "--sem-marquee-tail-runway", 20) * uiScale;
+	const marqueeTailRunway = cssNumber(chartStyles, "--sem-marquee-tail-runway", 20) * uiScale;
 	const marqueePathTailX = ngslX0 + marqueeTailRunway;
-	const leftLabelOffset = cssNumber(containerEl, "--sem-left-label-offset", 16) * uiScale;
-	const rightChangeOffset = cssNumber(containerEl, "--sem-right-change-offset", 46) * uiScale;
-	const leftLabelHoverShift = cssNumber(containerEl, "--sem-left-label-hover-shift", 30) * uiScale;
+	const leftLabelOffset = cssNumber(chartStyles, "--sem-left-label-offset", 16) * uiScale;
+	const rightChangeOffset = cssNumber(chartStyles, "--sem-right-change-offset", 46) * uiScale;
+	const leftLabelHoverShift = cssNumber(chartStyles, "--sem-left-label-hover-shift", 30) * uiScale;
 	if (!useResponsiveBudget) {
 		leftLabelZone = Math.max(0, leftLabelOffset + leftLabelHoverShift + 32 * layoutScale);
 		rightLabelZone = Math.max(0, rightChangeOffset + 48 * layoutScale);
@@ -490,7 +496,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const restRibbonBlendAlpha = 0.5;
 	const focusRibbonStrokeOpacity = 1;
 	const focusRibbonStrokeWidth = 1;
-	const ribbonCapTrim = cssNumber(containerEl, "--sem-ribbon-cap-trim", 0.5) * verticalScale;
+	const ribbonCapTrim = cssNumber(chartStyles, "--sem-ribbon-cap-trim", 0.5) * verticalScale;
 
 	function setBandFocusStyle(group, focused, duration = 0) {
 		const c = group.datum();
@@ -534,16 +540,15 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	H = margin.top + plotH + margin.bottom;
 
 	const chartBg =
-		getComputedStyle(containerEl).getPropertyValue("--sem-chart-bg").trim() ||
-		getComputedStyle(containerEl).getPropertyValue("--color-bg").trim() ||
-		"#FFFFF1";
+		cssString(chartStyles, "--sem-chart-bg") ||
+		cssString(chartStyles, "--color-bg", "#FFFFF1");
 
 	cats.forEach((c) => {
 		const key = categoryColorKey(c);
-		const ribbonHex = resolvedRibbonHex(containerEl, key);
+		const ribbonHex = resolvedRibbonHex(chartStyles, key);
 		c.dirColor = `var(--sem-ribbon-${key})`;
 		c.dirTextColor = `var(--sem-ribbon-${key}-text)`;
-		c.dirPctCapTextColor = resolvedPctCapTextColor(containerEl, key);
+		c.dirPctCapTextColor = resolvedPctCapTextColor(chartStyles, key);
 		c.dirFillRest = blendColors(ribbonHex, chartBg, restRibbonBlendAlpha);
 		c.dirFillFocused = blendColors(ribbonHex, chartBg, focusRibbonBlendAlpha);
 	});
@@ -876,29 +881,36 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 	const marqueeLoop = showRibbonMarquee
 		? createMarqueeLoop({
-				halfRate: typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches,
+				halfRate: viewportW <= 768,
 				isEngaged: () => cats.some((c, i) => isCategoryEngaged(c, i)),
 				tick(dt, prefersReducedMotion) {
 					for (let i = 0; i < cats.length; i++) {
 						const c = cats[i];
 						const engaged = isCategoryEngaged(c, i);
+						const animate = !prefersReducedMotion || engaged;
 
-						if (!c._thin && (!prefersReducedMotion || engaged)) {
+						if (!c._thin && animate && c._tpNode) {
 							c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
-							if (c._tpNode) c._tpNode.setAttribute("startOffset", c._offset);
+							c._tpNode.setAttribute("startOffset", c._offset);
 						}
 
 						if (c._hoverActive && c._hoverTpNode) {
-							c._hoverOffset = wrapLeftToRightOffset(c._hoverOffset + marqueeSpeed * dt, c._hoverCycleLen);
+							c._hoverOffset = wrapLeftToRightOffset(
+								c._hoverOffset + marqueeSpeed * dt,
+								c._hoverCycleLen
+							);
 							c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
 						}
 
 						if (c._forcedActive && c._forcedTpNode) {
-							c._forcedOffset = wrapLeftToRightOffset(c._forcedOffset + marqueeSpeed * dt, c._forcedCycleLen);
+							c._forcedOffset = wrapLeftToRightOffset(
+								c._forcedOffset + marqueeSpeed * dt,
+								c._forcedCycleLen
+							);
 							c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
 						}
 
-						if (c._thin && c._antsPath && (!prefersReducedMotion || engaged)) {
+						if (c._thin && c._antsPath && animate) {
 							c._antsOffset = (c._antsOffset - antsSpeed * dt) % 10;
 							c._antsPath.setAttribute("stroke-dashoffset", c._antsOffset);
 						}

@@ -5,6 +5,8 @@
 	import { CHART_ONSCREEN_MARGIN, observeChartVisibility } from "$utils/chartVisibility.js";
 	import { subscribePrefersReducedMotion } from "$utils/prefersReducedMotion.js";
 
+	const RESIZE_REPAINT_THRESHOLD = 4;
+
 	let { overlays = [], note = "" } = $props();
 
 	const getData = getContext("data");
@@ -31,7 +33,6 @@
 	}
 
 	let chartMount = $state(null);
-	let stageMount = $state(null);
 	let chartController = null;
 	let resizeObserver;
 	let stepObserver;
@@ -87,7 +88,7 @@
 
 
 	function updateStageTop() {
-		if (!stageMount || !chartMount || !scrollyMount) return;
+		if (!chartMount || !scrollyMount) return;
 		const svgEl = chartMount.querySelector("svg");
 		if (!svgEl) return;
 		const chartH = Math.round(svgEl.getBoundingClientRect().height);
@@ -130,7 +131,7 @@
 		if (
 			chartController &&
 			width > 0 &&
-			Math.abs(width - lastRenderedWidth) < 2 &&
+			Math.abs(width - lastRenderedWidth) < RESIZE_REPAINT_THRESHOLD &&
 			layoutTier === lastLayoutTier
 		) {
 			return;
@@ -177,8 +178,6 @@
 		rafId = requestAnimationFrame(() => {
 			rafId = 0;
 			renderChart();
-
-			requestAnimationFrame(updateStageTop);
 		});
 	}
 
@@ -228,7 +227,10 @@
 		setupStepObserver();
 		setupVisibilityObserver();
 		if (!chartMount) return;
-		handleResize = () => scheduleRender();
+		handleResize = () => {
+			if (!chartSectionNear && chartController) return;
+			scheduleRender();
+		};
 		resizeObserver = new ResizeObserver(handleResize);
 		resizeObserver.observe(chartMount);
 		window.addEventListener("resize", handleResize);
@@ -255,7 +257,7 @@
 		<p class="semantics-viz-error" role="alert">{payloadError}</p>
 	{:else if payload}
 		<div class="semantics-scrolly chart-overlay-scrolly" bind:this={scrollyMount}>
-			<div class="semantics-stage chart-overlay-stage" bind:this={stageMount}>
+			<div class="semantics-stage chart-overlay-stage">
 				<div class="semantics-viz-chart" bind:this={chartMount}></div>
 			</div>
 			{#if overlaySteps.length}
@@ -324,9 +326,9 @@
 		--chart-overlay-stage-height: 100vh;
 		--sem-stage-top: 32px;
 		--chart-overlay-steps-top-pad: 85vh;
-		--chart-overlay-steps-bottom-pad: 80vh;
-		--chart-overlay-step-min-h: 120vh;
-		--chart-overlay-step-spacer-h: 120vh;
+		--chart-overlay-steps-bottom-pad: 85vh;
+		--chart-overlay-step-min-h: 100vh;
+		--chart-overlay-step-spacer-h: 100vh;
 		width: 100%;
 		max-width: 980px;
 		margin-inline: auto;
