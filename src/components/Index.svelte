@@ -1,5 +1,6 @@
 <script>
 	import { getContext, onMount } from "svelte";
+	import { browser } from "$app/environment";
 	import Footer from "$components/Footer.svelte";
 	import IntroSequence from "$components/IntroSequence.svelte";
 	import SemanticsViz from "../charts/semantics/SemanticsViz.svelte";
@@ -22,6 +23,16 @@
 
 	let explorerVisible = $state(false);
 	let rafId = 0;
+
+	$effect(() => {
+		if (!browser) return;
+
+		document.documentElement.classList.toggle("explorer-rail-active", explorerVisible);
+
+		return () => {
+			document.documentElement.classList.remove("explorer-rail-active");
+		};
+	});
 
 	const EXPLORER_INTRO_OFFSET_PX = 500;
 	const EXPLORER_FOOTER_OFFSET_PX = 100;

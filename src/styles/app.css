@@ -46,6 +46,7 @@
 	--prose-margins: var(--story-inline-margin);
 	--mobile-margins: var(--story-inline-margin);
 	--explorer-rail-width: 2.5rem;
+	--explorer-rail-offset: 0px;
 	
 	--color-bg: #FFFFF1;
 	--color-bg-notes: #F0F0D6; 
@@ -361,17 +362,21 @@ svg {
 		--story-inline-margin: 2rem;
 		--max-prose-width: min(
 			650px,
-			calc(100vw - var(--explorer-rail-width) - 2 * var(--story-inline-margin))
+			calc(100vw - var(--explorer-rail-offset) - 2 * var(--story-inline-margin))
 		);
 		--max-chart-width: min(
 			1200px,
-			calc(100vw - var(--explorer-rail-width) - 2 * var(--story-inline-margin))
+			calc(100vw - var(--explorer-rail-offset) - 2 * var(--story-inline-margin))
 		);
+	}
+
+	html.explorer-rail-active {
+		--explorer-rail-offset: var(--explorer-rail-width);
 	}
 
 	.story {
 		box-sizing: border-box;
-		padding-right: var(--explorer-rail-width);
+		padding-right: var(--explorer-rail-offset);
 	}
 
 	.story-section--title .story-dek {
