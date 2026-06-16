@@ -141,7 +141,7 @@
 		{/each}
 	{:else}
 		<section class="story-section">
-			<p class="story-empty">No <code>copy.story</code> in copy.json.</p>
+			<p class="story-empty">No copy in copy.json.</p>
 		</section>
 	{/if}
 

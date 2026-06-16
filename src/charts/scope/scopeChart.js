@@ -471,7 +471,7 @@ export function renderScopeChart(container, payload) {
 		notifyHover(d ?? null);
 	}
 
-	function applyFocusState() {
+	function applyFocusState({ immediate = false } = {}) {
 		const hasForcedFocus = interactionLocked && focusRings.size > 0;
 
 		function dotOp(ring) {
@@ -490,12 +490,18 @@ export function renderScopeChart(container, payload) {
 			return focusRings.has(ring) ? 1 : 0.25;
 		}
 
-		dotLayer.selectAll(".scope-dot").transition().duration(m.focusFadeMs)
-			.style("opacity", function () { return dotOp(Number(this.getAttribute("data-ring"))); });
-		labelLayer.selectAll(".scope-ring-label").transition().duration(m.focusFadeMs)
-			.style("opacity", function () { return labelOp(Number(this.getAttribute("data-ring"))); });
-		ringArcsG.selectAll("path").transition().duration(m.focusFadeMs)
-			.style("opacity", function () { return arcOp(Number(this.getAttribute("data-ring"))); });
+		function setOpacity(sel, op) {
+			if (immediate) {
+				sel.style("opacity", function () { return op(Number(this.getAttribute("data-ring"))); });
+				return;
+			}
+			sel.transition().duration(m.focusFadeMs)
+				.style("opacity", function () { return op(Number(this.getAttribute("data-ring"))); });
+		}
+
+		setOpacity(dotLayer.selectAll(".scope-dot"), dotOp);
+		setOpacity(labelLayer.selectAll(".scope-ring-label"), labelOp);
+		setOpacity(ringArcsG.selectAll("path"), arcOp);
 	}
 
 	hitSel.on("mouseenter", function onEnter(_event, d) {
@@ -571,6 +577,7 @@ export function renderScopeChart(container, payload) {
 			.attr("y2", expanded ? dividerExpandedY2 : dividerCollapsedY2);
 	}
 
+	applyFocusState({ immediate: true });
 	container.replaceChildren(svg.node());
 
 	return {

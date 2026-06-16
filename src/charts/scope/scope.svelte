@@ -14,11 +14,15 @@
 	let scrollyMount = $state(null);
 	let chartController = null;
 	let stepObserver;
+	let legendObserver;
+	let scrollyObserver;
 	let visibilityObserver;
 	let unsubscribeHover = null;
 	let rafId = 0;
 	let chartReady = $state(false);
-	let chartSectionVisible = false;
+	let chartSectionVisible = $state(false);
+	let scrollyIntersecting = $state(false);
+	let legendInRange = $state(false);
 	let activeStep = $state(-1);
 	let lastRenderedWidth = 0;
 
@@ -59,7 +63,6 @@
 		if (!chartController) return;
 		const N = overlaySteps.length;
 
-		// Reveal rings one per step; show all once past the last step
 		const reveal = activeStep < 0 ? 1 : activeStep >= N ? nRings : Math.min(activeStep + 1, nRings);
 		chartController.setVisibleRings(reveal);
 
@@ -81,6 +84,12 @@
 
 	const nRings = $derived(payload?.rings?.length ?? 5);
 
+	const legendVisible = $derived(
+		scrollyIntersecting &&
+			activeStep <= overlaySteps.length &&
+			(activeStep >= 0 || legendInRange)
+	);
+
 	function renderChart() {
 		if (!chartMount || !payload || payloadError) {
 			chartController?.destroy();
@@ -99,6 +108,15 @@
 			hoverInfo = dot;
 		});
 		applyStepFocus();
+		requestAnimationFrame(() => syncScrollMetrics());
+	}
+
+	function syncScrollMetrics() {
+		if (!chartMount || !scrollyMount) return;
+		const panel = chartMount.closest(".scope-chart-panel");
+		if (!panel) return;
+
+		scrollyMount.style.setProperty("--scope-chart-flow-height", `${panel.offsetHeight}px`);
 	}
 
 	function scheduleRender() {
@@ -130,6 +148,34 @@
 		hoverInfo = null;
 	}
 
+	function setupScrollyObserver() {
+		scrollyObserver?.disconnect();
+		if (!scrollyMount) return;
+		scrollyObserver = new IntersectionObserver(
+			([entry]) => {
+				scrollyIntersecting = entry?.isIntersecting ?? false;
+			},
+			{ root: null, threshold: 0 }
+		);
+		scrollyObserver.observe(scrollyMount);
+	}
+
+	function setupLegendObserver() {
+		legendObserver?.disconnect();
+		if (!scrollyMount || !overlaySteps.length) return;
+		const firstStep = scrollyMount.querySelector(".chart-overlay-step");
+		if (!firstStep) return;
+
+
+		legendObserver = new IntersectionObserver(
+			([entry]) => {
+				legendInRange = entry?.isIntersecting ?? false;
+			},
+			{ root: null, rootMargin: "100% 0px 50% 0px", threshold: 0 }
+		);
+		legendObserver.observe(firstStep);
+	}
+
 	function setupStepObserver() {
 		stepObserver?.disconnect();
 		if (!scrollyMount || !overlaySteps.length) return;
@@ -155,8 +201,8 @@
 				const lastBottom = nodes.at(-1)?.getBoundingClientRect().bottom ?? 0;
 				const midY = window.innerHeight * 0.5;
 				let next = activeStep;
-				if (firstTop > midY) next = -1;           // above the section
-				else if (lastBottom < midY) next = nodes.length; // past all steps
+				if (firstTop > midY) next = -1;
+				else if (lastBottom < midY) next = nodes.length;
 				if (next !== activeStep) {
 					activeStep = next;
 					applyStepFocus();
@@ -170,11 +216,24 @@
 
 	function handleWindowResize() {
 		scheduleRender();
+		syncScrollMetrics();
 	}
+
+	$effect(() => {
+		if (!scrollyMount) return;
+		setupScrollyObserver();
+	});
+
+	$effect(() => {
+		overlaySteps.length;
+		if (!scrollyMount) return;
+		setupLegendObserver();
+	});
 
 	onMount(() => {
 		chartReady = true;
 		setupStepObserver();
+		setupLegendObserver();
 		setupVisibilityObserver();
 		window.addEventListener("resize", handleWindowResize);
 	});
@@ -185,6 +244,8 @@
 			window.removeEventListener("resize", handleWindowResize);
 		}
 		stepObserver?.disconnect();
+		legendObserver?.disconnect();
+		scrollyObserver?.disconnect();
 		visibilityObserver?.disconnect();
 		unsubscribeHover?.();
 		chartController?.destroy();
@@ -218,20 +279,6 @@
 					<div class="scope-chart-panel">
 						<div class="scope-chart" bind:this={chartMount}></div>
 					</div>
-					<div class="scope-legend" aria-hidden="true">
-						<span class="scope-legend-item">
-							<span class="scope-legend-dot scope-legend-dot--remained"></span>
-							in both lists
-						</span>
-						<span class="scope-legend-item">
-							<span class="scope-legend-dot scope-legend-dot--removed"></span>
-							discarded words
-						</span>
-						<span class="scope-legend-item">
-							<span class="scope-legend-dot scope-legend-dot--added"></span>
-							added words
-						</span>
-					</div>
 				</div>
 			</div>
 			{#if overlaySteps.length}
@@ -250,6 +297,27 @@
 					<div class="chart-overlay-step-spacer scope-overlay-spacer-bottom" aria-hidden="true"></div>
 				</div>
 			{/if}
+		</div>
+
+		<div
+			class="scope-legend-shell"
+			class:scope-legend-shell--visible={legendVisible}
+			aria-hidden={!legendVisible}
+		>
+			<div class="scope-legend">
+				<span class="scope-legend-item">
+					<span class="scope-legend-dot scope-legend-dot--remained"></span>
+					in both lists
+				</span>
+				<span class="scope-legend-item">
+					<span class="scope-legend-dot scope-legend-dot--removed"></span>
+					discarded words
+				</span>
+				<span class="scope-legend-item">
+					<span class="scope-legend-dot scope-legend-dot--added"></span>
+					added words
+				</span>
+			</div>
 		</div>
 
 		{#if hoverInfo}
@@ -304,9 +372,9 @@
 		--scope-header-font-size: 16;
 
 		--scope-intro-offset: -30vh;
-		--scope-final-hold: calc(100vh - var(--scope-intro-offset));
+		--scope-final-hold: 100vh;
 
-		--chart-overlay-steps-top-pad: 25vh;
+		--chart-overlay-steps-top-pad: 120vh;
 		--chart-overlay-steps-bottom-pad: 0;
 		--chart-overlay-step-min-h: 125vh;
 		--chart-overlay-step-spacer-h: 0;
@@ -324,13 +392,10 @@
 		box-sizing: border-box;
 	}
 
-	.scope :global(.chart-overlay-scrolly) {
-		margin-bottom: var(--scope-intro-offset);
-	}
-
 	.scope-stage {
-		--chart-overlay-stage-height: auto;
+		--chart-overlay-stage-height: calc(var(--scope-chart-flow-height, 90vh) + var(--scope-intro-offset));
 		--chart-overlay-stage-top: 35vh;
+		overflow: visible;
 	}
 
 	.scope :global(.scope-overlay-spacer-bottom) {
@@ -338,8 +403,8 @@
 	}
 
 	.scope > .chart-note {
-		margin-top: 2rem;
 		text-align: left;
+		margin-top: 3rem;
 	}
 
 	.scope-chart-wrap {
@@ -348,12 +413,14 @@
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
+		overflow: visible;
 		transform: translateY(var(--scope-intro-offset));
 	}
 
 	.scope-chart-panel {
 		display: flex;
 		justify-content: center;
+		overflow: visible;
 	}
 
 	.scope-chart {
@@ -405,18 +472,67 @@
 		transition: opacity 220ms cubic-bezier(0.33, 1, 0.68, 1);
 	}
 
+	.scope-legend-shell {
+		position: sticky;
+		bottom: 2rem;
+		z-index: 1;
+		width: fit-content;
+		margin: 0 auto;
+		max-height: 0;
+		overflow: hidden;
+		pointer-events: none;
+		transition:
+			max-height 320ms cubic-bezier(0.33, 1, 0.68, 1),
+			margin-top 320ms cubic-bezier(0.33, 1, 0.68, 1);
+	}
+
+	.scope-legend-shell--visible {
+		max-height: 6rem;
+		margin-top: 2rem;
+		pointer-events: auto;
+	}
+
 	.scope-legend {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem 1.25rem;
 		justify-content: center;
-		margin-top: 0.5rem;
-		margin-bottom: 1rem;
+		width: fit-content;
+		padding: 0.5rem 1rem;
+		box-sizing: border-box;
 		font-family: var(--font-mono);
 		font-size: 13px;
 		color: var(--color-secondary);
 		text-transform: uppercase;
 		letter-spacing: 2%;
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		opacity: 0;
+		transform: translateY(1.25rem);
+		transition:
+			opacity 280ms cubic-bezier(0.33, 1, 0.68, 1),
+			transform 280ms cubic-bezier(0.33, 1, 0.68, 1);
+	}
+
+	.scope-legend-shell--visible .scope-legend {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.scope-legend-shell {
+			transition: none;
+		}
+
+		.scope-legend {
+			transition: opacity 140ms ease;
+			transform: none;
+		}
+
+		.scope-legend-shell--visible .scope-legend {
+			transform: none;
+		}
 	}
 
 	.scope-legend-item {
