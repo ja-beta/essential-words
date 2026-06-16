@@ -11,9 +11,11 @@
 	import ScopeArcs from "../charts/scope-arcs/scopeArcs.svelte";
 	import Title from "$components/Title.svelte";
 	import Explorer from "$components/Explorer.svelte";
+	import Notes from "$components/Notes.svelte";
 
 	const copy = getContext("copy");
 	const storyBlocks = $derived(Array.isArray(copy?.story) ? copy.story : []);
+	const notesBlocks = $derived(Array.isArray(copy?.notes) ? copy.notes : []);
 	const introBlocks = $derived(storyBlocks.filter((block) => block?.type === "intro"));
 	const mainBlocks = $derived(storyBlocks.filter((block) => block?.type !== "intro"));
 	const hasText = (value) => typeof value === "string" && value.trim().length > 0;
@@ -84,7 +86,7 @@
 					{/if}
 				</section>
 			{:else if block.type === "prose"}
-				<section class="story-section">
+				<section class="story-section story-section--prose">
 					<div class="content-container story-prose">{@html block.html}</div>
 				</section>
 			{:else if block.type === "chart"}
@@ -131,6 +133,8 @@
 			<p class="story-empty">No <code>copy.story</code> in copy.json.</p>
 		</section>
 	{/if}
+
+	<Notes blocks={notesBlocks} />
 </article>
 
 <svelte:boundary onerror={(e) => console.error(e)}>

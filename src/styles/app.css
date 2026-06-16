@@ -48,6 +48,8 @@
 	--explorer-rail-width: 2.5rem;
 	
 	--color-bg: #FFFFF1;
+	--color-bg-notes: #F0F0D6; 
+	--color-footer-bg: #e4e4a9;
 	--color-fg: var(--color-gray-900);
 	--color-fg-light: var(--color-gray-500);
 	--color-primary: #5B5B5B;
@@ -72,7 +74,6 @@
 	--color-ngsl-highlight: #F493FF; /* F493FF */
 	--color-remained-highlight: #DBD4BC;
 	--color-highlight-text: #262626; /* 494949 */
-	--color-footer-bg: #F0F0D6;
 	--color-hero-headline: #494949;
 	
 	/* "1" second duration */
@@ -192,7 +193,6 @@ svg {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-inline: var(--story-inline-margin);
 }
 
 .story-section--title{
@@ -352,7 +352,7 @@ svg {
 	opacity: 0.32;
 }
 
-.story > .story-section:last-child .story-prose > p:last-child {
+.story > .story-section--prose:not(:has(~ .story-section--prose)) .story-prose > p:last-child {
 	margin-bottom: 0;
 }
 

@@ -1,35 +1,73 @@
 word,set,concreteness,conc_category
 a,remained,1.46,Very Abstract
+abandon,added,2.54,Abstract
 ability,remained,1.81,Very Abstract
 able,remained,2.38,Abstract
+abortion,added,3.41,Moderate
 about,remained,1.77,Very Abstract
 above,remained,3.33,Moderate
 abroad,remained,2.72,Abstract
 absence,remained,2.31,Abstract
+absent,removed,2.70,Abstract
 absolute,remained,1.81,Very Abstract
+absolutely,added,1.97,Very Abstract
+abstract,added,1.45,Very Abstract
+abuse,added,2.71,Abstract
+academic,added,2.11,Abstract
 accept,remained,3.03,Moderate
+acceptable,added,1.93,Very Abstract
+access,added,2.71,Abstract
 accident,remained,3.26,Moderate
+accommodation,added,2.96,Abstract
+accompany,added,3.07,Moderate
+accomplish,added,2.33,Abstract
 accord,remained,1.57,Very Abstract
 account,remained,3.08,Moderate
+accurate,added,1.90,Very Abstract
 accuse,remained,2.25,Abstract
+accustom,removed,1.48,Very Abstract
+ache,removed,3.43,Moderate
+achieve,added,2.29,Abstract
+achievement,added,2.37,Abstract
+acknowledge,added,2.03,Abstract
+acquire,added,2.93,Abstract
+acquisition,added,2.60,Abstract
 across,remained,3.07,Moderate
 act,remained,2.46,Abstract
 action,remained,2.86,Abstract
 active,remained,3.32,Moderate
+activity,added,2.72,Abstract
 actor,remained,4.57,Very Concrete
+actress,removed,4.54,Very Concrete
 actual,remained,2.22,Abstract
+actually,added,1.37,Very Abstract
+ad,added,4.46,Concrete
+adapt,added,2.41,Abstract
 add,remained,3.00,Abstract
+addition,added,2.89,Abstract
+additional,added,2.43,Abstract
 address,remained,3.89,Moderate
+adequate,added,1.97,Very Abstract
+adjust,added,2.93,Abstract
+adjustment,added,2.81,Abstract
+administration,added,2.78,Abstract
 admire,remained,2.04,Abstract
+admission,removed,2.83,Abstract
 admit,remained,2.32,Abstract
 adopt,remained,2.36,Abstract
+adoption,removed,3.03,Moderate
+adult,added,4.40,Concrete
 advance,remained,2.57,Abstract
 advantage,remained,2.00,Very Abstract
 adventure,remained,2.59,Abstract
 advertise,remained,2.81,Abstract
+advertisement,added,3.77,Moderate
 advice,remained,2.73,Abstract
 advise,remained,2.03,Abstract
+adviser,added,3.67,Moderate
+advocate,added,2.72,Abstract
 affair,remained,2.45,Abstract
+affect,added,1.93,Very Abstract
 afford,remained,1.83,Very Abstract
 afraid,remained,2.70,Abstract
 after,remained,2.12,Abstract
@@ -38,1693 +76,125 @@ again,remained,2.00,Very Abstract
 against,remained,1.80,Very Abstract
 age,remained,2.86,Abstract
 agency,remained,3.87,Moderate
+agenda,added,2.66,Abstract
 agent,remained,3.61,Moderate
+aggressive,added,2.54,Abstract
 ago,remained,1.42,Very Abstract
 agree,remained,2.31,Abstract
+agreement,added,2.22,Abstract
+agricultural,added,3.29,Moderate
+agriculture,removed,3.67,Moderate
 ahead,remained,3.00,Abstract
+aid,added,3.10,Moderate
 aim,remained,3.27,Moderate
 air,remained,4.11,Concrete
+aircraft,added,4.40,Concrete
+airline,added,4.00,Moderate
+airplane,removed,4.96,Very Concrete
+alarm,added,4.47,Concrete
+album,added,4.69,Very Concrete
+alcohol,added,4.76,Very Concrete
+alike,removed,2.38,Abstract
 alive,remained,3.14,Moderate
 all,remained,2.27,Abstract
+allege,added,1.76,Very Abstract
 allow,remained,2.41,Abstract
+allowance,removed,3.07,Moderate
+ally,added,2.61,Abstract
 almost,remained,1.66,Very Abstract
 alone,remained,2.86,Abstract
 along,remained,2.14,Abstract
+alongside,added,2.82,Abstract
+aloud,removed,3.10,Moderate
 already,remained,1.64,Very Abstract
+alright,added,1.93,Very Abstract
 also,remained,1.83,Very Abstract
+alter,added,3.07,Moderate
+alternative,added,2.46,Abstract
 although,remained,1.07,Very Abstract
 altogether,remained,2.36,Abstract
 always,remained,1.71,Very Abstract
+amaze,added,2.00,Very Abstract
+ambition,removed,1.74,Very Abstract
+ambitious,removed,1.81,Very Abstract
+amendment,added,2.44,Abstract
 among,remained,2.38,Abstract
+amongst,removed,2.81,Abstract
 amount,remained,2.74,Abstract
+amuse,removed,2.57,Abstract
+analysis,added,2.56,Abstract
+analyst,added,4.23,Concrete
+analyze,added,2.30,Abstract
 ancient,remained,2.04,Abstract
 and,remained,1.52,Very Abstract
 anger,remained,2.41,Abstract
 angle,remained,3.50,Moderate
 angry,remained,2.53,Abstract
 animal,remained,4.61,Very Concrete
+announce,added,3.31,Moderate
+announcement,added,2.79,Abstract
+annoy,removed,1.93,Very Abstract
+annoyance,removed,2.14,Abstract
+annual,added,1.78,Very Abstract
 another,remained,2.69,Abstract
 answer,remained,2.89,Abstract
+anticipate,added,1.54,Very Abstract
 anxiety,remained,2.21,Abstract
 anxious,remained,1.68,Very Abstract
 any,remained,1.72,Very Abstract
 anybody,remained,2.67,Abstract
+anyhow,removed,1.48,Very Abstract
+anymore,added,2.04,Abstract
 anyone,remained,2.70,Abstract
 anything,remained,1.38,Very Abstract
 anyway,remained,1.68,Very Abstract
 anywhere,remained,2.21,Abstract
 apart,remained,3.15,Moderate
-appear,remained,3.13,Moderate
-appearance,remained,2.57,Abstract
-application,remained,3.40,Moderate
-apply,remained,2.50,Abstract
-appoint,remained,2.24,Abstract
-approve,remained,1.85,Very Abstract
-argue,remained,2.75,Abstract
-arise,remained,3.17,Moderate
-arm,remained,4.96,Very Concrete
-army,remained,4.70,Very Concrete
-around,remained,1.96,Very Abstract
-arrange,remained,2.79,Abstract
-arrest,remained,3.93,Moderate
-arrive,remained,3.22,Moderate
-art,remained,4.17,Concrete
-article,remained,4.33,Concrete
-ashamed,remained,1.74,Very Abstract
-aside,remained,2.21,Abstract
-ask,remained,2.52,Abstract
-association,remained,2.30,Abstract
-at,remained,2.07,Abstract
-attack,remained,3.71,Moderate
-attempt,remained,2.22,Abstract
-attend,remained,3.17,Moderate
-attention,remained,2.30,Abstract
-attract,remained,2.73,Abstract
-attraction,remained,2.24,Abstract
-attractive,remained,2.64,Abstract
-audience,remained,4.29,Concrete
-aunt,remained,4.17,Concrete
-autumn,remained,3.27,Moderate
-average,remained,2.40,Abstract
-avoid,remained,2.41,Abstract
-away,remained,2.23,Abstract
-baby,remained,5.00,Very Concrete
-back,remained,4.33,Concrete
-bad,remained,1.68,Very Abstract
-bag,remained,4.90,Very Concrete
-balance,remained,2.89,Abstract
-ball,remained,5.00,Very Concrete
-band,remained,4.68,Very Concrete
-bank,remained,4.78,Very Concrete
-bar,remained,4.67,Very Concrete
-base,remained,3.86,Moderate
-basic,remained,2.26,Abstract
-basis,remained,1.83,Very Abstract
-bath,remained,4.85,Very Concrete
-battle,remained,4.00,Moderate
-be,remained,1.85,Very Abstract
-bear,remained,4.88,Very Concrete
-beat,remained,3.97,Moderate
-beauty,remained,2.93,Abstract
-because,remained,1.22,Very Abstract
-become,remained,1.54,Very Abstract
-bed,remained,5.00,Very Concrete
-bedroom,remained,4.90,Very Concrete
-before,remained,1.96,Very Abstract
-begin,remained,2.56,Abstract
-behave,remained,1.78,Very Abstract
-behavior,remained,2.19,Abstract
-behind,remained,3.48,Moderate
-belief,remained,1.19,Very Abstract
-believe,remained,1.55,Very Abstract
-bell,remained,4.96,Very Concrete
-belong,remained,1.43,Very Abstract
-below,remained,3.45,Moderate
-belt,remained,4.90,Very Concrete
-bend,remained,3.88,Moderate
-beneath,remained,3.11,Moderate
-beside,remained,2.59,Abstract
-besides,remained,2.25,Abstract
-between,remained,2.72,Abstract
-beyond,remained,1.72,Very Abstract
-big,remained,3.66,Moderate
-bill,remained,4.68,Very Concrete
-bind,remained,3.40,Moderate
-bird,remained,5.00,Very Concrete
-birth,remained,4.46,Concrete
-bit,remained,3.27,Moderate
-bite,remained,4.44,Concrete
-black,remained,3.76,Moderate
-blame,remained,2.06,Abstract
-bless,remained,2.68,Abstract
-blind,remained,4.03,Concrete
-block,remained,4.48,Concrete
-blood,remained,4.86,Very Concrete
-blow,remained,3.74,Moderate
-blue,remained,3.76,Moderate
-board,remained,4.57,Very Concrete
-boat,remained,4.93,Very Concrete
-body,remained,4.79,Very Concrete
-bone,remained,4.90,Very Concrete
-book,remained,4.90,Very Concrete
-border,remained,4.29,Concrete
-borrow,remained,3.10,Moderate
-both,remained,2.97,Abstract
-bottle,remained,4.91,Very Concrete
-bottom,remained,4.25,Concrete
-boundary,remained,3.04,Moderate
-bowl,remained,4.87,Very Concrete
-box,remained,4.90,Very Concrete
-boy,remained,4.76,Very Concrete
-brain,remained,4.69,Very Concrete
-branch,remained,4.90,Very Concrete
-bread,remained,4.92,Very Concrete
-break,remained,3.71,Moderate
-breakfast,remained,4.43,Concrete
-breath,remained,4.36,Concrete
-breathe,remained,4.07,Concrete
-bridge,remained,4.97,Very Concrete
-bright,remained,3.92,Moderate
-bring,remained,2.55,Abstract
-broad,remained,2.45,Abstract
-broadcast,remained,3.46,Moderate
-brother,remained,4.43,Concrete
-brown,remained,4.48,Concrete
-brush,remained,4.54,Very Concrete
-build,remained,3.71,Moderate
-bunch,remained,3.50,Moderate
-burn,remained,4.11,Concrete
-burst,remained,3.10,Moderate
-bury,remained,3.82,Moderate
-bus,remained,4.90,Very Concrete
-business,remained,3.28,Moderate
-busy,remained,2.41,Abstract
-but,remained,2.04,Abstract
-button,remained,4.96,Very Concrete
-buy,remained,3.35,Moderate
-by,remained,1.55,Very Abstract
-cake,remained,4.81,Very Concrete
-calculate,remained,2.74,Abstract
-call,remained,4.00,Moderate
-calm,remained,2.83,Abstract
-camera,remained,5.00,Very Concrete
-camp,remained,4.35,Concrete
-can,remained,4.55,Very Concrete
-cap,remained,4.59,Very Concrete
-capital,remained,4.10,Concrete
-car,remained,4.89,Very Concrete
-card,remained,4.90,Very Concrete
-care,remained,2.33,Abstract
-carry,remained,4.04,Concrete
-case,remained,3.93,Moderate
-castle,remained,4.96,Very Concrete
-cat,remained,4.86,Very Concrete
-catch,remained,4.11,Concrete
-cause,remained,2.43,Abstract
-cent,remained,4.19,Concrete
-center,remained,3.85,Moderate
-century,remained,2.83,Abstract
-ceremony,remained,3.57,Moderate
-certain,remained,1.68,Very Abstract
-chain,remained,4.55,Very Concrete
-chair,remained,4.58,Very Concrete
-chairman,remained,4.31,Concrete
-chance,remained,1.64,Very Abstract
-change,remained,2.89,Abstract
-character,remained,2.93,Abstract
-charge,remained,2.96,Abstract
-charm,remained,2.76,Abstract
-cheap,remained,2.11,Abstract
-check,remained,4.11,Concrete
-cheese,remained,4.70,Very Concrete
-chest,remained,4.93,Very Concrete
-chicken,remained,4.80,Very Concrete
-chief,remained,4.26,Concrete
-child,remained,4.78,Very Concrete
-childhood,remained,2.53,Abstract
-choice,remained,1.90,Very Abstract
-choose,remained,2.62,Abstract
-church,remained,4.90,Very Concrete
-circle,remained,4.44,Concrete
-citizen,remained,4.43,Concrete
-city,remained,4.79,Very Concrete
-claim,remained,2.96,Abstract
-class,remained,3.85,Moderate
-clean,remained,3.07,Moderate
-clear,remained,3.55,Moderate
-climb,remained,4.11,Concrete
-clock,remained,5.00,Very Concrete
-close,remained,3.20,Moderate
-clothe,remained,3.50,Moderate
-cloud,remained,4.54,Very Concrete
-club,remained,3.78,Moderate
-coal,remained,4.66,Very Concrete
-coast,remained,4.21,Concrete
-coat,remained,4.97,Very Concrete
-coffee,remained,4.81,Very Concrete
-coin,remained,4.89,Very Concrete
-cold,remained,3.85,Moderate
-collect,remained,3.34,Moderate
-collection,remained,4.04,Concrete
-college,remained,4.62,Very Concrete
-color,remained,4.08,Concrete
-combine,remained,3.41,Moderate
-come,remained,2.72,Abstract
-comfort,remained,2.89,Abstract
-command,remained,2.48,Abstract
-commercial,remained,3.24,Moderate
-committee,remained,4.14,Concrete
-common,remained,2.07,Abstract
-company,remained,4.11,Concrete
-compare,remained,2.52,Abstract
-comparison,remained,2.00,Very Abstract
-compete,remained,2.57,Abstract
-competition,remained,3.86,Moderate
-competitor,remained,3.23,Moderate
-complain,remained,2.60,Abstract
-complaint,remained,2.69,Abstract
-complete,remained,2.70,Abstract
-complicate,remained,1.65,Very Abstract
-compose,remained,2.83,Abstract
-composition,remained,3.10,Moderate
-concern,remained,1.70,Very Abstract
-condition,remained,2.15,Abstract
-confidence,remained,2.17,Abstract
-confident,remained,2.62,Abstract
-confuse,remained,2.04,Abstract
-confusion,remained,2.24,Abstract
-connect,remained,2.88,Abstract
-connection,remained,3.00,Abstract
-consider,remained,1.68,Very Abstract
-contain,remained,2.74,Abstract
-content,remained,2.59,Abstract
-continue,remained,2.36,Abstract
-control,remained,1.93,Very Abstract
-conversation,remained,3.28,Moderate
-cook,remained,4.32,Concrete
-cool,remained,3.53,Moderate
-copy,remained,3.90,Moderate
-corner,remained,4.61,Very Concrete
-correct,remained,2.59,Abstract
-cost,remained,2.50,Abstract
-cough,remained,4.36,Concrete
-could,remained,1.34,Very Abstract
-council,remained,2.73,Abstract
-count,remained,3.00,Abstract
-country,remained,4.17,Concrete
-course,remained,3.82,Moderate
-court,remained,4.31,Concrete
-cousin,remained,3.70,Moderate
-cover,remained,4.23,Concrete
-cow,remained,4.96,Very Concrete
-crack,remained,4.53,Very Concrete
-crash,remained,3.79,Moderate
-cream,remained,4.83,Very Concrete
-creature,remained,4.07,Concrete
-crime,remained,3.03,Moderate
-criminal,remained,3.48,Moderate
-critic,remained,3.55,Moderate
-crop,remained,4.24,Concrete
-cross,remained,4.44,Concrete
-crowd,remained,4.52,Very Concrete
-cry,remained,4.00,Moderate
-cup,remained,5.00,Very Concrete
-curious,remained,1.75,Very Abstract
-current,remained,3.16,Moderate
-curtain,remained,4.82,Very Concrete
-curve,remained,4.41,Concrete
-custom,remained,2.68,Abstract
-customer,remained,3.82,Moderate
-cut,remained,4.55,Very Concrete
-daily,remained,3.15,Moderate
-damage,remained,3.20,Moderate
-dance,remained,4.32,Concrete
-danger,remained,2.68,Abstract
-dare,remained,2.28,Abstract
-dark,remained,4.29,Concrete
-date,remained,3.90,Moderate
-daughter,remained,4.79,Very Concrete
-day,remained,3.92,Moderate
-dead,remained,4.07,Concrete
-deal,remained,3.10,Moderate
-dear,remained,2.25,Abstract
-death,remained,3.73,Moderate
-debt,remained,2.72,Abstract
-decide,remained,1.92,Very Abstract
-decision,remained,2.19,Abstract
-declare,remained,2.00,Very Abstract
-decrease,remained,2.68,Abstract
-deep,remained,3.38,Moderate
-defeat,remained,2.96,Abstract
-defend,remained,2.31,Abstract
-defense,remained,2.45,Abstract
-degree,remained,3.00,Abstract
-delay,remained,2.79,Abstract
-delight,remained,2.30,Abstract
-deliver,remained,3.12,Moderate
-delivery,remained,3.69,Moderate
-demand,remained,2.20,Abstract
-department,remained,3.30,Moderate
-depend,remained,1.89,Very Abstract
-dependent,remained,2.32,Abstract
-depth,remained,3.11,Moderate
-describe,remained,2.18,Abstract
-description,remained,2.43,Abstract
-desert,remained,4.86,Very Concrete
-deserve,remained,1.69,Very Abstract
-desire,remained,1.70,Very Abstract
-desk,remained,4.87,Very Concrete
-destroy,remained,3.08,Moderate
-destruction,remained,3.21,Moderate
-detail,remained,2.50,Abstract
-determine,remained,2.13,Abstract
-develop,remained,1.87,Very Abstract
-die,remained,3.07,Moderate
-difference,remained,2.15,Abstract
-different,remained,1.97,Very Abstract
-difficult,remained,2.21,Abstract
-difficulty,remained,1.90,Very Abstract
-dig,remained,4.33,Concrete
-dinner,remained,4.50,Concrete
-direct,remained,2.15,Abstract
-direction,remained,2.79,Abstract
-director,remained,4.04,Concrete
-disagree,remained,2.77,Abstract
-disappear,remained,2.86,Abstract
-disappoint,remained,1.89,Very Abstract
-discipline,remained,2.24,Abstract
-discover,remained,2.37,Abstract
-discovery,remained,2.36,Abstract
-discussion,remained,3.07,Moderate
-disease,remained,3.45,Moderate
-dish,remained,4.90,Very Concrete
-dismiss,remained,2.39,Abstract
-distance,remained,3.17,Moderate
-distant,remained,2.75,Abstract
-distinguish,remained,2.20,Abstract
-district,remained,3.29,Moderate
-disturb,remained,3.04,Moderate
-divide,remained,2.86,Abstract
-division,remained,2.80,Abstract
-do,remained,2.46,Abstract
-doctor,remained,4.69,Very Concrete
-dog,remained,4.85,Very Concrete
-dollar,remained,4.93,Very Concrete
-door,remained,4.81,Very Concrete
-double,remained,3.37,Moderate
-doubt,remained,1.79,Very Abstract
-down,remained,3.52,Moderate
-dozen,remained,4.66,Very Concrete
-drag,remained,4.17,Concrete
-draw,remained,3.97,Moderate
-dream,remained,2.60,Abstract
-dress,remained,4.93,Very Concrete
-drink,remained,4.76,Very Concrete
-drive,remained,3.86,Moderate
-drop,remained,4.21,Concrete
-dry,remained,3.77,Moderate
-due,remained,3.21,Moderate
-during,remained,1.48,Very Abstract
-dust,remained,4.40,Concrete
-duty,remained,2.19,Abstract
-each,remained,2.03,Abstract
-ear,remained,5.00,Very Concrete
-early,remained,2.25,Abstract
-earn,remained,2.39,Abstract
-earth,remained,4.80,Very Concrete
-ease,remained,2.32,Abstract
-east,remained,3.04,Moderate
-eastern,remained,3.11,Moderate
-easy,remained,2.07,Abstract
-eat,remained,4.44,Concrete
-edge,remained,4.24,Concrete
-educate,remained,2.12,Abstract
-education,remained,2.93,Abstract
-effect,remained,1.80,Very Abstract
-effective,remained,2.04,Abstract
-efficiency,remained,2.15,Abstract
-efficient,remained,1.82,Very Abstract
-effort,remained,2.33,Abstract
-egg,remained,4.97,Very Concrete
-either,remained,1.81,Very Abstract
-elect,remained,2.41,Abstract
-election,remained,3.17,Moderate
-electric,remained,3.56,Moderate
-else,remained,1.63,Very Abstract
-elsewhere,remained,1.89,Very Abstract
-empire,remained,3.00,Abstract
-employ,remained,2.41,Abstract
-employee,remained,4.10,Concrete
-empty,remained,3.43,Moderate
-encourage,remained,2.61,Abstract
-end,remained,3.14,Moderate
-enemy,remained,2.83,Abstract
-engine,remained,4.86,Very Concrete
-engineer,remained,4.64,Very Concrete
-enjoy,remained,2.29,Abstract
-enough,remained,1.33,Very Abstract
-enter,remained,3.12,Moderate
-entertain,remained,2.55,Abstract
-entire,remained,2.03,Abstract
-entrance,remained,4.23,Concrete
-envelope,remained,4.93,Very Concrete
-equal,remained,2.56,Abstract
-escape,remained,3.34,Moderate
-especially,remained,1.28,Very Abstract
-essential,remained,1.52,Very Abstract
-even,remained,2.79,Abstract
-event,remained,2.69,Abstract
-ever,remained,1.48,Very Abstract
-every,remained,2.28,Abstract
-everybody,remained,3.13,Moderate
-everyday,remained,2.43,Abstract
-everyone,remained,2.92,Abstract
-everything,remained,2.30,Abstract
-everywhere,remained,2.00,Very Abstract
-evil,remained,1.93,Very Abstract
-exact,remained,2.54,Abstract
-examine,remained,2.86,Abstract
-example,remained,3.03,Moderate
-excellent,remained,2.11,Abstract
-except,remained,1.48,Very Abstract
-exception,remained,1.85,Very Abstract
-excess,remained,2.50,Abstract
-exchange,remained,2.74,Abstract
-excite,remained,1.97,Very Abstract
-excuse,remained,2.29,Abstract
-exercise,remained,3.87,Moderate
-exist,remained,2.38,Abstract
-existence,remained,1.54,Very Abstract
-expect,remained,1.89,Very Abstract
-expense,remained,2.57,Abstract
-expensive,remained,3.13,Moderate
-experience,remained,1.80,Very Abstract
-experiment,remained,3.38,Moderate
-explain,remained,1.97,Very Abstract
-explore,remained,2.90,Abstract
-express,remained,2.21,Abstract
-expression,remained,2.54,Abstract
-extend,remained,2.93,Abstract
-extension,remained,2.93,Abstract
-extensive,remained,1.79,Very Abstract
-extent,remained,1.44,Very Abstract
-extra,remained,2.46,Abstract
-extraordinary,remained,2.13,Abstract
-extreme,remained,1.96,Very Abstract
-eye,remained,4.90,Very Concrete
-face,remained,4.87,Very Concrete
-fact,remained,2.72,Abstract
-factory,remained,4.76,Very Concrete
-fade,remained,2.48,Abstract
-fail,remained,3.00,Abstract
-failure,remained,2.08,Abstract
-fair,remained,2.39,Abstract
-faith,remained,1.63,Very Abstract
-fall,remained,4.04,Concrete
-false,remained,2.36,Abstract
-familiar,remained,2.03,Abstract
-family,remained,4.23,Concrete
-fan,remained,4.71,Very Concrete
-fancy,remained,2.50,Abstract
-far,remained,2.71,Abstract
-farm,remained,4.59,Very Concrete
-fashion,remained,3.43,Moderate
-fast,remained,3.32,Moderate
-fat,remained,4.52,Very Concrete
-father,remained,4.52,Very Concrete
-fault,remained,2.41,Abstract
-favor,remained,2.07,Abstract
-favorite,remained,2.71,Abstract
-fear,remained,2.57,Abstract
-fee,remained,3.89,Moderate
-feel,remained,2.28,Abstract
-fellow,remained,3.67,Moderate
-female,remained,4.57,Very Concrete
-fence,remained,4.82,Very Concrete
-few,remained,2.48,Abstract
-field,remained,4.26,Concrete
-fight,remained,4.20,Concrete
-figure,remained,3.63,Moderate
-fill,remained,3.32,Moderate
-film,remained,4.71,Very Concrete
-find,remained,2.63,Abstract
-fine,remained,2.61,Abstract
-finger,remained,5.00,Very Concrete
-finish,remained,2.89,Abstract
-fire,remained,4.68,Very Concrete
-firm,remained,3.54,Moderate
-first,remained,2.76,Abstract
-fish,remained,5.00,Very Concrete
-fit,remained,2.70,Abstract
-fix,remained,2.93,Abstract
-flag,remained,4.79,Very Concrete
-flash,remained,3.67,Moderate
-flat,remained,4.07,Concrete
-float,remained,4.07,Concrete
-flood,remained,4.62,Very Concrete
-floor,remained,4.80,Very Concrete
-flow,remained,3.72,Moderate
-flower,remained,5.00,Very Concrete
-fly,remained,4.64,Very Concrete
-fold,remained,4.13,Concrete
-follow,remained,3.26,Moderate
-food,remained,4.80,Very Concrete
-fool,remained,3.19,Moderate
-foot,remained,4.90,Very Concrete
-for,remained,1.63,Very Abstract
-force,remained,3.00,Abstract
-foreign,remained,2.50,Abstract
-forest,remained,4.76,Very Concrete
-forget,remained,2.04,Abstract
-form,remained,3.13,Moderate
-formal,remained,2.70,Abstract
-former,remained,2.18,Abstract
-forth,remained,2.38,Abstract
-fortunate,remained,2.04,Abstract
-fortune,remained,2.90,Abstract
-forward,remained,2.66,Abstract
-frame,remained,4.30,Concrete
-framework,remained,3.24,Moderate
-free,remained,2.04,Abstract
-freedom,remained,2.34,Abstract
-freeze,remained,3.96,Moderate
-frequency,remained,2.69,Abstract
-frequent,remained,2.25,Abstract
-fresh,remained,1.97,Very Abstract
-friend,remained,3.07,Moderate
-friendly,remained,2.32,Abstract
-friendship,remained,2.39,Abstract
-frighten,remained,3.07,Moderate
-from,remained,1.84,Very Abstract
-front,remained,3.77,Moderate
-fruit,remained,4.81,Very Concrete
-full,remained,3.59,Moderate
-fun,remained,1.97,Very Abstract
-funny,remained,2.50,Abstract
-furniture,remained,4.89,Very Concrete
-future,remained,1.86,Very Abstract
-gain,remained,2.24,Abstract
-game,remained,4.50,Concrete
-gap,remained,3.92,Moderate
-garden,remained,4.73,Very Concrete
-gas,remained,4.29,Concrete
-gate,remained,4.96,Very Concrete
-gather,remained,2.75,Abstract
-gay,remained,2.52,Abstract
-general,remained,1.62,Very Abstract
-gentle,remained,2.53,Abstract
-gentleman,remained,3.57,Moderate
-get,remained,2.38,Abstract
-gift,remained,4.56,Very Concrete
-girl,remained,4.85,Very Concrete
-give,remained,2.83,Abstract
-glad,remained,2.36,Abstract
-glass,remained,4.82,Very Concrete
-go,remained,3.15,Moderate
-god,remained,2.07,Abstract
-gold,remained,4.81,Very Concrete
-golden,remained,3.12,Moderate
-good,remained,1.64,Very Abstract
-govern,remained,2.21,Abstract
-governor,remained,4.07,Concrete
-grain,remained,4.80,Very Concrete
-grammar,remained,3.19,Moderate
-grand,remained,1.67,Very Abstract
-grass,remained,4.93,Very Concrete
-grateful,remained,1.78,Very Abstract
-gray,remained,3.46,Moderate
-great,remained,1.81,Very Abstract
-green,remained,4.07,Concrete
-greet,remained,2.96,Abstract
-grind,remained,3.97,Moderate
-group,remained,4.12,Concrete
-grow,remained,3.03,Moderate
-growth,remained,2.89,Abstract
-guard,remained,4.04,Concrete
-guess,remained,2.28,Abstract
-guest,remained,3.83,Moderate
-guide,remained,3.70,Moderate
-gun,remained,4.83,Very Concrete
-habit,remained,2.76,Abstract
-hair,remained,4.97,Very Concrete
-half,remained,3.27,Moderate
-hall,remained,4.67,Very Concrete
-hand,remained,4.72,Very Concrete
-handle,remained,4.57,Very Concrete
-hang,remained,3.70,Moderate
-happen,remained,1.78,Very Abstract
-happy,remained,2.56,Abstract
-harbor,remained,4.57,Very Concrete
-hard,remained,3.76,Moderate
-hardly,remained,1.62,Very Abstract
-harm,remained,2.62,Abstract
-hat,remained,4.88,Very Concrete
-hate,remained,1.97,Very Abstract
-have,remained,2.18,Abstract
-he,remained,3.93,Moderate
-head,remained,4.75,Very Concrete
-health,remained,2.28,Abstract
-hear,remained,3.66,Moderate
-heart,remained,4.52,Very Concrete
-heat,remained,3.79,Moderate
-heavy,remained,3.37,Moderate
-height,remained,3.86,Moderate
-hello,remained,2.80,Abstract
-help,remained,2.56,Abstract
-here,remained,3.13,Moderate
-hesitate,remained,2.46,Abstract
-hide,remained,3.21,Moderate
-high,remained,3.46,Moderate
-hill,remained,4.93,Very Concrete
-hire,remained,3.11,Moderate
-history,remained,2.96,Abstract
-hit,remained,4.11,Concrete
-hold,remained,3.68,Moderate
-hole,remained,4.81,Very Concrete
-holiday,remained,2.86,Abstract
-home,remained,4.11,Concrete
-honest,remained,1.66,Very Abstract
-honor,remained,1.68,Very Abstract
-hook,remained,4.79,Very Concrete
-hope,remained,1.25,Very Abstract
-horse,remained,5.00,Very Concrete
-hospital,remained,4.64,Very Concrete
-host,remained,3.63,Moderate
-hot,remained,4.31,Concrete
-hotel,remained,4.93,Very Concrete
-hour,remained,3.10,Moderate
-house,remained,5.00,Very Concrete
-how,remained,1.35,Very Abstract
-however,remained,1.79,Very Abstract
-human,remained,4.93,Very Concrete
-hunger,remained,3.30,Moderate
-hunt,remained,3.81,Moderate
-hurry,remained,2.63,Abstract
-hurt,remained,3.61,Moderate
-husband,remained,4.11,Concrete
-i,remained,3.93,Moderate
-ice,remained,4.89,Very Concrete
-idea,remained,1.61,Very Abstract
-ideal,remained,1.37,Very Abstract
-if,remained,1.19,Very Abstract
-ill,remained,3.21,Moderate
-imagine,remained,1.53,Very Abstract
-immediate,remained,2.10,Abstract
-importance,remained,1.75,Very Abstract
-important,remained,2.14,Abstract
-impossible,remained,1.66,Very Abstract
-improve,remained,1.82,Very Abstract
-in,remained,3.00,Abstract
-inch,remained,4.37,Concrete
-include,remained,2.48,Abstract
-increase,remained,2.61,Abstract
-indeed,remained,1.72,Very Abstract
-industry,remained,3.29,Moderate
-influence,remained,2.11,Abstract
-inform,remained,2.25,Abstract
-inquiry,remained,2.70,Abstract
-inside,remained,3.67,Moderate
-instead,remained,1.48,Very Abstract
-instrument,remained,4.27,Concrete
-insurance,remained,2.86,Abstract
-insure,remained,2.41,Abstract
-intend,remained,1.71,Very Abstract
-intention,remained,1.70,Very Abstract
-interest,remained,1.80,Very Abstract
-international,remained,2.82,Abstract
-into,remained,2.30,Abstract
-introduce,remained,2.62,Abstract
-introduction,remained,3.00,Abstract
-invent,remained,2.66,Abstract
-invite,remained,3.00,Abstract
-iron,remained,4.59,Very Concrete
-island,remained,4.96,Very Concrete
-it,remained,2.81,Abstract
-join,remained,2.86,Abstract
-joint,remained,4.37,Concrete
-joke,remained,2.90,Abstract
-journey,remained,2.57,Abstract
-joy,remained,2.37,Abstract
-judge,remained,3.75,Moderate
-jump,remained,4.52,Very Concrete
-just,remained,1.52,Very Abstract
-justice,remained,1.45,Very Abstract
-keep,remained,2.37,Abstract
-key,remained,4.89,Very Concrete
-kick,remained,4.33,Concrete
-kill,remained,3.90,Moderate
-kind,remained,2.07,Abstract
-king,remained,4.10,Concrete
-kiss,remained,4.48,Concrete
-kitchen,remained,4.97,Very Concrete
-knee,remained,5.00,Very Concrete
-knife,remained,4.90,Very Concrete
-knock,remained,4.24,Concrete
-know,remained,1.68,Very Abstract
-knowledge,remained,1.73,Very Abstract
-lack,remained,2.04,Abstract
-lady,remained,4.33,Concrete
-lake,remained,4.88,Very Concrete
-land,remained,4.57,Very Concrete
-language,remained,2.35,Abstract
-large,remained,3.37,Moderate
-last,remained,3.04,Moderate
-late,remained,2.60,Abstract
-latter,remained,2.17,Abstract
-laugh,remained,4.21,Concrete
-laughter,remained,4.22,Concrete
-law,remained,2.57,Abstract
-lawyer,remained,4.70,Very Concrete
-lay,remained,3.86,Moderate
-lazy,remained,2.67,Abstract
-lead,remained,4.10,Concrete
-leadership,remained,2.43,Abstract
-lean,remained,3.00,Abstract
-learn,remained,2.20,Abstract
-least,remained,2.36,Abstract
-leather,remained,4.82,Very Concrete
-leave,remained,2.53,Abstract
-left,remained,3.70,Moderate
-leg,remained,4.83,Very Concrete
-lend,remained,3.07,Moderate
-length,remained,4.07,Concrete
-less,remained,2.77,Abstract
-lesson,remained,2.79,Abstract
-let,remained,2.26,Abstract
-letter,remained,4.70,Very Concrete
-level,remained,2.86,Abstract
-library,remained,4.80,Very Concrete
-lie,remained,3.11,Moderate
-life,remained,2.69,Abstract
-lift,remained,3.89,Moderate
-light,remained,4.21,Concrete
-like,remained,1.89,Very Abstract
-likely,remained,1.76,Very Abstract
-limit,remained,2.28,Abstract
-line,remained,4.50,Concrete
-lip,remained,4.96,Very Concrete
-liquid,remained,4.72,Very Concrete
-list,remained,4.43,Concrete
-listen,remained,3.47,Moderate
-literary,remained,2.32,Abstract
-literature,remained,4.10,Concrete
-little,remained,3.67,Moderate
-live,remained,3.57,Moderate
-load,remained,3.63,Moderate
-loan,remained,3.72,Moderate
-local,remained,3.04,Moderate
-lock,remained,4.65,Very Concrete
-log,remained,4.96,Very Concrete
-long,remained,3.18,Moderate
-look,remained,2.96,Abstract
-loose,remained,3.18,Moderate
-lose,remained,2.25,Abstract
-loss,remained,2.19,Abstract
-lot,remained,3.70,Moderate
-loud,remained,3.73,Moderate
-love,remained,2.07,Abstract
-lovely,remained,2.29,Abstract
-low,remained,3.34,Moderate
-luck,remained,1.33,Very Abstract
-lunch,remained,4.31,Concrete
-machine,remained,4.25,Concrete
-mad,remained,2.76,Abstract
-mail,remained,4.69,Very Concrete
-main,remained,2.41,Abstract
-make,remained,2.67,Abstract
-male,remained,4.45,Concrete
-man,remained,4.79,Very Concrete
-manage,remained,2.00,Very Abstract
-manner,remained,1.62,Very Abstract
-manufacture,remained,3.07,Moderate
-many,remained,2.37,Abstract
-map,remained,4.93,Very Concrete
-march,remained,4.03,Concrete
-mark,remained,4.21,Concrete
-market,remained,4.70,Very Concrete
-marriage,remained,2.51,Abstract
-marry,remained,3.03,Moderate
-mass,remained,3.44,Moderate
-master,remained,2.63,Abstract
-match,remained,4.14,Concrete
-material,remained,4.26,Concrete
-matter,remained,3.54,Moderate
-may,remained,3.00,Abstract
-maybe,remained,1.52,Very Abstract
-meal,remained,4.62,Very Concrete
-mean,remained,2.50,Abstract
-meanwhile,remained,1.27,Very Abstract
-measure,remained,3.59,Moderate
-meat,remained,4.90,Very Concrete
-mechanism,remained,3.67,Moderate
-medical,remained,3.07,Moderate
-medicine,remained,4.79,Very Concrete
-meet,remained,3.00,Abstract
-member,remained,3.07,Moderate
-membership,remained,3.04,Moderate
-memory,remained,2.38,Abstract
-mention,remained,2.69,Abstract
-mere,remained,1.43,Very Abstract
-message,remained,3.97,Moderate
-metal,remained,4.87,Very Concrete
-middle,remained,3.69,Moderate
-might,remained,2.32,Abstract
-mile,remained,3.63,Moderate
-milk,remained,4.92,Very Concrete
-mind,remained,2.50,Abstract
-mine,remained,3.56,Moderate
-minister,remained,4.22,Concrete
-minute,remained,3.04,Moderate
-miss,remained,2.54,Abstract
-mistake,remained,1.97,Very Abstract
-mix,remained,3.82,Moderate
-mixture,remained,3.79,Moderate
-model,remained,4.53,Very Concrete
-moderate,remained,1.97,Very Abstract
-modern,remained,2.31,Abstract
-moment,remained,1.61,Very Abstract
-money,remained,4.54,Very Concrete
-month,remained,4.20,Concrete
-moon,remained,4.90,Very Concrete
-moral,remained,1.69,Very Abstract
-more,remained,2.37,Abstract
-moreover,remained,2.00,Very Abstract
-morning,remained,3.44,Moderate
-most,remained,2.38,Abstract
-mother,remained,4.60,Very Concrete
-motion,remained,3.80,Moderate
-motor,remained,4.84,Very Concrete
-mountain,remained,4.96,Very Concrete
-mouse,remained,4.83,Very Concrete
-mouth,remained,4.74,Very Concrete
-move,remained,3.25,Moderate
-much,remained,1.69,Very Abstract
-murder,remained,3.61,Moderate
-music,remained,4.31,Concrete
-musician,remained,4.42,Concrete
-must,remained,2.13,Abstract
-mystery,remained,2.33,Abstract
-name,remained,3.50,Moderate
-narrow,remained,3.04,Moderate
-nation,remained,3.62,Moderate
-native,remained,3.03,Moderate
-nature,remained,2.92,Abstract
-near,remained,2.79,Abstract
-necessary,remained,1.80,Very Abstract
-neck,remained,5.00,Very Concrete
-need,remained,1.69,Very Abstract
-neglect,remained,2.26,Abstract
-neighbor,remained,4.64,Very Concrete
-neighborhood,remained,4.75,Very Concrete
-neither,remained,1.64,Very Abstract
-net,remained,4.53,Very Concrete
-network,remained,3.20,Moderate
-never,remained,1.59,Very Abstract
-new,remained,2.81,Abstract
-news,remained,3.41,Moderate
-newspaper,remained,4.82,Very Concrete
-next,remained,2.56,Abstract
-nice,remained,2.18,Abstract
-night,remained,4.52,Very Concrete
-no,remained,2.45,Abstract
-nobody,remained,2.32,Abstract
-noise,remained,3.52,Moderate
-none,remained,2.59,Abstract
-nor,remained,1.80,Very Abstract
-north,remained,4.14,Concrete
-northern,remained,3.13,Moderate
-nose,remained,4.89,Very Concrete
-not,remained,2.08,Abstract
-note,remained,4.61,Very Concrete
-nothing,remained,2.21,Abstract
-notice,remained,3.30,Moderate
-noun,remained,3.15,Moderate
-now,remained,1.48,Very Abstract
-nowadays,remained,1.40,Very Abstract
-nowhere,remained,1.79,Very Abstract
-number,remained,3.30,Moderate
-numerous,remained,2.57,Abstract
-nurse,remained,4.39,Concrete
-object,remained,3.66,Moderate
-observe,remained,2.63,Abstract
-occasion,remained,2.52,Abstract
-ocean,remained,4.86,Very Concrete
-of,remained,1.67,Very Abstract
-off,remained,2.79,Abstract
-offense,remained,2.03,Abstract
-offer,remained,2.23,Abstract
-office,remained,4.93,Very Concrete
-officer,remained,4.80,Very Concrete
-official,remained,2.54,Abstract
-often,remained,2.50,Abstract
-oil,remained,4.93,Very Concrete
-old,remained,2.72,Abstract
-on,remained,3.25,Moderate
-once,remained,2.74,Abstract
-one,remained,3.97,Moderate
-only,remained,2.41,Abstract
-onto,remained,2.46,Abstract
-open,remained,3.21,Moderate
-operate,remained,3.00,Abstract
-operation,remained,3.44,Moderate
-operator,remained,4.21,Concrete
-opinion,remained,1.93,Very Abstract
-opportunity,remained,1.88,Very Abstract
-oppose,remained,2.52,Abstract
-opposite,remained,1.79,Very Abstract
-opposition,remained,2.25,Abstract
-or,remained,1.72,Very Abstract
-orange,remained,4.66,Very Concrete
-order,remained,2.79,Abstract
-ordinary,remained,1.79,Very Abstract
-organize,remained,2.72,Abstract
-origin,remained,2.03,Abstract
-other,remained,2.04,Abstract
-otherwise,remained,1.57,Very Abstract
-ought,remained,1.43,Very Abstract
-out,remained,2.73,Abstract
-outline,remained,3.61,Moderate
-outside,remained,4.25,Concrete
-over,remained,2.46,Abstract
-overcome,remained,2.28,Abstract
-owe,remained,2.07,Abstract
-own,remained,1.96,Very Abstract
-ownership,remained,2.42,Abstract
-pack,remained,3.83,Moderate
-package,remained,4.72,Very Concrete
-page,remained,4.90,Very Concrete
-pain,remained,3.50,Moderate
-paint,remained,4.79,Very Concrete
-pair,remained,3.88,Moderate
-pale,remained,3.79,Moderate
-paper,remained,4.93,Very Concrete
-parent,remained,4.56,Very Concrete
-park,remained,4.74,Very Concrete
-part,remained,3.29,Moderate
-particular,remained,2.23,Abstract
-partner,remained,3.53,Moderate
-party,remained,3.89,Moderate
-passage,remained,3.80,Moderate
-passenger,remained,4.34,Concrete
-past,remained,1.70,Very Abstract
-path,remained,4.41,Concrete
-patient,remained,2.50,Abstract
-pattern,remained,3.92,Moderate
-pause,remained,2.38,Abstract
-pay,remained,3.54,Moderate
-peace,remained,1.62,Very Abstract
-pen,remained,4.92,Very Concrete
-people,remained,4.82,Very Concrete
-per,remained,1.69,Very Abstract
-perfect,remained,1.69,Very Abstract
-perform,remained,3.07,Moderate
-performance,remained,3.04,Moderate
-perhaps,remained,1.19,Very Abstract
-permanent,remained,2.76,Abstract
-permission,remained,2.27,Abstract
-permit,remained,3.43,Moderate
-person,remained,4.72,Very Concrete
-persuade,remained,2.07,Abstract
-photograph,remained,4.89,Very Concrete
-pick,remained,3.82,Moderate
-picture,remained,4.52,Very Concrete
-piece,remained,4.14,Concrete
-pig,remained,5.00,Very Concrete
-pile,remained,4.56,Very Concrete
-pink,remained,3.93,Moderate
-pipe,remained,4.88,Very Concrete
-place,remained,3.48,Moderate
-plain,remained,2.26,Abstract
-plan,remained,3.40,Moderate
-plant,remained,4.76,Very Concrete
-plate,remained,4.77,Very Concrete
-play,remained,3.24,Moderate
-pleasant,remained,1.55,Very Abstract
-please,remained,1.64,Very Abstract
-pleasure,remained,2.04,Abstract
-plenty,remained,2.39,Abstract
-pocket,remained,4.68,Very Concrete
-poem,remained,4.03,Concrete
-poet,remained,4.36,Concrete
-point,remained,3.39,Moderate
-police,remained,4.79,Very Concrete
-political,remained,1.83,Very Abstract
-politician,remained,4.33,Concrete
-politics,remained,2.66,Abstract
-pool,remained,4.77,Very Concrete
-poor,remained,2.70,Abstract
-popular,remained,2.16,Abstract
-population,remained,3.64,Moderate
-position,remained,2.62,Abstract
-possess,remained,2.60,Abstract
-possession,remained,2.96,Abstract
-possible,remained,1.56,Very Abstract
-post,remained,4.30,Concrete
-pot,remained,4.81,Very Concrete
-pound,remained,4.61,Very Concrete
-pour,remained,4.14,Concrete
-poverty,remained,2.54,Abstract
-power,remained,2.04,Abstract
-practical,remained,2.14,Abstract
-practice,remained,2.52,Abstract
-praise,remained,2.61,Abstract
-pray,remained,3.21,Moderate
-prefer,remained,1.62,Very Abstract
-preference,remained,2.03,Abstract
-prepare,remained,2.36,Abstract
-presence,remained,2.72,Abstract
-present,remained,3.39,Moderate
-preserve,remained,2.57,Abstract
-president,remained,4.40,Concrete
-press,remained,3.90,Moderate
-pressure,remained,3.07,Moderate
-pretend,remained,2.11,Abstract
-pretty,remained,2.40,Abstract
-prevent,remained,2.34,Abstract
-price,remained,3.63,Moderate
-pride,remained,1.66,Very Abstract
-print,remained,4.17,Concrete
-prison,remained,4.68,Very Concrete
-private,remained,2.72,Abstract
-prize,remained,4.45,Concrete
-problem,remained,2.68,Abstract
-produce,remained,3.31,Moderate
-product,remained,4.17,Concrete
-production,remained,2.59,Abstract
-profession,remained,2.83,Abstract
-profit,remained,3.07,Moderate
-program,remained,3.43,Moderate
-progress,remained,2.12,Abstract
-promise,remained,2.09,Abstract
-prompt,remained,2.25,Abstract
-proof,remained,2.67,Abstract
-proper,remained,1.78,Very Abstract
-property,remained,3.90,Moderate
-proposal,remained,2.75,Abstract
-propose,remained,2.19,Abstract
-protect,remained,2.86,Abstract
-protection,remained,2.50,Abstract
-proud,remained,2.07,Abstract
-prove,remained,1.83,Very Abstract
-provide,remained,2.72,Abstract
-public,remained,2.57,Abstract
-pull,remained,3.97,Moderate
-pump,remained,4.31,Concrete
-pupil,remained,4.55,Very Concrete
-pure,remained,1.87,Very Abstract
-purpose,remained,1.52,Very Abstract
-push,remained,4.21,Concrete
-put,remained,2.50,Abstract
-qualification,remained,2.00,Very Abstract
-qualify,remained,1.93,Very Abstract
-quality,remained,2.18,Abstract
-quantity,remained,2.97,Abstract
-quarter,remained,4.43,Concrete
-question,remained,3.36,Moderate
-quick,remained,2.89,Abstract
-quiet,remained,2.76,Abstract
-quite,remained,1.72,Very Abstract
-race,remained,3.59,Moderate
-radio,remained,4.74,Very Concrete
-rail,remained,4.90,Very Concrete
-rain,remained,4.97,Very Concrete
-raise,remained,3.80,Moderate
-rank,remained,2.86,Abstract
-rapid,remained,3.07,Moderate
-rare,remained,1.96,Very Abstract
-rate,remained,2.50,Abstract
-rather,remained,1.48,Very Abstract
-raw,remained,3.35,Moderate
-reach,remained,3.70,Moderate
-read,remained,3.56,Moderate
-ready,remained,2.07,Abstract
-real,remained,2.50,Abstract
-realize,remained,2.03,Abstract
-reason,remained,1.93,Very Abstract
-reasonable,remained,1.78,Very Abstract
-receive,remained,2.69,Abstract
-recent,remained,2.50,Abstract
-recognition,remained,2.39,Abstract
-recognize,remained,2.07,Abstract
-recommend,remained,1.74,Very Abstract
-record,remained,4.15,Concrete
-red,remained,4.24,Concrete
-reduce,remained,2.00,Very Abstract
-reduction,remained,2.75,Abstract
-refer,remained,2.41,Abstract
-reference,remained,2.38,Abstract
-reflect,remained,2.81,Abstract
-reflection,remained,3.29,Moderate
-refuse,remained,3.04,Moderate
-regard,remained,1.79,Very Abstract
-regret,remained,1.80,Very Abstract
-regular,remained,2.40,Abstract
-relate,remained,2.00,Very Abstract
-relation,remained,2.11,Abstract
-relative,remained,2.97,Abstract
-relief,remained,2.45,Abstract
-religion,remained,1.71,Very Abstract
-remain,remained,1.96,Very Abstract
-remark,remained,3.25,Moderate
-remember,remained,2.41,Abstract
-remind,remained,2.19,Abstract
-rent,remained,3.48,Moderate
-repair,remained,3.32,Moderate
-repeat,remained,2.90,Abstract
-replace,remained,3.00,Abstract
-reply,remained,2.96,Abstract
-report,remained,3.92,Moderate
-represent,remained,2.12,Abstract
-representative,remained,3.39,Moderate
-reputation,remained,1.64,Very Abstract
-request,remained,2.59,Abstract
-rescue,remained,3.17,Moderate
-reserve,remained,2.29,Abstract
-resign,remained,2.25,Abstract
-resist,remained,2.78,Abstract
-resistance,remained,2.68,Abstract
-respect,remained,2.04,Abstract
-responsible,remained,1.69,Very Abstract
-rest,remained,3.03,Moderate
-restaurant,remained,4.89,Very Concrete
-result,remained,2.85,Abstract
-retire,remained,3.11,Moderate
-return,remained,2.97,Abstract
-review,remained,2.81,Abstract
-reward,remained,3.41,Moderate
-rice,remained,4.86,Very Concrete
-rich,remained,2.79,Abstract
-rid,remained,2.13,Abstract
-ride,remained,3.75,Moderate
-right,remained,3.47,Moderate
-ring,remained,4.81,Very Concrete
-rise,remained,4.04,Concrete
-risk,remained,1.63,Very Abstract
-rival,remained,3.03,Moderate
-river,remained,4.89,Very Concrete
-road,remained,4.75,Very Concrete
-rock,remained,4.91,Very Concrete
-roll,remained,4.16,Concrete
-roof,remained,4.79,Very Concrete
-room,remained,4.79,Very Concrete
-root,remained,4.34,Concrete
-rough,remained,3.83,Moderate
-round,remained,3.90,Moderate
-row,remained,3.93,Moderate
-royal,remained,3.14,Moderate
-ruin,remained,2.59,Abstract
-rule,remained,2.57,Abstract
-run,remained,4.31,Concrete
-rush,remained,2.90,Abstract
-sad,remained,3.07,Moderate
-safe,remained,3.41,Moderate
-safety,remained,2.37,Abstract
-sail,remained,4.59,Very Concrete
-sake,remained,2.74,Abstract
-salary,remained,3.69,Moderate
-sale,remained,3.37,Moderate
-salt,remained,4.89,Very Concrete
-same,remained,2.64,Abstract
-sample,remained,3.79,Moderate
-sand,remained,5.00,Very Concrete
-satisfaction,remained,1.90,Very Abstract
-satisfy,remained,2.04,Abstract
-save,remained,2.42,Abstract
-say,remained,2.58,Abstract
-scale,remained,4.39,Concrete
-scene,remained,3.93,Moderate
-school,remained,4.79,Very Concrete
-science,remained,2.79,Abstract
-scientific,remained,2.45,Abstract
-scientist,remained,4.24,Concrete
-screen,remained,4.60,Very Concrete
-sea,remained,4.79,Very Concrete
-search,remained,3.00,Abstract
-season,remained,3.32,Moderate
-seat,remained,4.78,Very Concrete
-second,remained,3.30,Moderate
-secret,remained,2.19,Abstract
-secretary,remained,4.54,Very Concrete
-see,remained,3.21,Moderate
-seed,remained,4.71,Very Concrete
-seem,remained,1.75,Very Abstract
-self,remained,3.10,Moderate
-sell,remained,3.35,Moderate
-send,remained,2.70,Abstract
-sense,remained,2.61,Abstract
-sensitive,remained,2.21,Abstract
-sentence,remained,3.57,Moderate
-separate,remained,3.25,Moderate
-serious,remained,2.10,Abstract
-servant,remained,4.64,Very Concrete
-serve,remained,3.78,Moderate
-service,remained,2.21,Abstract
-set,remained,3.41,Moderate
-settle,remained,2.31,Abstract
-several,remained,3.00,Abstract
-severe,remained,2.43,Abstract
-shade,remained,3.38,Moderate
-shadow,remained,4.54,Very Concrete
-shake,remained,4.07,Concrete
-shall,remained,2.33,Abstract
-shape,remained,3.14,Moderate
-share,remained,2.96,Abstract
-sharp,remained,3.86,Moderate
-she,remained,3.36,Moderate
-sheep,remained,4.90,Very Concrete
-sheet,remained,4.93,Very Concrete
-shelf,remained,4.96,Very Concrete
-shell,remained,4.80,Very Concrete
-shelter,remained,4.64,Very Concrete
-shine,remained,3.85,Moderate
-ship,remained,4.87,Very Concrete
-shirt,remained,4.94,Very Concrete
-shock,remained,4.00,Moderate
-shoe,remained,4.97,Very Concrete
-shoot,remained,3.97,Moderate
-shop,remained,4.31,Concrete
-shore,remained,4.79,Very Concrete
-short,remained,3.61,Moderate
-should,remained,1.53,Very Abstract
-shoulder,remained,4.93,Very Concrete
-shout,remained,4.17,Concrete
-show,remained,3.97,Moderate
-shower,remained,4.89,Very Concrete
-shut,remained,3.38,Moderate
-sick,remained,2.97,Abstract
-side,remained,3.68,Moderate
-sight,remained,3.21,Moderate
-sign,remained,4.62,Very Concrete
-signal,remained,3.86,Moderate
-silence,remained,3.33,Moderate
-silent,remained,3.67,Moderate
-silver,remained,4.52,Very Concrete
-simple,remained,1.62,Very Abstract
-since,remained,1.38,Very Abstract
-sing,remained,4.34,Concrete
-single,remained,3.27,Moderate
-sink,remained,4.74,Very Concrete
-sir,remained,3.10,Moderate
-sister,remained,4.00,Moderate
-sit,remained,4.80,Very Concrete
-situation,remained,2.03,Abstract
-size,remained,3.13,Moderate
-skill,remained,2.17,Abstract
-skin,remained,4.79,Very Concrete
-skirt,remained,4.82,Very Concrete
-sky,remained,4.45,Concrete
-slave,remained,4.38,Concrete
-sleep,remained,4.44,Concrete
-slide,remained,4.48,Concrete
-slight,remained,1.90,Very Abstract
-slip,remained,4.10,Concrete
-slope,remained,4.07,Concrete
-slow,remained,3.28,Moderate
-small,remained,3.22,Moderate
-smell,remained,3.70,Moderate
-smile,remained,4.50,Concrete
-smoke,remained,4.96,Very Concrete
-smooth,remained,3.81,Moderate
-snow,remained,4.85,Very Concrete
-so,remained,1.42,Very Abstract
-social,remained,2.27,Abstract
-society,remained,2.54,Abstract
-soft,remained,3.88,Moderate
-soil,remained,4.87,Very Concrete
-soldier,remained,4.72,Very Concrete
-solid,remained,4.42,Concrete
-solution,remained,2.61,Abstract
-solve,remained,2.10,Abstract
-some,remained,2.48,Abstract
-somebody,remained,3.79,Moderate
-somehow,remained,1.28,Very Abstract
-someone,remained,3.71,Moderate
-something,remained,1.82,Very Abstract
-sometimes,remained,1.77,Very Abstract
-somewhere,remained,2.08,Abstract
-son,remained,4.14,Concrete
-song,remained,4.46,Concrete
-soon,remained,1.79,Very Abstract
-sorry,remained,1.90,Very Abstract
-sort,remained,3.34,Moderate
-soul,remained,1.86,Very Abstract
-sound,remained,3.70,Moderate
-south,remained,3.84,Moderate
-space,remained,3.54,Moderate
-spare,remained,3.48,Moderate
-speak,remained,3.70,Moderate
-special,remained,1.76,Very Abstract
-speech,remained,3.37,Moderate
-speed,remained,3.62,Moderate
-spell,remained,3.32,Moderate
-spend,remained,2.93,Abstract
-spin,remained,3.90,Moderate
-spirit,remained,1.60,Very Abstract
-split,remained,3.96,Moderate
-sport,remained,3.48,Moderate
-spot,remained,4.21,Concrete
-spread,remained,3.68,Moderate
-spring,remained,3.89,Moderate
-square,remained,4.33,Concrete
-staff,remained,4.36,Concrete
-stage,remained,4.64,Very Concrete
-stain,remained,4.59,Very Concrete
-stair,remained,4.93,Very Concrete
-stamp,remained,4.70,Very Concrete
-stand,remained,4.16,Concrete
-standard,remained,1.83,Very Abstract
-star,remained,4.69,Very Concrete
-start,remained,2.71,Abstract
-state,remained,3.52,Moderate
-station,remained,4.32,Concrete
-stay,remained,2.15,Abstract
-steady,remained,2.25,Abstract
-steel,remained,4.87,Very Concrete
-stem,remained,4.63,Very Concrete
-step,remained,4.54,Very Concrete
-stick,remained,4.59,Very Concrete
-still,remained,3.46,Moderate
-stir,remained,3.76,Moderate
-stock,remained,4.19,Concrete
-stomach,remained,4.89,Very Concrete
-stone,remained,4.72,Very Concrete
-stop,remained,3.68,Moderate
-store,remained,4.50,Concrete
-storm,remained,4.70,Very Concrete
-story,remained,3.30,Moderate
-straight,remained,2.76,Abstract
-strange,remained,1.86,Very Abstract
-stream,remained,4.50,Concrete
-street,remained,4.75,Very Concrete
-strength,remained,2.96,Abstract
-strengthen,remained,2.50,Abstract
-stretch,remained,3.62,Moderate
-strict,remained,2.72,Abstract
-strike,remained,4.07,Concrete
-string,remained,4.76,Very Concrete
-strip,remained,3.75,Moderate
-stroke,remained,4.10,Concrete
-strong,remained,3.14,Moderate
-struggle,remained,2.79,Abstract
-student,remained,4.92,Very Concrete
-study,remained,3.70,Moderate
-stuff,remained,3.13,Moderate
-stupid,remained,1.75,Very Abstract
-subject,remained,3.14,Moderate
-substance,remained,3.44,Moderate
-succeed,remained,2.33,Abstract
-success,remained,2.21,Abstract
-such,remained,1.48,Very Abstract
-sudden,remained,2.07,Abstract
-suffer,remained,2.28,Abstract
-sugar,remained,4.87,Very Concrete
-suggest,remained,1.80,Very Abstract
-suggestion,remained,2.23,Abstract
-suit,remained,4.97,Very Concrete
-summer,remained,3.64,Moderate
-sun,remained,4.83,Very Concrete
-supply,remained,3.43,Moderate
-support,remained,2.83,Abstract
-suppose,remained,1.37,Very Abstract
-sure,remained,1.73,Very Abstract
-surface,remained,4.26,Concrete
-surprise,remained,3.24,Moderate
-surround,remained,2.81,Abstract
-suspect,remained,2.59,Abstract
-swear,remained,2.45,Abstract
-sweep,remained,3.72,Moderate
-sweet,remained,4.00,Moderate
-swim,remained,4.43,Concrete
-swing,remained,4.54,Very Concrete
-system,remained,2.94,Abstract
-table,remained,4.90,Very Concrete
-tail,remained,4.96,Very Concrete
-take,remained,3.06,Moderate
-talk,remained,4.07,Concrete
-tall,remained,3.36,Moderate
-tap,remained,4.29,Concrete
-taste,remained,4.07,Concrete
-tax,remained,3.89,Moderate
-taxi,remained,4.93,Very Concrete
-tea,remained,4.69,Very Concrete
-teach,remained,3.15,Moderate
-tear,remained,4.56,Very Concrete
-telephone,remained,4.96,Very Concrete
-tell,remained,2.90,Abstract
-temperature,remained,3.71,Moderate
-tend,remained,2.00,Very Abstract
-tender,remained,2.58,Abstract
-tent,remained,4.96,Very Concrete
-term,remained,2.82,Abstract
-terrible,remained,2.04,Abstract
-test,remained,3.93,Moderate
-than,remained,1.69,Very Abstract
-thank,remained,3.00,Abstract
-that,remained,1.54,Very Abstract
-the,remained,1.43,Very Abstract
-theater,remained,4.92,Very Concrete
-then,remained,1.44,Very Abstract
-there,remained,2.20,Abstract
-therefore,remained,1.33,Very Abstract
-they,remained,2.93,Abstract
-thick,remained,4.00,Moderate
-thin,remained,3.83,Moderate
-thing,remained,3.17,Moderate
-think,remained,2.41,Abstract
-thirst,remained,3.04,Moderate
-this,remained,2.14,Abstract
-though,remained,1.20,Very Abstract
-threat,remained,2.52,Abstract
-threaten,remained,2.63,Abstract
-throat,remained,4.97,Very Concrete
-through,remained,2.90,Abstract
-throw,remained,4.04,Concrete
-thus,remained,1.36,Very Abstract
-ticket,remained,4.70,Very Concrete
-tie,remained,4.81,Very Concrete
-tight,remained,3.87,Moderate
-till,remained,4.00,Moderate
-time,remained,3.07,Moderate
-tip,remained,4.50,Concrete
-tire,remained,5.00,Very Concrete
-title,remained,3.32,Moderate
-to,remained,1.55,Very Abstract
-today,remained,2.57,Abstract
-together,remained,2.74,Abstract
-tomorrow,remained,2.04,Abstract
-tongue,remained,4.93,Very Concrete
-tonight,remained,2.93,Abstract
-too,remained,1.70,Very Abstract
-tool,remained,4.60,Very Concrete
-tooth,remained,4.89,Very Concrete
-top,remained,3.93,Moderate
-total,remained,2.80,Abstract
-touch,remained,3.86,Moderate
-tough,remained,2.50,Abstract
-tour,remained,3.38,Moderate
-toward,remained,2.28,Abstract
-tower,remained,4.76,Very Concrete
-town,remained,4.64,Very Concrete
-toy,remained,4.93,Very Concrete
-track,remained,4.31,Concrete
-trade,remained,3.08,Moderate
-train,remained,4.79,Very Concrete
-translate,remained,2.69,Abstract
-trap,remained,4.30,Concrete
-travel,remained,3.67,Moderate
-treat,remained,3.79,Moderate
-tree,remained,5.00,Very Concrete
-trial,remained,3.07,Moderate
-trick,remained,3.36,Moderate
-trip,remained,3.71,Moderate
-trouble,remained,2.25,Abstract
-true,remained,1.70,Very Abstract
-trust,remained,2.04,Abstract
-truth,remained,1.96,Very Abstract
-try,remained,2.22,Abstract
-tube,remained,4.82,Very Concrete
-tune,remained,3.50,Moderate
-turn,remained,3.44,Moderate
-twist,remained,3.90,Moderate
-type,remained,3.30,Moderate
-ugly,remained,3.23,Moderate
-uncle,remained,4.24,Concrete
-under,remained,3.45,Moderate
-understand,remained,2.28,Abstract
-union,remained,3.38,Moderate
-unit,remained,3.77,Moderate
-unite,remained,2.58,Abstract
-universal,remained,1.87,Very Abstract
-universe,remained,3.85,Moderate
-university,remained,4.65,Very Concrete
-unless,remained,1.54,Very Abstract
-until,remained,1.33,Very Abstract
-up,remained,3.83,Moderate
-upon,remained,2.83,Abstract
-upper,remained,3.37,Moderate
-upset,remained,2.41,Abstract
-urge,remained,1.93,Very Abstract
-use,remained,2.78,Abstract
-usual,remained,1.90,Very Abstract
-valley,remained,4.72,Very Concrete
-valuable,remained,2.22,Abstract
-value,remained,1.62,Very Abstract
-variety,remained,2.13,Abstract
-various,remained,2.35,Abstract
-verb,remained,2.85,Abstract
-very,remained,1.43,Very Abstract
-vessel,remained,4.66,Very Concrete
-victory,remained,2.55,Abstract
-view,remained,3.21,Moderate
-village,remained,4.89,Very Concrete
-violence,remained,3.07,Moderate
-violent,remained,3.10,Moderate
-visit,remained,3.92,Moderate
-visitor,remained,4.25,Concrete
-voice,remained,4.13,Concrete
-vote,remained,3.85,Moderate
-wage,remained,3.79,Moderate
-wait,remained,2.68,Abstract
-wake,remained,3.11,Moderate
-walk,remained,4.07,Concrete
-wall,remained,4.86,Very Concrete
-wander,remained,2.28,Abstract
-want,remained,1.93,Very Abstract
-war,remained,3.63,Moderate
-warm,remained,3.56,Moderate
-warn,remained,2.89,Abstract
-wash,remained,4.35,Concrete
-waste,remained,3.24,Moderate
-watch,remained,4.61,Very Concrete
-water,remained,5.00,Very Concrete
-wave,remained,4.55,Very Concrete
-way,remained,2.34,Abstract
-we,remained,3.08,Moderate
-weak,remained,2.79,Abstract
-wealth,remained,2.63,Abstract
-weapon,remained,4.76,Very Concrete
-wear,remained,3.61,Moderate
-weather,remained,3.83,Moderate
-week,remained,3.48,Moderate
-weekend,remained,3.83,Moderate
-weigh,remained,3.79,Moderate
-weight,remained,3.94,Moderate
-welcome,remained,2.07,Abstract
-well,remained,3.33,Moderate
-west,remained,3.44,Moderate
-western,remained,2.80,Abstract
-wet,remained,4.46,Concrete
-what,remained,2.00,Very Abstract
-whatever,remained,1.46,Very Abstract
-wheel,remained,4.86,Very Concrete
-when,remained,1.60,Very Abstract
-whenever,remained,1.79,Very Abstract
-where,remained,1.66,Very Abstract
-wherever,remained,1.23,Very Abstract
-whether,remained,1.59,Very Abstract
-which,remained,1.54,Very Abstract
-while,remained,1.55,Very Abstract
-whisper,remained,4.34,Concrete
-white,remained,3.89,Moderate
-who,remained,1.74,Very Abstract
-whole,remained,3.25,Moderate
-why,remained,1.86,Very Abstract
-wide,remained,3.06,Moderate
-wife,remained,4.13,Concrete
-wild,remained,2.41,Abstract
-will,remained,2.64,Abstract
-win,remained,2.67,Abstract
-wind,remained,3.93,Moderate
-window,remained,4.86,Very Concrete
-wine,remained,4.79,Very Concrete
-wing,remained,4.86,Very Concrete
-winter,remained,3.84,Moderate
-wipe,remained,4.00,Moderate
-wire,remained,4.72,Very Concrete
-wise,remained,1.97,Very Abstract
-wish,remained,1.77,Very Abstract
-with,remained,2.00,Very Abstract
-within,remained,2.81,Abstract
-without,remained,2.15,Abstract
-witness,remained,4.07,Concrete
-woman,remained,4.46,Concrete
-wonder,remained,1.80,Very Abstract
-wood,remained,4.85,Very Concrete
-wooden,remained,4.61,Very Concrete
-word,remained,3.56,Moderate
-work,remained,3.48,Moderate
-world,remained,4.36,Concrete
-worry,remained,2.55,Abstract
-worth,remained,1.89,Very Abstract
-would,remained,1.12,Very Abstract
-wrap,remained,4.11,Concrete
-write,remained,4.22,Concrete
-wrong,remained,1.83,Very Abstract
-yard,remained,4.82,Very Concrete
-year,remained,3.25,Moderate
-yellow,remained,4.30,Concrete
-yes,remained,2.14,Abstract
-yesterday,remained,3.00,Abstract
-yet,remained,1.39,Very Abstract
-yield,remained,2.93,Abstract
-you,remained,4.11,Concrete
-young,remained,3.16,Moderate
-youth,remained,3.28,Moderate
-abandon,added,2.54,Abstract
-abortion,added,3.41,Moderate
-absolutely,added,1.97,Very Abstract
-abstract,added,1.45,Very Abstract
-abuse,added,2.71,Abstract
-academic,added,2.11,Abstract
-acceptable,added,1.93,Very Abstract
-access,added,2.71,Abstract
-accommodation,added,2.96,Abstract
-accompany,added,3.07,Moderate
-accomplish,added,2.33,Abstract
-accurate,added,1.90,Very Abstract
-achieve,added,2.29,Abstract
-achievement,added,2.37,Abstract
-acknowledge,added,2.03,Abstract
-acquire,added,2.93,Abstract
-acquisition,added,2.60,Abstract
-activity,added,2.72,Abstract
-actually,added,1.37,Very Abstract
-ad,added,4.46,Concrete
-adapt,added,2.41,Abstract
-addition,added,2.89,Abstract
-additional,added,2.43,Abstract
-adequate,added,1.97,Very Abstract
-adjust,added,2.93,Abstract
-adjustment,added,2.81,Abstract
-administration,added,2.78,Abstract
-adult,added,4.40,Concrete
-advertisement,added,3.77,Moderate
-adviser,added,3.67,Moderate
-advocate,added,2.72,Abstract
-affect,added,1.93,Very Abstract
-agenda,added,2.66,Abstract
-aggressive,added,2.54,Abstract
-agreement,added,2.22,Abstract
-agricultural,added,3.29,Moderate
-aid,added,3.10,Moderate
-aircraft,added,4.40,Concrete
-airline,added,4.00,Moderate
-alarm,added,4.47,Concrete
-album,added,4.69,Very Concrete
-alcohol,added,4.76,Very Concrete
-allege,added,1.76,Very Abstract
-ally,added,2.61,Abstract
-alongside,added,2.82,Abstract
-alright,added,1.93,Very Abstract
-alter,added,3.07,Moderate
-alternative,added,2.46,Abstract
-amaze,added,2.00,Very Abstract
-amendment,added,2.44,Abstract
-analysis,added,2.56,Abstract
-analyst,added,4.23,Concrete
-analyze,added,2.30,Abstract
-announce,added,3.31,Moderate
-announcement,added,2.79,Abstract
-annual,added,1.78,Very Abstract
-anticipate,added,1.54,Very Abstract
-anymore,added,2.04,Abstract
 apartment,added,4.90,Very Concrete
 apologize,added,2.63,Abstract
+apology,removed,2.86,Abstract
 apparent,added,1.73,Very Abstract
 apparently,added,1.75,Very Abstract
 appeal,added,1.73,Very Abstract
+appear,remained,3.13,Moderate
+appearance,remained,2.57,Abstract
+applaud,removed,3.80,Moderate
+applause,removed,4.29,Concrete
+apple,removed,5.00,Very Concrete
+application,remained,3.40,Moderate
+apply,remained,2.50,Abstract
+appoint,remained,2.24,Abstract
 appointment,added,3.00,Abstract
 appreciate,added,2.23,Abstract
 approach,added,2.74,Abstract
 appropriate,added,2.00,Very Abstract
 approval,added,2.33,Abstract
+approve,remained,1.85,Very Abstract
 approximately,added,2.54,Abstract
+arch,removed,4.59,Very Concrete
 architecture,added,3.59,Moderate
 area,added,3.72,Moderate
+argue,remained,2.75,Abstract
 argument,added,2.85,Abstract
+arise,remained,3.17,Moderate
+arm,remained,4.96,Very Concrete
+army,remained,4.70,Very Concrete
+around,remained,1.96,Very Abstract
+arrange,remained,2.79,Abstract
 arrangement,added,2.30,Abstract
+arrest,remained,3.93,Moderate
 arrival,added,3.07,Moderate
+arrive,remained,3.22,Moderate
+arrow,removed,4.97,Very Concrete
+art,remained,4.17,Concrete
+article,remained,4.33,Concrete
+artificial,removed,2.93,Abstract
 artist,added,4.24,Concrete
+ash,removed,4.96,Very Concrete
+ashamed,remained,1.74,Very Abstract
+aside,remained,2.21,Abstract
+ask,remained,2.52,Abstract
+asleep,removed,3.71,Moderate
 assess,added,2.26,Abstract
 assessment,added,2.11,Abstract
 asset,added,2.92,Abstract
@@ -1733,132 +203,416 @@ assist,added,2.52,Abstract
 assistance,added,2.25,Abstract
 assistant,added,4.07,Concrete
 associate,added,3.41,Moderate
+association,remained,2.30,Abstract
 assume,added,1.75,Very Abstract
 assumption,added,1.84,Very Abstract
 assure,added,2.43,Abstract
+astonish,removed,1.70,Very Abstract
+at,remained,2.07,Abstract
 athlete,added,4.30,Concrete
 atmosphere,added,3.04,Moderate
 attach,added,3.33,Moderate
 attachment,added,3.04,Moderate
+attack,remained,3.71,Moderate
+attempt,remained,2.22,Abstract
+attend,remained,3.17,Moderate
 attendance,added,3.07,Moderate
+attention,remained,2.30,Abstract
+attentive,removed,1.78,Very Abstract
 attitude,added,1.97,Very Abstract
+attract,remained,2.73,Abstract
+attraction,remained,2.24,Abstract
+attractive,remained,2.64,Abstract
 attribute,added,2.33,Abstract
+audience,remained,4.29,Concrete
+aunt,remained,4.17,Concrete
 author,added,4.26,Concrete
 automatically,added,2.03,Abstract
+autumn,remained,3.27,Moderate
 available,added,2.11,Abstract
+avenue,removed,4.00,Moderate
+average,remained,2.40,Abstract
+avoid,remained,2.41,Abstract
+avoidance,removed,1.86,Very Abstract
+awake,removed,3.32,Moderate
 award,added,4.14,Concrete
 aware,added,2.00,Very Abstract
 awareness,added,1.84,Very Abstract
+away,remained,2.23,Abstract
 awful,added,1.92,Very Abstract
+awkward,removed,2.00,Very Abstract
+axe,removed,5.00,Very Concrete
+baby,remained,5.00,Very Concrete
+back,remained,4.33,Concrete
 background,added,3.26,Moderate
+backward,removed,3.41,Moderate
+bad,remained,1.68,Very Abstract
 badly,added,1.93,Very Abstract
+bag,remained,4.90,Very Concrete
+baggage,removed,4.43,Concrete
+bake,removed,4.21,Concrete
+balance,remained,2.89,Abstract
+ball,remained,5.00,Very Concrete
 ban,added,2.37,Abstract
+band,remained,4.68,Very Concrete
+bank,remained,4.78,Very Concrete
+bar,remained,4.67,Very Concrete
+barber,removed,4.59,Very Concrete
+bare,removed,3.21,Moderate
 barely,added,1.71,Very Abstract
+bargain,removed,2.59,Abstract
+barrel,removed,4.86,Very Concrete
 barrier,added,4.41,Concrete
+base,remained,3.86,Moderate
+basic,remained,2.26,Abstract
 basically,added,1.32,Very Abstract
+basin,removed,4.63,Very Concrete
+basis,remained,1.83,Very Abstract
+basket,removed,5.00,Very Concrete
+bath,remained,4.85,Very Concrete
+bathe,removed,4.19,Concrete
+battle,remained,4.00,Moderate
+bay,removed,4.81,Very Concrete
+be,remained,1.85,Very Abstract
 beach,added,4.79,Very Concrete
+beak,removed,4.96,Very Concrete
+beam,removed,3.96,Moderate
+bean,removed,5.00,Very Concrete
+bear,remained,4.88,Very Concrete
+beard,removed,4.96,Very Concrete
+beast,removed,4.63,Very Concrete
+beat,remained,3.97,Moderate
 beautiful,added,2.16,Abstract
+beauty,remained,2.93,Abstract
+because,remained,1.22,Very Abstract
+become,remained,1.54,Very Abstract
+bed,remained,5.00,Very Concrete
+bedroom,remained,4.90,Very Concrete
 beer,added,4.88,Very Concrete
+before,remained,1.96,Very Abstract
+beg,removed,2.96,Abstract
+begin,remained,2.56,Abstract
+behave,remained,1.78,Very Abstract
+behavior,remained,2.19,Abstract
+behind,remained,3.48,Moderate
+being,removed,1.93,Very Abstract
+belief,remained,1.19,Very Abstract
+believe,remained,1.55,Very Abstract
+bell,remained,4.96,Very Concrete
+belong,remained,1.43,Very Abstract
+below,remained,3.45,Moderate
+belt,remained,4.90,Very Concrete
+bend,remained,3.88,Moderate
+beneath,remained,3.11,Moderate
 benefit,added,2.25,Abstract
+berry,removed,4.93,Very Concrete
+beside,remained,2.59,Abstract
+besides,remained,2.25,Abstract
+best,removed,1.60,Very Abstract
 bet,added,3.10,Moderate
+better,removed,1.91,Very Abstract
+between,remained,2.72,Abstract
+beyond,remained,1.72,Very Abstract
 bias,added,1.68,Very Abstract
+bicycle,removed,4.89,Very Concrete
 bid,added,2.71,Abstract
+big,remained,3.66,Moderate
 bike,added,5.00,Very Concrete
+bill,remained,4.68,Very Concrete
 bin,added,4.72,Very Concrete
+bind,remained,3.40,Moderate
 biological,added,3.11,Moderate
+bird,remained,5.00,Very Concrete
+birth,remained,4.46,Concrete
+bit,remained,3.27,Moderate
+bite,remained,4.44,Concrete
+bitter,removed,2.93,Abstract
+black,remained,3.76,Moderate
+blade,removed,4.93,Very Concrete
+blame,remained,2.06,Abstract
+bleed,removed,4.40,Concrete
+bless,remained,2.68,Abstract
+blind,remained,4.03,Concrete
+block,remained,4.48,Concrete
 blog,added,3.92,Moderate
+blood,remained,4.86,Very Concrete
 bloody,added,4.08,Concrete
+blow,remained,3.74,Moderate
+blue,remained,3.76,Moderate
+board,remained,4.57,Very Concrete
+boast,removed,2.32,Abstract
+boat,remained,4.93,Very Concrete
+body,remained,4.79,Very Concrete
+boil,removed,4.20,Concrete
+bold,removed,2.43,Abstract
 bomb,added,4.84,Very Concrete
 bond,added,3.62,Moderate
+bone,remained,4.90,Very Concrete
+book,remained,4.90,Very Concrete
 boom,added,3.66,Moderate
 boost,added,2.89,Abstract
 boot,added,4.96,Very Concrete
+border,remained,4.29,Concrete
 bore,added,2.96,Abstract
+borrow,remained,3.10,Moderate
 boss,added,3.83,Moderate
+both,remained,2.97,Abstract
 bother,added,2.00,Very Abstract
+bottle,remained,4.91,Very Concrete
+bottom,remained,4.25,Concrete
+bound,removed,3.43,Moderate
+boundary,remained,3.04,Moderate
+bow,removed,4.61,Very Concrete
+bowl,remained,4.87,Very Concrete
+box,remained,4.90,Very Concrete
+boy,remained,4.76,Very Concrete
+brain,remained,4.69,Very Concrete
+branch,remained,4.90,Very Concrete
 brand,added,3.29,Moderate
+brass,removed,4.70,Very Concrete
+brave,removed,2.26,Abstract
+bravery,removed,1.96,Very Abstract
+bread,remained,4.92,Very Concrete
+breadth,removed,2.23,Abstract
+break,remained,3.71,Moderate
+breakfast,remained,4.43,Concrete
 breast,added,4.89,Very Concrete
+breath,remained,4.36,Concrete
+breathe,remained,4.07,Concrete
 breed,added,2.85,Abstract
+bribe,removed,3.44,Moderate
+bribery,removed,2.89,Abstract
+brick,removed,4.83,Very Concrete
+bridge,remained,4.97,Very Concrete
 brief,added,2.38,Abstract
 briefly,added,1.90,Very Abstract
+bright,remained,3.92,Moderate
+brighten,removed,3.41,Moderate
 brilliant,added,2.07,Abstract
+bring,remained,2.55,Abstract
+broad,remained,2.45,Abstract
+broadcast,remained,3.46,Moderate
+brother,remained,4.43,Concrete
+brown,remained,4.48,Concrete
+brush,remained,4.54,Very Concrete
+bucket,removed,4.96,Very Concrete
 budget,added,3.14,Moderate
+build,remained,3.71,Moderate
+bunch,remained,3.50,Moderate
+bundle,removed,4.22,Concrete
 burden,added,2.63,Abstract
+burn,remained,4.11,Concrete
+burst,remained,3.10,Moderate
+bury,remained,3.82,Moderate
+bus,remained,4.90,Very Concrete
+bush,removed,4.90,Very Concrete
+business,remained,3.28,Moderate
+businesslike,removed,2.52,Abstract
+businessman,removed,4.47,Concrete
+busy,remained,2.41,Abstract
+but,remained,2.04,Abstract
+butter,removed,4.90,Very Concrete
+button,remained,4.96,Very Concrete
+buy,remained,3.35,Moderate
 buyer,added,4.36,Concrete
+by,remained,1.55,Very Abstract
 cable,added,4.74,Very Concrete
+cage,removed,5.00,Very Concrete
+cake,remained,4.81,Very Concrete
+calculate,remained,2.74,Abstract
+calculation,removed,3.00,Abstract
+calculator,removed,4.86,Very Concrete
+call,remained,4.00,Moderate
+calm,remained,2.83,Abstract
+camera,remained,5.00,Very Concrete
+camp,remained,4.35,Concrete
 campaign,added,3.00,Abstract
+can,remained,4.55,Very Concrete
+canal,removed,4.68,Very Concrete
 cancel,added,2.41,Abstract
 cancer,added,3.86,Moderate
 candidate,added,3.81,Moderate
+cap,remained,4.59,Very Concrete
 capability,added,1.93,Very Abstract
 capable,added,2.21,Abstract
 capacity,added,3.10,Moderate
+cape,removed,4.77,Very Concrete
+capital,remained,4.10,Concrete
+captain,removed,4.19,Concrete
 capture,added,3.21,Moderate
+car,remained,4.89,Very Concrete
 carbon,added,4.22,Concrete
+card,remained,4.90,Very Concrete
+care,remained,2.33,Abstract
 career,added,2.54,Abstract
 careful,added,1.86,Very Abstract
 carefully,added,2.15,Abstract
 carpet,added,4.96,Very Concrete
+carriage,removed,4.86,Very Concrete
+carry,remained,4.04,Concrete
+cart,removed,4.89,Very Concrete
+case,remained,3.93,Moderate
 cash,added,4.48,Concrete
 cast,added,3.92,Moderate
+castle,remained,4.96,Very Concrete
+cat,remained,4.86,Very Concrete
 catalog,added,4.68,Very Concrete
+catch,remained,4.11,Concrete
 category,added,2.82,Abstract
+cattle,removed,4.64,Very Concrete
+cause,remained,2.43,Abstract
+caution,removed,2.04,Abstract
+cautious,removed,1.81,Very Abstract
+cave,removed,4.96,Very Concrete
 celebrate,added,2.90,Abstract
 celebration,added,3.47,Moderate
 cell,added,4.44,Concrete
+cent,remained,4.19,Concrete
+center,remained,3.85,Moderate
 central,added,2.71,Abstract
+century,remained,2.83,Abstract
+ceremony,remained,3.57,Moderate
+certain,remained,1.68,Very Abstract
 certainly,added,1.86,Very Abstract
+certainty,removed,1.59,Very Abstract
+chain,remained,4.55,Very Concrete
+chair,remained,4.58,Very Concrete
+chairman,remained,4.31,Concrete
+chalk,removed,4.90,Very Concrete
 challenge,added,2.11,Abstract
 chamber,added,4.59,Very Concrete
 champion,added,3.82,Moderate
 championship,added,3.23,Moderate
+chance,remained,1.64,Very Abstract
+change,remained,2.89,Abstract
 channel,added,4.18,Concrete
 chapter,added,3.43,Moderate
+character,remained,2.93,Abstract
 characteristic,added,2.38,Abstract
 characterize,added,2.00,Very Abstract
+charge,remained,2.96,Abstract
 charity,added,2.62,Abstract
+charm,remained,2.76,Abstract
 chart,added,4.48,Concrete
 chase,added,3.48,Moderate
 chat,added,3.66,Moderate
+cheap,remained,2.11,Abstract
+cheat,removed,2.23,Abstract
+check,remained,4.11,Concrete
 cheek,added,4.83,Very Concrete
+cheer,removed,2.77,Abstract
+cheese,remained,4.70,Very Concrete
 chemical,added,3.86,Moderate
+chest,remained,4.93,Very Concrete
+chicken,remained,4.80,Very Concrete
+chief,remained,4.26,Concrete
+child,remained,4.78,Very Concrete
+childhood,remained,2.53,Abstract
+chimney,removed,5.00,Very Concrete
 chip,added,4.71,Very Concrete
 chocolate,added,4.72,Very Concrete
+choice,remained,1.90,Very Abstract
+choose,remained,2.62,Abstract
+christmas,removed,3.41,Moderate
+church,remained,4.90,Very Concrete
 cigarette,added,4.88,Very Concrete
+circle,remained,4.44,Concrete
+circular,removed,3.79,Moderate
 circumstance,added,1.77,Very Abstract
 cite,added,3.07,Moderate
+citizen,remained,4.43,Concrete
+city,remained,4.79,Very Concrete
 civil,added,2.07,Abstract
 civilian,added,4.25,Concrete
+civilize,removed,1.90,Very Abstract
+claim,remained,2.96,Abstract
+class,remained,3.85,Moderate
 classic,added,2.00,Very Abstract
 classical,added,2.18,Abstract
+classification,removed,2.52,Abstract
+classify,removed,2.41,Abstract
 clause,added,2.73,Abstract
+clay,removed,4.93,Very Concrete
+clean,remained,3.07,Moderate
+clear,remained,3.55,Moderate
 clearly,added,2.04,Abstract
+clerk,removed,4.28,Concrete
+clever,removed,1.79,Very Abstract
 click,added,4.03,Concrete
+cliff,removed,4.71,Very Concrete
 climate,added,3.50,Moderate
+climb,remained,4.11,Concrete
 clinical,added,2.52,Abstract
+clock,remained,5.00,Very Concrete
+close,remained,3.20,Moderate
 closely,added,2.46,Abstract
+cloth,removed,4.90,Very Concrete
+clothe,removed,3.50,Moderate
+clothes,added,4.76,Very Concrete
+clothing,added,4.43,Concrete
+cloud,remained,4.54,Very Concrete
+club,remained,3.78,Moderate
 cluster,added,4.04,Concrete
 coach,added,4.12,Concrete
+coal,remained,4.66,Very Concrete
+coarse,removed,3.25,Moderate
+coast,remained,4.21,Concrete
+coat,remained,4.97,Very Concrete
 code,added,3.00,Abstract
+coffee,remained,4.81,Very Concrete
+coin,remained,4.89,Very Concrete
+cold,remained,3.85,Moderate
 collapse,added,3.67,Moderate
+collar,removed,4.64,Very Concrete
 colleague,added,3.79,Moderate
+collect,remained,3.34,Moderate
+collection,remained,4.04,Concrete
+collector,removed,4.10,Concrete
+college,remained,4.62,Very Concrete
+colony,removed,3.77,Moderate
+color,remained,4.08,Concrete
 column,added,4.48,Concrete
+comb,removed,5.00,Very Concrete
 combination,added,2.86,Abstract
+combine,remained,3.41,Moderate
+come,remained,2.72,Abstract
 comedy,added,3.10,Moderate
+comfort,remained,2.89,Abstract
 comfortable,added,2.33,Abstract
+command,remained,2.48,Abstract
 comment,added,3.29,Moderate
+commerce,removed,2.76,Abstract
+commercial,remained,3.24,Moderate
 commission,added,3.04,Moderate
 commit,added,2.17,Abstract
 commitment,added,1.74,Very Abstract
+committee,remained,4.14,Concrete
+common,remained,2.07,Abstract
 communicate,added,3.43,Moderate
 communication,added,2.90,Abstract
 community,added,3.52,Moderate
+companion,removed,3.75,Moderate
+companionship,removed,2.45,Abstract
+company,remained,4.11,Concrete
+compare,remained,2.52,Abstract
+comparison,remained,2.00,Very Abstract
 compensation,added,3.25,Moderate
+compete,remained,2.57,Abstract
+competition,remained,3.86,Moderate
 competitive,added,1.89,Very Abstract
+competitor,remained,3.23,Moderate
+complain,remained,2.60,Abstract
+complaint,remained,2.69,Abstract
+complete,remained,2.70,Abstract
 completely,added,2.18,Abstract
+completion,removed,2.33,Abstract
 complex,added,1.96,Very Abstract
 complexity,added,1.87,Very Abstract
+complicate,remained,1.65,Very Abstract
+complication,removed,1.86,Very Abstract
 component,added,3.04,Moderate
+compose,remained,2.83,Abstract
+composition,remained,3.10,Moderate
 compound,added,3.03,Moderate
 comprehensive,added,1.82,Very Abstract
 comprise,added,1.89,Very Abstract
@@ -1868,17 +622,36 @@ computer,added,4.93,Very Concrete
 concentrate,added,2.48,Abstract
 concentration,added,2.10,Abstract
 concept,added,1.41,Very Abstract
+concern,remained,1.70,Very Abstract
 concert,added,4.35,Concrete
 conclude,added,1.78,Very Abstract
 conclusion,added,2.11,Abstract
 concrete,added,4.59,Very Concrete
+condition,remained,2.15,Abstract
 conduct,added,2.08,Abstract
 conference,added,3.86,Moderate
+confess,removed,2.57,Abstract
+confession,removed,2.40,Abstract
+confidence,remained,2.17,Abstract
+confident,remained,2.62,Abstract
+confidential,removed,2.08,Abstract
 confirm,added,2.15,Abstract
 conflict,added,2.21,Abstract
+confuse,remained,2.04,Abstract
+confusion,remained,2.24,Abstract
+congratulate,removed,3.04,Moderate
+congratulations,removed,2.27,Abstract
+connect,remained,2.88,Abstract
+connection,remained,3.00,Abstract
+conquer,removed,2.90,Abstract
+conqueror,removed,3.54,Moderate
+conquest,removed,2.54,Abstract
+conscience,removed,1.96,Very Abstract
+conscious,removed,2.03,Abstract
 consequence,added,2.64,Abstract
 consequently,added,1.69,Very Abstract
 conservative,added,1.96,Very Abstract
+consider,remained,1.68,Very Abstract
 considerable,added,2.14,Abstract
 consideration,added,1.86,Very Abstract
 consist,added,2.07,Abstract
@@ -1894,122 +667,354 @@ consultant,added,3.97,Moderate
 consume,added,3.41,Moderate
 consumer,added,3.57,Moderate
 contact,added,3.86,Moderate
+contain,remained,2.74,Abstract
 contemporary,added,1.96,Very Abstract
+content,remained,2.59,Abstract
 contest,added,3.52,Moderate
 context,added,2.17,Abstract
+continue,remained,2.36,Abstract
 continuous,added,2.11,Abstract
 contract,added,4.15,Concrete
 contrast,added,2.64,Abstract
 contribute,added,2.13,Abstract
 contribution,added,2.41,Abstract
+control,remained,1.93,Very Abstract
 controversial,added,1.53,Very Abstract
+convenience,removed,2.04,Abstract
+convenient,removed,1.85,Very Abstract
 convention,added,3.28,Moderate
 conventional,added,1.50,Very Abstract
+conversation,remained,3.28,Moderate
 convert,added,2.73,Abstract
 convince,added,1.85,Very Abstract
+cook,remained,4.32,Concrete
+cool,remained,3.53,Moderate
 cooperation,added,2.03,Abstract
 cope,added,1.78,Very Abstract
+copper,removed,4.52,Very Concrete
+copy,remained,3.90,Moderate
 core,added,3.96,Moderate
+cork,removed,4.86,Very Concrete
+corn,removed,4.96,Very Concrete
+corner,remained,4.61,Very Concrete
 corporate,added,2.27,Abstract
 corporation,added,2.79,Abstract
+correct,remained,2.59,Abstract
+correction,removed,3.00,Abstract
 correspond,added,2.27,Abstract
+cost,remained,2.50,Abstract
+cottage,removed,4.85,Very Concrete
+cotton,removed,4.97,Very Concrete
+cough,remained,4.36,Concrete
+could,remained,1.34,Very Abstract
+council,remained,2.73,Abstract
 counsel,added,2.48,Abstract
+count,remained,3.00,Abstract
 counter,added,4.17,Concrete
+country,remained,4.17,Concrete
 county,added,4.04,Concrete
 couple,added,3.93,Moderate
+courage,removed,1.52,Very Abstract
+course,remained,3.82,Moderate
+court,remained,4.31,Concrete
+cousin,remained,3.70,Moderate
+cover,remained,4.23,Concrete
 coverage,added,2.70,Abstract
+cow,remained,4.96,Very Concrete
+coward,removed,2.93,Abstract
+cowardice,removed,2.10,Abstract
+crack,remained,4.53,Very Concrete
 craft,added,3.48,Moderate
+crash,remained,3.79,Moderate
 crazy,added,2.37,Abstract
+cream,remained,4.83,Very Concrete
 create,added,2.62,Abstract
 creation,added,2.15,Abstract
 creative,added,1.93,Very Abstract
+creature,remained,4.07,Concrete
 credit,added,2.71,Abstract
+creep,removed,3.38,Moderate
 crew,added,4.36,Concrete
+crime,remained,3.03,Moderate
+criminal,remained,3.48,Moderate
 crisis,added,2.33,Abstract
 criteria,added,2.50,Abstract
+critic,remained,3.55,Moderate
 critical,added,2.14,Abstract
 criticism,added,2.07,Abstract
 criticize,added,2.03,Abstract
+crop,remained,4.24,Concrete
+cross,remained,4.44,Concrete
+crowd,remained,4.52,Very Concrete
+crown,removed,4.81,Very Concrete
 crucial,added,2.08,Abstract
+cruel,removed,2.11,Abstract
+crush,removed,3.90,Moderate
+cry,remained,4.00,Moderate
+cultivate,removed,3.14,Moderate
+cultivation,removed,3.13,Moderate
+cultivator,removed,3.79,Moderate
 cultural,added,2.10,Abstract
 culture,added,2.04,Abstract
+cup,remained,5.00,Very Concrete
+cupboard,removed,4.79,Very Concrete
+cure,removed,2.41,Abstract
+curious,remained,1.75,Very Abstract
+curl,removed,4.38,Concrete
 currency,added,4.25,Concrete
+current,remained,3.16,Moderate
 currently,added,2.14,Abstract
+curse,removed,2.39,Abstract
+curtain,remained,4.82,Very Concrete
+curve,remained,4.41,Concrete
+cushion,removed,4.68,Very Concrete
+custom,remained,2.68,Abstract
+customary,removed,1.85,Very Abstract
+customer,remained,3.82,Moderate
+cut,remained,4.55,Very Concrete
 cycle,added,3.64,Moderate
 dad,added,4.29,Concrete
+daily,remained,3.15,Moderate
+damage,remained,3.20,Moderate
 damn,added,2.00,Very Abstract
+damp,removed,3.81,Moderate
+dance,remained,4.32,Concrete
+danger,remained,2.68,Abstract
 dangerous,added,2.13,Abstract
+dare,remained,2.28,Abstract
+dark,remained,4.29,Concrete
+darken,removed,3.30,Moderate
 darkness,added,3.85,Moderate
 data,added,3.93,Moderate
 database,added,4.00,Moderate
+date,remained,3.90,Moderate
+daughter,remained,4.79,Very Concrete
+day,remained,3.92,Moderate
+daylight,removed,4.10,Concrete
+dead,remained,4.07,Concrete
+deaf,removed,3.27,Moderate
+deafen,removed,3.11,Moderate
+deal,remained,3.10,Moderate
 dealer,added,3.76,Moderate
+dear,remained,2.25,Abstract
+death,remained,3.73,Moderate
 debate,added,3.18,Moderate
+debt,remained,2.72,Abstract
 decade,added,3.19,Moderate
+decay,removed,3.89,Moderate
+deceit,removed,2.37,Abstract
+deceive,removed,1.68,Very Abstract
+decide,remained,1.92,Very Abstract
+decision,remained,2.19,Abstract
+decisive,removed,2.16,Abstract
+declare,remained,2.00,Very Abstract
 decline,added,2.76,Abstract
+decrease,remained,2.68,Abstract
 dedicate,added,2.69,Abstract
+deed,removed,3.86,Moderate
+deep,remained,3.38,Moderate
+deepen,removed,3.20,Moderate
 deeply,added,2.00,Very Abstract
+deer,removed,4.86,Very Concrete
+defeat,remained,2.96,Abstract
+defend,remained,2.31,Abstract
+defendant,removed,3.80,Moderate
+defense,remained,2.45,Abstract
 deficit,added,2.21,Abstract
 define,added,2.15,Abstract
 definitely,added,1.74,Very Abstract
 definition,added,3.07,Moderate
+degree,remained,3.00,Abstract
+delay,remained,2.79,Abstract
+delicate,removed,2.30,Abstract
+delight,remained,2.30,Abstract
+deliver,remained,3.12,Moderate
+delivery,remained,3.69,Moderate
+demand,remained,2.20,Abstract
 democracy,added,1.78,Very Abstract
 democratic,added,1.74,Very Abstract
 demonstrate,added,2.53,Abstract
 demonstration,added,3.75,Moderate
 density,added,2.52,Abstract
 deny,added,2.20,Abstract
+department,remained,3.30,Moderate
+depend,remained,1.89,Very Abstract
+dependence,removed,2.15,Abstract
+dependent,remained,2.32,Abstract
 deposit,added,3.92,Moderate
 depress,added,2.29,Abstract
 depression,added,2.39,Abstract
+depth,remained,3.11,Moderate
 derive,added,2.00,Very Abstract
+descend,removed,3.18,Moderate
+descendant,removed,3.53,Moderate
+descent,removed,3.00,Abstract
+describe,remained,2.18,Abstract
+description,remained,2.43,Abstract
+desert,remained,4.86,Very Concrete
+deserve,remained,1.69,Very Abstract
 design,added,3.27,Moderate
 designer,added,3.78,Moderate
+desire,remained,1.70,Very Abstract
+desk,remained,4.87,Very Concrete
+despair,removed,2.21,Abstract
 despite,added,1.33,Very Abstract
+destroy,remained,3.08,Moderate
+destruction,remained,3.21,Moderate
+destructive,removed,2.17,Abstract
+detail,remained,2.50,Abstract
 detect,added,2.19,Abstract
 determination,added,1.70,Very Abstract
+determine,remained,2.13,Abstract
+develop,remained,1.87,Very Abstract
 development,added,2.41,Abstract
 device,added,3.97,Moderate
+devil,removed,3.41,Moderate
 devote,added,2.00,Very Abstract
+diamond,removed,4.89,Very Concrete
+dictionary,removed,4.62,Very Concrete
+die,remained,3.07,Moderate
 diet,added,3.21,Moderate
 differ,added,1.59,Very Abstract
+difference,remained,2.15,Abstract
+different,remained,1.97,Very Abstract
 differently,added,1.87,Very Abstract
+difficult,remained,2.21,Abstract
+difficulty,remained,1.90,Very Abstract
+dig,remained,4.33,Concrete
 digital,added,3.63,Moderate
 dimension,added,2.50,Abstract
+dine,removed,3.37,Moderate
+dinner,remained,4.50,Concrete
+dip,removed,4.22,Concrete
+direct,remained,2.15,Abstract
+direction,remained,2.79,Abstract
 directly,added,2.37,Abstract
+director,remained,4.04,Concrete
+dirt,removed,4.86,Very Concrete
 dirty,added,4.23,Concrete
+disagree,remained,2.77,Abstract
+disappear,remained,2.86,Abstract
+disappearance,removed,2.40,Abstract
+disappoint,remained,1.89,Very Abstract
+disapprove,removed,1.89,Very Abstract
 disaster,added,3.07,Moderate
+discipline,remained,2.24,Abstract
+discomfort,removed,2.28,Abstract
+discontent,removed,1.93,Very Abstract
 discount,added,2.79,Abstract
+discover,remained,2.37,Abstract
+discovery,remained,2.36,Abstract
+discuss,remained,3.17,Moderate
+discussion,remained,3.07,Moderate
+disease,remained,3.45,Moderate
+disgust,removed,2.19,Abstract
+dish,remained,4.90,Very Concrete
 disk,added,4.80,Very Concrete
+dismiss,remained,2.39,Abstract
 disorder,added,3.10,Moderate
 display,added,3.86,Moderate
 dispute,added,2.90,Abstract
+disregard,removed,1.90,Very Abstract
+disrespect,removed,1.93,Very Abstract
+dissatisfaction,removed,1.96,Very Abstract
+dissatisfied,removed,2.24,Abstract
+distance,remained,3.17,Moderate
+distant,remained,2.75,Abstract
 distinct,added,2.11,Abstract
 distinction,added,2.08,Abstract
+distinguish,remained,2.20,Abstract
 distribute,added,2.77,Abstract
+district,remained,3.29,Moderate
+disturb,remained,3.04,Moderate
+ditch,removed,4.50,Concrete
+dive,removed,4.03,Concrete
 diversity,added,2.28,Abstract
+divide,remained,2.86,Abstract
+division,remained,2.80,Abstract
 divorce,added,3.25,Moderate
+do,remained,2.46,Abstract
+doctor,remained,4.69,Very Concrete
 document,added,4.41,Concrete
+dog,remained,4.85,Very Concrete
+dollar,remained,4.93,Very Concrete
 domestic,added,2.57,Abstract
 dominate,added,2.12,Abstract
+donkey,removed,5.00,Very Concrete
+door,remained,4.81,Very Concrete
+dot,removed,4.12,Concrete
+double,remained,3.37,Moderate
+doubt,remained,1.79,Very Abstract
+down,remained,3.52,Moderate
+dozen,remained,4.66,Very Concrete
 draft,added,3.15,Moderate
+drag,remained,4.17,Concrete
 drama,added,2.34,Abstract
 dramatic,added,2.12,Abstract
 dramatically,added,1.59,Very Abstract
+draw,remained,3.97,Moderate
+drawer,removed,4.67,Very Concrete
+dream,remained,2.60,Abstract
+dress,remained,4.93,Very Concrete
+drink,remained,4.76,Very Concrete
+drive,remained,3.86,Moderate
 driver,added,4.71,Very Concrete
+drop,remained,4.21,Concrete
+drown,removed,3.93,Moderate
 drug,added,4.48,Concrete
+drum,removed,4.96,Very Concrete
+dry,remained,3.77,Moderate
+duck,removed,4.86,Very Concrete
+due,remained,3.21,Moderate
+dull,removed,2.37,Abstract
+during,remained,1.48,Very Abstract
+dust,remained,4.40,Concrete
+duty,remained,2.19,Abstract
+each,remained,2.03,Abstract
+eager,removed,1.93,Very Abstract
+ear,remained,5.00,Very Concrete
+early,remained,2.25,Abstract
+earn,remained,2.39,Abstract
+earnest,removed,2.24,Abstract
+earth,remained,4.80,Very Concrete
+ease,remained,2.32,Abstract
 easily,added,1.80,Very Abstract
+east,remained,3.04,Moderate
+eastern,remained,3.11,Moderate
+easy,remained,2.07,Abstract
+eat,remained,4.44,Concrete
 economic,added,2.20,Abstract
 economy,added,2.57,Abstract
+edge,remained,4.24,Concrete
 edit,added,3.28,Moderate
 edition,added,3.21,Moderate
 editor,added,4.25,Concrete
+educate,remained,2.12,Abstract
+education,remained,2.93,Abstract
 educational,added,2.10,Abstract
+educator,removed,4.00,Moderate
+effect,remained,1.80,Very Abstract
+effective,remained,2.04,Abstract
 effectively,added,2.04,Abstract
+efficiency,remained,2.15,Abstract
+efficient,remained,1.82,Very Abstract
+effort,remained,2.33,Abstract
+egg,remained,4.97,Very Concrete
+either,remained,1.81,Very Abstract
+elastic,removed,3.73,Moderate
+elder,removed,3.59,Moderate
 elderly,added,3.68,Moderate
+elect,remained,2.41,Abstract
+election,remained,3.17,Moderate
+electric,remained,3.56,Moderate
+electrician,removed,4.21,Concrete
 electricity,added,3.90,Moderate
 electronic,added,3.30,Moderate
 element,added,3.63,Moderate
+elephant,removed,5.00,Very Concrete
 eliminate,added,2.77,Abstract
+else,remained,1.63,Very Abstract
+elsewhere,remained,1.89,Very Abstract
 email,added,4.69,Very Concrete
 embarrass,added,2.14,Abstract
 embrace,added,3.38,Moderate
@@ -2019,30 +1024,54 @@ emotion,added,2.44,Abstract
 emotional,added,2.00,Very Abstract
 emphasis,added,2.12,Abstract
 emphasize,added,2.00,Very Abstract
+empire,remained,3.00,Abstract
+employ,remained,2.41,Abstract
+employee,remained,4.10,Concrete
 employer,added,3.81,Moderate
 employment,added,3.30,Moderate
+empty,remained,3.43,Moderate
 enable,added,2.03,Abstract
+enclose,removed,2.96,Abstract
+enclosure,removed,4.04,Concrete
 encounter,added,2.93,Abstract
+encourage,remained,2.61,Abstract
+end,remained,3.14,Moderate
+enemy,remained,2.83,Abstract
 energy,added,3.11,Moderate
 engage,added,2.07,Abstract
+engine,remained,4.86,Very Concrete
+engineer,remained,4.64,Very Concrete
 enhance,added,2.21,Abstract
+enjoy,remained,2.29,Abstract
 enormous,added,2.90,Abstract
+enough,remained,1.33,Very Abstract
 ensure,added,1.68,Very Abstract
+enter,remained,3.12,Moderate
 enterprise,added,2.04,Abstract
+entertain,remained,2.55,Abstract
 entertainment,added,2.92,Abstract
+entire,remained,2.03,Abstract
 entirely,added,1.81,Very Abstract
 entitle,added,2.25,Abstract
+entrance,remained,4.23,Concrete
 entry,added,3.62,Moderate
+envelope,remained,4.93,Very Concrete
 environment,added,3.74,Moderate
 environmental,added,2.63,Abstract
+envy,removed,1.69,Very Abstract
 episode,added,3.22,Moderate
+equal,remained,2.56,Abstract
 equally,added,1.59,Very Abstract
 equation,added,3.65,Moderate
 equipment,added,4.83,Very Concrete
 equivalent,added,2.57,Abstract
 era,added,2.24,Abstract
 error,added,2.68,Abstract
+escape,remained,3.34,Moderate
+especially,remained,1.28,Very Abstract
 essay,added,3.97,Moderate
+essence,removed,1.66,Very Abstract
+essential,remained,1.52,Very Abstract
 establish,added,2.00,Very Abstract
 establishment,added,3.48,Moderate
 estate,added,4.11,Concrete
@@ -2050,138 +1079,462 @@ estimate,added,2.65,Abstract
 ethnic,added,2.47,Abstract
 evaluate,added,1.85,Very Abstract
 evaluation,added,3.00,Abstract
+even,remained,2.79,Abstract
+evening,remained,3.26,Moderate
+event,remained,2.69,Abstract
 eventually,added,1.75,Very Abstract
+ever,remained,1.48,Very Abstract
+everlasting,removed,1.89,Very Abstract
+every,remained,2.28,Abstract
+everybody,remained,3.13,Moderate
+everyday,remained,2.43,Abstract
+everyone,remained,2.92,Abstract
+everything,remained,2.30,Abstract
+everywhere,remained,2.00,Very Abstract
 evidence,added,3.65,Moderate
+evil,remained,1.93,Very Abstract
 evolution,added,2.61,Abstract
 evolve,added,1.96,Very Abstract
+exact,remained,2.54,Abstract
 exactly,added,2.11,Abstract
 exam,added,4.48,Concrete
 examination,added,3.93,Moderate
+examine,remained,2.86,Abstract
+example,remained,3.03,Moderate
 exceed,added,1.76,Very Abstract
+excellence,removed,2.20,Abstract
+excellent,remained,2.11,Abstract
+except,remained,1.48,Very Abstract
+exception,remained,1.85,Very Abstract
+excess,remained,2.50,Abstract
+excessive,removed,2.25,Abstract
+exchange,remained,2.74,Abstract
+excite,remained,1.97,Very Abstract
 excitement,added,2.48,Abstract
 exclude,added,2.62,Abstract
+excuse,remained,2.29,Abstract
 executive,added,4.00,Moderate
+exercise,remained,3.87,Moderate
 exhaust,added,2.96,Abstract
 exhibit,added,3.50,Moderate
 exhibition,added,3.52,Moderate
+exist,remained,2.38,Abstract
+existence,remained,1.54,Very Abstract
 expand,added,3.36,Moderate
 expansion,added,3.00,Abstract
+expect,remained,1.89,Very Abstract
 expectation,added,1.62,Very Abstract
 expenditure,added,2.76,Abstract
+expense,remained,2.57,Abstract
+expensive,remained,3.13,Moderate
+experience,remained,1.80,Very Abstract
+experiment,remained,3.38,Moderate
 experimental,added,2.15,Abstract
 expert,added,2.85,Abstract
+explain,remained,1.97,Very Abstract
 explanation,added,1.87,Very Abstract
+explode,removed,4.10,Concrete
+explore,remained,2.90,Abstract
+explosion,removed,4.52,Very Concrete
+explosive,removed,3.74,Moderate
 export,added,2.76,Abstract
 expose,added,3.46,Moderate
 exposure,added,2.39,Abstract
+express,remained,2.21,Abstract
+expression,remained,2.54,Abstract
+extend,remained,2.93,Abstract
+extension,remained,2.93,Abstract
+extensive,remained,1.79,Very Abstract
+extent,remained,1.44,Very Abstract
 external,added,2.82,Abstract
+extra,remained,2.46,Abstract
 extract,added,3.56,Moderate
+extraordinary,remained,2.13,Abstract
+extreme,remained,1.96,Very Abstract
 extremely,added,1.84,Very Abstract
+eye,remained,4.90,Very Concrete
+face,remained,4.87,Very Concrete
 facility,added,3.58,Moderate
+fact,remained,2.72,Abstract
 factor,added,2.79,Abstract
+factory,remained,4.76,Very Concrete
+fade,remained,2.48,Abstract
+fail,remained,3.00,Abstract
+failure,remained,2.08,Abstract
+faint,removed,3.74,Moderate
+fair,remained,2.39,Abstract
 fairly,added,2.07,Abstract
+faith,remained,1.63,Very Abstract
 faithfully,added,1.77,Very Abstract
+fall,remained,4.04,Concrete
+false,remained,2.36,Abstract
+fame,removed,1.96,Very Abstract
+familiar,remained,2.03,Abstract
+family,remained,4.23,Concrete
 famous,added,2.07,Abstract
+fan,remained,4.71,Very Concrete
+fancy,remained,2.50,Abstract
 fantastic,added,1.78,Very Abstract
+far,remained,2.71,Abstract
+farm,remained,4.59,Very Concrete
 farmer,added,4.54,Very Concrete
 fascinate,added,1.75,Very Abstract
+fashion,remained,3.43,Moderate
+fast,remained,3.32,Moderate
+fasten,removed,4.14,Concrete
+fat,remained,4.52,Very Concrete
+fate,removed,1.53,Very Abstract
+father,remained,4.52,Very Concrete
+fatten,removed,3.23,Moderate
+fault,remained,2.41,Abstract
+favor,remained,2.07,Abstract
+favorite,remained,2.71,Abstract
+fear,remained,2.57,Abstract
+feast,removed,4.30,Concrete
+feather,removed,4.90,Very Concrete
 feature,added,2.96,Abstract
 federal,added,2.41,Abstract
+fee,added,3.89,Moderate
+fee,remained,3.89,Moderate
+feed,remained,4.17,Concrete
+feel,remained,2.28,Abstract
+fellow,remained,3.67,Moderate
+fellowship,removed,2.28,Abstract
+female,remained,4.57,Very Concrete
+fence,remained,4.82,Very Concrete
 festival,added,4.33,Concrete
+fever,removed,3.27,Moderate
+few,remained,2.48,Abstract
 fiction,added,2.14,Abstract
+field,remained,4.26,Concrete
+fierce,removed,2.62,Abstract
+fight,remained,4.20,Concrete
+figure,remained,3.63,Moderate
 file,added,4.41,Concrete
+fill,remained,3.32,Moderate
+film,remained,4.71,Very Concrete
 filter,added,4.59,Very Concrete
 final,added,2.67,Abstract
 finally,added,1.67,Very Abstract
 finance,added,3.36,Moderate
 financial,added,2.52,Abstract
+find,remained,2.63,Abstract
+fine,remained,2.61,Abstract
+finger,remained,5.00,Very Concrete
+finish,remained,2.89,Abstract
+fire,remained,4.68,Very Concrete
+firm,remained,3.54,Moderate
 firmly,added,2.33,Abstract
+first,remained,2.76,Abstract
 firstly,added,1.85,Very Abstract
+fish,remained,5.00,Very Concrete
+fit,remained,2.70,Abstract
+fix,remained,2.93,Abstract
+flag,remained,4.79,Very Concrete
+flame,removed,4.67,Very Concrete
+flash,remained,3.67,Moderate
+flat,remained,4.07,Concrete
+flatten,removed,3.86,Moderate
+flavor,removed,3.55,Moderate
+flesh,removed,4.59,Very Concrete
 flexible,added,2.64,Abstract
 flight,added,3.90,Moderate
+float,remained,4.07,Concrete
+flood,remained,4.62,Very Concrete
+floor,remained,4.80,Very Concrete
+flour,removed,4.97,Very Concrete
+flow,remained,3.72,Moderate
+flower,remained,5.00,Very Concrete
+fly,remained,4.64,Very Concrete
 focus,added,2.35,Abstract
+fold,remained,4.13,Concrete
 folk,added,3.57,Moderate
+follow,remained,3.26,Moderate
+fond,removed,1.68,Very Abstract
+food,remained,4.80,Very Concrete
+fool,remained,3.19,Moderate
+foot,remained,4.90,Very Concrete
 football,added,4.73,Very Concrete
+for,remained,1.63,Very Abstract
+forbid,removed,1.96,Very Abstract
+force,remained,3.00,Abstract
 forecast,added,2.78,Abstract
+foreign,remained,2.50,Abstract
+forest,remained,4.76,Very Concrete
 forever,added,1.34,Very Abstract
+forget,remained,2.04,Abstract
+forgive,removed,1.92,Very Abstract
+fork,removed,4.90,Very Concrete
+form,remained,3.13,Moderate
+formal,remained,2.70,Abstract
 format,added,2.90,Abstract
 formation,added,3.23,Moderate
+former,remained,2.18,Abstract
 formula,added,4.11,Concrete
+forth,remained,2.38,Abstract
+fortunate,remained,2.04,Abstract
+fortune,remained,2.90,Abstract
+forward,remained,2.66,Abstract
+found,added,2.53,Abstract
 foundation,added,3.74,Moderate
 fragment,added,4.10,Concrete
+frame,remained,4.30,Concrete
+framework,remained,3.24,Moderate
+free,remained,2.04,Abstract
+freedom,remained,2.34,Abstract
+freeze,remained,3.96,Moderate
+frequency,remained,2.69,Abstract
+frequent,remained,2.25,Abstract
 frequently,added,1.88,Very Abstract
+fresh,remained,1.97,Very Abstract
+friend,remained,3.07,Moderate
+friendly,remained,2.32,Abstract
+friendship,remained,2.39,Abstract
+fright,removed,2.52,Abstract
+frighten,remained,3.07,Moderate
+from,remained,1.84,Very Abstract
+front,remained,3.77,Moderate
+fruit,remained,4.81,Very Concrete
+fry,removed,4.37,Concrete
 fuel,added,4.30,Concrete
 fulfill,added,1.78,Very Abstract
+full,remained,3.59,Moderate
 fully,added,1.89,Very Abstract
+fun,remained,1.97,Very Abstract
 function,added,1.92,Very Abstract
 functional,added,2.55,Abstract
 fund,added,3.18,Moderate
 fundamental,added,1.57,Very Abstract
+funeral,removed,3.83,Moderate
+funny,remained,2.50,Abstract
+fur,removed,4.69,Very Concrete
+furnish,removed,3.75,Moderate
+furniture,remained,4.89,Very Concrete
+further,remained,1.88,Very Abstract
 furthermore,added,1.60,Very Abstract
+future,remained,1.86,Very Abstract
+gain,remained,2.24,Abstract
 gallery,added,4.44,Concrete
+gallon,removed,3.92,Moderate
+game,remained,4.50,Concrete
+gap,remained,3.92,Moderate
+garage,removed,4.96,Very Concrete
+garden,remained,4.73,Very Concrete
+gas,remained,4.29,Concrete
+gate,remained,4.96,Very Concrete
+gather,remained,2.75,Abstract
+gay,remained,2.52,Abstract
 gaze,added,3.43,Moderate
 gear,added,4.28,Concrete
 gender,added,3.33,Moderate
 gene,added,3.59,Moderate
+general,remained,1.62,Very Abstract
 generally,added,1.65,Very Abstract
 generate,added,2.23,Abstract
 generation,added,1.96,Very Abstract
+generous,removed,2.25,Abstract
 genetic,added,2.73,Abstract
+gentle,remained,2.53,Abstract
+gentleman,remained,3.57,Moderate
 gently,added,2.03,Abstract
 genuine,added,2.03,Abstract
 gesture,added,3.00,Abstract
+get,remained,2.38,Abstract
 giant,added,4.30,Concrete
+gift,remained,4.56,Very Concrete
+girl,remained,4.85,Very Concrete
+give,remained,2.83,Abstract
+glad,remained,2.36,Abstract
 glance,added,3.48,Moderate
+glass,remained,4.82,Very Concrete
 global,added,2.93,Abstract
+glory,removed,1.45,Very Abstract
+go,remained,3.15,Moderate
 goal,added,3.06,Moderate
+goat,removed,5.00,Very Concrete
+god,remained,2.07,Abstract
+gold,remained,4.81,Very Concrete
+golden,remained,3.12,Moderate
 golf,added,4.52,Very Concrete
+good,remained,1.64,Very Abstract
+govern,remained,2.21,Abstract
 government,added,2.88,Abstract
+governor,remained,4.07,Concrete
 grab,added,3.52,Moderate
+grace,removed,1.78,Very Abstract
 grade,added,3.00,Abstract
+gradual,removed,1.90,Very Abstract
 gradually,added,2.87,Abstract
 graduate,added,3.07,Moderate
+grain,remained,4.80,Very Concrete
+grammar,remained,3.19,Moderate
+grammatical,removed,2.33,Abstract
+grand,remained,1.67,Very Abstract
 grandmother,added,4.65,Very Concrete
 grant,added,3.53,Moderate
+grass,remained,4.93,Very Concrete
+grateful,remained,1.78,Very Abstract
+grave,removed,4.56,Very Concrete
+gray,remained,3.46,Moderate
+grease,removed,4.61,Very Concrete
+great,remained,1.81,Very Abstract
 greatly,added,1.89,Very Abstract
+greed,removed,1.53,Very Abstract
+green,remained,4.07,Concrete
+greet,remained,2.96,Abstract
 grin,added,4.17,Concrete
+grind,removed,3.97,Moderate
+ground,remained,4.77,Very Concrete
+group,remained,4.12,Concrete
+grow,remained,3.03,Moderate
+growth,remained,2.89,Abstract
 guarantee,added,1.96,Very Abstract
+guard,remained,4.04,Concrete
+guess,remained,2.28,Abstract
+guest,remained,3.83,Moderate
+guide,remained,3.70,Moderate
 guideline,added,3.93,Moderate
+guilt,removed,1.93,Very Abstract
 guilty,added,2.36,Abstract
 guitar,added,4.90,Very Concrete
+gun,remained,4.83,Very Concrete
 guy,added,4.68,Very Concrete
+habit,remained,2.76,Abstract
+hair,remained,4.97,Very Concrete
+half,remained,3.27,Moderate
+hall,remained,4.67,Very Concrete
+hammer,removed,4.77,Very Concrete
+hand,remained,4.72,Very Concrete
+handkerchief,removed,5.00,Very Concrete
+handle,remained,4.57,Very Concrete
+handshake,removed,4.52,Very Concrete
+handwriting,removed,4.59,Very Concrete
+hang,remained,3.70,Moderate
+happen,remained,1.78,Very Abstract
 happiness,added,2.60,Abstract
+happy,remained,2.56,Abstract
+harbor,remained,4.57,Very Concrete
+hard,remained,3.76,Moderate
+harden,removed,3.36,Moderate
+hardly,remained,1.62,Very Abstract
+harm,remained,2.62,Abstract
+harvest,removed,4.00,Moderate
+haste,removed,2.29,Abstract
+hasten,removed,2.22,Abstract
+hat,remained,4.88,Very Concrete
+hate,remained,1.97,Very Abstract
+hatred,removed,2.00,Very Abstract
+have,remained,2.18,Abstract
+hay,removed,4.87,Very Concrete
+he,remained,3.93,Moderate
+head,remained,4.75,Very Concrete
+headache,removed,3.90,Moderate
+headdress,removed,4.71,Very Concrete
+heal,removed,3.03,Moderate
+health,remained,2.28,Abstract
 healthy,added,3.31,Moderate
+heap,removed,3.90,Moderate
+hear,remained,3.66,Moderate
+heart,remained,4.52,Very Concrete
+heat,remained,3.79,Moderate
+heaven,removed,1.81,Very Abstract
+heavenly,removed,1.50,Very Abstract
 heavily,added,3.15,Moderate
+heavy,remained,3.37,Moderate
+height,remained,3.86,Moderate
+heighten,removed,2.52,Abstract
 hell,added,2.41,Abstract
+hello,remained,2.80,Abstract
+help,remained,2.56,Abstract
 helpful,added,1.76,Very Abstract
 hence,added,1.41,Very Abstract
+here,remained,3.13,Moderate
 hero,added,3.07,Moderate
 herself,added,3.00,Abstract
+hesitate,remained,2.46,Abstract
+hesitation,removed,2.59,Abstract
 hi,added,2.67,Abstract
+hide,remained,3.21,Moderate
+high,remained,3.46,Moderate
 highlight,added,3.11,Moderate
 highly,added,2.19,Abstract
+highway,removed,4.72,Very Concrete
+hill,remained,4.93,Very Concrete
 himself,added,3.50,Moderate
+hinder,removed,2.78,Abstract
+hindrance,removed,2.07,Abstract
 hint,added,2.33,Abstract
+hire,remained,3.11,Moderate
 historian,added,3.90,Moderate
 historic,added,1.93,Very Abstract
 historical,added,1.93,Very Abstract
+history,remained,2.96,Abstract
+hit,remained,4.11,Concrete
+hold,remained,3.68,Moderate
 holder,added,3.74,Moderate
+hole,remained,4.81,Very Concrete
+holiday,remained,2.86,Abstract
+hollow,removed,3.61,Moderate
+holy,removed,1.67,Very Abstract
+home,remained,4.11,Concrete
+homecoming,removed,3.08,Moderate
+homemade,removed,2.90,Abstract
+homework,removed,4.50,Concrete
+honest,remained,1.66,Very Abstract
+honesty,removed,1.59,Very Abstract
+honor,remained,1.68,Very Abstract
+hook,remained,4.79,Very Concrete
+hope,remained,1.25,Very Abstract
 hopefully,added,2.00,Very Abstract
+horizon,removed,4.44,Concrete
+horizontal,removed,3.46,Moderate
 horrible,added,2.20,Abstract
+horse,remained,5.00,Very Concrete
+hospital,remained,4.64,Very Concrete
+host,remained,3.63,Moderate
+hot,remained,4.31,Concrete
+hotel,remained,4.93,Very Concrete
+hour,remained,3.10,Moderate
+house,remained,5.00,Very Concrete
 household,added,3.86,Moderate
+how,remained,1.35,Very Abstract
+however,remained,1.79,Very Abstract
 huge,added,3.54,Moderate
+human,remained,4.93,Very Concrete
+humble,removed,1.73,Very Abstract
 humor,added,2.26,Abstract
+hunger,remained,3.30,Moderate
+hunt,remained,3.81,Moderate
+hurrah,removed,3.07,Moderate
+hurry,remained,2.63,Abstract
+hurt,remained,3.61,Moderate
+husband,remained,4.11,Concrete
+hut,removed,4.65,Very Concrete
 hypothesis,added,2.12,Abstract
+i,remained,3.93,Moderate
+ice,remained,4.89,Very Concrete
+idea,remained,1.61,Very Abstract
+ideal,remained,1.37,Very Abstract
 identify,added,2.64,Abstract
 identity,added,2.00,Very Abstract
+idle,removed,2.79,Abstract
+if,remained,1.19,Very Abstract
 ignore,added,2.22,Abstract
+ill,remained,3.21,Moderate
 illegal,added,2.37,Abstract
 illness,added,3.54,Moderate
 illustrate,added,3.31,Moderate
 illustration,added,4.36,Concrete
 image,added,3.85,Moderate
+imaginary,removed,1.74,Very Abstract
 imagination,added,1.69,Very Abstract
+imaginative,removed,1.82,Very Abstract
+imagine,remained,1.53,Very Abstract
+imitate,removed,2.66,Abstract
+imitation,removed,2.83,Abstract
+immediate,remained,2.10,Abstract
 immediately,added,2.30,Abstract
+immense,removed,2.21,Abstract
 immigrant,added,3.72,Moderate
 immigration,added,3.03,Moderate
 implement,added,2.33,Abstract
@@ -2189,1226 +1542,1892 @@ implementation,added,1.84,Very Abstract
 implication,added,1.61,Very Abstract
 imply,added,1.86,Very Abstract
 import,added,2.52,Abstract
+importance,remained,1.75,Very Abstract
+important,remained,2.14,Abstract
 impose,added,1.93,Very Abstract
+impossible,remained,1.66,Very Abstract
 impress,added,2.07,Abstract
 impression,added,2.23,Abstract
 impressive,added,2.07,Abstract
+improve,remained,1.82,Very Abstract
 improvement,added,2.60,Abstract
+in,remained,3.00,Abstract
 incentive,added,2.26,Abstract
+inch,remained,4.37,Concrete
 incident,added,2.86,Abstract
+include,remained,2.48,Abstract
+inclusive,removed,1.64,Very Abstract
 income,added,3.07,Moderate
 incorporate,added,2.15,Abstract
+increase,remained,2.61,Abstract
 increasingly,added,2.00,Very Abstract
+indeed,remained,1.72,Very Abstract
 independence,added,1.87,Very Abstract
 independent,added,2.04,Abstract
 index,added,3.43,Moderate
 indicate,added,2.39,Abstract
 indication,added,1.97,Very Abstract
 individual,added,3.52,Moderate
+indoor,removed,3.64,Moderate
 industrial,added,3.00,Abstract
+industry,remained,3.29,Moderate
 infant,added,4.93,Very Concrete
 infection,added,4.10,Concrete
 inflation,added,2.54,Abstract
+influence,remained,2.11,Abstract
+influential,removed,1.86,Very Abstract
+inform,remained,2.25,Abstract
 information,added,2.87,Abstract
 initial,added,3.03,Moderate
 initially,added,1.62,Very Abstract
 initiative,added,2.03,Abstract
 injure,added,3.48,Moderate
 injury,added,4.00,Moderate
+ink,removed,4.56,Very Concrete
+inn,removed,4.64,Very Concrete
 inner,added,2.86,Abstract
 innocent,added,1.54,Very Abstract
 innovation,added,1.97,Very Abstract
 input,added,2.50,Abstract
+inquire,removed,2.38,Abstract
+inquiry,remained,2.70,Abstract
+insect,removed,4.89,Very Concrete
+inside,remained,3.67,Moderate
 insight,added,1.72,Very Abstract
 insist,added,2.14,Abstract
 inspire,added,1.74,Very Abstract
 install,added,3.19,Moderate
 instance,added,1.97,Very Abstract
+instant,removed,2.70,Abstract
+instead,remained,1.48,Very Abstract
 institution,added,3.33,Moderate
 institutional,added,2.34,Abstract
 instruction,added,3.37,Moderate
+instrument,remained,4.27,Concrete
+insult,removed,2.79,Abstract
+insurance,remained,2.86,Abstract
+insure,remained,2.41,Abstract
 integrate,added,2.08,Abstract
 intellectual,added,1.81,Very Abstract
 intelligence,added,2.24,Abstract
+intend,remained,1.71,Very Abstract
 intense,added,2.41,Abstract
+intention,remained,1.70,Very Abstract
 interaction,added,2.74,Abstract
+interest,remained,1.80,Very Abstract
+interfere,removed,2.59,Abstract
+interference,removed,2.93,Abstract
 interior,added,3.59,Moderate
 internal,added,2.41,Abstract
+international,remained,2.82,Abstract
 interpret,added,2.34,Abstract
 interpretation,added,1.40,Very Abstract
+interrupt,removed,3.00,Abstract
+interruption,removed,2.75,Abstract
 intervention,added,2.85,Abstract
 interview,added,3.36,Moderate
+into,remained,2.30,Abstract
+introduce,remained,2.62,Abstract
+introduction,remained,3.00,Abstract
+invent,remained,2.66,Abstract
+invention,removed,3.48,Moderate
+inventor,removed,3.82,Moderate
 invest,added,2.47,Abstract
 investigate,added,2.27,Abstract
 investigation,added,2.52,Abstract
 investment,added,3.59,Moderate
 investor,added,4.30,Concrete
 invitation,added,3.65,Moderate
+invite,remained,3.00,Abstract
 involve,added,2.43,Abstract
 involvement,added,1.46,Very Abstract
+inward,removed,2.43,Abstract
+iron,remained,4.59,Very Concrete
+island,remained,4.96,Very Concrete
 isolate,added,2.67,Abstract
 issue,added,2.37,Abstract
+it,remained,2.81,Abstract
 item,added,4.41,Concrete
 itself,added,2.07,Abstract
 jacket,added,4.86,Very Concrete
 jail,added,4.83,Very Concrete
+jaw,removed,4.87,Very Concrete
+jealous,removed,2.17,Abstract
+jealousy,removed,1.80,Very Abstract
+jewel,removed,4.96,Very Concrete
 job,added,3.19,Moderate
+join,remained,2.86,Abstract
+joint,remained,4.37,Concrete
+joke,remained,2.90,Abstract
 journal,added,4.63,Very Concrete
 journalist,added,4.04,Concrete
+journey,remained,2.57,Abstract
+joy,remained,2.37,Abstract
+judge,remained,3.75,Moderate
 judgment,added,1.68,Very Abstract
+juice,removed,4.89,Very Concrete
+jump,remained,4.52,Very Concrete
 jury,added,4.64,Very Concrete
+just,remained,1.52,Very Abstract
+justice,remained,1.45,Very Abstract
 justify,added,1.45,Very Abstract
 keen,added,1.61,Very Abstract
+keep,remained,2.37,Abstract
+key,remained,4.89,Very Concrete
+kick,remained,4.33,Concrete
 kid,added,4.56,Very Concrete
+kill,remained,3.90,Moderate
+kind,remained,2.07,Abstract
+king,remained,4.10,Concrete
+kingdom,removed,3.76,Moderate
+kiss,remained,4.48,Concrete
+kitchen,remained,4.97,Very Concrete
+knee,remained,5.00,Very Concrete
+kneel,removed,4.31,Concrete
+knife,remained,4.90,Very Concrete
+knock,remained,4.24,Concrete
+knot,removed,4.87,Very Concrete
+know,remained,1.68,Very Abstract
+knowledge,remained,1.73,Very Abstract
 label,added,4.46,Concrete
 labor,added,3.08,Moderate
 laboratory,added,4.46,Concrete
+lack,remained,2.04,Abstract
+ladder,removed,5.00,Very Concrete
+lady,remained,4.33,Concrete
+lake,remained,4.88,Very Concrete
+lamp,removed,4.97,Very Concrete
+land,remained,4.57,Very Concrete
+landlord,removed,4.66,Very Concrete
 landscape,added,4.34,Concrete
+language,remained,2.35,Abstract
+large,remained,3.37,Moderate
 largely,added,2.32,Abstract
+last,remained,3.04,Moderate
+late,remained,2.60,Abstract
+lately,removed,1.41,Very Abstract
+latter,remained,2.17,Abstract
+laugh,remained,4.21,Concrete
+laughter,remained,4.22,Concrete
 launch,added,3.70,Moderate
+law,remained,2.57,Abstract
+lawyer,remained,4.70,Very Concrete
+lay,remained,3.86,Moderate
 layer,added,3.52,Moderate
+lazy,remained,2.67,Abstract
+lead,remained,4.10,Concrete
 leader,added,3.89,Moderate
+leadership,remained,2.43,Abstract
+leaf,removed,5.00,Very Concrete
 league,added,3.46,Moderate
+lean,remained,3.00,Abstract
 leap,added,3.86,Moderate
+learn,remained,2.20,Abstract
+least,remained,2.36,Abstract
+leather,remained,4.82,Very Concrete
+leave,remained,2.53,Abstract
 lecture,added,3.79,Moderate
+left,remained,3.70,Moderate
+leg,remained,4.83,Very Concrete
 legal,added,1.79,Very Abstract
 legislation,added,3.14,Moderate
+lend,remained,3.07,Moderate
+length,remained,4.07,Concrete
+lengthen,removed,3.47,Moderate
+less,remained,2.77,Abstract
+lessen,removed,2.23,Abstract
+lesson,remained,2.79,Abstract
+let,remained,2.26,Abstract
+letter,remained,4.70,Very Concrete
+level,remained,2.86,Abstract
 liability,added,1.96,Very Abstract
+liar,removed,3.43,Moderate
 liberal,added,1.67,Very Abstract
+liberty,removed,1.85,Very Abstract
+librarian,removed,4.40,Concrete
+library,remained,4.80,Very Concrete
 license,added,4.00,Moderate
+lid,removed,4.96,Very Concrete
+lie,remained,3.11,Moderate
+life,remained,2.69,Abstract
+lift,remained,3.89,Moderate
+light,remained,4.21,Concrete
+lighten,removed,2.93,Abstract
+like,remained,1.89,Very Abstract
+likely,remained,1.76,Very Abstract
+limb,removed,4.64,Very Concrete
+limit,remained,2.28,Abstract
 limitation,added,2.18,Abstract
+line,remained,4.50,Concrete
 link,added,3.43,Moderate
+lip,remained,4.96,Very Concrete
+lipstick,removed,4.90,Very Concrete
+liquid,remained,4.72,Very Concrete
+list,remained,4.43,Concrete
+listen,remained,3.47,Moderate
 listener,added,3.46,Moderate
 literally,added,2.48,Abstract
+literary,remained,2.32,Abstract
+literature,remained,4.10,Concrete
+little,remained,3.67,Moderate
+live,remained,3.57,Moderate
+load,remained,3.63,Moderate
+loaf,removed,4.79,Very Concrete
+loan,remained,3.72,Moderate
+local,remained,3.04,Moderate
 locate,added,2.97,Abstract
 location,added,3.00,Abstract
+lock,remained,4.65,Very Concrete
+lodge,removed,4.00,Moderate
+log,remained,4.96,Very Concrete
 logic,added,1.72,Very Abstract
+lonely,removed,2.19,Abstract
+long,remained,3.18,Moderate
+look,remained,2.96,Abstract
+loose,remained,3.18,Moderate
+loosen,removed,3.24,Moderate
+lord,removed,3.04,Moderate
+lose,remained,2.25,Abstract
+loss,remained,2.19,Abstract
+lot,remained,3.70,Moderate
+loud,remained,3.73,Moderate
+love,remained,2.07,Abstract
+lovely,remained,2.29,Abstract
 lover,added,3.68,Moderate
+low,remained,3.34,Moderate
+loyal,removed,1.69,Very Abstract
+loyalty,removed,1.57,Very Abstract
+luck,remained,1.33,Very Abstract
 lucky,added,1.76,Very Abstract
+lump,removed,4.56,Very Concrete
+lunch,remained,4.31,Concrete
+lung,removed,4.82,Very Concrete
 luxury,added,2.59,Abstract
+machine,remained,4.25,Concrete
+machinery,removed,4.75,Very Concrete
+mad,remained,2.76,Abstract
 magazine,added,5.00,Very Concrete
 magic,added,2.90,Abstract
+mail,remained,4.69,Very Concrete
+main,remained,2.41,Abstract
 mainly,added,2.00,Very Abstract
 maintain,added,2.32,Abstract
 maintenance,added,3.07,Moderate
 major,added,2.16,Abstract
 majority,added,2.54,Abstract
+make,remained,2.67,Abstract
 maker,added,3.90,Moderate
+male,remained,4.45,Concrete
+man,remained,4.79,Very Concrete
+manage,remained,2.00,Very Abstract
 management,added,2.72,Abstract
 manager,added,4.14,Concrete
+mankind,removed,2.97,Abstract
+manner,remained,1.62,Very Abstract
+manufacture,remained,3.07,Moderate
 manufacturer,added,3.69,Moderate
+many,remained,2.37,Abstract
+map,remained,4.93,Very Concrete
+march,remained,4.03,Concrete
 margin,added,3.46,Moderate
+mark,remained,4.21,Concrete
+market,remained,4.70,Very Concrete
+marriage,remained,2.51,Abstract
+marry,remained,3.03,Moderate
+mass,remained,3.44,Moderate
 massive,added,3.21,Moderate
+master,remained,2.63,Abstract
+mat,removed,4.83,Very Concrete
+match,remained,4.14,Concrete
 mate,added,4.34,Concrete
+material,remained,4.26,Concrete
 mathematics,added,2.52,Abstract
+matter,remained,3.54,Moderate
 mature,added,1.86,Very Abstract
 maximum,added,2.54,Abstract
+may,remained,3.00,Abstract
+maybe,remained,1.52,Very Abstract
 mayor,added,4.37,Concrete
+meal,remained,4.62,Very Concrete
+mean,remained,2.50,Abstract
+meantime,removed,1.87,Very Abstract
+meanwhile,remained,1.27,Very Abstract
+measure,remained,3.59,Moderate
 measurement,added,3.26,Moderate
+meat,remained,4.90,Very Concrete
+mechanic,removed,4.38,Concrete
+mechanism,remained,3.67,Moderate
+medical,remained,3.07,Moderate
+medicine,remained,4.79,Very Concrete
 medium,added,3.00,Abstract
+meet,remained,3.00,Abstract
+melt,removed,3.96,Moderate
+member,remained,3.07,Moderate
+membership,remained,3.04,Moderate
+memory,remained,2.38,Abstract
+mend,removed,3.50,Moderate
 mental,added,2.04,Abstract
+mention,remained,2.69,Abstract
 menu,added,4.67,Very Concrete
+merchant,removed,4.31,Concrete
+mercy,removed,1.57,Very Abstract
+mere,remained,1.43,Very Abstract
 merely,added,1.42,Very Abstract
+merry,removed,2.41,Abstract
 mess,added,3.90,Moderate
+message,remained,3.97,Moderate
+messenger,removed,3.89,Moderate
+metal,remained,4.87,Very Concrete
 meter,added,4.70,Very Concrete
 method,added,2.41,Abstract
+middle,remained,3.69,Moderate
+might,remained,2.32,Abstract
+mild,removed,2.48,Abstract
+mile,remained,3.63,Moderate
 military,added,4.00,Moderate
+milk,remained,4.92,Very Concrete
+mill,removed,4.72,Very Concrete
+mind,remained,2.50,Abstract
+mine,remained,3.56,Moderate
+mineral,removed,4.41,Concrete
 minimum,added,2.25,Abstract
+minister,remained,4.22,Concrete
 minor,added,2.61,Abstract
 minority,added,2.65,Abstract
+minute,remained,3.04,Moderate
 mirror,added,4.97,Very Concrete
+miserable,removed,1.97,Very Abstract
+misery,removed,2.04,Abstract
+miss,remained,2.54,Abstract
 mission,added,2.90,Abstract
+mistake,remained,1.97,Very Abstract
+mix,remained,3.82,Moderate
+mixture,remained,3.79,Moderate
 mobile,added,2.93,Abstract
 mode,added,2.46,Abstract
+model,remained,4.53,Very Concrete
+moderate,remained,1.97,Very Abstract
+moderation,removed,1.90,Very Abstract
+modern,remained,2.31,Abstract
+modest,removed,2.21,Abstract
+modesty,removed,2.23,Abstract
 modify,added,2.55,Abstract
 module,added,3.93,Moderate
 mom,added,4.40,Concrete
+moment,remained,1.61,Very Abstract
+momentary,removed,1.93,Very Abstract
+money,remained,4.54,Very Concrete
 monitor,added,3.65,Moderate
+monkey,removed,4.90,Very Concrete
+month,remained,4.20,Concrete
 monthly,added,3.57,Moderate
 mood,added,1.75,Very Abstract
-mortgage,added,3.14,Moderate
-mostly,added,2.03,Abstract
-motivate,added,2.07,Abstract
-motivation,added,2.10,Abstract
-mount,added,4.00,Moderate
-movement,added,3.63,Moderate
-movie,added,4.59,Very Concrete
-multiple,added,3.26,Moderate
-muscle,added,4.50,Concrete
-museum,added,4.60,Very Concrete
-musical,added,3.72,Moderate
-mutual,added,2.21,Abstract
-myself,added,2.97,Abstract
-narrative,added,3.18,Moderate
-national,added,2.24,Abstract
-natural,added,1.85,Very Abstract
-naturally,added,1.48,Very Abstract
-nearby,added,2.86,Abstract
-nearly,added,1.89,Very Abstract
-necessarily,added,1.36,Very Abstract
-negative,added,1.79,Very Abstract
-negotiate,added,2.00,Very Abstract
-negotiation,added,2.37,Abstract
-nerve,added,3.89,Moderate
-nervous,added,1.85,Very Abstract
-nevertheless,added,1.48,Very Abstract
-newly,added,2.40,Abstract
-normal,added,1.40,Very Abstract
-normally,added,1.83,Very Abstract
-notion,added,1.93,Very Abstract
-novel,added,4.21,Concrete
-nuclear,added,2.97,Abstract
-objective,added,2.00,Very Abstract
-obligation,added,2.04,Abstract
-observation,added,2.12,Abstract
-obvious,added,2.07,Abstract
-obviously,added,1.82,Very Abstract
-occasionally,added,2.07,Abstract
-occupy,added,3.32,Moderate
-occur,added,1.84,Very Abstract
-odd,added,1.70,Very Abstract
-okay,added,1.89,Very Abstract
-online,added,3.35,Moderate
-opera,added,4.28,Concrete
-opponent,added,3.52,Moderate
-option,added,2.39,Abstract
-organic,added,2.68,Abstract
-organization,added,3.00,Abstract
-original,added,2.07,Abstract
-originally,added,1.66,Very Abstract
-ourselves,added,2.41,Abstract
-outcome,added,2.27,Abstract
-output,added,2.48,Abstract
-overall,added,1.76,Very Abstract
-overseas,added,3.31,Moderate
-owner,added,3.78,Moderate
-pace,added,3.11,Moderate
-panel,added,4.26,Concrete
-panic,added,3.04,Moderate
-paragraph,added,3.96,Moderate
-parallel,added,3.16,Moderate
-participant,added,3.38,Moderate
-participate,added,2.59,Abstract
-participation,added,2.86,Abstract
-particularly,added,1.64,Very Abstract
-partly,added,2.30,Abstract
-partnership,added,2.82,Abstract
-passion,added,2.30,Abstract
-payment,added,3.91,Moderate
-peak,added,4.20,Concrete
-peer,added,3.83,Moderate
-penalty,added,2.86,Abstract
-pension,added,3.89,Moderate
-perceive,added,1.72,Very Abstract
-percent,added,2.70,Abstract
-percentage,added,2.90,Abstract
-perception,added,2.00,Very Abstract
-perfectly,added,1.52,Very Abstract
-period,added,3.31,Moderate
-personal,added,2.21,Abstract
-personality,added,2.08,Abstract
-personally,added,2.07,Abstract
-personnel,added,3.56,Moderate
-perspective,added,2.38,Abstract
-phase,added,2.46,Abstract
-phenomenon,added,2.26,Abstract
-philosophy,added,2.14,Abstract
-phone,added,4.86,Very Concrete
-photo,added,4.93,Very Concrete
-phrase,added,2.86,Abstract
-physical,added,3.31,Moderate
-piano,added,4.90,Very Concrete
-pilot,added,4.67,Very Concrete
-pitch,added,4.00,Moderate
-plane,added,4.92,Very Concrete
-planet,added,4.58,Very Concrete
-plastic,added,4.79,Very Concrete
-platform,added,4.48,Concrete
-player,added,4.15,Concrete
-plot,added,3.14,Moderate
-plus,added,3.00,Abstract
-poetry,added,3.50,Moderate
-policy,added,2.76,Abstract
-poll,added,3.31,Moderate
-pollution,added,3.75,Moderate
-pop,added,4.22,Concrete
-port,added,4.41,Concrete
-portion,added,3.78,Moderate
-portrait,added,4.90,Very Concrete
-pose,added,3.33,Moderate
-positive,added,2.44,Abstract
-possibility,added,1.33,Very Abstract
-possibly,added,1.74,Very Abstract
-potato,added,4.85,Very Concrete
-potential,added,1.91,Very Abstract
-potentially,added,1.63,Very Abstract
-powerful,added,2.17,Abstract
-precise,added,2.39,Abstract
-precisely,added,2.30,Abstract
-predict,added,2.00,Very Abstract
-pregnancy,added,4.31,Concrete
-pregnant,added,4.59,Very Concrete
-premise,added,2.24,Abstract
-preparation,added,2.18,Abstract
-presentation,added,3.11,Moderate
-presidential,added,2.31,Abstract
-presumably,added,2.04,Abstract
-previous,added,2.52,Abstract
-previously,added,1.64,Very Abstract
-primarily,added,1.86,Very Abstract
-primary,added,2.28,Abstract
-prime,added,2.48,Abstract
-principal,added,3.46,Moderate
-principle,added,1.70,Very Abstract
-printer,added,4.67,Very Concrete
-prior,added,2.45,Abstract
-priority,added,1.76,Very Abstract
-prisoner,added,4.11,Concrete
-privilege,added,1.93,Very Abstract
-pro,added,2.66,Abstract
-probability,added,1.65,Very Abstract
-probably,added,1.73,Very Abstract
-procedure,added,2.67,Abstract
-proceed,added,2.55,Abstract
-process,added,2.93,Abstract
-producer,added,3.00,Abstract
-professional,added,2.14,Abstract
-professor,added,4.86,Very Concrete
-profile,added,3.10,Moderate
-project,added,3.62,Moderate
-promote,added,2.26,Abstract
-promotion,added,3.21,Moderate
-properly,added,1.93,Very Abstract
-proportion,added,2.57,Abstract
-prospect,added,2.40,Abstract
-protein,added,3.66,Moderate
-protest,added,3.21,Moderate
-province,added,3.10,Moderate
-provision,added,2.65,Abstract
-psychological,added,2.22,Abstract
-pub,added,4.71,Very Concrete
-publication,added,4.41,Concrete
-publisher,added,4.24,Concrete
-purchase,added,2.96,Abstract
-pursue,added,2.83,Abstract
-quickly,added,2.36,Abstract
-quietly,added,3.00,Abstract
-quote,added,3.32,Moderate
-racial,added,2.32,Abstract
-radical,added,2.10,Abstract
-random,added,2.00,Very Abstract
-range,added,3.22,Moderate
-rapidly,added,2.50,Abstract
-rarely,added,1.64,Very Abstract
-rat,added,4.85,Very Concrete
-ratio,added,2.55,Abstract
-react,added,2.55,Abstract
-reaction,added,2.41,Abstract
-reader,added,3.89,Moderate
-reality,added,1.72,Very Abstract
-really,added,1.44,Very Abstract
-rear,added,3.59,Moderate
-reasonably,added,2.04,Abstract
-recall,added,2.14,Abstract
-recently,added,1.89,Very Abstract
-reckon,added,1.74,Very Abstract
-recommendation,added,2.87,Abstract
-recover,added,2.64,Abstract
-recovery,added,2.68,Abstract
-recruit,added,3.48,Moderate
-reform,added,2.00,Very Abstract
-refugee,added,3.97,Moderate
-regardless,added,1.52,Very Abstract
-region,added,3.19,Moderate
-regional,added,2.76,Abstract
-register,added,3.87,Moderate
-registration,added,3.68,Moderate
-regularly,added,1.80,Very Abstract
-regulate,added,2.03,Abstract
-regulation,added,2.00,Very Abstract
-reject,added,2.40,Abstract
-relationship,added,2.80,Abstract
-relatively,added,1.45,Very Abstract
-relax,added,2.86,Abstract
-release,added,3.24,Moderate
-relevant,added,1.72,Very Abstract
-reliable,added,1.86,Very Abstract
-religious,added,2.50,Abstract
-rely,added,1.93,Very Abstract
-remarkable,added,1.89,Very Abstract
-remote,added,3.44,Moderate
-remove,added,3.14,Moderate
-reporter,added,4.63,Very Concrete
-representation,added,2.19,Abstract
-require,added,2.07,Abstract
-requirement,added,2.52,Abstract
-research,added,3.03,Moderate
-researcher,added,3.81,Moderate
-resident,added,4.03,Concrete
-resolution,added,2.37,Abstract
-resolve,added,1.96,Very Abstract
-resort,added,4.30,Concrete
-resource,added,2.55,Abstract
-respectively,added,1.64,Very Abstract
-respond,added,2.64,Abstract
-response,added,3.00,Abstract
-responsibility,added,1.40,Very Abstract
-restore,added,2.79,Abstract
-restrict,added,2.21,Abstract
-restriction,added,2.25,Abstract
-retail,added,2.92,Abstract
-retain,added,2.32,Abstract
-retirement,added,3.03,Moderate
-reveal,added,2.79,Abstract
-revenue,added,3.11,Moderate
-reverse,added,3.38,Moderate
-revise,added,2.33,Abstract
-revolution,added,2.87,Abstract
-role,added,2.19,Abstract
-romantic,added,1.93,Very Abstract
-rose,added,4.90,Very Concrete
-roughly,added,2.57,Abstract
-route,added,3.88,Moderate
-routine,added,2.70,Abstract
-rural,added,2.67,Abstract
-sanction,added,2.30,Abstract
-scan,added,3.48,Moderate
-scare,added,2.96,Abstract
-schedule,added,3.48,Moderate
-scheme,added,2.41,Abstract
-scholar,added,3.50,Moderate
-scope,added,3.74,Moderate
-score,added,3.38,Moderate
-scream,added,4.32,Concrete
-seal,added,4.63,Very Concrete
-secondary,added,2.37,Abstract
-secondly,added,2.13,Abstract
-section,added,3.24,Moderate
-sector,added,3.41,Moderate
-secure,added,2.69,Abstract
-security,added,2.82,Abstract
-seek,added,2.68,Abstract
-segment,added,3.40,Moderate
-select,added,2.48,Abstract
-selection,added,2.34,Abstract
-senior,added,2.97,Abstract
-sequence,added,3.10,Moderate
-series,added,2.92,Abstract
-seriously,added,2.00,Very Abstract
-server,added,4.55,Very Concrete
-session,added,2.58,Abstract
-settlement,added,3.07,Moderate
-sex,added,4.10,Concrete
-sexual,added,2.50,Abstract
-shareholder,added,3.72,Moderate
-shift,added,2.81,Abstract
-shot,added,4.44,Concrete
-sigh,added,3.89,Moderate
-significance,added,1.68,Very Abstract
-significant,added,1.67,Very Abstract
-significantly,added,1.89,Very Abstract
-silly,added,2.20,Abstract
-similar,added,2.46,Abstract
-similarly,added,2.83,Abstract
-simply,added,1.83,Very Abstract
-singer,added,4.62,Very Concrete
-site,added,4.56,Very Concrete
-situate,added,1.96,Very Abstract
-ski,added,4.63,Very Concrete
-slice,added,3.85,Moderate
-slightly,added,1.79,Very Abstract
-slowly,added,3.10,Moderate
-smart,added,1.75,Very Abstract
-snap,added,4.10,Concrete
-software,added,4.08,Concrete
-solar,added,4.00,Moderate
-somewhat,added,1.28,Very Abstract
-source,added,2.96,Abstract
-southern,added,2.62,Abstract
-speaker,added,4.69,Very Concrete
-specialist,added,3.00,Abstract
-specialize,added,1.70,Very Abstract
-specific,added,2.18,Abstract
-specifically,added,1.62,Very Abstract
-specify,added,2.30,Abstract
-sponsor,added,3.28,Moderate
-stability,added,2.41,Abstract
-stable,added,3.77,Moderate
-stake,added,4.21,Concrete
-stare,added,4.10,Concrete
-statement,added,2.96,Abstract
-statistic,added,2.88,Abstract
-status,added,2.24,Abstract
-steal,added,3.84,Moderate
-stimulate,added,3.22,Moderate
-storage,added,3.47,Moderate
-strain,added,3.00,Abstract
-strategy,added,1.93,Very Abstract
-stress,added,2.62,Abstract
-strongly,added,2.39,Abstract
-structural,added,2.69,Abstract
-structure,added,4.03,Concrete
-studio,added,4.55,Very Concrete
-style,added,2.67,Abstract
-submit,added,2.68,Abstract
-subsequent,added,2.14,Abstract
-subsequently,added,1.46,Very Abstract
-substantial,added,2.03,Abstract
-substitute,added,2.82,Abstract
-successful,added,2.07,Abstract
-successfully,added,1.96,Very Abstract
-suddenly,added,1.84,Very Abstract
-sufficient,added,1.90,Very Abstract
-suitable,added,1.93,Very Abstract
-sum,added,2.89,Abstract
-summarize,added,2.32,Abstract
-summary,added,3.03,Moderate
-supplement,added,3.07,Moderate
-supplier,added,3.41,Moderate
-supporter,added,3.26,Moderate
-surely,added,1.71,Very Abstract
-surgery,added,4.34,Concrete
-surprisingly,added,1.92,Very Abstract
-survey,added,4.08,Concrete
-survival,added,2.34,Abstract
-survive,added,2.55,Abstract
-suspend,added,2.74,Abstract
-sustain,added,2.17,Abstract
-switch,added,4.07,Concrete
-symbol,added,3.11,Moderate
-symptom,added,3.19,Moderate
-tackle,added,4.28,Concrete
-tale,added,3.23,Moderate
-talent,added,2.19,Abstract
-tank,added,4.80,Very Concrete
-tape,added,4.90,Very Concrete
-target,added,4.11,Concrete
-task,added,2.84,Abstract
-teacher,added,4.52,Very Concrete
-team,added,3.79,Moderate
-technical,added,1.97,Very Abstract
-technique,added,2.40,Abstract
-technology,added,3.24,Moderate
-teenager,added,4.34,Concrete
-television,added,4.83,Very Concrete
-temporary,added,2.27,Abstract
-tendency,added,1.83,Very Abstract
-tennis,added,4.43,Concrete
-tension,added,2.60,Abstract
-territory,added,3.41,Moderate
-terrorist,added,3.64,Moderate
-text,added,4.93,Very Concrete
-theme,added,2.72,Abstract
-themselves,added,2.93,Abstract
-theoretical,added,1.37,Very Abstract
-theory,added,1.47,Very Abstract
-therapy,added,2.85,Abstract
-throughout,added,2.27,Abstract
-tiny,added,3.11,Moderate
-tissue,added,4.93,Very Concrete
-tone,added,3.07,Moderate
-topic,added,2.59,Abstract
-totally,added,1.78,Very Abstract
-tourism,added,3.00,Abstract
-tourist,added,4.59,Very Concrete
-tournament,added,4.11,Concrete
-trace,added,3.66,Moderate
-tradition,added,1.69,Very Abstract
-traditional,added,1.76,Very Abstract
-traffic,added,4.67,Very Concrete
-trail,added,4.46,Concrete
-transfer,added,3.04,Moderate
-transform,added,2.41,Abstract
-transition,added,2.19,Abstract
-transport,added,3.50,Moderate
-transportation,added,3.89,Moderate
-treatment,added,2.93,Abstract
-trend,added,2.42,Abstract
-trigger,added,4.31,Concrete
-troop,added,4.34,Concrete
-truck,added,4.84,Very Concrete
-truly,added,1.62,Very Abstract
-twice,added,2.93,Abstract
-twin,added,4.17,Concrete
-typical,added,1.52,Very Abstract
-typically,added,1.67,Very Abstract
-ultimately,added,1.26,Very Abstract
-unable,added,1.77,Very Abstract
-uncertainty,added,1.75,Very Abstract
-unclear,added,2.39,Abstract
-undergo,added,2.41,Abstract
-underlie,added,1.96,Very Abstract
-undertake,added,1.71,Very Abstract
-unemployment,added,3.11,Moderate
-unfortunately,added,1.62,Very Abstract
-uniform,added,4.67,Very Concrete
-unique,added,1.89,Very Abstract
-unknown,added,1.47,Very Abstract
-unlike,added,2.67,Abstract
-unlikely,added,1.93,Very Abstract
-unusual,added,2.21,Abstract
-update,added,2.79,Abstract
-urban,added,3.43,Moderate
-useful,added,2.14,Abstract
-user,added,3.16,Moderate
-usually,added,2.04,Abstract
-van,added,4.72,Very Concrete
-variable,added,2.24,Abstract
-variation,added,2.46,Abstract
-vary,added,1.93,Very Abstract
-vast,added,2.10,Abstract
-vegetable,added,4.89,Very Concrete
-vehicle,added,4.64,Very Concrete
-venture,added,2.60,Abstract
-version,added,1.70,Very Abstract
-versus,added,1.86,Very Abstract
-veteran,added,4.58,Very Concrete
-via,added,1.79,Very Abstract
-vice,added,2.46,Abstract
-victim,added,3.59,Moderate
-video,added,4.67,Very Concrete
-virtually,added,2.00,Very Abstract
-virus,added,3.48,Moderate
-visible,added,3.08,Moderate
-vision,added,3.39,Moderate
-visual,added,2.96,Abstract
-vital,added,1.93,Very Abstract
-volume,added,3.07,Moderate
-voluntary,added,2.21,Abstract
-volunteer,added,3.77,Moderate
-voter,added,3.93,Moderate
-weakness,added,2.59,Abstract
-wealthy,added,2.73,Abstract
-web,added,4.37,Concrete
-website,added,4.52,Very Concrete
-wed,added,3.11,Moderate
-weekly,added,3.28,Moderate
-weird,added,1.59,Very Abstract
-welfare,added,2.57,Abstract
-whereas,added,1.46,Very Abstract
-whilst,added,1.85,Very Abstract
-widely,added,2.21,Abstract
-winner,added,3.21,Moderate
-withdraw,added,3.04,Moderate
-wonderful,added,1.82,Very Abstract
-worker,added,4.59,Very Concrete
-writer,added,4.32,Concrete
-yeah,added,1.89,Very Abstract
-yourself,added,4.39,Concrete
-zone,added,3.07,Moderate
-absent,removed,2.70,Abstract
-accustom,removed,1.48,Very Abstract
-ache,removed,3.43,Moderate
-actress,removed,4.54,Very Concrete
-admission,removed,2.83,Abstract
-adoption,removed,3.03,Moderate
-agriculture,removed,3.67,Moderate
-airplane,removed,4.96,Very Concrete
-alike,removed,2.38,Abstract
-allowance,removed,3.07,Moderate
-aloud,removed,3.10,Moderate
-ambition,removed,1.74,Very Abstract
-ambitious,removed,1.81,Very Abstract
-amongst,removed,2.81,Abstract
-amuse,removed,2.57,Abstract
-annoy,removed,1.93,Very Abstract
-annoyance,removed,2.14,Abstract
-anyhow,removed,1.48,Very Abstract
-apology,removed,2.86,Abstract
-applaud,removed,3.80,Moderate
-applause,removed,4.29,Concrete
-apple,removed,5.00,Very Concrete
-arch,removed,4.59,Very Concrete
-arrow,removed,4.97,Very Concrete
-artificial,removed,2.93,Abstract
-ash,removed,4.96,Very Concrete
-asleep,removed,3.71,Moderate
-astonish,removed,1.70,Very Abstract
-attentive,removed,1.78,Very Abstract
-avenue,removed,4.00,Moderate
-avoidance,removed,1.86,Very Abstract
-awake,removed,3.32,Moderate
-awkward,removed,2.00,Very Abstract
-axe,removed,5.00,Very Concrete
-backward,removed,3.41,Moderate
-baggage,removed,4.43,Concrete
-bake,removed,4.21,Concrete
-barber,removed,4.59,Very Concrete
-bare,removed,3.21,Moderate
-bargain,removed,2.59,Abstract
-barrel,removed,4.86,Very Concrete
-basin,removed,4.63,Very Concrete
-basket,removed,5.00,Very Concrete
-bathe,removed,4.19,Concrete
-bay,removed,4.81,Very Concrete
-beak,removed,4.96,Very Concrete
-beam,removed,3.96,Moderate
-bean,removed,5.00,Very Concrete
-beard,removed,4.96,Very Concrete
-beast,removed,4.63,Very Concrete
-beg,removed,2.96,Abstract
-berry,removed,4.93,Very Concrete
-best,removed,1.60,Very Abstract
-bicycle,removed,4.89,Very Concrete
-bitter,removed,2.93,Abstract
-blade,removed,4.93,Very Concrete
-bleed,removed,4.40,Concrete
-boast,removed,2.32,Abstract
-boil,removed,4.20,Concrete
-bold,removed,2.43,Abstract
-bow,removed,4.61,Very Concrete
-brass,removed,4.70,Very Concrete
-brave,removed,2.26,Abstract
-bravery,removed,1.96,Very Abstract
-breadth,removed,2.23,Abstract
-bribe,removed,3.44,Moderate
-bribery,removed,2.89,Abstract
-brick,removed,4.83,Very Concrete
-brighten,removed,3.41,Moderate
-bucket,removed,4.96,Very Concrete
-bundle,removed,4.22,Concrete
-bush,removed,4.90,Very Concrete
-businesslike,removed,2.52,Abstract
-businessman,removed,4.47,Concrete
-butter,removed,4.90,Very Concrete
-cage,removed,5.00,Very Concrete
-calculation,removed,3.00,Abstract
-calculator,removed,4.86,Very Concrete
-canal,removed,4.68,Very Concrete
-cape,removed,4.77,Very Concrete
-captain,removed,4.19,Concrete
-carriage,removed,4.86,Very Concrete
-cart,removed,4.89,Very Concrete
-cattle,removed,4.64,Very Concrete
-caution,removed,2.04,Abstract
-cautious,removed,1.81,Very Abstract
-cave,removed,4.96,Very Concrete
-certainty,removed,1.59,Very Abstract
-chalk,removed,4.90,Very Concrete
-cheat,removed,2.23,Abstract
-cheer,removed,2.77,Abstract
-chimney,removed,5.00,Very Concrete
-christmas,removed,3.41,Moderate
-circular,removed,3.79,Moderate
-civilize,removed,1.90,Very Abstract
-classification,removed,2.52,Abstract
-classify,removed,2.41,Abstract
-clay,removed,4.93,Very Concrete
-clerk,removed,4.28,Concrete
-clever,removed,1.79,Very Abstract
-cliff,removed,4.71,Very Concrete
-cloth,removed,4.90,Very Concrete
-coarse,removed,3.25,Moderate
-collar,removed,4.64,Very Concrete
-collector,removed,4.10,Concrete
-colony,removed,3.77,Moderate
-comb,removed,5.00,Very Concrete
-commerce,removed,2.76,Abstract
-companion,removed,3.75,Moderate
-companionship,removed,2.45,Abstract
-completion,removed,2.33,Abstract
-complication,removed,1.86,Very Abstract
-confess,removed,2.57,Abstract
-confession,removed,2.40,Abstract
-confidential,removed,2.08,Abstract
-congratulate,removed,3.04,Moderate
-congratulation,removed,2.27,Abstract
-conquer,removed,2.90,Abstract
-conqueror,removed,3.54,Moderate
-conquest,removed,2.54,Abstract
-conscience,removed,1.96,Very Abstract
-conscious,removed,2.03,Abstract
-convenience,removed,2.04,Abstract
-convenient,removed,1.85,Very Abstract
-copper,removed,4.52,Very Concrete
-cork,removed,4.86,Very Concrete
-corn,removed,4.96,Very Concrete
-correction,removed,3.00,Abstract
-cottage,removed,4.85,Very Concrete
-cotton,removed,4.97,Very Concrete
-courage,removed,1.52,Very Abstract
-coward,removed,2.93,Abstract
-cowardice,removed,2.10,Abstract
-creep,removed,3.38,Moderate
-crown,removed,4.81,Very Concrete
-cruel,removed,2.11,Abstract
-crush,removed,3.90,Moderate
-cultivate,removed,3.14,Moderate
-cultivation,removed,3.13,Moderate
-cultivator,removed,3.79,Moderate
-cupboard,removed,4.79,Very Concrete
-cure,removed,2.41,Abstract
-curl,removed,4.38,Concrete
-curse,removed,2.39,Abstract
-cushion,removed,4.68,Very Concrete
-customary,removed,1.85,Very Abstract
-damp,removed,3.81,Moderate
-darken,removed,3.30,Moderate
-daylight,removed,4.10,Concrete
-deaf,removed,3.27,Moderate
-deafen,removed,3.11,Moderate
-decay,removed,3.89,Moderate
-deceit,removed,2.37,Abstract
-deceive,removed,1.68,Very Abstract
-decisive,removed,2.16,Abstract
-deed,removed,3.86,Moderate
-deepen,removed,3.20,Moderate
-deer,removed,4.86,Very Concrete
-defendant,removed,3.80,Moderate
-delicate,removed,2.30,Abstract
-dependence,removed,2.15,Abstract
-descend,removed,3.18,Moderate
-descendant,removed,3.53,Moderate
-descent,removed,3.00,Abstract
-despair,removed,2.21,Abstract
-destructive,removed,2.17,Abstract
-devil,removed,3.41,Moderate
-diamond,removed,4.89,Very Concrete
-dictionary,removed,4.62,Very Concrete
-dine,removed,3.37,Moderate
-dip,removed,4.22,Concrete
-dirt,removed,4.86,Very Concrete
-disappearance,removed,2.40,Abstract
-disapprove,removed,1.89,Very Abstract
-discomfort,removed,2.28,Abstract
-discontent,removed,1.93,Very Abstract
-disgust,removed,2.19,Abstract
-disregard,removed,1.90,Very Abstract
-disrespect,removed,1.93,Very Abstract
-dissatisfaction,removed,1.96,Very Abstract
-dissatisfy,removed,2.14,Abstract
-ditch,removed,4.50,Concrete
-dive,removed,4.03,Concrete
-donkey,removed,5.00,Very Concrete
-dot,removed,4.12,Concrete
-drawer,removed,4.67,Very Concrete
-drown,removed,3.93,Moderate
-drum,removed,4.96,Very Concrete
-duck,removed,4.86,Very Concrete
-dull,removed,2.37,Abstract
-eager,removed,1.93,Very Abstract
-earnest,removed,2.24,Abstract
-educator,removed,4.00,Moderate
-elastic,removed,3.73,Moderate
-elder,removed,3.59,Moderate
-electrician,removed,4.21,Concrete
-elephant,removed,5.00,Very Concrete
-enclose,removed,2.96,Abstract
-enclosure,removed,4.04,Concrete
-envy,removed,1.69,Very Abstract
-essence,removed,1.66,Very Abstract
-everlasting,removed,1.89,Very Abstract
-excellence,removed,2.20,Abstract
-excessive,removed,2.25,Abstract
-explode,removed,4.10,Concrete
-explosion,removed,4.52,Very Concrete
-explosive,removed,3.74,Moderate
-faint,removed,3.74,Moderate
-fame,removed,1.96,Very Abstract
-fasten,removed,4.14,Concrete
-fate,removed,1.53,Very Abstract
-fatten,removed,3.23,Moderate
-feast,removed,4.30,Concrete
-feather,removed,4.90,Very Concrete
-fellowship,removed,2.28,Abstract
-fever,removed,3.27,Moderate
-fierce,removed,2.62,Abstract
-flame,removed,4.67,Very Concrete
-flatten,removed,3.86,Moderate
-flavor,removed,3.55,Moderate
-flesh,removed,4.59,Very Concrete
-flour,removed,4.97,Very Concrete
-fond,removed,1.68,Very Abstract
-forbid,removed,1.96,Very Abstract
-forgive,removed,1.92,Very Abstract
-fork,removed,4.90,Very Concrete
-fright,removed,2.52,Abstract
-fry,removed,4.37,Concrete
-funeral,removed,3.83,Moderate
-fur,removed,4.69,Very Concrete
-furnish,removed,3.75,Moderate
-gallon,removed,3.92,Moderate
-garage,removed,4.96,Very Concrete
-generous,removed,2.25,Abstract
-glory,removed,1.45,Very Abstract
-goat,removed,5.00,Very Concrete
-grace,removed,1.78,Very Abstract
-gradual,removed,1.90,Very Abstract
-grammatical,removed,2.33,Abstract
-grave,removed,4.56,Very Concrete
-grease,removed,4.61,Very Concrete
-greed,removed,1.53,Very Abstract
-guilt,removed,1.93,Very Abstract
-hammer,removed,4.77,Very Concrete
-handkerchief,removed,5.00,Very Concrete
-handshake,removed,4.52,Very Concrete
-handwrite,removed,3.85,Moderate
-harden,removed,3.36,Moderate
-harvest,removed,4.00,Moderate
-haste,removed,2.29,Abstract
-hasten,removed,2.22,Abstract
-hatred,removed,2.00,Very Abstract
-hay,removed,4.87,Very Concrete
-headache,removed,3.90,Moderate
-headdress,removed,4.71,Very Concrete
-heal,removed,3.03,Moderate
-heap,removed,3.90,Moderate
-heaven,removed,1.81,Very Abstract
-heavenly,removed,1.50,Very Abstract
-heighten,removed,2.52,Abstract
-hesitation,removed,2.59,Abstract
-highway,removed,4.72,Very Concrete
-hind,removed,3.96,Moderate
-hindrance,removed,2.07,Abstract
-hollow,removed,3.61,Moderate
-holy,removed,1.67,Very Abstract
-homecoming,removed,3.08,Moderate
-homemade,removed,2.90,Abstract
-homework,removed,4.50,Concrete
-honesty,removed,1.59,Very Abstract
-horizon,removed,4.44,Concrete
-horizontal,removed,3.46,Moderate
-humble,removed,1.73,Very Abstract
-hurrah,removed,3.07,Moderate
-hut,removed,4.65,Very Concrete
-idle,removed,2.79,Abstract
-imaginary,removed,1.74,Very Abstract
-imaginative,removed,1.82,Very Abstract
-imitate,removed,2.66,Abstract
-imitation,removed,2.83,Abstract
-immense,removed,2.21,Abstract
-inclusive,removed,1.64,Very Abstract
-indoor,removed,3.64,Moderate
-influential,removed,1.86,Very Abstract
-ink,removed,4.56,Very Concrete
-inn,removed,4.64,Very Concrete
-inquire,removed,2.38,Abstract
-insect,removed,4.89,Very Concrete
-instant,removed,2.70,Abstract
-insult,removed,2.79,Abstract
-interfere,removed,2.59,Abstract
-interference,removed,2.93,Abstract
-interrupt,removed,3.00,Abstract
-interruption,removed,2.75,Abstract
-invention,removed,3.48,Moderate
-inventor,removed,3.82,Moderate
-inward,removed,2.43,Abstract
-jaw,removed,4.87,Very Concrete
-jealous,removed,2.17,Abstract
-jealousy,removed,1.80,Very Abstract
-jewel,removed,4.96,Very Concrete
-juice,removed,4.89,Very Concrete
-kingdom,removed,3.76,Moderate
-kneel,removed,4.31,Concrete
-knot,removed,4.87,Very Concrete
-ladder,removed,5.00,Very Concrete
-lamp,removed,4.97,Very Concrete
-landlord,removed,4.66,Very Concrete
-lately,removed,1.41,Very Abstract
-leaf,removed,5.00,Very Concrete
-lengthen,removed,3.47,Moderate
-lessen,removed,2.23,Abstract
-liar,removed,3.43,Moderate
-liberty,removed,1.85,Very Abstract
-librarian,removed,4.40,Concrete
-lid,removed,4.96,Very Concrete
-lighten,removed,2.93,Abstract
-limb,removed,4.64,Very Concrete
-lipstick,removed,4.90,Very Concrete
-loaf,removed,4.79,Very Concrete
-lodge,removed,4.00,Moderate
-lonely,removed,2.19,Abstract
-loosen,removed,3.24,Moderate
-lord,removed,3.04,Moderate
-loyal,removed,1.69,Very Abstract
-loyalty,removed,1.57,Very Abstract
-lump,removed,4.56,Very Concrete
-lung,removed,4.82,Very Concrete
-machinery,removed,4.75,Very Concrete
-mankind,removed,2.97,Abstract
-mat,removed,4.83,Very Concrete
-meantime,removed,1.87,Very Abstract
-mechanic,removed,4.38,Concrete
-melt,removed,3.96,Moderate
-mend,removed,3.50,Moderate
-merchant,removed,4.31,Concrete
-mercy,removed,1.57,Very Abstract
-merry,removed,2.41,Abstract
-messenger,removed,3.89,Moderate
-mild,removed,2.48,Abstract
-mill,removed,4.72,Very Concrete
-mineral,removed,4.41,Concrete
-miserable,removed,1.97,Very Abstract
-misery,removed,2.04,Abstract
-moderation,removed,1.90,Very Abstract
-modest,removed,2.21,Abstract
-modesty,removed,2.23,Abstract
-momentary,removed,1.93,Very Abstract
-monkey,removed,4.90,Very Concrete
+moon,remained,4.90,Very Concrete
 moonlight,removed,4.43,Concrete
+moral,remained,1.69,Very Abstract
+more,remained,2.37,Abstract
+moreover,remained,2.00,Very Abstract
+morning,remained,3.44,Moderate
+mortgage,added,3.14,Moderate
+most,remained,2.38,Abstract
+mostly,added,2.03,Abstract
+mother,remained,4.60,Very Concrete
 motherhood,removed,3.00,Abstract
 motherly,removed,2.46,Abstract
+motion,remained,3.80,Moderate
+motivate,added,2.07,Abstract
+motivation,added,2.10,Abstract
+motor,remained,4.84,Very Concrete
+mount,added,4.00,Moderate
+mountain,remained,4.96,Very Concrete
+mouse,remained,4.83,Very Concrete
+mouth,remained,4.74,Very Concrete
+move,remained,3.25,Moderate
+movement,added,3.63,Moderate
+movie,added,4.59,Very Concrete
+much,remained,1.69,Very Abstract
 mud,removed,4.86,Very Concrete
+multiple,added,3.26,Moderate
 multiplication,removed,3.46,Moderate
 multiply,removed,2.79,Abstract
+murder,remained,3.61,Moderate
+muscle,added,4.50,Concrete
+museum,added,4.60,Very Concrete
+music,remained,4.31,Concrete
+musical,added,3.72,Moderate
+musician,remained,4.42,Concrete
+must,remained,2.13,Abstract
+mutual,added,2.21,Abstract
+myself,added,2.97,Abstract
+mystery,remained,2.33,Abstract
 nail,removed,4.93,Very Concrete
+name,remained,3.50,Moderate
+narrative,added,3.18,Moderate
+narrow,remained,3.04,Moderate
+nation,remained,3.62,Moderate
+national,added,2.24,Abstract
+native,remained,3.03,Moderate
+natural,added,1.85,Very Abstract
+naturally,added,1.48,Very Abstract
+nature,remained,2.92,Abstract
+near,remained,2.79,Abstract
+nearby,added,2.86,Abstract
+nearly,added,1.89,Very Abstract
 neat,removed,2.47,Abstract
+necessarily,added,1.36,Very Abstract
+necessary,remained,1.80,Very Abstract
 necessity,removed,2.08,Abstract
+neck,remained,5.00,Very Concrete
+need,remained,1.69,Very Abstract
 needle,removed,4.93,Very Concrete
+negative,added,1.79,Very Abstract
+neglect,remained,2.26,Abstract
+negotiate,added,2.00,Very Abstract
+negotiation,added,2.37,Abstract
+neighbor,remained,4.64,Very Concrete
+neighborhood,remained,4.75,Very Concrete
+neither,remained,1.64,Very Abstract
 nephew,removed,4.48,Concrete
+nerve,added,3.89,Moderate
+nervous,added,1.85,Very Abstract
 nest,removed,4.86,Very Concrete
+net,remained,4.53,Very Concrete
+network,remained,3.20,Moderate
+never,remained,1.59,Very Abstract
+nevertheless,added,1.48,Very Abstract
+new,remained,2.81,Abstract
+newly,added,2.40,Abstract
+news,remained,3.41,Moderate
+newspaper,remained,4.82,Very Concrete
+next,remained,2.56,Abstract
+nice,remained,2.18,Abstract
 niece,removed,4.28,Concrete
+night,remained,4.52,Very Concrete
+no,remained,2.45,Abstract
 noble,removed,1.89,Very Abstract
+nobody,remained,2.32,Abstract
+noise,remained,3.52,Moderate
+none,remained,2.59,Abstract
 noon,removed,2.67,Abstract
+nor,remained,1.80,Very Abstract
+normal,added,1.40,Very Abstract
+normally,added,1.83,Very Abstract
+north,remained,4.14,Concrete
+northern,remained,3.13,Moderate
+nose,remained,4.89,Very Concrete
+not,remained,2.08,Abstract
+note,remained,4.61,Very Concrete
 notebook,removed,4.92,Very Concrete
+nothing,remained,2.21,Abstract
+notice,remained,3.30,Moderate
+notion,added,1.93,Very Abstract
+noun,remained,3.15,Moderate
+novel,added,4.21,Concrete
+now,remained,1.48,Very Abstract
+nowadays,remained,1.40,Very Abstract
+nowhere,remained,1.79,Very Abstract
+nuclear,added,2.97,Abstract
 nuisance,removed,2.19,Abstract
+number,remained,3.30,Moderate
+numerous,remained,2.57,Abstract
+nurse,remained,4.39,Concrete
 nursery,removed,4.48,Concrete
 nut,removed,4.52,Very Concrete
 oar,removed,4.84,Very Concrete
 obedience,removed,2.29,Abstract
 obedient,removed,1.93,Very Abstract
 obey,removed,2.67,Abstract
+object,remained,3.66,Moderate
 objection,removed,2.29,Abstract
+objective,added,2.00,Very Abstract
+obligation,added,2.04,Abstract
+observation,added,2.12,Abstract
+observe,remained,2.63,Abstract
+obvious,added,2.07,Abstract
+obviously,added,1.82,Very Abstract
+occasion,remained,2.52,Abstract
+occasionally,added,2.07,Abstract
+occupy,added,3.32,Moderate
+occur,added,1.84,Very Abstract
+ocean,remained,4.86,Very Concrete
+odd,added,1.70,Very Abstract
+of,remained,1.67,Very Abstract
+off,remained,2.79,Abstract
 offend,removed,1.68,Very Abstract
+offense,remained,2.03,Abstract
+offer,remained,2.23,Abstract
+office,remained,4.93,Very Concrete
+officer,remained,4.80,Very Concrete
+official,remained,2.54,Abstract
+often,remained,2.50,Abstract
+oil,remained,4.93,Very Concrete
+okay,added,1.89,Very Abstract
+old,remained,2.72,Abstract
 omission,removed,1.89,Very Abstract
 omit,removed,2.14,Abstract
+on,remained,3.25,Moderate
+once,remained,2.74,Abstract
+one,remained,3.97,Moderate
+online,added,3.35,Moderate
+only,remained,2.41,Abstract
+onto,remained,2.46,Abstract
+open,remained,3.21,Moderate
+opera,added,4.28,Concrete
+operate,remained,3.00,Abstract
+operation,remained,3.44,Moderate
+operator,remained,4.21,Concrete
+opinion,remained,1.93,Very Abstract
+opponent,added,3.52,Moderate
+opportunity,remained,1.88,Very Abstract
+oppose,remained,2.52,Abstract
+opposite,remained,1.79,Very Abstract
+opposition,remained,2.25,Abstract
+option,added,2.39,Abstract
+or,remained,1.72,Very Abstract
+orange,remained,4.66,Very Concrete
+order,remained,2.79,Abstract
+ordinary,remained,1.79,Very Abstract
 organ,removed,4.77,Very Concrete
+organic,added,2.68,Abstract
+organization,added,3.00,Abstract
+organize,remained,2.72,Abstract
+origin,remained,2.03,Abstract
+original,added,2.07,Abstract
+originally,added,1.66,Very Abstract
 ornament,removed,4.04,Concrete
+other,remained,2.04,Abstract
+otherwise,remained,1.57,Very Abstract
+ought,remained,1.43,Very Abstract
 ounce,removed,3.86,Moderate
+ourselves,added,2.41,Abstract
+out,remained,2.73,Abstract
+outcome,added,2.27,Abstract
+outline,remained,3.61,Moderate
+output,added,2.48,Abstract
+outside,remained,4.25,Concrete
 outward,removed,2.79,Abstract
+over,remained,2.46,Abstract
+overall,added,1.76,Very Abstract
+overcome,remained,2.28,Abstract
 overflow,removed,3.72,Moderate
+overseas,added,3.31,Moderate
+owe,remained,2.07,Abstract
+own,remained,1.96,Very Abstract
+owner,added,3.78,Moderate
+ownership,remained,2.42,Abstract
+pace,added,3.11,Moderate
+pack,remained,3.83,Moderate
+package,remained,4.72,Very Concrete
 pad,removed,4.43,Concrete
+page,remained,4.90,Very Concrete
+pain,remained,3.50,Moderate
+paint,remained,4.79,Very Concrete
+pair,remained,3.88,Moderate
+pale,remained,3.79,Moderate
 pan,removed,4.86,Very Concrete
+panel,added,4.26,Concrete
+panic,added,3.04,Moderate
+paper,remained,4.93,Very Concrete
+paragraph,added,3.96,Moderate
+parallel,added,3.16,Moderate
 parcel,removed,4.81,Very Concrete
 pardon,removed,2.24,Abstract
+parent,remained,4.56,Very Concrete
+park,remained,4.74,Very Concrete
+part,remained,3.29,Moderate
+participant,added,3.38,Moderate
+participate,added,2.59,Abstract
+participation,added,2.86,Abstract
 particle,removed,3.78,Moderate
+particular,remained,2.23,Abstract
+particularly,added,1.64,Very Abstract
+partly,added,2.30,Abstract
+partner,remained,3.53,Moderate
+partnership,added,2.82,Abstract
+party,remained,3.89,Moderate
+pass,remained,2.71,Abstract
+passage,remained,3.80,Moderate
+passenger,remained,4.34,Concrete
+passion,added,2.30,Abstract
+past,remained,1.70,Very Abstract
 paste,removed,4.45,Concrete
 pastry,removed,4.97,Very Concrete
+path,remained,4.41,Concrete
 patience,removed,1.66,Very Abstract
+patient,remained,2.50,Abstract
 patriotic,removed,1.90,Very Abstract
+pattern,remained,3.92,Moderate
+pause,remained,2.38,Abstract
 paw,removed,4.30,Concrete
+pay,remained,3.54,Moderate
+payment,added,3.91,Moderate
+peace,remained,1.62,Very Abstract
+peak,added,4.20,Concrete
 pearl,removed,4.87,Very Concrete
 peculiar,removed,1.95,Very Abstract
+peer,added,3.83,Moderate
+pen,remained,4.92,Very Concrete
+penalty,added,2.86,Abstract
 pencil,removed,4.88,Very Concrete
 penny,removed,4.83,Very Concrete
+pension,added,3.89,Moderate
+people,remained,4.82,Very Concrete
+per,remained,1.69,Very Abstract
+perceive,added,1.72,Very Abstract
+percent,added,2.70,Abstract
+percentage,added,2.90,Abstract
+perception,added,2.00,Very Abstract
+perfect,remained,1.69,Very Abstract
 perfection,removed,1.90,Very Abstract
+perfectly,added,1.52,Very Abstract
+perform,remained,3.07,Moderate
+performance,remained,3.04,Moderate
+perhaps,remained,1.19,Very Abstract
+period,added,3.31,Moderate
+permanent,remained,2.76,Abstract
+permission,remained,2.27,Abstract
+permit,remained,3.43,Moderate
+person,remained,4.72,Very Concrete
+personal,added,2.21,Abstract
+personality,added,2.08,Abstract
+personally,added,2.07,Abstract
+personnel,added,3.56,Moderate
+perspective,added,2.38,Abstract
+persuade,remained,2.07,Abstract
 persuasion,removed,1.90,Very Abstract
 pet,removed,4.71,Very Concrete
+phase,added,2.46,Abstract
+phenomenon,added,2.26,Abstract
+philosophy,added,2.14,Abstract
+phone,added,4.86,Very Concrete
+photo,added,4.93,Very Concrete
+photograph,remained,4.89,Very Concrete
 photography,removed,4.10,Concrete
+phrase,added,2.86,Abstract
+physical,added,3.31,Moderate
+piano,added,4.90,Very Concrete
+pick,remained,3.82,Moderate
+picture,remained,4.52,Very Concrete
+piece,remained,4.14,Concrete
+pig,remained,5.00,Very Concrete
 pigeon,removed,4.71,Very Concrete
+pile,remained,4.56,Very Concrete
+pilot,added,4.67,Very Concrete
 pin,removed,4.92,Very Concrete
 pinch,removed,4.00,Moderate
+pink,remained,3.93,Moderate
 pint,removed,4.43,Concrete
+pipe,remained,4.88,Very Concrete
+pitch,added,4.00,Moderate
 pity,removed,1.87,Very Abstract
+place,remained,3.48,Moderate
+plain,remained,2.26,Abstract
+plan,remained,3.40,Moderate
+plane,added,4.92,Very Concrete
+planet,added,4.58,Very Concrete
+plant,remained,4.76,Very Concrete
 plaster,removed,4.59,Very Concrete
+plastic,added,4.79,Very Concrete
+plate,remained,4.77,Very Concrete
+platform,added,4.48,Concrete
+play,remained,3.24,Moderate
+player,added,4.15,Concrete
+pleasant,remained,1.55,Very Abstract
+please,remained,1.64,Very Abstract
+pleasure,remained,2.04,Abstract
+plenty,remained,2.39,Abstract
+plot,added,3.14,Moderate
 plow,removed,4.46,Concrete
 plural,removed,2.59,Abstract
+plus,added,3.00,Abstract
+pocket,remained,4.68,Very Concrete
+poem,remained,4.03,Concrete
+poet,remained,4.36,Concrete
+poetry,added,3.50,Moderate
+point,remained,3.39,Moderate
 poison,removed,4.27,Concrete
+police,remained,4.79,Very Concrete
+policy,added,2.76,Abstract
 polish,removed,4.23,Concrete
 polite,removed,1.85,Very Abstract
+political,remained,1.83,Very Abstract
+politician,remained,4.33,Concrete
+politics,remained,2.66,Abstract
+poll,added,3.31,Moderate
+pollution,added,3.75,Moderate
+pool,remained,4.77,Very Concrete
+poor,remained,2.70,Abstract
+pop,added,4.22,Concrete
+popular,remained,2.16,Abstract
+population,remained,3.64,Moderate
+port,added,4.41,Concrete
+portion,added,3.78,Moderate
+portrait,added,4.90,Very Concrete
+pose,added,3.33,Moderate
+position,remained,2.62,Abstract
+positive,added,2.44,Abstract
+possess,remained,2.60,Abstract
+possession,remained,2.96,Abstract
 possessor,removed,3.21,Moderate
+possibility,added,1.33,Very Abstract
+possible,remained,1.56,Very Abstract
+possibly,added,1.74,Very Abstract
+post,remained,4.30,Concrete
 postpone,removed,2.29,Abstract
+pot,remained,4.81,Very Concrete
+potato,added,4.85,Very Concrete
+potential,added,1.91,Very Abstract
+potentially,added,1.63,Very Abstract
+pound,remained,4.61,Very Concrete
+pour,remained,4.14,Concrete
+poverty,remained,2.54,Abstract
 powder,removed,4.76,Very Concrete
+power,remained,2.04,Abstract
+powerful,added,2.17,Abstract
+practical,remained,2.14,Abstract
+practice,remained,2.52,Abstract
+praise,remained,2.61,Abstract
+pray,remained,3.21,Moderate
 preach,removed,3.37,Moderate
 precious,removed,2.00,Very Abstract
+precise,added,2.39,Abstract
+precisely,added,2.30,Abstract
+predict,added,2.00,Very Abstract
+prefer,remained,1.62,Very Abstract
+preference,remained,2.03,Abstract
+pregnancy,added,4.31,Concrete
+pregnant,added,4.59,Very Concrete
 prejudice,removed,2.22,Abstract
+premise,added,2.24,Abstract
+preparation,added,2.18,Abstract
+prepare,remained,2.36,Abstract
+presence,remained,2.72,Abstract
+present,remained,3.39,Moderate
+presentation,added,3.11,Moderate
+preserve,remained,2.57,Abstract
+president,remained,4.40,Concrete
+presidential,added,2.31,Abstract
+press,remained,3.90,Moderate
+pressure,remained,3.07,Moderate
+presumably,added,2.04,Abstract
+pretend,remained,2.11,Abstract
 pretense,removed,1.76,Very Abstract
+pretty,remained,2.40,Abstract
+prevent,remained,2.34,Abstract
 prevention,removed,2.20,Abstract
+previous,added,2.52,Abstract
+previously,added,1.64,Very Abstract
+price,remained,3.63,Moderate
+pride,remained,1.66,Very Abstract
 priest,removed,4.77,Very Concrete
+primarily,added,1.86,Very Abstract
+primary,added,2.28,Abstract
+prime,added,2.48,Abstract
+principal,added,3.46,Moderate
+principle,added,1.70,Very Abstract
+print,remained,4.17,Concrete
+printer,added,4.67,Very Concrete
+prior,added,2.45,Abstract
+priority,added,1.76,Very Abstract
+prison,remained,4.68,Very Concrete
+prisoner,added,4.11,Concrete
+private,remained,2.72,Abstract
+privilege,added,1.93,Very Abstract
+prize,remained,4.45,Concrete
+pro,added,2.66,Abstract
+probability,added,1.65,Very Abstract
 probable,removed,1.48,Very Abstract
+probably,added,1.73,Very Abstract
+problem,remained,2.68,Abstract
+procedure,added,2.67,Abstract
+proceed,added,2.55,Abstract
+process,added,2.93,Abstract
 procession,removed,3.21,Moderate
+produce,remained,3.31,Moderate
+producer,added,3.00,Abstract
+product,remained,4.17,Concrete
+production,remained,2.59,Abstract
+profession,remained,2.83,Abstract
+professional,added,2.14,Abstract
+professor,added,4.86,Very Concrete
+profile,added,3.10,Moderate
+profit,remained,3.07,Moderate
+program,remained,3.43,Moderate
+progress,remained,2.12,Abstract
+project,added,3.62,Moderate
+promise,remained,2.09,Abstract
+promote,added,2.26,Abstract
+promotion,added,3.21,Moderate
+prompt,remained,2.25,Abstract
 pronounce,removed,2.63,Abstract
 pronunciation,removed,2.54,Abstract
+proof,remained,2.67,Abstract
+proper,remained,1.78,Very Abstract
+properly,added,1.93,Very Abstract
+property,remained,3.90,Moderate
+proportion,added,2.57,Abstract
+proposal,remained,2.75,Abstract
+propose,remained,2.19,Abstract
+prospect,added,2.40,Abstract
+protect,remained,2.86,Abstract
+protection,remained,2.50,Abstract
+protein,added,3.66,Moderate
+protest,added,3.21,Moderate
+proud,remained,2.07,Abstract
+prove,remained,1.83,Very Abstract
+provide,remained,2.72,Abstract
+province,added,3.10,Moderate
+provision,added,2.65,Abstract
+psychological,added,2.22,Abstract
+pub,added,4.71,Very Concrete
+public,remained,2.57,Abstract
+publication,added,4.41,Concrete
+publisher,added,4.24,Concrete
+pull,remained,3.97,Moderate
+pump,remained,4.31,Concrete
 punctual,removed,1.87,Very Abstract
 punish,removed,2.66,Abstract
+pupil,remained,4.55,Very Concrete
+purchase,added,2.96,Abstract
+pure,remained,1.87,Very Abstract
 purple,removed,4.04,Concrete
+purpose,remained,1.52,Very Abstract
+pursue,added,2.83,Abstract
+push,remained,4.21,Concrete
+put,remained,2.50,Abstract
 puzzle,removed,4.75,Very Concrete
+qualification,remained,2.00,Very Abstract
+qualify,remained,1.93,Very Abstract
+quality,remained,2.18,Abstract
+quantity,remained,2.97,Abstract
 quarrel,removed,3.32,Moderate
 quart,removed,4.57,Very Concrete
+quarter,remained,4.43,Concrete
 queen,removed,4.45,Concrete
+question,remained,3.36,Moderate
+quick,remained,2.89,Abstract
+quickly,added,2.36,Abstract
+quiet,remained,2.76,Abstract
+quietly,added,3.00,Abstract
+quite,remained,1.72,Very Abstract
+quote,added,3.32,Moderate
 rabbit,removed,4.93,Very Concrete
+race,remained,3.59,Moderate
+racial,added,2.32,Abstract
+radical,added,2.10,Abstract
+radio,remained,4.74,Very Concrete
+rail,remained,4.90,Very Concrete
 railroad,removed,5.00,Very Concrete
+rain,remained,4.97,Very Concrete
+raise,remained,3.80,Moderate
 rake,removed,4.84,Very Concrete
+random,added,2.00,Very Abstract
+range,added,3.22,Moderate
+rank,remained,2.86,Abstract
+rapid,remained,3.07,Moderate
+rapidly,added,2.50,Abstract
+rare,remained,1.96,Very Abstract
+rarely,added,1.64,Very Abstract
+rat,added,4.85,Very Concrete
+rate,remained,2.50,Abstract
+rather,remained,1.48,Very Abstract
+ratio,added,2.55,Abstract
+raw,remained,3.35,Moderate
 ray,removed,3.57,Moderate
 razor,removed,4.90,Very Concrete
+reach,remained,3.70,Moderate
+react,added,2.55,Abstract
+reaction,added,2.41,Abstract
+read,remained,3.56,Moderate
+reader,added,3.89,Moderate
+ready,remained,2.07,Abstract
+real,remained,2.50,Abstract
+reality,added,1.72,Very Abstract
+realize,remained,2.03,Abstract
+really,added,1.44,Very Abstract
+rear,added,3.59,Moderate
+reason,remained,1.93,Very Abstract
+reasonable,remained,1.78,Very Abstract
+reasonably,added,2.04,Abstract
+recall,added,2.14,Abstract
 receipt,removed,4.86,Very Concrete
+receive,remained,2.69,Abstract
+recent,remained,2.50,Abstract
+recently,added,1.89,Very Abstract
+reckon,added,1.74,Very Abstract
+recognition,remained,2.39,Abstract
+recognize,remained,2.07,Abstract
+recommend,remained,1.74,Very Abstract
+recommendation,added,2.87,Abstract
+record,remained,4.15,Concrete
+recover,added,2.64,Abstract
+recovery,added,2.68,Abstract
+recruit,added,3.48,Moderate
+red,remained,4.24,Concrete
 redden,removed,3.42,Moderate
+reduce,remained,2.00,Very Abstract
+reduction,remained,2.75,Abstract
+refer,remained,2.41,Abstract
+reference,remained,2.38,Abstract
+reflect,remained,2.81,Abstract
+reflection,remained,3.29,Moderate
+reform,added,2.00,Very Abstract
 refresh,removed,2.63,Abstract
+refugee,added,3.97,Moderate
+refuse,remained,3.04,Moderate
+regard,remained,1.79,Very Abstract
+regardless,added,1.52,Very Abstract
+region,added,3.19,Moderate
+regional,added,2.76,Abstract
+register,added,3.87,Moderate
+registration,added,3.68,Moderate
+regret,remained,1.80,Very Abstract
+regular,remained,2.40,Abstract
+regularly,added,1.80,Very Abstract
+regulate,added,2.03,Abstract
+regulation,added,2.00,Very Abstract
+reject,added,2.40,Abstract
 rejoice,removed,2.17,Abstract
+relate,remained,2.00,Very Abstract
+relation,remained,2.11,Abstract
+relationship,added,2.80,Abstract
+relative,remained,2.97,Abstract
+relatively,added,1.45,Very Abstract
+relax,added,2.86,Abstract
+release,added,3.24,Moderate
+relevant,added,1.72,Very Abstract
+reliable,added,1.86,Very Abstract
+relief,remained,2.45,Abstract
 relieve,removed,2.47,Abstract
+religion,remained,1.71,Very Abstract
+religious,added,2.50,Abstract
+rely,added,1.93,Very Abstract
+remain,remained,1.96,Very Abstract
+remark,remained,3.25,Moderate
+remarkable,added,1.89,Very Abstract
 remedy,removed,2.96,Abstract
+remember,remained,2.41,Abstract
+remind,remained,2.19,Abstract
+remote,added,3.44,Moderate
+remove,added,3.14,Moderate
+rent,remained,3.48,Moderate
+repair,remained,3.32,Moderate
+repeat,remained,2.90,Abstract
 repetition,removed,3.17,Moderate
+replace,remained,3.00,Abstract
+reply,remained,2.96,Abstract
+report,remained,3.92,Moderate
+reporter,added,4.63,Very Concrete
+represent,remained,2.12,Abstract
+representation,added,2.19,Abstract
+representative,remained,3.39,Moderate
 reproduce,removed,3.48,Moderate
 reproduction,removed,2.92,Abstract
 republic,removed,2.81,Abstract
+reputation,remained,1.64,Very Abstract
+request,remained,2.59,Abstract
+require,added,2.07,Abstract
+requirement,added,2.52,Abstract
+rescue,remained,3.17,Moderate
+research,added,3.03,Moderate
+researcher,added,3.81,Moderate
+reserve,remained,2.29,Abstract
+resident,added,4.03,Concrete
+resign,remained,2.25,Abstract
+resist,remained,2.78,Abstract
+resistance,remained,2.68,Abstract
+resolution,added,2.37,Abstract
+resolve,added,1.96,Very Abstract
+resort,added,4.30,Concrete
+resource,added,2.55,Abstract
+respect,remained,2.04,Abstract
+respectively,added,1.64,Very Abstract
+respond,added,2.64,Abstract
+response,added,3.00,Abstract
+responsibility,added,1.40,Very Abstract
+responsible,remained,1.69,Very Abstract
+rest,remained,3.03,Moderate
+restaurant,remained,4.89,Very Concrete
+restore,added,2.79,Abstract
+restrict,added,2.21,Abstract
+restriction,added,2.25,Abstract
+result,remained,2.85,Abstract
+retail,added,2.92,Abstract
+retain,added,2.32,Abstract
+retire,remained,3.11,Moderate
+retirement,added,3.03,Moderate
+return,remained,2.97,Abstract
+reveal,added,2.79,Abstract
 revenge,removed,1.54,Very Abstract
+revenue,added,3.11,Moderate
+reverse,added,3.38,Moderate
+review,remained,2.81,Abstract
+revise,added,2.33,Abstract
+revolution,added,2.87,Abstract
+reward,remained,3.41,Moderate
 ribbon,removed,4.89,Very Concrete
+rice,remained,4.86,Very Concrete
+rich,remained,2.79,Abstract
+rid,remained,2.13,Abstract
+ride,remained,3.75,Moderate
+right,remained,3.47,Moderate
+ring,remained,4.81,Very Concrete
 ripe,removed,3.30,Moderate
 ripen,removed,3.31,Moderate
+rise,remained,4.04,Concrete
+risk,remained,1.63,Very Abstract
+rival,remained,3.03,Moderate
 rivalry,removed,2.14,Abstract
+river,remained,4.89,Very Concrete
+road,remained,4.75,Very Concrete
 roar,removed,3.81,Moderate
 roast,removed,4.40,Concrete
 rob,removed,3.48,Moderate
 robbery,removed,3.93,Moderate
+rock,remained,4.91,Very Concrete
 rod,removed,4.43,Concrete
+role,added,2.19,Abstract
+roll,remained,4.16,Concrete
+romantic,added,1.93,Very Abstract
+roof,remained,4.79,Very Concrete
+room,remained,4.79,Very Concrete
+root,remained,4.34,Concrete
 rope,removed,4.93,Very Concrete
+rose,added,4.90,Very Concrete
 rot,removed,3.96,Moderate
 rotten,removed,3.87,Moderate
+rough,remained,3.83,Moderate
+roughly,added,2.57,Abstract
+round,remained,3.90,Moderate
+route,added,3.88,Moderate
+routine,added,2.70,Abstract
+row,remained,3.93,Moderate
+royal,remained,3.14,Moderate
 royalty,removed,3.11,Moderate
 rub,removed,4.33,Concrete
 rubber,removed,4.86,Very Concrete
 rubbish,removed,3.64,Moderate
 rude,removed,2.52,Abstract
 rug,removed,4.79,Very Concrete
+ruin,remained,2.59,Abstract
+rule,remained,2.57,Abstract
+run,remained,4.31,Concrete
+rural,added,2.67,Abstract
+rush,remained,2.90,Abstract
 rust,removed,4.52,Very Concrete
 sacred,removed,1.77,Very Abstract
 sacrifice,removed,2.80,Abstract
+sad,remained,3.07,Moderate
 sadden,removed,2.44,Abstract
 saddle,removed,4.85,Very Concrete
+safe,remained,3.41,Moderate
+safety,remained,2.37,Abstract
+sail,remained,4.59,Very Concrete
 sailor,removed,4.86,Very Concrete
+sake,remained,2.74,Abstract
+salary,remained,3.69,Moderate
+sale,remained,3.37,Moderate
 salesman,removed,4.81,Very Concrete
+salt,remained,4.89,Very Concrete
+same,remained,2.64,Abstract
+sample,remained,3.79,Moderate
+sanction,added,2.30,Abstract
+sand,remained,5.00,Very Concrete
+satisfaction,remained,1.90,Very Abstract
 satisfactory,removed,1.80,Very Abstract
+satisfy,remained,2.04,Abstract
 sauce,removed,4.75,Very Concrete
 saucer,removed,4.79,Very Concrete
+save,remained,2.42,Abstract
 saw,removed,4.46,Concrete
+say,remained,2.58,Abstract
+scale,remained,4.39,Concrete
+scan,added,3.48,Moderate
 scarce,removed,2.57,Abstract
+scare,added,2.96,Abstract
 scatter,removed,3.55,Moderate
+scene,remained,3.93,Moderate
 scenery,removed,3.38,Moderate
 scent,removed,3.97,Moderate
-scissor,removed,4.90,Very Concrete
+schedule,added,3.48,Moderate
+scheme,added,2.41,Abstract
+scholar,added,3.50,Moderate
+school,remained,4.79,Very Concrete
+science,remained,2.79,Abstract
+scientific,remained,2.45,Abstract
+scientist,remained,4.24,Concrete
+scissors,removed,4.90,Very Concrete
 scold,removed,3.07,Moderate
+scope,added,3.74,Moderate
+score,added,3.38,Moderate
 scorn,removed,2.59,Abstract
 scrape,removed,4.15,Concrete
 scratch,removed,4.16,Concrete
+scream,added,4.32,Concrete
+screen,remained,4.60,Very Concrete
 screw,removed,4.81,Very Concrete
+sea,remained,4.79,Very Concrete
+seal,added,4.63,Very Concrete
+search,remained,3.00,Abstract
+season,remained,3.32,Moderate
+seat,remained,4.78,Very Concrete
+second,remained,3.30,Moderate
+secondary,added,2.37,Abstract
+secondly,added,2.13,Abstract
 secrecy,removed,2.00,Very Abstract
+secret,remained,2.19,Abstract
+secretary,remained,4.54,Very Concrete
+section,added,3.24,Moderate
+sector,added,3.41,Moderate
+secure,added,2.69,Abstract
+security,added,2.82,Abstract
+see,remained,3.21,Moderate
+seed,remained,4.71,Very Concrete
+seek,added,2.68,Abstract
+seem,remained,1.75,Very Abstract
+segment,added,3.40,Moderate
 seize,removed,3.97,Moderate
 seldom,removed,1.38,Very Abstract
+select,added,2.48,Abstract
+selection,added,2.34,Abstract
+self,remained,3.10,Moderate
 selfish,removed,1.92,Very Abstract
+sell,remained,3.35,Moderate
+send,remained,2.70,Abstract
+senior,added,2.97,Abstract
+sense,remained,2.61,Abstract
+sensitive,remained,2.21,Abstract
+sentence,remained,3.57,Moderate
+separate,remained,3.25,Moderate
 separation,removed,2.96,Abstract
+sequence,added,3.10,Moderate
+series,added,2.92,Abstract
+serious,remained,2.10,Abstract
+seriously,added,2.00,Very Abstract
+servant,remained,4.64,Very Concrete
+serve,remained,3.78,Moderate
+server,added,4.55,Very Concrete
+service,remained,2.21,Abstract
+session,added,2.58,Abstract
+set,remained,3.41,Moderate
+settle,remained,2.31,Abstract
+settlement,added,3.07,Moderate
+several,remained,3.00,Abstract
+severe,remained,2.43,Abstract
 sew,removed,3.93,Moderate
+sex,added,4.10,Concrete
+sexual,added,2.50,Abstract
+shade,remained,3.38,Moderate
+shadow,remained,4.54,Very Concrete
+shake,remained,4.07,Concrete
+shall,remained,2.33,Abstract
 shallow,removed,3.45,Moderate
 shame,removed,2.24,Abstract
+shape,remained,3.14,Moderate
+share,remained,2.96,Abstract
+shareholder,added,3.72,Moderate
+sharp,remained,3.86,Moderate
 sharpen,removed,3.72,Moderate
 shave,removed,4.23,Concrete
+she,remained,3.36,Moderate
+sheep,remained,4.90,Very Concrete
+sheet,remained,4.93,Very Concrete
+shelf,remained,4.96,Very Concrete
+shell,remained,4.80,Very Concrete
+shelter,remained,4.64,Very Concrete
 shield,removed,4.66,Very Concrete
+shift,added,2.81,Abstract
+shilling,removed,4.46,Concrete
+shine,remained,3.85,Moderate
+ship,remained,4.87,Very Concrete
+shirt,remained,4.94,Very Concrete
+shock,remained,4.00,Moderate
+shoe,remained,4.97,Very Concrete
+shoot,remained,3.97,Moderate
+shop,remained,4.31,Concrete
+shore,remained,4.79,Very Concrete
+short,remained,3.61,Moderate
 shorten,removed,3.11,Moderate
+shot,added,4.44,Concrete
+should,remained,1.53,Very Abstract
+shoulder,remained,4.93,Very Concrete
+shout,remained,4.17,Concrete
+show,remained,3.97,Moderate
+shower,remained,4.89,Very Concrete
+shut,remained,3.38,Moderate
+sick,remained,2.97,Abstract
+side,remained,3.68,Moderate
+sigh,added,3.89,Moderate
+sight,remained,3.21,Moderate
+sign,remained,4.62,Very Concrete
+signal,remained,3.86,Moderate
 signature,removed,4.43,Concrete
+significance,added,1.68,Very Abstract
+significant,added,1.67,Very Abstract
+significantly,added,1.89,Very Abstract
+silence,remained,3.33,Moderate
+silent,remained,3.67,Moderate
 silk,removed,4.70,Very Concrete
+silly,added,2.20,Abstract
+silver,remained,4.52,Very Concrete
+similar,added,2.46,Abstract
+similarly,added,2.83,Abstract
+simple,remained,1.62,Very Abstract
 simplicity,removed,1.96,Very Abstract
+simply,added,1.83,Very Abstract
+since,remained,1.38,Very Abstract
 sincere,removed,1.81,Very Abstract
+sing,remained,4.34,Concrete
+singer,added,4.62,Very Concrete
+single,remained,3.27,Moderate
+sink,remained,4.74,Very Concrete
+sir,remained,3.10,Moderate
+sister,remained,4.00,Moderate
+sit,remained,4.80,Very Concrete
+site,added,4.56,Very Concrete
+situate,added,1.96,Very Abstract
+situation,remained,2.03,Abstract
+size,remained,3.13,Moderate
+ski,added,4.63,Very Concrete
+skill,remained,2.17,Abstract
+skin,remained,4.79,Very Concrete
+skirt,remained,4.82,Very Concrete
+sky,remained,4.45,Concrete
+slave,remained,4.38,Concrete
 slavery,removed,3.11,Moderate
+sleep,remained,4.44,Concrete
+slice,added,3.85,Moderate
+slide,remained,4.48,Concrete
+slight,remained,1.90,Very Abstract
+slightly,added,1.79,Very Abstract
+slip,remained,4.10,Concrete
 slippery,removed,3.94,Moderate
+slope,remained,4.07,Concrete
+slow,remained,3.28,Moderate
+slowly,added,3.10,Moderate
+small,remained,3.22,Moderate
+smart,added,1.75,Very Abstract
+smell,remained,3.70,Moderate
+smile,remained,4.50,Concrete
+smoke,remained,4.96,Very Concrete
+smooth,remained,3.81,Moderate
 snake,removed,5.00,Very Concrete
+snap,added,4.10,Concrete
+snow,remained,4.85,Very Concrete
+so,remained,1.42,Very Abstract
 soap,removed,4.93,Very Concrete
+social,remained,2.27,Abstract
+society,remained,2.54,Abstract
 sock,removed,4.91,Very Concrete
+soft,remained,3.88,Moderate
 soften,removed,2.57,Abstract
+software,added,4.08,Concrete
+soil,remained,4.87,Very Concrete
+solar,added,4.00,Moderate
+soldier,remained,4.72,Very Concrete
 solemn,removed,1.52,Very Abstract
+solid,remained,4.42,Concrete
+solution,remained,2.61,Abstract
+solve,remained,2.10,Abstract
+some,remained,2.48,Abstract
+somebody,remained,3.79,Moderate
+somehow,remained,1.28,Very Abstract
+someone,remained,3.71,Moderate
+something,remained,1.82,Very Abstract
 sometime,removed,1.47,Very Abstract
+sometimes,remained,1.77,Very Abstract
+somewhat,added,1.28,Very Abstract
+somewhere,remained,2.08,Abstract
+son,remained,4.14,Concrete
+song,remained,4.46,Concrete
+soon,remained,1.79,Very Abstract
 sore,removed,3.23,Moderate
 sorrow,removed,2.36,Abstract
+sorry,remained,1.90,Very Abstract
+sort,remained,3.34,Moderate
+soul,remained,1.86,Very Abstract
+sound,remained,3.70,Moderate
 soup,removed,4.72,Very Concrete
 sour,removed,3.14,Moderate
+source,added,2.96,Abstract
+south,remained,3.84,Moderate
+southern,added,2.62,Abstract
 sow,removed,4.04,Concrete
+space,remained,3.54,Moderate
 spade,removed,4.46,Concrete
+spare,remained,3.48,Moderate
+speak,remained,3.70,Moderate
+speaker,added,4.69,Very Concrete
+special,remained,1.76,Very Abstract
+specialist,added,3.00,Abstract
+specialize,added,1.70,Very Abstract
+species,added,3.36,Moderate
+specific,added,2.18,Abstract
+specifically,added,1.62,Very Abstract
+specify,added,2.30,Abstract
+speech,remained,3.37,Moderate
+speed,remained,3.62,Moderate
+spell,remained,3.32,Moderate
+spend,remained,2.93,Abstract
 spill,removed,4.07,Concrete
+spin,remained,3.90,Moderate
+spirit,remained,1.60,Very Abstract
 spit,removed,4.71,Very Concrete
 spite,removed,2.07,Abstract
 splendid,removed,1.79,Very Abstract
+split,remained,3.96,Moderate
 spoil,removed,2.82,Abstract
+sponsor,added,3.28,Moderate
 spoon,removed,4.96,Very Concrete
+sport,remained,3.48,Moderate
+spot,remained,4.21,Concrete
+spread,remained,3.68,Moderate
+spring,remained,3.89,Moderate
+square,remained,4.33,Concrete
+stability,added,2.41,Abstract
+stable,added,3.77,Moderate
+staff,remained,4.36,Concrete
+stage,remained,4.64,Very Concrete
+stain,remained,4.59,Very Concrete
+stair,remained,4.93,Very Concrete
+stake,added,4.21,Concrete
+stamp,remained,4.70,Very Concrete
+stand,remained,4.16,Concrete
+standard,remained,1.83,Very Abstract
+star,remained,4.69,Very Concrete
+stare,added,4.10,Concrete
+start,remained,2.71,Abstract
+state,remained,3.52,Moderate
+statement,added,2.96,Abstract
+station,remained,4.32,Concrete
+statistic,added,2.88,Abstract
+status,added,2.24,Abstract
+stay,remained,2.15,Abstract
+steady,remained,2.25,Abstract
+steal,added,3.84,Moderate
 steam,removed,4.50,Concrete
+steel,remained,4.87,Very Concrete
 steep,removed,3.76,Moderate
 steer,removed,4.19,Concrete
+stem,remained,4.63,Very Concrete
+step,remained,4.54,Very Concrete
+stick,remained,4.59,Very Concrete
 stiff,removed,3.62,Moderate
 stiffen,removed,3.82,Moderate
+still,remained,3.46,Moderate
+stimulate,added,3.22,Moderate
 sting,removed,4.41,Concrete
+stir,remained,3.76,Moderate
+stock,remained,4.19,Concrete
+stocking,removed,4.86,Very Concrete
+stomach,remained,4.89,Very Concrete
+stone,remained,4.72,Very Concrete
+stop,remained,3.68,Moderate
+storage,added,3.47,Moderate
+store,remained,4.50,Concrete
+storm,remained,4.70,Very Concrete
+story,remained,3.30,Moderate
 stove,removed,4.96,Very Concrete
+straight,remained,2.76,Abstract
 straighten,removed,3.72,Moderate
+strain,added,3.00,Abstract
+strange,remained,1.86,Very Abstract
+stranger,added,3.76,Moderate
 strap,removed,4.79,Very Concrete
+strategy,added,1.93,Very Abstract
 straw,removed,4.77,Very Concrete
+stream,remained,4.50,Concrete
+street,remained,4.75,Very Concrete
+strength,remained,2.96,Abstract
+strengthen,remained,2.50,Abstract
+stress,added,2.62,Abstract
+stretch,remained,3.62,Moderate
+strict,remained,2.72,Abstract
+strike,remained,4.07,Concrete
+string,remained,4.76,Very Concrete
+strip,remained,3.75,Moderate
 stripe,removed,4.72,Very Concrete
+stroke,remained,4.10,Concrete
+strong,remained,3.14,Moderate
+strongly,added,2.39,Abstract
+structural,added,2.69,Abstract
+structure,added,4.03,Concrete
+struggle,remained,2.79,Abstract
+student,remained,4.92,Very Concrete
+studio,added,4.55,Very Concrete
+study,remained,3.70,Moderate
+stuff,remained,3.13,Moderate
+stupid,remained,1.75,Very Abstract
+style,added,2.67,Abstract
+subject,remained,3.14,Moderate
+submit,added,2.68,Abstract
+subsequent,added,2.14,Abstract
+subsequently,added,1.46,Very Abstract
+substance,remained,3.44,Moderate
+substantial,added,2.03,Abstract
+substitute,added,2.82,Abstract
+succeed,remained,2.33,Abstract
+success,remained,2.21,Abstract
+successful,added,2.07,Abstract
+successfully,added,1.96,Very Abstract
+such,remained,1.48,Very Abstract
 suck,removed,3.46,Moderate
+sudden,remained,2.07,Abstract
+suddenly,added,1.84,Very Abstract
+suffer,remained,2.28,Abstract
+sufficient,added,1.90,Very Abstract
+sugar,remained,4.87,Very Concrete
+suggest,remained,1.80,Very Abstract
+suggestion,remained,2.23,Abstract
+suit,remained,4.97,Very Concrete
+suitable,added,1.93,Very Abstract
+sum,added,2.89,Abstract
+summarize,added,2.32,Abstract
+summary,added,3.03,Moderate
+summer,remained,3.64,Moderate
+sun,remained,4.83,Very Concrete
 supper,removed,4.63,Very Concrete
+supplement,added,3.07,Moderate
+supplier,added,3.41,Moderate
+supply,remained,3.43,Moderate
+support,remained,2.83,Abstract
+supporter,added,3.26,Moderate
+suppose,remained,1.37,Very Abstract
+sure,remained,1.73,Very Abstract
+surely,added,1.71,Very Abstract
+surface,remained,4.26,Concrete
+surgery,added,4.34,Concrete
+surprise,remained,3.24,Moderate
+surprisingly,added,1.92,Very Abstract
+surround,remained,2.81,Abstract
+survey,added,4.08,Concrete
+survival,added,2.34,Abstract
+survive,added,2.55,Abstract
+suspect,remained,2.59,Abstract
+suspend,added,2.74,Abstract
 suspicion,removed,1.62,Very Abstract
 suspicious,removed,1.87,Very Abstract
+sustain,added,2.17,Abstract
 swallow,removed,3.89,Moderate
+swear,remained,2.45,Abstract
 sweat,removed,4.71,Very Concrete
+sweep,remained,3.72,Moderate
+sweet,remained,4.00,Moderate
 sweeten,removed,3.62,Moderate
 swell,removed,3.31,Moderate
+swim,remained,4.43,Concrete
+swing,remained,4.54,Very Concrete
+switch,added,4.07,Concrete
 sword,removed,4.93,Very Concrete
+symbol,added,3.11,Moderate
 sympathetic,removed,1.77,Very Abstract
 sympathy,removed,1.88,Very Abstract
+symptom,added,3.19,Moderate
+system,remained,2.94,Abstract
+table,remained,4.90,Very Concrete
+tackle,added,4.28,Concrete
+tail,remained,4.96,Very Concrete
 tailor,removed,4.67,Very Concrete
+take,remained,3.06,Moderate
+tale,added,3.23,Moderate
+talent,added,2.19,Abstract
+talk,remained,4.07,Concrete
+tall,remained,3.36,Moderate
 tame,removed,2.04,Abstract
+tank,added,4.80,Very Concrete
+tap,remained,4.29,Concrete
+tape,added,4.90,Very Concrete
+target,added,4.11,Concrete
+task,added,2.84,Abstract
+taste,remained,4.07,Concrete
+tax,remained,3.89,Moderate
+taxi,remained,4.93,Very Concrete
+tea,remained,4.69,Very Concrete
+teach,remained,3.15,Moderate
+teacher,added,4.52,Very Concrete
+team,added,3.79,Moderate
+tear,remained,4.56,Very Concrete
+technical,added,1.97,Very Abstract
+technique,added,2.40,Abstract
+technology,added,3.24,Moderate
+teenager,added,4.34,Concrete
 telegraph,removed,4.59,Very Concrete
+telephone,remained,4.96,Very Concrete
+television,added,4.83,Very Concrete
+tell,remained,2.90,Abstract
 temper,removed,2.56,Abstract
+temperature,remained,3.71,Moderate
 temple,removed,4.53,Very Concrete
+temporary,added,2.27,Abstract
 tempt,removed,2.10,Abstract
+tend,remained,2.00,Very Abstract
+tendency,added,1.83,Very Abstract
+tender,remained,2.58,Abstract
+tennis,added,4.43,Concrete
+tension,added,2.60,Abstract
+tent,remained,4.96,Very Concrete
+term,remained,2.82,Abstract
+terrible,remained,2.04,Abstract
+territory,added,3.41,Moderate
+terrorist,added,3.64,Moderate
+test,remained,3.93,Moderate
+text,added,4.93,Very Concrete
+than,remained,1.69,Very Abstract
+thank,remained,3.00,Abstract
+that,remained,1.54,Very Abstract
+the,remained,1.43,Very Abstract
+theater,remained,4.92,Very Concrete
 theatrical,removed,2.18,Abstract
+theme,added,2.72,Abstract
+themselves,added,2.93,Abstract
+then,remained,1.44,Very Abstract
+theoretical,added,1.37,Very Abstract
+theory,added,1.47,Very Abstract
+therapy,added,2.85,Abstract
+there,remained,2.20,Abstract
+therefore,remained,1.33,Very Abstract
 these,removed,2.03,Abstract
+they,remained,2.93,Abstract
+thick,remained,4.00,Moderate
 thicken,removed,3.52,Moderate
 thief,removed,4.37,Concrete
+thin,remained,3.83,Moderate
+thing,remained,3.17,Moderate
+think,remained,2.41,Abstract
+thirst,remained,3.04,Moderate
+this,remained,2.14,Abstract
 thorn,removed,5.00,Very Concrete
 thorough,removed,1.66,Very Abstract
 those,removed,2.32,Abstract
+though,remained,1.20,Very Abstract
 thread,removed,4.83,Very Concrete
+threat,remained,2.52,Abstract
+threaten,remained,2.63,Abstract
+throat,remained,4.97,Very Concrete
+through,remained,2.90,Abstract
+throughout,added,2.27,Abstract
+throw,remained,4.04,Concrete
 thumb,removed,4.96,Very Concrete
 thunder,removed,4.34,Concrete
+thus,remained,1.36,Very Abstract
+ticket,remained,4.70,Very Concrete
 tide,removed,4.10,Concrete
 tidy,removed,3.03,Moderate
+tie,remained,4.81,Very Concrete
+tight,remained,3.87,Moderate
 tighten,removed,3.33,Moderate
+till,remained,4.00,Moderate
+time,remained,3.07,Moderate
 tin,removed,4.87,Very Concrete
+tiny,added,3.11,Moderate
+tip,remained,4.50,Concrete
+tire,remained,5.00,Very Concrete
+tissue,added,4.93,Very Concrete
+title,remained,3.32,Moderate
+to,remained,1.55,Very Abstract
 tobacco,removed,4.88,Very Concrete
+today,remained,2.57,Abstract
 toe,removed,4.93,Very Concrete
+together,remained,2.74,Abstract
+tomorrow,remained,2.04,Abstract
 ton,removed,4.17,Concrete
+tone,added,3.07,Moderate
+tongue,remained,4.93,Very Concrete
+tonight,remained,2.93,Abstract
+too,remained,1.70,Very Abstract
+tool,remained,4.60,Very Concrete
+tooth,remained,4.89,Very Concrete
+top,remained,3.93,Moderate
+topic,added,2.59,Abstract
+total,remained,2.80,Abstract
+totally,added,1.78,Very Abstract
+touch,remained,3.86,Moderate
+tough,remained,2.50,Abstract
+tour,remained,3.38,Moderate
+tourism,added,3.00,Abstract
+tourist,added,4.59,Very Concrete
+tournament,added,4.11,Concrete
+toward,remained,2.28,Abstract
 towel,removed,4.86,Very Concrete
+tower,remained,4.76,Very Concrete
+town,remained,4.64,Very Concrete
+toy,remained,4.93,Very Concrete
+trace,added,3.66,Moderate
+track,remained,4.31,Concrete
+trade,remained,3.08,Moderate
+tradition,added,1.69,Very Abstract
+traditional,added,1.76,Very Abstract
+traffic,added,4.67,Very Concrete
+trail,added,4.46,Concrete
+train,remained,4.79,Very Concrete
+transfer,added,3.04,Moderate
+transform,added,2.41,Abstract
+transition,added,2.19,Abstract
+translate,remained,2.69,Abstract
 translation,removed,2.96,Abstract
 translator,removed,3.86,Moderate
+transport,added,3.50,Moderate
+transportation,added,3.89,Moderate
+trap,remained,4.30,Concrete
+travel,remained,3.67,Moderate
 tray,removed,4.74,Very Concrete
 treasure,removed,4.32,Concrete
 treasury,removed,3.33,Moderate
+treat,remained,3.79,Moderate
+treatment,added,2.93,Abstract
+tree,remained,5.00,Very Concrete
 tremble,removed,3.61,Moderate
+trend,added,2.42,Abstract
+trial,remained,3.07,Moderate
 tribe,removed,4.14,Concrete
+trick,remained,3.36,Moderate
+trigger,added,4.31,Concrete
+trip,remained,3.71,Moderate
+troop,added,4.34,Concrete
+trouble,remained,2.25,Abstract
+truck,added,4.84,Very Concrete
+true,remained,1.70,Very Abstract
+truly,added,1.62,Very Abstract
 trunk,removed,4.71,Very Concrete
+trust,remained,2.04,Abstract
+truth,remained,1.96,Very Abstract
+try,remained,2.22,Abstract
+tube,remained,4.82,Very Concrete
+tune,remained,3.50,Moderate
+turn,remained,3.44,Moderate
+twice,added,2.93,Abstract
+twin,added,4.17,Concrete
+twist,remained,3.90,Moderate
+type,remained,3.30,Moderate
+typical,added,1.52,Very Abstract
+typically,added,1.67,Very Abstract
+ugly,remained,3.23,Moderate
+ultimately,added,1.26,Very Abstract
 umbrella,removed,5.00,Very Concrete
+unable,added,1.77,Very Abstract
+uncertainty,added,1.75,Very Abstract
+uncle,remained,4.24,Concrete
+unclear,added,2.39,Abstract
+under,remained,3.45,Moderate
+undergo,added,2.41,Abstract
+underlie,added,1.96,Very Abstract
 underneath,removed,3.71,Moderate
+understand,remained,2.28,Abstract
+undertake,added,1.71,Very Abstract
+unemployment,added,3.11,Moderate
+unfortunately,added,1.62,Very Abstract
+uniform,added,4.67,Very Concrete
+union,remained,3.38,Moderate
+unique,added,1.89,Very Abstract
+unit,remained,3.77,Moderate
+unite,remained,2.58,Abstract
 unity,removed,2.23,Abstract
+universal,remained,1.87,Very Abstract
+universe,remained,3.85,Moderate
+university,remained,4.65,Very Concrete
+unknown,added,1.47,Very Abstract
+unless,remained,1.54,Very Abstract
+unlike,added,2.67,Abstract
+unlikely,added,1.93,Very Abstract
+until,remained,1.33,Very Abstract
+unusual,added,2.21,Abstract
+up,remained,3.83,Moderate
+update,added,2.79,Abstract
+upon,remained,2.83,Abstract
+upper,remained,3.37,Moderate
 uppermost,removed,2.70,Abstract
 upright,removed,3.59,Moderate
+upset,remained,2.41,Abstract
+urban,added,3.43,Moderate
+urge,remained,1.93,Very Abstract
 urgent,removed,2.36,Abstract
+use,remained,2.78,Abstract
+useful,added,2.14,Abstract
+user,added,3.16,Moderate
+usual,remained,1.90,Very Abstract
+usually,added,2.04,Abstract
 vain,removed,1.91,Very Abstract
+valley,remained,4.72,Very Concrete
+valuable,remained,2.22,Abstract
+value,remained,1.62,Very Abstract
+van,added,4.72,Very Concrete
+variable,added,2.24,Abstract
+variation,added,2.46,Abstract
+variety,remained,2.13,Abstract
+various,remained,2.35,Abstract
+vary,added,1.93,Very Abstract
+vast,added,2.10,Abstract
+vegetable,added,4.89,Very Concrete
+vehicle,added,4.64,Very Concrete
 veil,removed,4.45,Concrete
+venture,added,2.60,Abstract
+verb,remained,2.85,Abstract
 verse,removed,3.19,Moderate
+version,added,1.70,Very Abstract
+versus,added,1.86,Very Abstract
+very,remained,1.43,Very Abstract
+vessel,remained,4.66,Very Concrete
+veteran,added,4.58,Very Concrete
+via,added,1.79,Very Abstract
+vice,added,2.46,Abstract
+victim,added,3.59,Moderate
+victory,remained,2.55,Abstract
+video,added,4.67,Very Concrete
+view,remained,3.21,Moderate
+village,remained,4.89,Very Concrete
+violence,remained,3.07,Moderate
+violent,remained,3.10,Moderate
+virtually,added,2.00,Very Abstract
 virtue,removed,1.62,Very Abstract
+virus,added,3.48,Moderate
+visible,added,3.08,Moderate
+vision,added,3.39,Moderate
+visit,remained,3.92,Moderate
+visitor,remained,4.25,Concrete
+visual,added,2.96,Abstract
+vital,added,1.93,Very Abstract
+voice,remained,4.13,Concrete
+volume,added,3.07,Moderate
+voluntary,added,2.21,Abstract
+volunteer,added,3.77,Moderate
+vote,remained,3.85,Moderate
+voter,added,3.93,Moderate
 vowel,removed,3.80,Moderate
 voyage,removed,3.43,Moderate
+wage,remained,3.79,Moderate
 waist,removed,4.72,Very Concrete
+wait,remained,2.68,Abstract
 waiter,removed,4.67,Very Concrete
+wake,remained,3.11,Moderate
+walk,remained,4.07,Concrete
+wall,remained,4.86,Very Concrete
+wander,remained,2.28,Abstract
+want,remained,1.93,Very Abstract
+war,remained,3.63,Moderate
+warm,remained,3.56,Moderate
 warmth,removed,3.39,Moderate
+warn,remained,2.89,Abstract
+wash,remained,4.35,Concrete
+waste,remained,3.24,Moderate
+watch,remained,4.61,Very Concrete
+water,remained,5.00,Very Concrete
+wave,remained,4.55,Very Concrete
 wax,removed,4.97,Very Concrete
+way,remained,2.34,Abstract
+we,remained,3.08,Moderate
+weak,remained,2.79,Abstract
 weaken,removed,2.37,Abstract
+weakness,added,2.59,Abstract
+wealth,remained,2.63,Abstract
+wealthy,added,2.73,Abstract
+weapon,remained,4.76,Very Concrete
+wear,remained,3.61,Moderate
+weather,remained,3.83,Moderate
 weave,removed,4.20,Concrete
+web,added,4.37,Concrete
+website,added,4.52,Very Concrete
+wed,added,3.11,Moderate
 weed,removed,4.90,Very Concrete
+week,remained,3.48,Moderate
 weekday,removed,3.18,Moderate
+weekend,remained,3.83,Moderate
+weekly,added,3.28,Moderate
+weigh,remained,3.79,Moderate
+weight,remained,3.94,Moderate
+weird,added,1.59,Very Abstract
+welcome,remained,2.07,Abstract
+welfare,added,2.57,Abstract
+well,remained,3.33,Moderate
+west,remained,3.44,Moderate
+western,remained,2.80,Abstract
+wet,remained,4.46,Concrete
+what,remained,2.00,Very Abstract
+whatever,remained,1.46,Very Abstract
 wheat,removed,4.89,Very Concrete
+wheel,remained,4.86,Very Concrete
+when,remained,1.60,Very Abstract
+whenever,remained,1.79,Very Abstract
+where,remained,1.66,Very Abstract
+whereas,added,1.46,Very Abstract
+wherever,remained,1.23,Very Abstract
+whether,remained,1.59,Very Abstract
+which,remained,1.54,Very Abstract
 whichever,removed,1.30,Very Abstract
+while,remained,1.55,Very Abstract
+whilst,added,1.85,Very Abstract
 whip,removed,4.68,Very Concrete
+whisper,remained,4.34,Concrete
 whistle,removed,4.42,Concrete
+white,remained,3.89,Moderate
 whiten,removed,3.56,Moderate
+who,remained,1.74,Very Abstract
 whoever,removed,1.93,Very Abstract
+whole,remained,3.25,Moderate
 whom,removed,1.93,Very Abstract
 whose,removed,1.68,Very Abstract
+why,remained,1.86,Very Abstract
 wicked,removed,2.11,Abstract
+wide,remained,3.06,Moderate
+widely,added,2.21,Abstract
 widen,removed,3.21,Moderate
 widow,removed,4.33,Concrete
 widower,removed,3.96,Moderate
 width,removed,3.64,Moderate
+wife,remained,4.13,Concrete
+wild,remained,2.41,Abstract
+will,remained,2.64,Abstract
+win,remained,2.67,Abstract
+wind,remained,3.93,Moderate
+window,remained,4.86,Very Concrete
+wine,remained,4.79,Very Concrete
+wing,remained,4.86,Very Concrete
+winner,added,3.21,Moderate
+winter,remained,3.84,Moderate
+wipe,remained,4.00,Moderate
+wire,remained,4.72,Very Concrete
 wisdom,removed,1.53,Very Abstract
+wise,remained,1.97,Very Abstract
+wish,remained,1.77,Very Abstract
+with,remained,2.00,Very Abstract
+withdraw,added,3.04,Moderate
+within,remained,2.81,Abstract
+without,remained,2.15,Abstract
+witness,remained,4.07,Concrete
+woman,remained,4.46,Concrete
+wonder,remained,1.80,Very Abstract
+wonderful,added,1.82,Very Abstract
+wood,remained,4.85,Very Concrete
+wooden,remained,4.61,Very Concrete
 wool,removed,4.86,Very Concrete
 woolen,removed,3.86,Moderate
+word,remained,3.56,Moderate
+work,remained,3.48,Moderate
+worker,added,4.59,Very Concrete
+world,remained,4.36,Concrete
 worm,removed,4.90,Very Concrete
+worry,remained,2.55,Abstract
+worse,removed,1.61,Very Abstract
 worship,removed,2.62,Abstract
+worth,remained,1.89,Very Abstract
+would,remained,1.12,Very Abstract
+wound,remained,4.24,Concrete
+wrap,remained,4.11,Concrete
 wreck,removed,4.07,Concrete
 wrist,removed,4.93,Very Concrete
+write,remained,4.22,Concrete
+writer,added,4.32,Concrete
+wrong,remained,1.83,Very Abstract
+yard,remained,4.82,Very Concrete
+yeah,added,1.89,Very Abstract
+year,remained,3.25,Moderate
+yellow,remained,4.30,Concrete
+yes,remained,2.14,Abstract
+yesterday,remained,3.00,Abstract
+yet,remained,1.39,Very Abstract
+yield,remained,2.93,Abstract
+you,remained,4.11,Concrete
+young,remained,3.16,Moderate
+yourself,added,4.39,Concrete
+youth,remained,3.28,Moderate
 zero,removed,2.86,Abstract
+zone,added,3.07,Moderate
