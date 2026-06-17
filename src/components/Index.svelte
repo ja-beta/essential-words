@@ -119,8 +119,8 @@
 							note={block.note}
 							overlays={block.overlays ?? []}
 						/>
-					{:else if block.chartId === "semanticsScope"}
-						<Scope note={block.note} overlays={block.overlays ?? []} />
+					<!-- {:else if block.chartId === "semanticsScopeTiles"}
+						<Scope note={block.note} overlays={block.overlays ?? []} /> -->
 					{:else if block.chartId === "concretenessDistribution"}
 						<ConcretenessKde annotation={block.annotation} />
 					{:else if block.chartId === "concretenessBands"}

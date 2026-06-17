@@ -64,35 +64,6 @@
     },
     {
       "type": "chart",
-      "chartId": "semanticsScope",
-      "title": "The Vocabulary Moved Outward",
-      "subhead": "21 semantic categories, grouped by their scale of reach: the self, the immediate world, institutions, social life and communication, and abstract terms.",
-      "note": "Data source: all words run through the UCREL Semantic Analysis System (USAS), then grouped into five umbrella-term domains: <ol class=note-list> <li class=note-list-item><b>The Self:</b> Emotion | The Body and the Individual</li> <li class=note-list-item><b>Local/Immediate:</b> Substances, Materials, Objects and Equipment | Food and Farming | Life and Living Things | Architecture, Housing and the Home | World and Environment</li> <li class=note-list-item><b>Institutional:</b> Money and Commerce in Industry | Government and Public | Education | Science and Technology</li> <li class=note-list-item><b>Social/Communicative:</b> Social Actions, States, and Processes | Movement, Location, Travel and Transport | Language and Communication | Entertainment, Sports and Games | Arts and Crafts</li> <li class=note-list-item><b>Universal/Abstract:</b> General and Abstract Terms | Psychological Actions, States and Processes | Numbers and Measurement | Names and Grammar | Time</li> </ol>",
-      "overlays": [
-        {
-          "label": "Overlay 1 – focus on the self",
-          "html": "The 2023 list has fewer words relating to the self. Among what was removed: <span class=gsl>ache, wrist, comb, razor, shave, soap. Courage, greed, loyalty, mercy, shame.</span> What was added reads differently: <span class=ngsl>cancer, clinical, disorder, gene, surgery, therapy, treatment.</span> The words shifted from describing something you inhabit to describing something you manage."
-        },
-        {
-          "label": "Overlay 2 – focus on local/immediate",
-          "html": "The “local” level shrank too. Some of what was removed: <span class=gsl>donkey, elephant, goat,</span> and <span class=gsl>pigeon. Bake, butter, harvest,</span> and <span class=gsl>roast. Bay, cliff, moonlight,</span> and <span class=gsl>tide.</span> That’s the immediate world, the one within reach. And what was added: <span class=ngsl>climate, environment, organic, solar,<span> and <span class=ngsl>pollution</span>—words for the world as a system."
-        },
-        {
-          "label": "Overlay 3 – focus on institutional",
-          "html": "Within the “institutional” level, words that were removed include: <span class=gsl>merchant, salesman, bargain, treasury, calculator,</span> and <span class=gsl>inventor.</span> Among what was added: <span class=ngsl>corporation, budget, mortgage, unemployment, pension, legislation, regulation, democracy,</span> and <span class=ngsl>voter.</span> It still names jobs, money, and the state, but the vocabulary sounds less like storefronts and ledgers, and more like filings, markets, and processes."
-        },
-        {
-          "label": "Overlay 4 – focus on social/communication",
-          "html": "The “Social & Communication” level barely changed in size. But nearly a quarter of the words in the 1953 list are gone, and 39% of the 2023 words are new. <span class=gsl>Humble, loyalty, fellowship, generous, polite,</span> and <span class=gsl>companionship</span> gave way to <span class=ngsl>community, identity, organization, ethnic, gender,</span> and <span class=ngsl>narrative.</span> The social world shifted from something you navigate through personal relationships to something with which you identify through categories. It offers fewer words for the people directly around you, but more for belonging at a distance."
-        },
-        {
-          "label": "Overlay 5 – focus on universal/abstract (zoomed out)",
-          "html": "The outermost level, which contains words that don’t belong in any specific domain, grew the most. The words that were added point to a different kind of abstraction, one that’s about ideas just as much as the tools for evaluating and organizing them: <span class=ngsl>Analysis, assumption, criteria, hypothesis, method, perspective, procedure, strategy.</span>"
-        }
-      ]
-    },
-    {
-      "type": "chart",
       "chartId": "semanticsScopeArcs",
       "title": "The Vocabulary Moved Outward",
       "subhead": "21 semantic categories, grouped by their scale of reach: the self, the immediate world, institutions, social life and communication, and abstract terms.",
