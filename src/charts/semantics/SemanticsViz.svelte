@@ -379,7 +379,7 @@
 	@media (max-width: 920px) {
 		.semantics-viz {
 			--sem-mobile-margin: 16;
-			--sem-mobile-margin-right: 0;
+			--sem-mobile-margin-right: 56;
 		}
 	}
 
@@ -387,9 +387,10 @@
 		.semantics-viz {
 			--sem-compact-breakpoint: 700;
 			--sem-mobile-margin: 20;
+			--sem-mobile-margin-right: 16;
 			--sem-min-band-font-size: 13px;
 			--sem-font-scale: 1;
-			--sem-left-label-offset: 10;
+			--sem-left-label-offset: 8;
 			--sem-pct-cap-width: 44;
 			--sem-mobile-label-max-pct: 0.1;
 			--sem-mobile-label-min: 68;
@@ -406,7 +407,7 @@
 			--sem-ribbon-marquee: 0;
 			--sem-mobile-margin: 16;
 			--sem-mobile-label-max-pct: 0.16;
-			--sem-mobile-label-min: 60;
+			--sem-mobile-label-min: 100;
 			--sem-mobile-slope-min: 92;
 			--sem-compact-band-gap: 15;
 			--sem-mobile-vertical-scale:1.5;
