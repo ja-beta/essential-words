@@ -301,6 +301,7 @@
 		--concr-bands-band-gap: 14px;
 		--concr-bands-center-gap: 32px;
 		--concr-bands-marquee-font-size: 36px;
+		--concr-bands-marquee-font-size-removed-scale: 0.9;
 		--concr-bands-marquee-speed: 28;
 		--concr-bands-min-bar-width: 4px;
 		--concr-bands-text-pad: 4px;

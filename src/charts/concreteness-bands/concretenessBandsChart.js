@@ -164,6 +164,7 @@ export function readConcretenessBandsMetrics(containerEl) {
 		bandGap: px("--concr-bands-band-gap", 8),
 		centerGap: px("--concr-bands-center-gap", 24),
 		fontSize: px("--concr-bands-marquee-font-size", 28),
+		removedMarqueeScale: px("--concr-bands-marquee-font-size-removed-scale", 1),
 		marqueeSpeed: px("--concr-bands-marquee-speed", 16),
 		minBarWidth: px("--concr-bands-min-bar-width", 4),
 		textPad: px("--concr-bands-text-pad", 4),
@@ -245,7 +246,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 	const bandH = m.bandH;
 	const bandGap = m.bandGap;
 	const centerGap = m.centerGap;
-	const fontSize = m.fontSize;
+	const addedFontSize = m.fontSize;
+	const removedFontSize = m.fontSize * m.removedMarqueeScale;
 
 	const removedDirLines = isCompact
 		? ["the 1953 list", "removed from"]
@@ -545,7 +547,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				.attr("x", bx + bw - m.textPad)
 				.attr("y", y + bandH / 2)
 				.attr("dominant-baseline", "central")
-				.attr("font-size", `${fontSize}px`)
+				.attr("font-size", `${removedFontSize}px`)
 				.attr("font-weight", 400)
 				.attr("font-style", "italic")
 				.attr("letter-spacing", "0.05em")
@@ -569,7 +571,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				txt,
 				cycle,
 				textStyle: {
-					fontSize: `${fontSize}px`,
+					fontSize: `${removedFontSize}px`,
 					fontFamily: cfg.typography.serifFont,
 					fontWeight: 400,
 					fontStyle: "italic",
@@ -637,7 +639,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				.attr("x", bx + m.textPad)
 				.attr("y", y + bandH / 2)
 				.attr("dominant-baseline", "central")
-				.attr("font-size", `${fontSize}px`)
+				.attr("font-size", `${addedFontSize}px`)
 				.attr("font-weight", 400)
 				.attr("font-style", "italic")
 				.attr("letter-spacing", "0.05em")
@@ -661,7 +663,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 				txt,
 				cycle,
 				textStyle: {
-					fontSize: `${fontSize}px`,
+					fontSize: `${addedFontSize}px`,
 					fontFamily: cfg.typography.sansFont,
 					fontWeight: 400,
 					fontStyle: "italic",
