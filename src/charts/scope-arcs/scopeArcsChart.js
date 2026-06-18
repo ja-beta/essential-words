@@ -331,7 +331,7 @@ export function renderScopeArcsChart(container, payload) {
 		return path.node();
 	}
 
-	/** @type {Array<{ ring: number, textEl: SVGTextElement, tpNode: SVGTextPathElement, offset: number, cycleLen: number, cycleText: string, font: { family: string, style: string, weight: string | number } }>} */
+	/** @type {Array<{ ring: number, textEl: SVGTextElement, tpNode: SVGTextPathElement, offset: number, cycleLen: number, cycleText: string, font: { family: string, style: string, weight: string | number }, baseCycleLen: number, baseFontSize: number }>} */
 	const marqueeTracks = [];
 
 	/** @type {Array<{ ring: number, node: SVGPathElement, r: number, start: number, end: number, restThick: number }>} */
@@ -460,7 +460,9 @@ export function renderScopeArcsChart(container, payload) {
 					offset: 0,
 					cycleLen: 1,
 					cycleText,
-					font
+					font,
+					baseCycleLen: 0,
+					baseFontSize: wordFontSize
 				});
 			}
 		};
@@ -593,15 +595,7 @@ export function renderScopeArcsChart(container, payload) {
 		}, ms);
 	}
 
-	function measureMarqueeCycleLen(track, fontSize) {
-		track.textEl.setAttribute("font-size", fontSize);
-
-		// Prefer the live textPath length when Safari returns a sane value.
-		const pathLen = track.tpNode.getComputedTextLength();
-		if (pathLen > 8) return pathLen / marqueeRepeat;
-
-		// iOS often returns 0 / tiny lengths for clipped, transformed textPath nodes —
-		// measure one cycle with a plain off-screen <text> probe instead.
+	function probeCycleLen(track, fontSize) {
 		const probe = svg
 			.append("text")
 			.attr("visibility", "hidden")
@@ -614,32 +608,35 @@ export function renderScopeArcsChart(container, payload) {
 			.text(track.cycleText);
 		const probeLen = probe.node()?.getComputedTextLength?.() ?? 0;
 		probe.remove();
-		return probeLen > 0 ? probeLen : 0;
+		return probeLen;
+	}
+
+	function initMarqueeBaseMeasurements() {
+		const MIN_CYCLE = 24;
+		for (const track of marqueeTracks) {
+			let len = probeCycleLen(track, wordFontSize);
+			// Some WebKit builds still return 0 for hidden text — estimate from char count.
+			if (len < MIN_CYCLE) {
+				len = Math.max(MIN_CYCLE, track.cycleText.length * wordFontSize * 0.58);
+			}
+			track.baseFontSize = wordFontSize;
+			track.baseCycleLen = len;
+			track.cycleLen = len;
+			track.offset = -Math.random() * len;
+			track.tpNode.setAttribute("startOffset", track.offset);
+		}
+	}
+
+	function cycleLenForFontSize(track, fontSize) {
+		if (!track.baseCycleLen || !track.baseFontSize) return track.cycleLen || 24;
+		return track.baseCycleLen * (fontSize / track.baseFontSize);
 	}
 
 	function measureMarqueeTracks(fontSize, resetOffsets = false) {
-		const MIN_CYCLE = 8;
+		const MIN_CYCLE = 24;
 		for (const track of marqueeTracks) {
-			const measured = measureMarqueeCycleLen(track, fontSize);
-			let newCycle = measured;
-
-			// Reject glitchy reads that would make the marquee snap back every frame.
-			if (!Number.isFinite(newCycle) || newCycle < MIN_CYCLE) {
-				if (track.cycleLen >= MIN_CYCLE) {
-					if (resetOffsets) {
-						track.offset = -Math.random() * track.cycleLen;
-						track.tpNode.setAttribute("startOffset", track.offset);
-					}
-					continue;
-				}
-				newCycle = MIN_CYCLE;
-			} else if (track.cycleLen >= MIN_CYCLE && newCycle < track.cycleLen * 0.25) {
-				if (resetOffsets) {
-					track.offset = -Math.random() * track.cycleLen;
-					track.tpNode.setAttribute("startOffset", track.offset);
-				}
-				continue;
-			}
+			track.textEl.setAttribute("font-size", fontSize);
+			const newCycle = Math.max(MIN_CYCLE, cycleLenForFontSize(track, fontSize));
 
 			if (resetOffsets) {
 				track.offset = -Math.random() * newCycle;
@@ -784,8 +781,11 @@ export function renderScopeArcsChart(container, payload) {
 		const hoverChanged = overview && marqueeReset;
 		prevFocusedRing = overview ? null : focusedRing;
 		const resetOffsets = !marqueeInitialized || focusChanged || hoverChanged;
-		const transitionMs = animate && !overview ? Math.max(zoomDur, dur) : 0;
-		scheduleMarqueeResume(transitionMs, wordSize, resetOffsets);
+		const marqueeTransitionMs =
+			animate && !overview && (focusChanged || hoverChanged || !marqueeInitialized)
+				? Math.max(zoomDur, dur)
+				: 0;
+		scheduleMarqueeResume(marqueeTransitionMs, wordSize, resetOffsets);
 		marqueeInitialized = true;
 		marqueeLoop.syncEngagement();
 	}
@@ -823,6 +823,7 @@ export function renderScopeArcsChart(container, payload) {
 		applyVisualState(animate, false);
 	}
 
+	initMarqueeBaseMeasurements();
 	applyScrollState(scrollState, false);
 
 	return {

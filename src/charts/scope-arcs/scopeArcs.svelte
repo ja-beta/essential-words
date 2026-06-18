@@ -71,11 +71,18 @@
 
 	function commitStep(next) {
 		if (next === activeStep) return;
+		if (stepSettleTimer) {
+			clearTimeout(stepSettleTimer);
+			stepSettleTimer = 0;
+		}
+		pendingStep = null;
 		activeStep = next;
 		applyStepFocus();
 	}
 
-	function scheduleStep(next) {
+
+	function scheduleStepFallback(next) {
+		if (next === activeStep) return;
 		pendingStep = next;
 		if (stepSettleTimer) clearTimeout(stepSettleTimer);
 		stepSettleTimer = setTimeout(() => {
@@ -173,7 +180,7 @@
 				}
 				if (best) {
 					const idx = Number(best.target.getAttribute("data-step"));
-					if (Number.isInteger(idx)) scheduleStep(idx);
+					if (Number.isInteger(idx)) commitStep(idx);
 					return;
 				}
 				const firstTop = nodes[0].getBoundingClientRect().top;
@@ -182,7 +189,7 @@
 				let next = activeStep;
 				if (firstTop > midY) next = -1;
 				else if (lastBottom < midY) next = nodes.length;
-				scheduleStep(next);
+				scheduleStepFallback(next);
 			},
 			{ root: null, rootMargin: "-40% 0px -40% 0px", threshold: [0, 0.2, 0.5, 0.8, 1] }
 		);
