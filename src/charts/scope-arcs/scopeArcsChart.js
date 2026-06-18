@@ -9,8 +9,14 @@ const COLORS = {
 	bg: "var(--color-bg, #FFFFF1)"
 };
 
+// const FONTS = {
+// 	removed: { family: '"Source Serif 4", serif', style: "italic", weight: 500 },
+// 	added: { family: '"Source Sans 3", sans-serif', style: "italic", weight: 400 },
+// 	remained: { family: '"Source Sans 3", sans-serif', style: "italic", weight: 400 }
+// };
+
 const FONTS = {
-	removed: { family: '"Source Serif 4", serif', style: "italic", weight: 500 },
+	removed: { family: '"Tiempos Text", serif', style: "italic", weight: 400 },
 	added: { family: '"Source Sans 3", sans-serif', style: "italic", weight: 400 },
 	remained: { family: '"Source Sans 3", sans-serif', style: "italic", weight: 400 }
 };

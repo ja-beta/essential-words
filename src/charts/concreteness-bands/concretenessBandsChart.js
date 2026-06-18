@@ -211,9 +211,14 @@ export const CONCRETENESS_BANDS_CONFIG = {
 		muted: "var(--concr-bands-muted, #8F8A77)",
 		axisLabelBg: "var(--color-bg, #FFFFF1)"
 	},
+	// typography: {
+	// 	sansFont: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)',
+	// 	serifFont: 'var(--font-serif, "Source Serif 4", serif)',
+	// 	monoFont: 'var(--font-mono, "Source Code Pro", monospace)'
+	// }
 	typography: {
-		sansFont: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)',
-		serifFont: 'var(--font-serif, "Source Serif 4", serif)',
+		sansFont: 'var(--font-sans, "Source Sans 3", sans-serif)',
+		serifFont: 'var(--font-serif, "Tiempos Text", serif)',
 		monoFont: 'var(--font-mono, "Source Code Pro", monospace)'
 	}
 };

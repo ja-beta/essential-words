@@ -8,13 +8,13 @@
 :root {
 	/* font */
 	--font-sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
-	--font-serif: "Source Serif 4", Times New Roman, Times, serif;
+	/* --font-serif: "Source Serif 4", Times New Roman, Times, serif; */
 	/* --font-mono: "Source Code Pro", Menlo, Consolas, Monaco, monospace; */
 
 	
-	/* --font-sans: "Atlas Grotesk", Helvetica, Arial, sans-serif;
+	/* --font-sans: "Atlas Grotesk", Helvetica, Arial, sans-serif; */
 	--font-serif: "Tiempos Text", Times, serif;
-	--font-serif-headline: "Tiempos Headline", Times, serif; */
+	/*--font-serif-headline: "Tiempos Headline", Times, serif; */
 	--font-mono: "Atlas Typewriter", monospace; 
 
 	/* font sizes*/
@@ -360,6 +360,8 @@ svg {
 @media (max-width: 920px) {
 	:root {
 		--story-inline-margin: 2rem;
+
+		--explorer-rail-offset: var(--explorer-rail-width);
 		--max-prose-width: min(
 			650px,
 			calc(100vw - var(--explorer-rail-offset) - 2 * var(--story-inline-margin))
@@ -368,10 +370,6 @@ svg {
 			1200px,
 			calc(100vw - var(--explorer-rail-offset) - 2 * var(--story-inline-margin))
 		);
-	}
-
-	html.explorer-rail-active {
-		--explorer-rail-offset: var(--explorer-rail-width);
 	}
 
 	.story {
@@ -390,11 +388,18 @@ svg {
 		--chart-header-font-size: 1.5rem;
 		--explorer-rail-width: 1.5rem;
 	}
+
+	.story-section--title .story-dek {
+		font-size: 1.25rem;
+		margin: 1rem auto 1rem auto;
+	}
 }
 
 @media (max-width: 480px) {
 	:root {
 		--story-inline-margin: 1rem;
 	}
+
+	
 }
 

@@ -407,10 +407,10 @@
 			--sem-ribbon-marquee: 0;
 			--sem-mobile-margin: 16;
 			--sem-mobile-label-max-pct: 0.16;
-			--sem-mobile-label-min: 100;
+			--sem-mobile-label-min: 80;
 			--sem-mobile-slope-min: 92;
-			--sem-compact-band-gap: 15;
-			--sem-mobile-vertical-scale:1.5;
+			--sem-compact-band-gap: 12;
+			--sem-mobile-vertical-scale:1.25;
 			--sem-mobile-plot-max: 700;
 		}
 	}

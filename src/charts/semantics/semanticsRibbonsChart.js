@@ -331,9 +331,16 @@ function marqueeDataForCategory(c) {
 	return { words: c.remainedWords || [], wordSet: "remained" };
 }
 
+// function marqueeFontForWordSet(wordSet) {
+// 	if (wordSet === "removed") {
+// 		return { family: "\"Source Serif 4\", serif", style: "italic", weight: 500 };
+// 	}
+// 	return { family: "\"Source Sans 3\", sans-serif", style: "italic", weight: 400 };
+// }
+
 function marqueeFontForWordSet(wordSet) {
 	if (wordSet === "removed") {
-		return { family: "\"Source Serif 4\", serif", style: "italic", weight: 500 };
+		return { family: "\"Tiempos Text\", serif", style: "italic", weight: 400 };
 	}
 	return { family: "\"Source Sans 3\", sans-serif", style: "italic", weight: 400 };
 }

@@ -130,8 +130,29 @@
 
     @media (max-width: 420px) {
         .title {
-            --title-display-size: clamp(1.75rem, 9.5vw, 2.75rem);
-            --title-meta-size: clamp(0.75rem, 3.2vw, 1rem);
+            /* --title-display-size: clamp(2rem, 10.3vw, 2.75rem);
+            --title-meta-size: clamp(0.95rem, 3.2vw, 1rem); */
+
+            --title-display-size: 4.5rem;
+            --title-meta-size: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #couple-first, #couple-second{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tofrom {
+            font-size: 1.25rem;
+            position: relative;
+            right: 0;
+            margin-right: 0;
         }
     }
 
