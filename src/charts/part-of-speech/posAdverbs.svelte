@@ -82,7 +82,7 @@
 
 	@media (max-width: 720px){
 		.pos-adverbs{
-			padding: 0;
+			padding: 0 1rem;
 		}
 	}
 	

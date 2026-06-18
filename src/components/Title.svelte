@@ -68,7 +68,8 @@
     }
 
     #goat{
-        font-family: var(--font-serif);
+        /* font-family: var(--font-serif); */
+        font-family: 'Source Serif 4', serif; /* NOTE TO SELF: Figure this out. Maybe svg?*/
         background-image: linear-gradient(var(--color-gsl-highlight), var(--color-gsl-highlight));
         padding-left: 0.5rem;
         background-position: 0 calc(var(--title-d-bg-p) + 6.5%); 
