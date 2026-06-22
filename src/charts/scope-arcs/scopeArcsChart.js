@@ -122,7 +122,8 @@ export function renderScopeArcsChart(container, payload) {
 
 	const textOutsetPx = readCssPx(root, "--scope-arcs-text-outset", 0);
 	const textOutsetRatio = readCssPx(root, "--scope-arcs-text-outset-ratio", 0);
-	const labelInset = readCssPx(root, "--scope-arcs-label-inset", 6);
+	const labelInset = readCssPx(root, "--scope-arcs-label-inset", 0);
+	const labelInsetRatio = readCssPx(root, "--scope-arcs-label-inset-ratio", 0);
 	const marqueeSpeed = readCssPx(root, "--scope-arcs-marquee-speed", 18);
 	const marqueeRepeat = Math.max(2, Math.round(readCssPx(root, "--scope-arcs-marquee-repeat", 3)));
 
@@ -192,6 +193,60 @@ export function renderScopeArcsChart(container, payload) {
 		const r = trackR[i] ?? centerR;
 		const t = Math.max(gslThick[i] ?? 0, ngslThick[i] ?? 0);
 		return r - t / 2;
+	}
+
+	function bandWidthForRing(ringNum, activeRing, swellWidthFn) {
+		const i = ringNum - 1;
+		const resting = Math.max(gslThick[i] ?? 0, ngslThick[i] ?? 0);
+		return ringNum === activeRing ? swellWidthFn(resting) : resting;
+	}
+
+	function innerRadiusAt(ringNum, activeRing, swellWidthFn) {
+		const i = ringNum - 1;
+		const r = trackR[i] ?? centerR;
+		return r - bandWidthForRing(ringNum, activeRing, swellWidthFn) / 2;
+	}
+
+	function outerRadiusAt(ringNum, activeRing, swellWidthFn) {
+		const i = ringNum - 1;
+		const r = trackR[i] ?? centerR;
+		return r + bandWidthForRing(ringNum, activeRing, swellWidthFn) / 2;
+	}
+
+	function readLabelInset(ringNum) {
+		const px = readCssPx(root, `--scope-arcs-label-inset-${ringNum}`, NaN);
+		if (Number.isFinite(px)) return px;
+		return readCssPx(root, "--scope-arcs-label-inset", 0);
+	}
+
+	function readLabelInsetRatio(ringNum) {
+		const ratio = readCssPx(root, `--scope-arcs-label-inset-ratio-${ringNum}`, NaN);
+		if (Number.isFinite(ratio)) return ratio;
+		return readCssPx(root, "--scope-arcs-label-inset-ratio", 0);
+	}
+
+	function readLabelOverviewRatio() {
+		return readCssPx(root, "--scope-arcs-label-inset-ratio-overview", 0.05);
+	}
+
+	function labelRadiusForRing(ringNum, activeRing, swellWidthFn, { useFocusInsets = true } = {}) {
+		const prevOuter = outerRadiusAt(ringNum - 1, activeRing, swellWidthFn);
+		const inner = innerRadiusAt(ringNum, activeRing, swellWidthFn);
+		const gapCenter = (prevOuter + inner) / 2;
+		const gapWidth = Math.max(0, inner - prevOuter);
+		const inset = useFocusInsets ? readLabelInset(ringNum) : 0;
+		const ratio = useFocusInsets ? readLabelInsetRatio(ringNum) : readLabelOverviewRatio();
+		return gapCenter - inset - gapWidth * ratio;
+	}
+
+	function labelArcDForRing(ringNum, name, activeRing, swellWidthFn, options = {}) {
+		const labelR = labelRadiusForRing(ringNum, activeRing, swellWidthFn, options);
+		const approxTextLen = labelFontSize * name.length * 0.58;
+		const labelSpan = Math.min(
+			(300 * Math.PI) / 180,
+			(approxTextLen / Math.max(1, labelR)) * 1.06
+		);
+		return arcPath(svgCx, svgCy, labelR, TOP - labelSpan / 2, TOP + labelSpan / 2, 1);
 	}
 
 	function zoomScaleForState({ focusedRing, overview }) {
@@ -276,16 +331,20 @@ export function renderScopeArcsChart(container, payload) {
 		};
 	}
 
-	function ribbonTextRadius(r, ringNum) {
+	function ribbonTextOffset(r, ringNum) {
 		const { px, ratio } = readTextOutset(ringNum);
-		return r + px + r * ratio;
+		const inset = readCssPx(root, "--scope-arcs-text-inset", 0);
+		return px + r * ratio - inset;
 	}
 
-
-	function labelRadiusForRing(ringNum) {
-		const inner = innerRadiusForRing(ringNum);
-		return Math.max(labelFontSize, inner - labelInset - labelFontSize * 0.72);
+	function ribbonTextRadius(r, ringNum, { overviewHover = false } = {}) {
+		const offset = ribbonTextOffset(r, ringNum);
+		if (!overviewHover) return r + offset;
+		
+		const focusScale = zoomScaleForState({ focusedRing: ringNum, overview: false });
+		return r + offset * focusScale;
 	}
+
 
 	function drawHitArc(g, cx, cy, r, start, end, width) {
 		const d = arcPath(cx, cy, r, start, end, 1);
@@ -321,7 +380,8 @@ export function renderScopeArcsChart(container, payload) {
 	function registerTextPath(id, cx, cy, r, start, end, ringNum) {
 		const d = arcPath(cx, cy, ribbonTextRadius(r, ringNum), start, end, 1);
 		if (!d) return false;
-		defs.append("path").attr("id", id).attr("d", d);
+		const node = defs.append("path").attr("id", id).attr("d", d).node();
+		if (node) textPathMeta.push({ ring: ringNum, node, r, start, end });
 		return true;
 	}
 
@@ -342,6 +402,14 @@ export function renderScopeArcsChart(container, payload) {
 
 	/** @type {Array<{ ring: number, node: SVGPathElement, r: number, start: number, end: number, restThick: number }>} */
 	const clipMeta = [];
+
+	/** @type {Array<{ ring: number, node: SVGPathElement, r: number, start: number, end: number }>} */
+	const textPathMeta = [];
+
+	/** @type {Array<{ ring: number, node: SVGPathElement, name: string }>} */
+	const labelPathMeta = [];
+
+	const restingBandWidth = (resting) => resting;
 
 	const zoomG = svg
 		.append("g")
@@ -510,20 +578,11 @@ export function renderScopeArcsChart(container, payload) {
 					.text(line);
 			});
 		} else {
-			const labelR = labelRadiusForRing(ringNum);
-			
-			const approxTextLen = labelFontSize * ring.name.length * 0.58;
-			const labelSpan = Math.min(
-				(300 * Math.PI) / 180,
-				(approxTextLen / Math.max(1, labelR)) * 1.06
-			);
-			const labelArcD = arcPath(
-				svgCx, svgCy, labelR,
-				TOP - labelSpan / 2, TOP + labelSpan / 2, 1
-			);
+			const labelArcD = labelArcDForRing(ringNum, ring.name, null, restingBandWidth);
 			if (labelArcD) {
 				const labelPathId = `sarc-label-path-${i}`;
-				defs.append("path").attr("id", labelPathId).attr("d", labelArcD);
+				const node = defs.append("path").attr("id", labelPathId).attr("d", labelArcD).node();
+				if (node) labelPathMeta.push({ ring: ringNum, node, name: ring.name });
 				labelG
 					.append("text")
 					.attr("class", "sarc-ring-label-text")
@@ -737,6 +796,26 @@ export function renderScopeArcsChart(container, payload) {
 			if (d) m.node.setAttribute("d", d);
 		}
 
+		for (const m of textPathMeta) {
+			const overviewHover = overview && m.ring === activeRing;
+			const d = arcPath(
+				svgCx,
+				svgCy,
+				ribbonTextRadius(m.r, m.ring, { overviewHover }),
+				m.start,
+				m.end,
+				1
+			);
+			if (d) m.node.setAttribute("d", d);
+		}
+
+		for (const m of labelPathMeta) {
+			const d = labelArcDForRing(m.ring, m.name, activeRing, swellWidth, {
+				useFocusInsets: !overview
+			});
+			if (d) m.node.setAttribute("d", d);
+		}
+
 		labelLayer.style("pointer-events", "none");
 
 		ringLayer
@@ -755,10 +834,7 @@ export function renderScopeArcsChart(container, payload) {
 			.duration(dur)
 			.ease(ease)
 			.style("opacity", function () {
-				const ring = Number(this.getAttribute("data-ring"));
-				
-				if (ring === activeRing && ring !== 1) return 0;
-				return focusOpacity(ring);
+				return focusOpacity(Number(this.getAttribute("data-ring")));
 			})
 			.style("visibility", function () {
 				const ring = Number(this.getAttribute("data-ring"));

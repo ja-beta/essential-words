@@ -349,20 +349,29 @@
 
 		--scope-arcs-text-outset-ratio: -0.02;
 		--scope-arcs-text-outset: 0;
+		--scope-arcs-text-inset: 0;
 		/* per-ring overrides: --scope-arcs-text-outset-ratio-N, --scope-arcs-text-outset-N */
 		--scope-arcs-text-outset-ratio-1: -0.04;
-		--scope-arcs-text-path-pad: 2;
 		--scope-arcs-marquee-speed: 10;
 		--scope-arcs-marquee-repeat: 3;
 
-		--scope-arcs-label-inset: 6;
+		--scope-arcs-label-inset: 0;
+		/* px nudge inward; rings 2–5, focused scroll steps only (ignored in final overview) */
+		--scope-arcs-label-inset-ratio: 0;
+		/* fraction of gutter width; focused steps only — per-ring: -ratio-2 … -ratio-5 */
+		--scope-arcs-label-inset-ratio-overview: 0.05;
+		/* inward ratio on final overview step (all rings 2–5) */
+		--scope-arcs-label-inset-ratio-2: -0.3;
+		--scope-arcs-label-inset-ratio-3: -0.2;
+		--scope-arcs-label-inset-ratio-4: -0.1;
+		--scope-arcs-label-inset-ratio-5: 0.1;
 
 		--scope-arcs-intro-offset: 0vh;
 		--scope-arcs-final-hold: calc(100vh - var(--scope-arcs-intro-offset));
 
 		--chart-overlay-steps-top-pad: 30vh;
 		--chart-overlay-steps-bottom-pad: 0;
-		--chart-overlay-step-min-h: 125vh;
+		--chart-overlay-step-min-h: 155vh;
 		--chart-overlay-step-spacer-h: 0;
 
 		width: 100%;
@@ -606,6 +615,19 @@
 
 		.scope-arcs-legend-shell--visible .scope-arcs-legend {
 			transform: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.scope-arcs {
+			--scope-arcs-text-inset: 2;
+			--scope-arcs-text-outset-ratio-1: -0.01;
+			--scope-arcs-text-outset-ratio-2: -0.01;
+
+			--scope-arcs-label-inset-ratio-2: -0.2;
+			--scope-arcs-label-inset-ratio-3: 0;
+			--scope-arcs-label-inset-ratio-4: 0.1;
+			--scope-arcs-label-inset-ratio-5: 0.45;
 		}
 	}
 
