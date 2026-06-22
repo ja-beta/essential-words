@@ -154,6 +154,7 @@
         letter-spacing: 2%;
     }
 
+
     .concr-kde-chart :global(.concr-kde-hint-label) {
         font-size: 13px;
         font-family: var(--font-mono);
@@ -183,7 +184,8 @@
     }
 
     .concr-kde-chart + .chart-note {
-        margin-top: 2rem;
+        margin-top: 3rem;
+		text-align: start;
     }
 
 	@media (max-width: 935px){

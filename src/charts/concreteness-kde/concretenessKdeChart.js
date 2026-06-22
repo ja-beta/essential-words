@@ -159,9 +159,9 @@ export const CONCRETENESS_KDE_CONFIG = {
 		axisEndLabelSizePx: 15
 	},
 	axis: {
-		tickLineLength: 5,
-		tickLabelYOffset: 18,
-		endLabelYOffset: 36,
+		tickLineLength: 7,
+		tickLabelYOffset: 22,
+		endLabelYOffset: 42,
 		abstractLabel: "abstract",
 		concreteLabel: "concrete"
 	},
@@ -244,6 +244,7 @@ export function renderConcretenessKde(container, payload, { width }) {
 	const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
 	const xAxis = g.append("g").attr("transform", `translate(0,${plotH})`);
+	const [xMin, xMax] = c.x.domain;
 	for (const v of c.x.tickValues) {
 		xAxis
 			.append("line")
@@ -256,7 +257,7 @@ export function renderConcretenessKde(container, payload, { width }) {
 			.append("text")
 			.attr("x", xScale(v))
 			.attr("y", c.axis.tickLabelYOffset)
-			.attr("text-anchor", "middle")
+			.attr("text-anchor", v === xMin ? "start" : v === xMax ? "end" : "middle")
 			.attr("font-family", c.typography.fontFamily)
 			.attr("font-size", `${c.typography.tickLabelSizePx}px`)
 			.attr("fill", c.colors.gridText)
