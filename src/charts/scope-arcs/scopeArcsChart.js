@@ -126,6 +126,15 @@ export function renderScopeArcsChart(container, payload) {
 	const labelInsetRatio = readCssPx(root, "--scope-arcs-label-inset-ratio", 0);
 	const marqueeSpeed = readCssPx(root, "--scope-arcs-marquee-speed", 18);
 	const marqueeRepeat = Math.max(2, Math.round(readCssPx(root, "--scope-arcs-marquee-repeat", 3)));
+	const sansOpticalScale = readCssPx(root, "--highlight-sans-scale", 1.05);
+
+	function opticalScaleForFont(font) {
+		return font === FONTS.removed ? 1 : sansOpticalScale;
+	}
+
+	function wordFontSizeFor(font, baseSize) {
+		return baseSize * opticalScaleForFont(font);
+	}
 
 	const rings = payload.rings;
 	const ringData = rings.map((ring) => {
@@ -399,7 +408,7 @@ export function renderScopeArcsChart(container, payload) {
 		return path.node();
 	}
 
-	/** @type {Array<{ ring: number, textEl: SVGTextElement, tpNode: SVGTextPathElement, offset: number, cycleLen: number, cycleText: string, font: { family: string, style: string, weight: string | number }, baseCycleLen: number, baseFontSize: number }>} */
+	/** @type {Array<{ ring: number, textEl: SVGTextElement, tpNode: SVGTextPathElement, offset: number, cycleLen: number, cycleText: string, font: { family: string, style: string, weight: string | number }, opticalScale: number, baseCycleLen: number, baseFontSize: number }>} */
 	const marqueeTracks = [];
 
 	/** @type {Array<{ ring: number, node: SVGPathElement, r: number, start: number, end: number, restThick: number }>} */
@@ -511,11 +520,13 @@ export function renderScopeArcsChart(container, payload) {
 			if (!words?.length || !pathId || !clipId) return;
 			const cycleText = buildWordStr(words);
 			const repeated = cycleText.repeat(marqueeRepeat);
+			const opticalScale = opticalScaleForFont(font);
+			const trackFontSize = wordFontSizeFor(font, wordFontSize);
 			const clipG = wordsG.append("g").attr("class", "sarc-word-clip").attr("clip-path", `url(#${clipId})`);
 			const tEl = clipG
 				.append("text")
 				.attr("class", "sarc-word-text")
-				.attr("font-size", wordFontSize)
+				.attr("font-size", trackFontSize)
 				.attr("font-family", font.family)
 				.attr("font-style", font.style)
 				.attr("font-weight", font.weight)
@@ -537,8 +548,9 @@ export function renderScopeArcsChart(container, payload) {
 					cycleLen: 1,
 					cycleText,
 					font,
+					opticalScale,
 					baseCycleLen: 0,
-					baseFontSize: wordFontSize
+					baseFontSize: trackFontSize
 				});
 			}
 		};
@@ -681,12 +693,11 @@ export function renderScopeArcsChart(container, payload) {
 	function initMarqueeBaseMeasurements() {
 		const MIN_CYCLE = 24;
 		for (const track of marqueeTracks) {
-			let len = probeCycleLen(track, wordFontSize);
+			let len = probeCycleLen(track, track.baseFontSize);
 			// Some WebKit builds still return 0 for hidden text — estimate from char count.
 			if (len < MIN_CYCLE) {
-				len = Math.max(MIN_CYCLE, track.cycleText.length * wordFontSize * 0.58);
+				len = Math.max(MIN_CYCLE, track.cycleText.length * track.baseFontSize * 0.58);
 			}
-			track.baseFontSize = wordFontSize;
 			track.baseCycleLen = len;
 			track.cycleLen = len;
 			track.offset = -Math.random() * len;
@@ -699,11 +710,12 @@ export function renderScopeArcsChart(container, payload) {
 		return track.baseCycleLen * (fontSize / track.baseFontSize);
 	}
 
-	function measureMarqueeTracks(fontSize, resetOffsets = false) {
+	function measureMarqueeTracks(baseFontSize, resetOffsets = false) {
 		const MIN_CYCLE = 24;
 		for (const track of marqueeTracks) {
-			track.textEl.setAttribute("font-size", fontSize);
-			const newCycle = Math.max(MIN_CYCLE, cycleLenForFontSize(track, fontSize));
+			const trackSize = baseFontSize * track.opticalScale;
+			track.textEl.setAttribute("font-size", trackSize);
+			const newCycle = Math.max(MIN_CYCLE, cycleLenForFontSize(track, trackSize));
 
 			if (resetOffsets) {
 				track.offset = -Math.random() * newCycle;
@@ -845,16 +857,25 @@ export function renderScopeArcsChart(container, payload) {
 		const wordSize = wordFontSize / scale;
 		const nameSize = labelFontSize / scale;
 
-		const wordText = ringLayer.selectAll(".sarc-word-text");
 		const labelText = labelLayer.selectAll(".sarc-ring-label-text");
 
 		if (animate && zoomDur > 0) {
 			zoomRoot.interrupt().transition("zoom").duration(zoomDur).ease(ease).attr("transform", nextTransform);
-			wordText.interrupt().transition("text-size").duration(zoomDur).ease(ease).attr("font-size", wordSize);
+			for (const track of marqueeTracks) {
+				const trackSize = wordSize * track.opticalScale;
+				d3.select(track.textEl)
+					.interrupt()
+					.transition("text-size")
+					.duration(zoomDur)
+					.ease(ease)
+					.attr("font-size", trackSize);
+			}
 			labelText.interrupt().transition("text-size").duration(zoomDur).ease(ease).attr("font-size", nameSize);
 		} else {
 			zoomRoot.interrupt().attr("transform", nextTransform);
-			wordText.attr("font-size", wordSize);
+			for (const track of marqueeTracks) {
+				track.textEl.setAttribute("font-size", wordSize * track.opticalScale);
+			}
 			labelText.attr("font-size", nameSize);
 		}
 

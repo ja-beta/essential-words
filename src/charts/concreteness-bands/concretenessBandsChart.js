@@ -164,7 +164,7 @@ export function readConcretenessBandsMetrics(containerEl) {
 		bandGap: px("--concr-bands-band-gap", 8),
 		centerGap: px("--concr-bands-center-gap", 24),
 		fontSize: px("--concr-bands-marquee-font-size", 28),
-		removedMarqueeScale: px("--concr-bands-marquee-font-size-removed-scale", 1),
+		sansOpticalScale: px("--highlight-sans-scale", 1.05),
 		marqueeSpeed: px("--concr-bands-marquee-speed", 16),
 		minBarWidth: px("--concr-bands-min-bar-width", 4),
 		textPad: px("--concr-bands-text-pad", 4),
@@ -246,8 +246,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 	const bandH = m.bandH;
 	const bandGap = m.bandGap;
 	const centerGap = m.centerGap;
-	const addedFontSize = m.fontSize;
-	const removedFontSize = m.fontSize * m.removedMarqueeScale;
+	const removedFontSize = m.fontSize;
+	const addedFontSize = m.fontSize * m.sansOpticalScale;
 
 	const removedDirLines = isCompact
 		? ["the 1953 list", "removed from"]

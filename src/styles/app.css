@@ -22,6 +22,7 @@
 	--title-sub-font-size: 2.5rem;
 	--section-header-font-size: 2.5rem;
 	--chart-header-font-size: 1.75rem;
+	--highlight-sans-scale: 1.05;
 
 	/* z-index */
 	--z-bottom: -1;
@@ -155,6 +156,8 @@ svg {
 
 }
 
+
+
 /* .gsl::before{
 	content: "- ";
 }
@@ -183,7 +186,11 @@ svg {
 	box-decoration-break: clone;
 	background-repeat: no-repeat;
 	background-size: 100% 1.15em;
-	background-position: 0 67%; 
+	background-position: 0 65%; 
+}
+
+.ngsl, .remained{
+	font-size: calc(1em * var(--highlight-sans-scale));
 }
 
 .story {
@@ -339,16 +346,6 @@ svg {
 	height: var(--chart-overlay-step-spacer-h, 70vh);
 }
 
-.chart-placeholder {
-	border: 1px dashed var(--color-border);
-	border-radius: var(--radius-md);
-	padding: 2rem;
-	margin: 40px auto;
-	text-align: center;
-	font-family: var(--font-mono);
-	font-size: var(--14px, 0.875rem);
-	color: var(--color-fg-light);
-}
 
 .story-section--chart .chart-header {
 	transition: opacity 220ms ease;

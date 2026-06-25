@@ -744,10 +744,12 @@
 
 	.pos-tooltip--added {
 		color: var(--color-ngsl);
+		font-size: calc(1.25rem * var(--highlight-sans-scale));
 	}
 
 	.pos-tooltip--remained {
 		color: var(--color-primary);
+		font-size: calc(1.25rem * var(--highlight-sans-scale));
 	}
 
 	.pos-waffle-empty {
