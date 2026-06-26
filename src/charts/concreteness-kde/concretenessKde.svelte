@@ -150,7 +150,7 @@
         font-size: 15px;
         font-family: var(--font-mono);
         color: var(--color-primary);
-        font-weight: 600;
+        font-weight: 400;
         letter-spacing: 2%;
     }
 
@@ -159,7 +159,7 @@
         font-size: 13px;
         font-family: var(--font-mono);
         color: var(--color-primary);
-        font-weight: 500;
+        font-weight: 400;
         letter-spacing: 2%;
     }
 

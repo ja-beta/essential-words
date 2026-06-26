@@ -41,7 +41,7 @@ function appendMultilineLabel(svg, opts) {
 		.attr("text-anchor", anchor)
 		.attr("dominant-baseline", lines.length > 1 ? "auto" : "central")
 		.attr("font-size", `${size}px`)
-		.attr("font-weight", 600)
+		.attr("font-weight", 400)
 		.attr("letter-spacing", "0.08em")
 		.attr("fill", fill);
 
@@ -130,7 +130,7 @@ function appendDirectionLabelGroup(svg, opts) {
 		.attr("text-anchor", arrowAnchor)
 		.attr("dominant-baseline", "central")
 		.attr("font-size", `${size}px`)
-		.attr("font-weight", 600)
+		.attr("font-weight", 400)
 		.attr("letter-spacing", "0.08em")
 		.attr("fill", fill)
 		.text(arrow);
@@ -465,7 +465,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 			.attr("dominant-baseline", "central")
 			.attr("font-family", cfg.typography.monoFont)
 			.attr("font-size", `${isWhole ? m.axisWholeSizePx : m.axisHalfSizePx}px`)
-			.attr("font-weight", isWhole ? 600 : 400)
+			.attr("font-weight", 400)
 			.attr("fill", isWhole ? cfg.colors.muted : cfg.colors.gridText)
 			.text(isWhole ? String(v) : v.toFixed(1));
 	}
