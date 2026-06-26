@@ -11,7 +11,8 @@
 	import PosAdverbs from "../charts/part-of-speech/posAdverbs.svelte";
 	import PosWaffle from "../charts/part-of-speech/posWaffle.svelte";
 	import ScopeArcs from "../charts/scope-arcs/scopeArcs.svelte";
-	import Title from "$components/Title.svelte";
+	import StoryTitle from "$svg/title.svg";
+	import StoryTitleMobile from "$svg/title-mobile.svg";
 	import Explorer from "$components/Explorer.svelte";
 	import Notes from "$components/Notes.svelte";
 
@@ -95,7 +96,10 @@
 		{#each mainBlocks as block, i}
 			{#if block.type === "title"}
 				<section class="story-section story-section--title">
-					<Title/>
+					<h1 class="story-title" aria-label="From Goat to Despite">
+						<span class="story-title__art story-title__art--desktop">{@html StoryTitle}</span>
+						<span class="story-title__art story-title__art--mobile">{@html StoryTitleMobile}</span>
+					</h1>
 					{#if block.dek}
 						<p class="story-dek">{@html block.dek}</p>
 					{/if}

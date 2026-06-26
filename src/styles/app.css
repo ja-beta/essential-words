@@ -41,7 +41,7 @@
 	--radius-lg: 1rem;
 
 	--max-prose-width: 650px;
-	--max-med-width: 850px;
+	--max-med-width: 900px;
 	--max-chart-width: 1200px;
 	--story-inline-margin: 1rem;
 	--prose-margins: var(--story-inline-margin);
@@ -209,16 +209,55 @@ svg {
 	max-width: var(--max-med-width);
 }
 
+.story-title{
+	margin: 0;
+	width: 100%;
+	max-width: var(--max-prose-width);
+}
+
+.story-title__art {
+	display: block;
+}
+
+.story-title__art--mobile {
+	display: none;
+}
+
+.story-title svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.story-title .title-meta {
+	fill: var(--color-primary);
+}
+
+.story-title .title-word path {
+	fill: var(--color-hero-headline);
+}
+
+.story-title .title-highlight--goat {
+	fill: var(--color-gsl-highlight);
+}
+
+.story-title .title-highlight--despite {
+	fill: var(--color-ngsl-highlight);
+}
+
 .story-section--title .story-dek{
 	max-width: var(--max-chart-width);	
 	margin: 3rem auto 1rem auto;
-	font-family: var(--font-serif-headline);
+	font-family: var(--font-serif);
 	font-weight: 300;
 	font-size: var(--title-sub-font-size);
 	line-height: 1.15;
 	letter-spacing: 3%;
 	text-transform: uppercase;
 	color: var(--color-primary);
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .byline{
@@ -392,7 +431,7 @@ svg {
 	}
 
 	.story-section--title .story-dek {
-		font-size: 1.25rem;
+		font-size: 1.5rem;
 		margin: 1rem auto 1rem auto;
 	}
 }
@@ -401,7 +440,21 @@ svg {
 	:root {
 		--story-inline-margin: 1rem;
 	}
+}
 
-	
+@media (max-width: 420px) {
+	.story-title {
+		max-width: min(18rem, 100%);
+		margin-inline: auto;
+	}
+
+	.story-title__art--desktop {
+		display: none;
+	}
+
+	.story-title__art--mobile {
+		display: block;
+		margin-bottom: 1rem;
+	}
 }
 
