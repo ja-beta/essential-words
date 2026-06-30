@@ -425,19 +425,21 @@
 			--chart-overlay-steps-bottom-pad: 40vh;
 			--chart-overlay-step-spacer-h: 40vh;
 			--chart-overlay-step-min-h: 140vh;
+		
+			margin-left: 0;
+			margin-right: var(--explorer-rail-width);
 		}
 
 
 		.concr-bands-stage {
 			--chart-overlay-stage-top: 10vh;
 		}
-	}
 
-	@media (max-width: 720px){
 		:global(.story-section#concretenessBands .concr-bands) {
 			margin: 0;
 		}
 	}
+
 
 	@media (max-width: 520px) {
 		.concr-bands {

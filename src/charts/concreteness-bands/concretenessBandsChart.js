@@ -190,7 +190,9 @@ export function readConcretenessBandsMetrics(containerEl) {
 		annotTextGap: px("--concr-bands-annot-text-gap", 16),
 		annotTextInset: px("--concr-bands-annot-text-inset", 6),
 		annotDotR: px("--concr-bands-annot-dot-r", 2.5),
-		annotFontSize: px("--concr-bands-annot-font-size", 16)
+		annotFontSize: px("--concr-bands-annot-font-size", 16),
+		narrowAnnotBreakpoint: px("--concr-bands-narrow-annot-breakpoint", 480),
+		annotRemovedTextShift: px("--concr-bands-annot-text-shift-removed", 0)
 	};
 }
 
@@ -812,6 +814,7 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 		const list = (bands || []).filter((b) => b && Number.isFinite(b.pct));
 		if (!list.length) return;
 		const above = placement === "above";
+		const centerRemovedLabel = above && viewportW <= m.narrowAnnotBreakpoint;
 
 		for (const side of ["removed", "added"]) {
 			const sideBands = list.filter((b) => b.set === side).sort((a, b) => a.y - b.y);
@@ -822,7 +825,12 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 			const stroke = colors[side].text;
 			const label = side === "removed" ? "REMOVED" : "ADDED";
 
-			const textAnchor = side === "removed" ? "end" : "start";
+			const textAnchor =
+				side === "removed" && centerRemovedLabel
+					? "middle"
+					: side === "removed"
+						? "end"
+						: "start";
 
 			sideBands.forEach((band, i) => {
 				const bx = side === "removed" ? band.anchor - band.w : band.anchor;
@@ -831,7 +839,11 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 					? minTop - ANNOT.leader - i * ANNOT.stackStep
 					: maxBottom + ANNOT.leader + i * ANNOT.stackStep;
 				const textX =
-					side === "removed" ? cx + ANNOT.textInset : cx - ANNOT.textInset;
+					side === "removed"
+						? centerRemovedLabel
+							? cx + m.annotRemovedTextShift
+							: cx + ANNOT.textInset
+						: cx - ANNOT.textInset;
 
 				const g = hoverLayer
 					.append("g")
