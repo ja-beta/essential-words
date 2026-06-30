@@ -886,22 +886,30 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		);
 	}
 
+	function shouldAnimateMarquee(i, c, prefersReducedMotion) {
+		if (prefersReducedMotion) return isCategoryEngaged(c, i);
+		if (forcedFocusSet) return forcedFocusSet.has(i);
+		return true;
+	}
+
 	const marqueeLoop = showRibbonMarquee
 		? createMarqueeLoop({
 				halfRate: viewportW <= 768,
-				isEngaged: () => cats.some((c, i) => isCategoryEngaged(c, i)),
+				isEngaged: () => {
+					if (forcedFocusSet) return forcedFocusSet.size > 0;
+					return cats.some((c, i) => isCategoryEngaged(c, i));
+				},
 				tick(dt, prefersReducedMotion) {
 					for (let i = 0; i < cats.length; i++) {
 						const c = cats[i];
-						const engaged = isCategoryEngaged(c, i);
-						const animate = !prefersReducedMotion || engaged;
+						const animate = shouldAnimateMarquee(i, c, prefersReducedMotion);
 
 						if (!c._thin && animate && c._tpNode) {
 							c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
 							c._tpNode.setAttribute("startOffset", c._offset);
 						}
 
-						if (c._hoverActive && c._hoverTpNode) {
+						if (c._hoverActive && animate && c._hoverTpNode) {
 							c._hoverOffset = wrapLeftToRightOffset(
 								c._hoverOffset + marqueeSpeed * dt,
 								c._hoverCycleLen
@@ -909,7 +917,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 							c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
 						}
 
-						if (c._forcedActive && c._forcedTpNode) {
+						if (c._forcedActive && animate && c._forcedTpNode) {
 							c._forcedOffset = wrapLeftToRightOffset(
 								c._forcedOffset + marqueeSpeed * dt,
 								c._forcedCycleLen
