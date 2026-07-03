@@ -274,13 +274,13 @@ const PCT_CAP_SIGN_GAP = "0.2em";
 
 function percentCapLabelLayout(y, h, midY, thinThreshold, capLabelBottomPad) {
 	if (h >= thinThreshold) {
-		return { labelY: midY, baseline: "central", hidden: false };
+		return { labelY: midY, dy: "0.35em", hidden: false };
 	}
 
 	const bottomPad = Math.min(capLabelBottomPad, Math.max(0.5, h * 0.2));
 	return {
 		labelY: y + h - bottomPad,
-		baseline: "text-after-edge",
+		dy: "0",
 		hidden: true
 	};
 }
@@ -311,7 +311,7 @@ function appendPercentCapLabel(group, { x, y, w, h, midY, pct, textColor, thinTh
 		.attr("x", x + w / 2)
 		.attr("y", layout.labelY)
 		.attr("text-anchor", "middle")
-		.attr("dominant-baseline", layout.baseline)
+		.attr("dy", layout.dy)
 		.attr("font-size", `${PCT_CAP_LABEL_FONT_SIZE}px`)
 		.attr("font-weight", 600)
 		.attr("fill", textColor)
