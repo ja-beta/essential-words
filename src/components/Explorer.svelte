@@ -21,33 +21,80 @@
 	$effect(() => {
 		if (!browser || !visible || !isOpen) return;
 
+		function isOutsideDrawer(event) {
+			if (!drawerEl) return true;
+			return !event.composedPath().includes(drawerEl);
+		}
+
 		function handlePointerDown(event) {
-			if (!drawerEl?.contains(event.target)) {
-				isOpen = false;
-			}
+			if (!isOutsideDrawer(event)) return;
+			closeExplorer();
+		}
+
+		function handleTouchStart(event) {
+			if (!isOutsideDrawer(event)) return;
+			closeExplorer();
 		}
 
 		function handleKeyDown(event) {
 			if (event.key !== "Escape") return;
 			event.preventDefault();
-			isOpen = false;
+			closeExplorer();
 		}
 
 		document.addEventListener("pointerdown", handlePointerDown, true);
+		document.addEventListener("touchstart", handleTouchStart, { capture: true, passive: true });
 		document.addEventListener("keydown", handleKeyDown);
 
 		return () => {
 			document.removeEventListener("pointerdown", handlePointerDown, true);
+			document.removeEventListener("touchstart", handleTouchStart, true);
 			document.removeEventListener("keydown", handleKeyDown);
 		};
 	});
 
+	function openExplorer() {
+		isOpen = true;
+		listsMounted = true;
+	}
+
+	function closeExplorer() {
+		isOpen = false;
+	}
+
 	function toggleOpen() {
-		const next = !isOpen;
-		isOpen = next;
-		if (next) listsMounted = true;
+		if (isOpen) closeExplorer();
+		else openExplorer();
 	}
 </script>
+
+<button
+	type="button"
+	class="explorer-fab"
+	class:is-visible={visible && !isOpen}
+	onclick={openExplorer}
+	aria-controls="explorer-panel"
+	aria-expanded={isOpen}
+	aria-label="Open word lists"
+	inert={!visible || isOpen}
+>
+	<span class="explorer-btn" aria-hidden="true">
+		<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<line x1="10" y1="4" x2="10" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+			<line x1="4" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+		</svg>
+	</span>
+	<span class="explorer-fab-label">word lists</span>
+</button>
+
+{#if visible && isOpen}
+	<button
+		type="button"
+		class="explorer-backdrop"
+		aria-label="Close word lists"
+		onclick={closeExplorer}
+	></button>
+{/if}
 
 <aside
 	class="explorer"
@@ -59,7 +106,7 @@
 	<div class="explorer-drawer" bind:this={drawerEl}>
 		<button
 			type="button"
-			class="explorer-rail"
+			class="explorer-rail explorer-rail--desktop"
 			onclick={toggleOpen}
 			aria-expanded={isOpen}
 			aria-controls="explorer-panel"
@@ -73,6 +120,22 @@
 			</span>
 
 			<span class="explorer-tab-label">word lists</span>
+		</button>
+
+		<button
+			type="button"
+			class="explorer-close-tab"
+			onclick={closeExplorer}
+			aria-controls="explorer-panel"
+			aria-expanded={isOpen}
+			aria-label="Close word lists"
+		>
+			<span class="explorer-btn explorer-btn--close" aria-hidden="true">
+				<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<line x1="10" y1="4" x2="10" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<line x1="4" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+			</span>
 		</button>
 
 		<div
@@ -222,10 +285,92 @@
 		height: 100%;
 	}
 
-    .explorer.is-open .explorer-btn{
+    .explorer.is-open .explorer-rail--desktop .explorer-btn{
         transform: rotate(45deg);
         transition: transform 0.3s ease-in-out;
     }
+
+	.explorer-btn--close {
+		transform: rotate(45deg);
+	}
+
+	.explorer-fab,
+	.explorer-close-tab,
+	.explorer-backdrop {
+		display: none;
+	}
+
+	.explorer-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 49;
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: transparent;
+		cursor: default;
+	}
+
+	.explorer-fab {
+		--explorer-transition-duration: 360ms;
+		--explorer-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+		position: fixed;
+		top: 12px;
+		right: 12px;
+		z-index: 50;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 0.5rem;
+		background-color: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		box-shadow: -2px 2px 12px 0 rgba(173, 161, 148, 0.25);
+		color: inherit;
+		cursor: pointer;
+		transform: translateY(calc(-100% - 12px));
+		pointer-events: none;
+		transition: transform var(--explorer-transition-duration) var(--explorer-transition-ease);
+	}
+
+	.explorer-fab.is-visible {
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+
+	.explorer-fab-label {
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		font-weight: 500;
+		letter-spacing: 4%;
+		text-transform: uppercase;
+		color: var(--color-secondary);
+		writing-mode: vertical-rl;
+		text-orientation: mixed;
+		transform: rotate(180deg);
+		white-space: nowrap;
+	}
+
+	.explorer-fab:hover .explorer-fab-label {
+		color: var(--color-primary);
+	}
+
+	.explorer-close-tab {
+		flex: 0 0 var(--explorer-close-tab-width, var(--explorer-rail-width));
+		width: var(--explorer-close-tab-width, var(--explorer-rail-width));
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem 0.5rem;
+		background-color: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-right: none;
+		border-radius: 0;
+		box-shadow: -2px 2px 12px 0 rgba(173, 161, 148, 0.25);
+		color: inherit;
+		cursor: pointer;
+	}
 
 	.explorer-tab-label {
 		flex: 1;
@@ -253,7 +398,7 @@
 		background-color: var(--color-bg);
 	}
 
-    .explorer-rail:hover .explorer-tab-label{
+    .explorer-rail--desktop:hover .explorer-tab-label{
         color: var(--color-primary);
     }
 
@@ -349,54 +494,70 @@
         color: var(--color-ngsl);
     }
 
-    @media (max-width: 720px){
-        .explorer-rail .explorer-tab-label{
-            font-size: 13px;
-        }
-    }
 
 
 
 	@media (max-width: 1024px) {
+		.explorer-rail--desktop {
+			display: none;
+		}
+
+		.explorer-backdrop {
+			display: block;
+		}
+
+		.explorer-fab {
+			display: flex;
+			flex-direction: row;
+			padding: 0.5rem;
+			gap: 0.5rem;
+		}
+
 		
+
+		.explorer-fab-label {
+		writing-mode: horizontal-tb;
+		text-orientation: normal;
+		transform: rotate(0deg);
+		}
+
 		.explorer {
-			--explorer-tab-width: var(--explorer-rail-width);
+			--explorer-close-tab-width: 40px;
+			--explorer-panel-width: min(320px, calc(100vw - var(--explorer-close-tab-width)));
 			top: 0;
 			height: 100dvh;
-			width: var(--explorer-tab-width);
+			width: 0;
 			border: none;
 			box-shadow: none;
 			z-index: 50;
 		}
 
+		.explorer.is-visible:not(.is-open) {
+			transform: translateX(100%);
+			pointer-events: none;
+			visibility: hidden;
+		}
+
 		.explorer.is-open {
-			width: calc(var(--explorer-tab-width) + var(--explorer-panel-width));
+			width: calc(var(--explorer-close-tab-width) + var(--explorer-panel-width));
 		}
 
 		.explorer-drawer {
 			align-items: flex-start;
-			width: calc(var(--explorer-tab-width) + var(--explorer-panel-width));
+			width: calc(var(--explorer-close-tab-width) + var(--explorer-panel-width));
 		}
 
-		.explorer-rail {
-			flex: 0 0 var(--explorer-tab-width);
-			width: var(--explorer-tab-width);
+		.explorer-close-tab {
+			display: none;
+		}
+
+		.explorer.is-open .explorer-close-tab {
+			display: flex;
 			position: relative;
-			top: 40px;
+			top: 12px;
 			height: auto;
-			border: 1px solid var(--color-border);
-			border-right: none;
-			border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-			gap: 0.75rem;
-			padding: 0.75rem 0.25rem;
-			box-shadow: -2px 2px 12px 0 rgba(173, 161, 148, 0.25);
 		}
 
-		.explorer-tab-label {
-			flex: 0 0 auto;
-		}
-
-		
 		.explorer-panel {
 			flex: 0 0 var(--explorer-panel-width);
 			width: var(--explorer-panel-width);
