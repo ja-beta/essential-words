@@ -23,6 +23,7 @@
 	--section-header-font-size: 2rem;
 	--chart-header-font-size: 1.75rem;
 	--highlight-sans-scale: 1.05;
+	--note-font-size: 0.875rem;
 
 
 	--highlight-serif: 1.15em;
@@ -326,7 +327,7 @@ svg {
 	max-width: var(--max-prose-width);
 	margin: 1rem auto 2.5rem auto;
 	text-align: center;
-	font-size: 13px;
+	font-size: var(--note-font-size);
 	color: var(--color-secondary);
 }
 
@@ -338,7 +339,7 @@ svg {
 
 .note-list li{
 	text-align: left;
-	font-size: 13px;
+	font-size: var(--note-font-size);
 	line-height: 1.25;
 	margin: 0.5rem 0;
 }

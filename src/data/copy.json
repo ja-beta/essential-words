@@ -1,13 +1,13 @@
 {
   "ignore": [
     {
-      "optional": "I might bump up the contrast here on mobile"
+      "optional": "I might bump up the contrast here on mobile V"
     },
     {
-      "optional": "super small idea here, but i don't think you need to reverse the highlighting after you exit the sticky part of the intro and proceed to the paragraphs \"some of the changes...\" it could stay in the fully highlighted state i think?"
+      "optional": "super small idea here, but i don't think you need to reverse the highlighting after you exit the sticky part of the intro and proceed to the paragraphs \"some of the changes...\" it could stay in the fully highlighted state i think? V"
     },
     {
-      "optional": "on mobile, the toolbar preview for \"word lists\" could be a small fixed button on the top right if you want to reclaim more pixels for the story"
+      "optional": "on mobile, the toolbar preview for \"word lists\" could be a small fixed button on the top right if you want to reclaim more pixels for the story V"
     },
     {
       "optional": "Putting a background color on the legend might help with legibility here!"
@@ -44,17 +44,17 @@
       "type": "intro",
       "p1": "Some of the changes make immediate sense: <span class=gsl>Telegraph</span> dropped out; <span class=ngsl>computer</span> was added, along with <span class=ngsl>website</span> and <span class=ngsl>blog.</span> <span class=gsl>Tobacco</span> was replaced by <span class=ngsl>cigarette.</span> <span class=gsl>Motherhood</span> became <span class=ngsl>mom,</span> and <span class=ngsl>dad</span> was added too, though <i>fatherhood</i> was never on the list to begin with. The world changed and vocabulary surely followed.",
       "p2": "But also: <span class=gsl>apple</span> didn’t make the new list. Neither did <span class=gsl>fork, soap, umbrella</span> or <span class=gsl>leaf,</span> for example. It’s not that these things vanished from everyday life, but many hands-on words became less central to the core vocabulary. <span class=remained>Dog</span> stayed; <span class=gsl>goat</span> and <span class=gsl>donkey</span> didn’t. <span class=remained>Bread</span> stayed; breadmaking ingredients—<span class=gsl>flour</span> and <span class=gsl>wheat</span>—dropped. <span class=remained>Cook</span> is on the new list. <span class=gsl>Boil, bake,</span> and <span class=gsl>fry</span> are not.",
-      "p3": "And many of the words that were added, words such as <span class=ngsl>mortgage, corporation, appropriate, analysis, fairly,</span> and <span class=ngsl>despite,</span> don’t look anything like the ones that were discarded. In fact, they are mostly abstract concepts that don’t look like anything at all."
+      "p3": "And many of the words that were added, such as <span class=ngsl>mortgage, corporation, appropriate, analysis, fairly,</span> and <span class=ngsl>despite,</span> don’t look anything like the ones that were discarded. In fact, they are mostly abstract concepts that don’t look like anything at all."
     },
     {
       "type": "title",
       "h1": "From Goat to Despite",
       "dek": "How the Words We Teach English Language Learners Changed, and What That Says About Us",
-      "byline": "By Jasmine Nackash"
+      "byline": "By <a href=https://pudding.cool/author/jasmine-nackash target=_blank>Jasmine Nackash</a>"
     },
     {
       "type": "prose",
-      "html": "<p>These “essential vocabulary” lists are called the <a href=https://en.wikipedia.org/wiki/General_Service_List target=_blank>General Service List</a> (1953) and the <a href=https://en.wikipedia.org/wiki/New_General_Service_List target=_blank>New General Service List</a> (2013, revised in 2023).</p>\r\n\r\n\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data and extensively tested. The aim was a vocabulary list with as few words and as much coverage of everyday English usage as possible. That coverage is high. Over 90% for the 2023 list<sup><a href=#f1 id=f1b>1</a></sup> and about 84% for the 1953 list.<sup><a href=#f2 id=f2b>2</a></sup> To account for that much of the language, they had to track a significant portion of whatever people were actually reading and saying. A word earned its place by appearing often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society.</p>\r\n\r\n\r\n<p>While these were practical tools, built to capture which words people need most, the answer also doubles as a snapshot of ordinary life, seventy years apart: what people were expected to engage with, and had to deal with, in their daily lives.</p>\r\n\r\n\r\n<p>Treating the lists as this indirect record of the day-to-day, I went through the differences between them from a few angles: what the words were about, how tangible they were, and what parts of speech they belonged to.</p>\r\n\r\n\r\n<h2 class=section-header>The Expanding World</h2>\r\n<p>First, I started by running all the words through a tool that sorts words by meaning,<sup><a href=#f3 id=f3b>3</a></sup> common in linguistics research. It assigns each word to one of 21 subject categories, based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Together, they suggest what kind of world each list was built for.</p>"
+      "html": "<p>These “essential vocabulary” lists are called the <a href=https://en.wikipedia.org/wiki/General_Service_List target=_blank>General Service List</a> (1953) and the <a href=https://en.wikipedia.org/wiki/New_General_Service_List target=_blank>New General Service List</a> (2013, revised in 2023).</p>\r\n\r\n\r\n<p>They were designed as teaching tools for people learning English as a second language, built from real-world usage data and extensively tested. The aim was a vocabulary list with as few words and as much coverage of everyday English usage. That coverage is high, over 90% for the 2023 list<sup><a href=#f1 id=f1b>1</a></sup> and about 84% for the 1953 list.<sup><a href=#f2 id=f2b>2</a></sup> To account for that much of the language, they had to track a significant portion of whatever people were actually reading and saying. A word earned its place by appearing often enough, across enough contexts, to be hard to avoid for the average person in an English-speaking society.</p>\r\n\r\n\r\n<p>While these were practical tools, built to capture which words people need most, the answer also doubles as a snapshot of ordinary life, 70 years apart: what people were expected to engage with, and had to deal with, in their daily lives.</p>\r\n\r\n\r\n<p>Treating the lists as an indirect record of day-to-day life, I went through the differences between them from a few angles: what the words were about, how tangible were they, and to which parts of speech they belonged.</p>\r\n\r\n\r\n<h2 class=section-header>The Expanding World</h2>\r\n<p>I started by using a common linguistics research tool<sup><a href=#f3 id=f3b>3</a></sup> that sorted all of the words by meaning. It assigned each word to one of 21 subject categories, based on typical usage: Food and Farming, the Body and the Self, Government and Public, Language and Communication, and so on. Together, they suggested what kind of world each list was built for.</p>"
     },
     {
       "type": "chart",
@@ -107,7 +107,7 @@
         },
         {
           "label": "Overlay 4 – focus on social/communication",
-          "html": "The “Social & Communication” level barely changed in size. But nearly a quarter of the words in the 1953 list are gone, and 39% of the 2023 words are new. <span class=gsl>Humble, loyalty, fellowship, generous, polite,</span> and <span class=gsl>companionship</span> gave way to <span class=ngsl>community, identity, organization, ethnic, gender,</span> and <span class=ngsl>narrative.</span> The social world shifted from something you navigate through personal relationships to something with which you identify through categories. It offers fewer words for the people directly around you, but more for belonging at a distance."
+          "html": "The “Social & Communication” level barely changed in size. But nearly a quarter of the words in the 1953 list are gone, and 39% of the 2023 words are new. <span class=gsl>Humble, loyalty, fellowship, generous, polite,</span> and <span class=gsl>companionship</span> gave way to <span class=ngsl>community, identity, organization, ethnic, gender,</span> and <span class=ngsl>narrative.</span> The social world shifted from something you navigate through relationships to something with which you identify through categories. It offers fewer words for the people directly around you, but more for belonging at a distance."
         },
         {
           "label": "Overlay 5 – focus on universal/abstract (zoomed out)",
@@ -117,7 +117,7 @@
     },
     {
       "type": "prose",
-      "html": "<p>In hindsight, the shift makes sense. By 1957, four years after the original list was published, <a href=https://time.com/archive/6613167/new-problem-for-unions-the-rise-of-the-white-collar-worker/ target=_blank>white-collar workers outnumbered blue-collar for the first time in US history.</a> And by 2000, <a href=https://www.bls.gov/opub/mlr/2006/03/art3full.pdf target=_blank>fewer than one in four workers did manual labor.</a> The stuff people encountered in their daily lives, what they needed to talk about, and the systems they had to navigate all changed.</p>\r\n\r\n\r\n<p>The vocabulary lists, built from the language of their respective eras, tracked those changes. The shifts reflect a life that got further from its own making: less tied to tools, animals, food, and the body; more tied to national or global institutions, categories, systems, and ideas.</p>\r\n\r\n\r\n<p>The new vocabulary—<span class=ngsl>mortgage, legislation, perspective, involvement, improvement, assumption, evaluation</span>—are words you can’t weigh, point to, or hold in your hand. These words shape your life, but they do it without ever occupying any physical space.</p>\r\n\r\n\r\n<h2 class=section-header>Harder to Picture</h2>\r\n\r\n\r\n<p>To better understand whether there was a shift in vocabulary describing the physical world, I compared each word to a database that rates the tangibility of words<sup><a href=#f4 id=f4b>4</a></sup>, on a scale of 1 to 5 (called a “concreteness rating”). A rating of 5 means you can experience the word directly with your senses, while a rating of 1 means you can't.</p>"
+      "html": "<p>In hindsight, the shift makes sense. By 1957, four years after the original list was published, <a href=https://time.com/archive/6613167/new-problem-for-unions-the-rise-of-the-white-collar-worker/ target=_blank>white-collar workers outnumbered blue-collar for the first time in US history.</a> And by 2000, <a href=https://www.bls.gov/opub/mlr/2006/03/art3full.pdf target=_blank>fewer than one in four workers did manual labor.</a> The stuff people encountered in their daily lives, what they needed to talk about, and the systems they had to navigate all changed.</p>\r\n\r\n\r\n<p>The vocabulary lists, built from the language of their respective eras, tracked those changes. The shifts reflect a life that moved further from its own making: less tied to tools, animals, food, and the body; more tied to national or global institutions, categories, systems, and ideas.</p>\r\n\r\n\r\n<p>The new vocabulary—<span class=ngsl>mortgage, legislation, perspective, involvement, improvement, assumption, evaluation</span>—are words you can’t weigh, point to, or hold in your hand. These words shape your life, but they do it without occupying physical space.</p>\r\n\r\n\r\n<h2 class=section-header>Harder to Picture</h2>\r\n\r\n\r\n<p>To better understand whether there was a shift in vocabulary describing the physical world, I compared each word to a database that rates its tangibility<sup><a href=#f4 id=f4b>4</a></sup> on a scale of 1 to 5 (called a “concreteness rating”). A rating of 5 means you can experience the word directly with your senses, while a rating of 1 means you can’t.</p>"
     },
     {
       "type": "chart",
@@ -142,7 +142,7 @@
         },
         {
           "label": "Overlay 2 – focus on bands 2–2.5 (mid-abstract)",
-          "html": "Nearly a quarter of all added words land in the middle, not quite picturable, but not entirely vague either—words such as <span class=ngsl>regulation, reform, cooperation, obligation, initiative, negotiate,</span> and <span class=ngsl>perception.</span> For comparison, the discarded words that have a similar score include: <span class=gsl>shame, convenience, spite, fellowship, companionship.</span>"
+          "html": "Nearly a quarter of all added words land in the middle, not quite picturable, but not entirely vague either—words such as <span class=ngsl>regulation, reform, cooperation, obligation, initiative, negotiate,</span> and <span class=ngsl>perception.</span> For comparison, the discarded words that have a similar score include <span class=gsl>shame, convenience, spite, fellowship, and companionship.</span>"
         },
         {
           "label": "Overlay 3 – focus on bands 1–2",
@@ -152,7 +152,7 @@
     },
     {
       "type": "prose",
-      "html": "<p> Because concrete words carry their meaning in themselves, with sensory grounding, abstract words rely on other parts of speech to specify, soften, or sharpen what they mean. That help tends to come from one particular corner of the language: adverbs.</p>\r\n <h2 class=section-header>How Much, How Often, How Certain</h2>"
+      "html": "<p> While concrete words have sensory grounding to carry their meaning, abstract words rely on other parts of speech to specify, soften, or sharpen what they mean. That help tends to come from one particular corner of the language: adverbs.</p>\r\n <h2 class=section-header>How Much, How Often, How Certain</h2>"
     },
     {
       "type": "chart",
@@ -177,7 +177,7 @@
   "notes": [
     {
       "type": "notes",
-      "title": "Methodology & notes",
+      "title": "Methods & Notes",
       "intro": [
         {
           "html": "<p>I compared two prominent vocabulary lists for English learners: the General Service List (GSL, 1953; 2,284 words) and the New General Service List (NGSL 1.2, 2023; 2,809 words). I labeled words appearing on both lists as “remained” (1,656), words only on the 1953 list as “removed” (628), and words only on the 2023 list as “added” (1,153).</p>\r\n\r\n\r\n<p>The GSL words came from the <a href=https://simple.wiktionary.org/wiki/Wiktionary:General_Service_List target=_blank>Simple English Wiktionary GSL</a>. The NGSL words came from the <a href=https://www.newgeneralservicelist.com/new-general-service-list#:~:text=NGSL%201.2%20alphabetized%20and%20lemmatized%20for%20research target=_blank>official NGSL 1.2 file</a> (“alphabetized and lemmatized for research”).\r\nThe NGSL uses lemmas (one entry per word family); the GSL sometimes lists inflected forms as separate headwords. These lists track word forms deemed worth teaching based on frequency and usefulness, not abstract concepts. For example, the word <i>being</i> is on the GSL as its own headword and was not included in the NGSL, But this doesn’t mean the concept of existence left the language. In the NGSL it falls under <i>be</i>, which is on both lists.</p>"
