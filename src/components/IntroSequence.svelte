@@ -309,9 +309,9 @@
 		return 1;
 	});
 	const removedOn = $derived(!isMobileLayout && stickyY >= part2Cut);
-	const dropOn = $derived(stickyY >= part3TextEnd && stickyY < part3HoldEnd);
-	const addOn = $derived(stickyY >= part3DropEnd && stickyY < part3HoldEnd);
-	const remainOn = $derived(stickyY >= part3AddEnd && stickyY < part3HoldEnd);
+	const dropOn = $derived(stickyY >= part3TextEnd);
+	const addOn = $derived(stickyY >= part3DropEnd);
+	const remainOn = $derived(stickyY >= part3AddEnd);
 	const overlayOn = $derived(stickyY >= part3HoldEnd);
 	const part4Visible = $derived(stickyY >= part3HoldEnd);
 	const part1BgTravelVh = $derived(Math.max(0, geometry.bgTotalVh - geometry.stageVh));
@@ -663,7 +663,7 @@
 	}
 
 	.intro-fade-overlay.is-visible {
-		opacity: 0.7;
+		opacity: 0.85;
 	}
 
 	.intro-copy {

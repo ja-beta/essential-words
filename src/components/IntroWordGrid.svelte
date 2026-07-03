@@ -200,6 +200,7 @@
 
 		.word {
 			font-size: 0.875rem;
+			opacity: 1;
 		}
 	}
 </style>
