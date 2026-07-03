@@ -355,4 +355,59 @@
         }
     }
 
+
+
+	@media (max-width: 1024px) {
+		
+		.explorer {
+			--explorer-tab-width: var(--explorer-rail-width);
+			top: 0;
+			height: 100dvh;
+			width: var(--explorer-tab-width);
+			border: none;
+			box-shadow: none;
+			z-index: 50;
+		}
+
+		.explorer.is-open {
+			width: calc(var(--explorer-tab-width) + var(--explorer-panel-width));
+		}
+
+		.explorer-drawer {
+			align-items: flex-start;
+			width: calc(var(--explorer-tab-width) + var(--explorer-panel-width));
+		}
+
+		.explorer-rail {
+			flex: 0 0 var(--explorer-tab-width);
+			width: var(--explorer-tab-width);
+			position: relative;
+			top: 40px;
+			height: auto;
+			border: 1px solid var(--color-border);
+			border-right: none;
+			border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+			gap: 0.75rem;
+			padding: 0.75rem 0.25rem;
+			box-shadow: -2px 2px 12px 0 rgba(173, 161, 148, 0.25);
+		}
+
+		.explorer-tab-label {
+			flex: 0 0 auto;
+		}
+
+		
+		.explorer-panel {
+			flex: 0 0 var(--explorer-panel-width);
+			width: var(--explorer-panel-width);
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.explorer.is-open .explorer-panel {
+			border-left: 1px solid var(--color-border);
+			box-shadow: -6px 0 16px 0 rgba(173, 161, 148, 0.17);
+		}
+	}
+
 </style>

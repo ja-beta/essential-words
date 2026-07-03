@@ -52,7 +52,7 @@
 	--story-inline-margin: 1rem;
 	--prose-margins: var(--story-inline-margin);
 	--mobile-margins: var(--story-inline-margin);
-	--explorer-rail-width: 2.5rem;
+	--explorer-rail-width: 32px;
 	--explorer-rail-offset: 0px;
 	
 	--color-bg: #FFFFF1;
@@ -430,6 +430,17 @@ svg {
 		box-sizing: border-box;
 		padding-right: var(--explorer-rail-offset);
 	}
+}
+
+
+@media (max-width: 1024px) {
+	:root {
+		--explorer-rail-offset: 0px;
+	}
+
+	.story {
+		padding-right: 0;
+	}
 
 	.story-section--title .story-dek {
 		font-size: 1.75rem;
@@ -440,7 +451,6 @@ svg {
 	:root {
 		--p-font-size: 1.125rem;
 		--chart-header-font-size: 1.5rem;
-		--explorer-rail-width: 1.5rem;
 	}
 
 	.story-section--title .story-dek {

@@ -26,30 +26,30 @@
 	let explorerVisible = $state(false);
 	let rafId = 0;
 
-	const EXPLORER_INTRO_SHOW_PX = 500;
-	const EXPLORER_INTRO_HIDE_PX = 640;
+	const EXPLORER_TITLE_SHOW_PX = 150;
+	const EXPLORER_TITLE_HIDE_PX = 150;
 	const EXPLORER_FOOTER_HIDE_PX = 72;
 	const EXPLORER_FOOTER_SHOW_PX = 140;
 
 	function updateExplorerVisibility() {
-		const intro = document.getElementById("intro");
+		const title = document.getElementById("title");
 		const footer = document.querySelector("footer");
 		const vh = getHeight();
 
 		let visible = explorerVisible;
 
-		if (intro) {
-			const introBottom = intro.getBoundingClientRect().bottom;
-			if (introBottom <= EXPLORER_INTRO_SHOW_PX) visible = true;
-			else if (introBottom > EXPLORER_INTRO_HIDE_PX) visible = false;
+		if (title) {
+			const titleBottom = title.getBoundingClientRect().bottom;
+			if (titleBottom <= EXPLORER_TITLE_SHOW_PX) visible = true;
+			else if (titleBottom > EXPLORER_TITLE_HIDE_PX) visible = false;
 		}
 
 		if (footer) {
 			const footerTop = footer.getBoundingClientRect().top;
 			if (footerTop < vh - EXPLORER_FOOTER_HIDE_PX) visible = false;
-			else if (footerTop >= vh - EXPLORER_FOOTER_SHOW_PX && intro) {
-				const introBottom = intro.getBoundingClientRect().bottom;
-				if (introBottom <= EXPLORER_INTRO_SHOW_PX) visible = true;
+			else if (footerTop >= vh - EXPLORER_FOOTER_SHOW_PX && title) {
+				const titleBottom = title.getBoundingClientRect().bottom;
+				if (titleBottom <= EXPLORER_TITLE_SHOW_PX) visible = true;
 			}
 		}
 
@@ -95,7 +95,7 @@
 
 		{#each mainBlocks as block, i}
 			{#if block.type === "title"}
-				<section class="story-section story-section--title">
+				<section class="story-section story-section--title" id="title">
 					<h1 class="story-title" aria-label="From Goat to Despite">
 						<span class="story-title__art story-title__art--desktop">{@html StoryTitle}</span>
 						<span class="story-title__art story-title__art--mobile">{@html StoryTitleMobile}</span>
