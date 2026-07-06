@@ -27,7 +27,7 @@
 	let chartOverlayActive = $state(false);
 	let rafId = 0;
 
-	const EXPLORER_TITLE_SHOW_PX = 150;
+	const EXPLORER_TITLE_SHOW_PX = 800;
 	const EXPLORER_TITLE_HIDE_PX = 150;
 	const EXPLORER_FOOTER_HIDE_PX = 72;
 	const EXPLORER_FOOTER_SHOW_PX = 140;

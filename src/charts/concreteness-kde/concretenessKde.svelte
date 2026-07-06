@@ -110,7 +110,7 @@
 		{/if}
 		<div class="concr-kde-chart" bind:this={chartMount}></div>
 		<p class="chart-note" style={sourceStyle}>
-			Kernel density estimation, bandwidth {payload.bandwidth}. · Data source: Brysbaert et al. (2014)
+			Kernel density estimation, bandwidth {payload.bandwidth} · Data source: Brysbaert et al. (2014)
 		</p>
 	{/if}
 </div>

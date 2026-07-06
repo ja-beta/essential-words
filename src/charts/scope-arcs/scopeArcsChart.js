@@ -37,7 +37,7 @@ function layoutFromWidth(containerWidth) {
 	const maxR = plotR;
 	const centerR = maxR * (32 / 550);
 
-	const labelFontSize = Math.min(20, Math.max(14, maxR * 0.06));
+	const labelFontSize = Math.min(18, Math.max(14, maxR * 0.06));
 	const wordFontSize = Math.max(20, maxR * 0.03);
 	const svgW = (plotR + pad) * 2;
 	return { pad, plotR, maxR, centerR, labelFontSize, wordFontSize, svgW };
@@ -238,11 +238,16 @@ export function renderScopeArcsChart(container, payload) {
 		return readCssPx(root, "--scope-arcs-label-inset-ratio-overview", 0.05);
 	}
 
-	function labelRadiusForRing(ringNum, activeRing, swellWidthFn) {
-		const prevOuter = outerRadiusAt(ringNum - 1, activeRing, swellWidthFn);
-		const inner = innerRadiusAt(ringNum, activeRing, swellWidthFn);
+	function labelRadiusForRing(ringNum, activeRing, swellWidthFn, overview = false) {
+		const radiusRing = overview ? null : activeRing;
+		const prevOuter = outerRadiusAt(ringNum - 1, radiusRing, swellWidthFn);
+		const inner = innerRadiusAt(ringNum, radiusRing, swellWidthFn);
 		const gapCenter = (prevOuter + inner) / 2;
 		const gapWidth = Math.max(0, inner - prevOuter);
+
+		if (overview) {
+			return gapCenter - gapWidth * readLabelOverviewRatio();
+		}
 
 		const isFocused = ringNum === activeRing;
 		const inset = isFocused ? readLabelInset(ringNum) : 0;
@@ -250,8 +255,8 @@ export function renderScopeArcsChart(container, payload) {
 		return gapCenter - inset - gapWidth * ratio;
 	}
 
-	function labelArcDForRing(ringNum, name, activeRing, swellWidthFn) {
-		const labelR = labelRadiusForRing(ringNum, activeRing, swellWidthFn);
+	function labelArcDForRing(ringNum, name, activeRing, swellWidthFn, overview = false) {
+		const labelR = labelRadiusForRing(ringNum, activeRing, swellWidthFn, overview);
 		const approxTextLen = labelFontSize * name.length * 0.58;
 		const labelSpan = Math.min(
 			(300 * Math.PI) / 180,
@@ -835,7 +840,7 @@ export function renderScopeArcsChart(container, payload) {
 		}
 
 		for (const m of labelPathMeta) {
-			const d = labelArcDForRing(m.ring, m.name, activeRing, swellWidth);
+			const d = labelArcDForRing(m.ring, m.name, activeRing, swellWidth, overview);
 			if (d) m.node.setAttribute("d", d);
 		}
 

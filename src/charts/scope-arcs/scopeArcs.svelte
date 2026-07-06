@@ -396,8 +396,16 @@
 		--chart-overlay-stage-top: 5vh;
 		width: 100%;
 		justify-content: center;
+		z-index: 1;
 	}
 
+	.scope-arcs :global(.chart-overlay-stage) {
+		z-index: 1;
+	}
+
+	.scope-arcs :global(.chart-overlay-steps) {
+		z-index: 3;
+	}
 
 	.scope-arcs--overview :global(.chart-overlay-steps),
 	.scope-arcs--overview :global(.chart-overlay-step),
@@ -406,21 +414,10 @@
 		pointer-events: none;
 	}
 
-	.scope-arcs--overview .scope-arcs-stage {
-		z-index: 3;
-	}
-
 	.scope-arcs :global(.scope-arcs-overlay-spacer-bottom) {
 		height: var(--scope-arcs-final-hold);
 	}
 
-	.scope-arcs-error {
-		text-align: center;
-		color: var(--color-secondary);
-		font-family: var(--font-mono);
-		font-size: 0.875rem;
-		padding: 2rem;
-	}
 
 	.scope-arcs-chart-wrap {
 		position: relative;
@@ -502,7 +499,7 @@
 	.scope-arcs-legend-shell {
 		position: sticky;
 		bottom: 2rem;
-		z-index: 1;
+		z-index: 2;
 		width: fit-content;
 		margin: 0 auto;
 		max-height: 0;
@@ -530,6 +527,10 @@
 		color: var(--color-secondary);
 		text-transform: uppercase;
 		letter-spacing: 2%;
+		background: var(--color-bg);
+		padding: 0.5rem;
+		position: relative;
+		z-index: 2;
 		opacity: 0;
 		transform: translateY(1.25rem);
 		transition:
