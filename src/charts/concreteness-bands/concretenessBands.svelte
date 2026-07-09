@@ -323,7 +323,8 @@
 		--concr-bands-endpoint-size: 14px;
 		--concr-bands-annot-leader: 16px;
 		--concr-bands-annot-stack: 48px;
-		--concr-bands-annot-text-gap: 8px;
+		--concr-bands-annot-text-gap: 12px;
+		--concr-bands-annot-text-gap-below: var(--concr-bands-annot-text-gap);
 		--concr-bands-annot-text-inset: 6px;
 		--concr-bands-annot-dot-r: 2.5px;
 		--concr-bands-annot-font-size: 16px;
@@ -338,20 +339,22 @@
 		--chart-overlay-step-min-h: 160vh;
 		--chart-overlay-step-gap: 20vh;
 
-		width: calc(100vw - var(--explorer-rail-width));
-		max-width: calc(100vw - var(--explorer-rail-width));
+		/* width: calc(100vw - var(--explorer-rail-width));
+		max-width: calc(100vw - var(--explorer-rail-width)); */
+		width: 100%;
+		max-width: 100vw;
 		margin-inline: calc(50% - 50vw) calc(50% - 50vw + var(--explorer-rail-width));
 		box-sizing: border-box;
 	}
 
-	@supports (width: 100dvw) {
+	/* @supports (width: 100dvw) {
 		.concr-bands {
 			width: calc(100dvw - var(--explorer-rail-width));
 			max-width: calc(100dvw - var(--explorer-rail-width));
 			margin-inline: calc(50% - 50dvw) calc(50% - 50dvw + var(--explorer-rail-width));
 			margin-top: 1.5rem;
 		}
-	}
+	} */
 
 	.concr-bands-chart-wrap {
 		overflow: visible;
@@ -427,13 +430,13 @@
 			--concr-bands-annot-font-size: 14px;
 			--concr-bands-annot-stack: 48px;
 			--concr-bands-annot-leader: 12px;
+			/* Steps 2–3 annotate below bands; hanging baseline reads tighter than step 1 above. */
+			--concr-bands-annot-text-gap-below: 22px;
 			--chart-overlay-steps-top-pad: 45vh;
 			--chart-overlay-steps-bottom-pad: 40vh;
 			--chart-overlay-step-spacer-h: 40vh;
 			--chart-overlay-step-min-h: 140vh;
-		
-			margin-left: 0;
-			margin-right: var(--explorer-rail-width);
+
 		}
 
 
@@ -468,6 +471,7 @@
 			--concr-bands-annot-stack: 44px;
 			--concr-bands-annot-leader: 14px;
 			--concr-bands-annot-text-gap: 8px;
+			--concr-bands-annot-text-gap-below: 16px;
 			--concr-bands-annot-text-inset: 2px;
 			--chart-overlay-step-min-h: 140vh;
 		}

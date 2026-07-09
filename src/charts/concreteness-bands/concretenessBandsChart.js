@@ -152,8 +152,9 @@ function computeDirectionLabelTopPad({ dirY, fontSize, lineCount, lineHeight }) 
 function computeAnnotationBottomPad(m, maxStacked = 2) {
 	const lineH = m.annotFontSize * 1.2;
 	const textBlock = m.annotFontSize + lineH;
+	const textGap = Math.max(m.annotTextGap, m.annotTextGapBelow);
 	const annotDepth =
-		m.annotLeader + Math.max(0, maxStacked - 1) * m.annotStack + m.annotTextGap + textBlock + m.annotDotR;
+		m.annotLeader + Math.max(0, maxStacked - 1) * m.annotStack + textGap + textBlock + m.annotDotR;
 	const endpointDepth = m.endpointOffsetBottom + m.endpointSizePx * 1.4;
 	return Math.ceil(Math.max(m.margin.bottom, annotDepth, endpointDepth) + 6);
 }
@@ -198,6 +199,7 @@ export function readConcretenessBandsMetrics(containerEl) {
 		annotLeader: px("--concr-bands-annot-leader", 16),
 		annotStack: px("--concr-bands-annot-stack", 30),
 		annotTextGap: px("--concr-bands-annot-text-gap", 16),
+		annotTextGapBelow: px("--concr-bands-annot-text-gap-below", 16),
 		annotTextInset: px("--concr-bands-annot-text-inset", 6),
 		annotDotR: px("--concr-bands-annot-dot-r", 2.5),
 		annotFontSize: px("--concr-bands-annot-font-size", 16),
@@ -833,7 +835,8 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 		leader: m.annotLeader,
 		dotR: m.annotDotR,
 		stackStep: m.annotStack,
-		textGap: m.annotTextGap,
+		textGapAbove: m.annotTextGap,
+		textGapBelow: m.annotTextGapBelow,
 		textInset: m.annotTextInset,
 		fontSize: m.annotFontSize
 	};
@@ -918,9 +921,11 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 					.attr("line-height", 5)
 					.attr("fill", cfg.colors.primary);
 
+				const textGap = above ? ANNOT.textGapAbove : ANNOT.textGapBelow;
+
 				if (above) {
 					labelText
-						.attr("y", dotY - ANNOT.textGap)
+						.attr("y", dotY - textGap)
 						.attr("dominant-baseline", "alphabetic")
 						.append("tspan")
 						.attr("x", textX)
@@ -932,7 +937,7 @@ const hoverLayer = svg.append("g").attr("class", "hover-layer");
 						.text(`${label} WORDS`);
 				} else {
 					labelText
-						.attr("y", dotY + ANNOT.textGap)
+						.attr("y", dotY + textGap)
 						.attr("dominant-baseline", "hanging")
 						.append("tspan")
 						.attr("x", textX)

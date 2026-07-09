@@ -42,8 +42,8 @@
 
 <style>
 	.story-section--notes {
-		margin-top: 7rem;
-		padding-top: 3.5rem;
+		margin-top: 6.5rem;
+		padding-top: 7rem;
 		padding-bottom: 100px;
 		background-color: var(--color-bg-notes);
 	}
@@ -128,5 +128,12 @@
 
 	.story-notes-drawer-body :global(p:last-child) {
 		margin-bottom: 0;
+	}
+
+	@media (max-width: 520px){
+		.story-section--notes{
+			margin-top: 3.5rem;
+			padding-top: 4rem;
+		}
 	}
 </style>
