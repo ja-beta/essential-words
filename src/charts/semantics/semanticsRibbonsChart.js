@@ -349,19 +349,113 @@ function marqueeFontForWordSet(wordSet) {
 	return { family: "\"Source Sans 3\", sans-serif", style: "italic", weight: 400 };
 }
 
+const MIN_MARQUEE_CYCLE = 24;
+
 function wrapLeftToRightOffset(offset, cycleLen) {
-	if (cycleLen <= 0) return offset;
-	while (offset > 0) offset -= cycleLen;
-	while (offset <= -cycleLen) offset += cycleLen;
-	return offset;
+	const safeOffset = Number.isFinite(offset) ? offset : 0;
+	const safeCycle = Number.isFinite(cycleLen) && cycleLen > 0 ? cycleLen : 0;
+	if (safeCycle <= 0) return safeOffset;
+	let next = safeOffset;
+	while (next > 0) next -= safeCycle;
+	while (next <= -safeCycle) next += safeCycle;
+	return next;
 }
 
-function bindMarqueeTextPath(c, textSel, offsetSeed) {
+function finiteCycleLen(len) {
+	return Number.isFinite(len) && len > 0 ? len : MIN_MARQUEE_CYCLE;
+}
+
+function toMarqueeOffset(offset, cycleLen, randomize = false) {
+	const safeCycle = finiteCycleLen(cycleLen);
+	if (randomize || !Number.isFinite(offset)) {
+		return -Math.random() * safeCycle;
+	}
+	return wrapLeftToRightOffset(offset, safeCycle);
+}
+
+function probeMarqueeCycleLen(svg, cycleText, style) {
+	const probe = svg
+		.append("text")
+		.attr("visibility", "hidden")
+		.attr("pointer-events", "none")
+		.attr("font-size", style.fontSize)
+		.attr("font-family", style.fontFamily)
+		.attr("font-style", style.fontStyle)
+		.attr("font-weight", style.fontWeight)
+		.attr("letter-spacing", style.letterSpacing ?? "0.04em");
+
+	probe.text(cycleText);
+	const w1 = probe.node()?.getComputedTextLength?.() ?? 0;
+	probe.text(`${cycleText}${cycleText}`);
+	const w2 = probe.node()?.getComputedTextLength?.() ?? 0;
+	probe.remove();
+
+	let len = w2 > w1 + 0.01 ? w2 - w1 : w1;
+	const fontSize = Number.parseFloat(style.fontSize) || 14;
+	if (!Number.isFinite(len) || len < MIN_MARQUEE_CYCLE) {
+		len = Math.max(MIN_MARQUEE_CYCLE, cycleText.length * fontSize * 0.58);
+	}
+	return len;
+}
+
+function marqueeStyleForCategory(c) {
+	return {
+		fontSize: c._marqueeFontSize,
+		fontFamily: c._wordFontFamily,
+		fontStyle: c._wordFontStyle,
+		fontWeight: c._wordFontWeight
+	};
+}
+
+function pathLengthStretch(svg, pathId) {
+	if (!pathId) return 1.15;
+	const pathNode = svg.select(`#${pathId}`).node();
+	if (!pathNode?.getTotalLength) return 1.15;
+	const total = pathNode.getTotalLength();
+	const bbox = pathNode.getBBox?.();
+	if (!bbox) return 1.15;
+	const chord = Math.hypot(bbox.width, bbox.height);
+	if (!(total > 0 && chord > 0)) return 1.15;
+	return Math.max(1, Math.min(total / chord, 2.5));
+}
+
+function pathIdForTextPath(c, tpNode) {
+	const href = tpNode?.getAttribute?.("href") ?? tpNode?.getAttribute?.("xlink:href") ?? "";
+	if (href.startsWith("#")) return href.slice(1);
+	return c._expPathId || c._pathId;
+}
+
+function marqueeCycleLenForNode(svg, c, tpNode) {
+	const repeatCount = c._repeatCount || 4;
+	const probeLen = c._cycleText
+		? probeMarqueeCycleLen(svg, c._cycleText, marqueeStyleForCategory(c))
+		: 0;
+	const stretch = pathLengthStretch(svg, pathIdForTextPath(c, tpNode));
+	const adjustedProbe =
+		Number.isFinite(probeLen) && probeLen >= MIN_MARQUEE_CYCLE ? probeLen * stretch : 0;
+
+	const pathLen = tpNode?.getComputedTextLength?.() ?? 0;
+	const pathCycle = Number.isFinite(pathLen) && pathLen > 0 ? pathLen / repeatCount : 0;
+
+	// WebKit often under-reports textPath length on curves; never trust a path - measurement that is shorter than the stretched straight-text probe.
+	if (pathCycle >= MIN_MARQUEE_CYCLE && adjustedProbe >= MIN_MARQUEE_CYCLE) {
+		return Math.max(pathCycle, adjustedProbe);
+	}
+	if (pathCycle >= MIN_MARQUEE_CYCLE) return pathCycle;
+	if (adjustedProbe >= MIN_MARQUEE_CYCLE) return adjustedProbe;
+
+	if (Number.isFinite(c._baseCycleLen) && c._baseCycleLen >= MIN_MARQUEE_CYCLE) return c._baseCycleLen;
+	if (Number.isFinite(c._cycleLen) && c._cycleLen >= MIN_MARQUEE_CYCLE) return c._cycleLen;
+
+	const fontSize = Number.parseFloat(c._marqueeFontSize) || 14;
+	return Math.max(MIN_MARQUEE_CYCLE, (c._cycleText?.length ?? 0) * fontSize * 0.58);
+}
+
+function bindMarqueeTextPath(svg, c, textSel, offsetSeed) {
 	const tpNode = textSel.select("textPath").node();
 	if (!tpNode) return null;
-	const cycleLen = tpNode._cachedCycleLen ??
-		(tpNode._cachedCycleLen = tpNode.getComputedTextLength() / c._repeatCount);
-	const offset = wrapLeftToRightOffset(offsetSeed, cycleLen);
+	const cycleLen = finiteCycleLen(marqueeCycleLenForNode(svg, c, tpNode));
+	const offset = toMarqueeOffset(offsetSeed, cycleLen);
 	tpNode.setAttribute("startOffset", offset);
 	return { tpNode, cycleLen, offset };
 }
@@ -701,8 +795,10 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			d3.shuffle(allWords);
 			const wordStr = allWords.map((w) => w.toUpperCase()).join(",  ");
 			const repeatCount = 4;
-			const repeated = (wordStr + ",   ").repeat(repeatCount);
+			const cycleText = `${wordStr},   `;
+			const repeated = cycleText.repeat(repeatCount);
 
+			c._cycleText = cycleText;
 			c._wordStr = repeated;
 			c._repeatCount = repeatCount;
 			c._wordFontFamily = marqueeFont.family;
@@ -724,7 +820,8 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			scrollText.append("textPath").attr("href", `#${pathId}`).attr("startOffset", "0").text(repeated);
 
 			c._pathId = pathId;
-			c._offset = 0;
+			c._tpNode = scrollText.select("textPath").node();
+			c._marqueeFontSize = `${fs}px`;
 		}
 
 		const gH = c.gslY1 - c.gslY0;
@@ -853,28 +950,20 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			capLabelBottomPad
 		});
 
-		if (showRibbonMarquee) {
-			const tpNode = cg.select("text textPath").node();
-			c._tpNode = tpNode;
-			c._textLen = tpNode ? tpNode.getComputedTextLength() : 2000;
-			c._cycleLen = c._textLen / (c._repeatCount || 4);
-			c._offset = c._cycleLen > 0 ? -Math.random() * c._cycleLen : 0;
-
-			if (c._thin) {
-				const expClipId = `exp-clip-${i}`;
-				defs
-					.append("clipPath")
-					.attr("id", expClipId)
-					.append("path")
-					.attr("d", expandedRibbonPath(c, ribbonLeft, ribbonRight, mx, thinThreshold));
-				const expPathId = `exp-center-${i}`;
-				defs
-					.append("path")
-					.attr("id", expPathId)
-					.attr("d", expandedCenterPath(c, ribbonLeft, ribbonRight, mx, defaultFontSize, thinThreshold, marqueePathTailX, marqueePathHeadX));
-				c._expClipId = expClipId;
-				c._expPathId = expPathId;
-			}
+		if (showRibbonMarquee && c._thin) {
+			const expClipId = `exp-clip-${i}`;
+			defs
+				.append("clipPath")
+				.attr("id", expClipId)
+				.append("path")
+				.attr("d", expandedRibbonPath(c, ribbonLeft, ribbonRight, mx, thinThreshold));
+			const expPathId = `exp-center-${i}`;
+			defs
+				.append("path")
+				.attr("id", expPathId)
+				.attr("d", expandedCenterPath(c, ribbonLeft, ribbonRight, mx, defaultFontSize, thinThreshold, marqueePathTailX, marqueePathHeadX));
+			c._expClipId = expClipId;
+			c._expPathId = expPathId;
 		}
 
 		if (c._thin) {
@@ -941,22 +1030,25 @@ export function renderSemanticsRibbons(containerEl, payload) {
 						const c = cats[i];
 						const animate = shouldAnimateMarquee(i, c, prefersReducedMotion);
 
-						if (!c._thin && animate && c._tpNode) {
-							c._offset = wrapLeftToRightOffset(c._offset + marqueeSpeed * dt, c._cycleLen);
+						if (!c._thin && animate && c._tpNode && c._cycleLen > 0) {
+							c._offset = wrapLeftToRightOffset(
+								toMarqueeOffset(c._offset, c._cycleLen) + marqueeSpeed * dt,
+								c._cycleLen
+							);
 							c._tpNode.setAttribute("startOffset", c._offset);
 						}
 
-						if (c._hoverActive && animate && c._hoverTpNode) {
+						if (c._hoverActive && animate && c._hoverTpNode && c._hoverCycleLen > 0) {
 							c._hoverOffset = wrapLeftToRightOffset(
-								c._hoverOffset + marqueeSpeed * dt,
+								toMarqueeOffset(c._hoverOffset, c._hoverCycleLen) + marqueeSpeed * dt,
 								c._hoverCycleLen
 							);
 							c._hoverTpNode.setAttribute("startOffset", c._hoverOffset);
 						}
 
-						if (c._forcedActive && animate && c._forcedTpNode) {
+						if (c._forcedActive && animate && c._forcedTpNode && c._forcedCycleLen > 0) {
 							c._forcedOffset = wrapLeftToRightOffset(
-								c._forcedOffset + marqueeSpeed * dt,
+								toMarqueeOffset(c._forcedOffset, c._forcedCycleLen) + marqueeSpeed * dt,
 								c._forcedCycleLen
 							);
 							c._forcedTpNode.setAttribute("startOffset", c._forcedOffset);
@@ -975,6 +1067,40 @@ export function renderSemanticsRibbons(containerEl, payload) {
 				syncEngagement() {},
 				destroy() {}
 			};
+
+	let marqueeAlive = true;
+
+	function initMarqueeMeasurements(resetOffsets = false) {
+		if (!showRibbonMarquee) return;
+
+		for (const c of cats) {
+			if (!c._cycleText) continue;
+
+			const measured = c._tpNode
+				? marqueeCycleLenForNode(svg, c, c._tpNode)
+				: probeMarqueeCycleLen(svg, c._cycleText, marqueeStyleForCategory(c)) *
+						pathLengthStretch(svg, c._pathId);
+			const cycleLen = finiteCycleLen(measured);
+
+			c._baseCycleLen = cycleLen;
+			c._cycleLen = cycleLen;
+			c._offset = toMarqueeOffset(c._offset, cycleLen, resetOffsets);
+
+			if (!c._thin && c._tpNode) {
+				c._tpNode.setAttribute("startOffset", c._offset);
+			}
+		}
+	}
+
+	initMarqueeMeasurements(true);
+
+	if (typeof document !== "undefined" && document.fonts?.ready) {
+		document.fonts.ready.then(() => {
+			if (!marqueeAlive) return;
+			initMarqueeMeasurements(false);
+			marqueeLoop.syncEngagement();
+		});
+	}
 
 	function drawThinFocusOverlay(group) {
 		group.selectAll(".thin-band-focus-fill, .thin-band-focus-text").style("display", null);
@@ -1007,7 +1133,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	function drawForcedThinOverlay(c, group) {
 		setThinBandFocus(group, c, true);
 		if (!showRibbonMarquee) return;
-		const bound = bindMarqueeTextPath(c, group.select(".thin-band-focus-text"), c._offset);
+		const bound = bindMarqueeTextPath(svg, c, group.select(".thin-band-focus-text"), c._offset);
 		if (!bound) return;
 		c._forcedTpNode = bound.tpNode;
 		c._forcedActive = true;
@@ -1070,7 +1196,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 
 				if (c._thin) {
 					setThinBandFocus(el, c, true);
-					const bound = bindMarqueeTextPath(c, el.select(".thin-band-focus-text"), c._offset);
+					const bound = bindMarqueeTextPath(svg, c, el.select(".thin-band-focus-text"), c._offset);
 					if (bound) {
 						c._hoverTpNode = bound.tpNode;
 						c._hoverActive = true;
@@ -1128,6 +1254,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		setMarqueeActive: marqueeLoop.setMarqueeActive,
 		setPrefersReducedMotion: marqueeLoop.setPrefersReducedMotion,
 		destroy() {
+			marqueeAlive = false;
 			marqueeLoop.destroy();
 			svg.remove();
 		}

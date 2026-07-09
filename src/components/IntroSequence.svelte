@@ -836,11 +836,6 @@
 		}
 	}
 
-	/* @media (min-width: 769px) {
-		.intro-stage {
-			margin: 0 calc(-2.5 * var(--prose-margins)) 0 calc(var(--prose-margins) * -1);
-		}
-	} */
 
 	@media (max-width: 768px) {
 		:global(#intro) {
