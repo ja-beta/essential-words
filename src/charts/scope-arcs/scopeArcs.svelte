@@ -336,8 +336,7 @@
 		
 		--scope-arcs-words-band: 30;
 		/* --scope-arcs-track-gap: room between tracks (also the label gutter); auto if unset */
-		--scope-arcs-focus-fade-ms: 220;
-		--scope-arcs-zoom-ms: 400;
+		--scope-arcs-zoom-ms: 800;
 		--scope-arcs-zoom-max: 3;
 		--scope-arcs-segment-gap: 2;
 		--scope-arcs-unfocused-opacity: 0.35;
@@ -485,15 +484,6 @@
 		height: auto;
 		margin-inline: auto;
 		overflow: hidden;
-	}
-
-	.scope-arcs-chart :global(.sarc-ring),
-	.scope-arcs-chart :global(.sarc-ring-label) {
-		transition: opacity var(--scope-arcs-focus-fade-ms) cubic-bezier(0.33, 1, 0.68, 1);
-	}
-
-	.scope-arcs-chart :global(.sarc-words) {
-		transition: opacity var(--scope-arcs-focus-fade-ms) cubic-bezier(0.33, 1, 0.68, 1);
 	}
 
 	.scope-arcs-legend-shell {

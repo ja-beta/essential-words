@@ -109,8 +109,7 @@ export function renderScopeArcsChart(container, payload) {
 	if (!layoutWidth || layoutWidth < 2) return null;
 
 	container.innerHTML = "";
-	const focusFadeMs = readCssPx(root, "--scope-arcs-focus-fade-ms", 220);
-	const zoomMs = readCssPx(root, "--scope-arcs-zoom-ms", 600);
+	const zoomMs = readCssPx(root, "--scope-arcs-zoom-ms", 400);
 	const zoomMax = readCssPx(root, "--scope-arcs-zoom-max", 3);
 	const segmentGapPx = readCssPx(root, "--scope-arcs-segment-gap", 4);
 
@@ -768,11 +767,13 @@ export function renderScopeArcsChart(container, payload) {
 		return ring === focusedRing && ring <= visibleRings ? 1 : 0;
 	}
 
-	function applyVisualState(animate = true, marqueeReset = false) {
+	function applyVisualState(animate = true, marqueeReset = false, zoomingOut = false) {
 		const { visibleRings, focusedRing, overview } = scrollState;
-		const dur = animate ? focusFadeMs : 0;
-		const zoomDur = animate ? zoomMs : 0;
-		const ease = d3.easeCubicInOut;
+		const transitionMs = animate ? zoomMs : 0;
+		const zoomEase = zoomingOut ? d3.easePolyOut.exponent(4) : d3.easeCubicIn;
+		const fadeEase = d3.easeCubicOut;
+		const fadeDelay = zoomingOut ? transitionMs * 0.25 : 0;
+		const fadeDuration = zoomingOut ? transitionMs - fadeDelay : transitionMs;
 		const scale = zoomScaleForState({ focusedRing, overview });
 		const ringVisible = (ring) => ring <= visibleRings;
 
@@ -787,16 +788,17 @@ export function renderScopeArcsChart(container, payload) {
 
 		ringLayer
 			.interrupt()
-			.transition("ring-vis")
-			.duration(dur)
-			.ease(ease)
-			.style("opacity", function () {
-				return focusOpacity(Number(this.getAttribute("data-ring")));
-			})
 			.style("visibility", function () {
 				return ringVisible(Number(this.getAttribute("data-ring"))) ? "visible" : "hidden";
 			})
-			.style("cursor", overview ? "pointer" : null);
+			.style("cursor", overview ? "pointer" : null)
+			.transition("ring-vis")
+			.delay(fadeDelay)
+			.duration(fadeDuration)
+			.ease(fadeEase)
+			.style("opacity", function () {
+				return focusOpacity(Number(this.getAttribute("data-ring")));
+			});
 
 		ringLayer
 			.selectAll(".sarc-ring-hit")
@@ -811,8 +813,8 @@ export function renderScopeArcsChart(container, payload) {
 			.selectAll(".sarc-arc")
 			.interrupt("band-w")
 			.transition("band-w")
-			.duration(dur)
-			.ease(ease)
+			.duration(transitionMs)
+			.ease(zoomEase)
 			.attr("stroke-width", function () {
 				const ring = Number(this.parentNode?.getAttribute?.("data-ring"));
 				const resting = Number(this.getAttribute("data-thick")) || 0;
@@ -850,23 +852,25 @@ export function renderScopeArcsChart(container, payload) {
 			.selectAll(".sarc-words")
 			.interrupt()
 			.transition("words")
-			.duration(dur)
-			.ease(ease)
+			.delay(fadeDelay)
+			.duration(fadeDuration)
+			.ease(fadeEase)
 			.style("opacity", function () {
 				return wordsOpacity(Number(this.getAttribute("data-ring")));
 			});
 
 		labelLayer
-			.interrupt()
-			.transition("labels")
-			.duration(dur)
-			.ease(ease)
-			.style("opacity", function () {
-				return focusOpacity(Number(this.getAttribute("data-ring")));
-			})
+			.interrupt("labels")
 			.style("visibility", function () {
 				const ring = Number(this.getAttribute("data-ring"));
 				return ringVisible(ring) && focusOpacity(ring) > 0 ? "visible" : "hidden";
+			})
+			.transition("labels")
+			.delay(fadeDelay)
+			.duration(fadeDuration)
+			.ease(fadeEase)
+			.style("opacity", function () {
+				return focusOpacity(Number(this.getAttribute("data-ring")));
 			});
 
 		const nextTransform = zoomTransform(scale);
@@ -875,24 +879,24 @@ export function renderScopeArcsChart(container, payload) {
 
 		const labelText = labelLayer.selectAll(".sarc-ring-label-text");
 
-		if (animate && zoomDur > 0) {
-			zoomRoot.interrupt().transition("zoom").duration(zoomDur).ease(ease).attr("transform", nextTransform);
+		if (animate && transitionMs > 0) {
+			zoomRoot.interrupt().transition("zoom").duration(transitionMs).ease(zoomEase).attr("transform", nextTransform);
 			for (const track of marqueeTracks) {
 				const trackSize = wordSize * track.opticalScale;
 				d3.select(track.textEl)
 					.interrupt()
 					.transition("text-size")
-					.duration(zoomDur)
-					.ease(ease)
+					.duration(transitionMs)
+					.ease(zoomEase)
 					.attr("font-size", trackSize);
 			}
-			labelText.interrupt().transition("text-size").duration(zoomDur).ease(ease).attr("font-size", nameSize);
+			labelText.interrupt().transition("text-size").duration(transitionMs).ease(zoomEase).attr("font-size", nameSize);
 			for (const { node, lineIdx, lineCount } of centerLabelTspans) {
 				d3.select(node)
 					.interrupt("text-size")
 					.transition("text-size")
-					.duration(zoomDur)
-					.ease(ease)
+					.duration(transitionMs)
+					.ease(zoomEase)
 					.attr("y", centerLabelY(lineIdx, lineCount, nameSize));
 			}
 		} else {
@@ -913,7 +917,7 @@ export function renderScopeArcsChart(container, payload) {
 		const resetOffsets = !marqueeInitialized || focusChanged || hoverChanged;
 		const marqueeTransitionMs =
 			animate && !overview && (focusChanged || hoverChanged || !marqueeInitialized)
-				? Math.max(zoomDur, dur)
+				? transitionMs
 				: 0;
 		scheduleMarqueeResume(marqueeTransitionMs, wordSize, resetOffsets);
 		marqueeInitialized = true;
@@ -948,9 +952,17 @@ export function renderScopeArcsChart(container, payload) {
 
 	function applyScrollState(next, animate = true) {
 		const wasOverview = scrollState.overview;
+		const prevScale = zoomScaleForState({
+			focusedRing: scrollState.focusedRing,
+			overview: scrollState.overview
+		});
 		scrollState = { ...scrollState, ...next };
 		if (!scrollState.overview || !wasOverview) hoveredRing = null;
-		applyVisualState(animate, false);
+		const nextScale = zoomScaleForState({
+			focusedRing: scrollState.focusedRing,
+			overview: scrollState.overview
+		});
+		applyVisualState(animate, false, nextScale < prevScale);
 	}
 
 	initMarqueeBaseMeasurements();
