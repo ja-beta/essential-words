@@ -7,7 +7,7 @@
 
 	const RESIZE_REPAINT_THRESHOLD = 4;
 
-	let { overlays = [], note = "" } = $props();
+	let { overlays = [], note = "", headingId = undefined, subheadId = undefined } = $props();
 
 	const getData = getContext("data");
 	const DEFAULT_STEP_FOCUS = [
@@ -252,13 +252,23 @@
 	});
 </script>
 
-<div class="semantics-viz">
+<div
+	class="semantics-viz"
+	role={headingId ? "region" : undefined}
+	aria-labelledby={headingId}
+	aria-describedby={subheadId}
+>
 	{#if payloadError}
 		<p class="semantics-viz-error" role="alert">{payloadError}</p>
 	{:else if payload}
 		<div class="semantics-scrolly chart-overlay-scrolly" bind:this={scrollyMount}>
 			<div class="semantics-stage chart-overlay-stage">
-				<div class="semantics-viz-chart" bind:this={chartMount}></div>
+				<div
+					class="semantics-viz-chart"
+					role={headingId ? "img" : undefined}
+					aria-labelledby={headingId}
+					bind:this={chartMount}
+				></div>
 			</div>
 			{#if overlaySteps.length}
 				<div class="semantics-steps chart-overlay-steps">

@@ -23,6 +23,14 @@
 	const mainBlocks = $derived(storyBlocks.filter((block) => block?.type !== "intro"));
 	const hasText = (value) => typeof value === "string" && value.trim().length > 0;
 
+	function chartHeadingId(chartId) {
+		return chartId ? `${chartId}-heading` : undefined;
+	}
+
+	function chartSubheadId(chartId) {
+		return chartId ? `${chartId}-subhead` : undefined;
+	}
+
 	let explorerVisible = $state(false);
 	let chartOverlayActive = $state(false);
 	let rafId = 0;
@@ -111,7 +119,7 @@
 <article class="story">
 	{#if storyBlocks.length}
 		{#if introBlocks.length}
-			<section class="story-section" id="intro">
+			<section class="story-section" id="intro" aria-label="Introduction">
 				<IntroSequence blocks={introBlocks} />
 			</section>
 		{/if}
@@ -120,8 +128,8 @@
 			{#if block.type === "title"}
 				<section class="story-section story-section--title" id="title">
 					<h1 class="story-title" aria-label="From Goat to Despite">
-						<span class="story-title__art story-title__art--desktop">{@html StoryTitle}</span>
-						<span class="story-title__art story-title__art--mobile">{@html StoryTitleMobile}</span>
+						<span class="story-title__art story-title__art--desktop" aria-hidden="true">{@html StoryTitle}</span>
+						<span class="story-title__art story-title__art--mobile" aria-hidden="true">{@html StoryTitleMobile}</span>
 					</h1>
 					{#if block.dek}
 						<p class="story-dek">{@html block.dek}</p>
@@ -135,14 +143,18 @@
 					<div class="content-container story-prose">{@html block.html}</div>
 				</section>
 			{:else if block.type === "chart"}
-				<section class="story-section story-section--chart" id={block.chartId ?? `chart-${i}`}>
+				<section
+					class="story-section story-section--chart"
+					id={block.chartId ?? `chart-${i}`}
+					aria-labelledby={hasText(block.title) ? chartHeadingId(block.chartId) : undefined}
+				>
 					{#if hasText(block.title) || hasText(block.subhead)}
 						<header class="chart-header">
 							{#if hasText(block.title)}
-								<h3 class="chart-heading">{@html block.title}</h3>
+								<h3 id={chartHeadingId(block.chartId)} class="chart-heading">{@html block.title}</h3>
 							{/if}
 							{#if hasText(block.subhead)}
-								<p class="chart-subhead">{@html block.subhead}</p>
+								<p id={chartSubheadId(block.chartId)} class="chart-subhead">{@html block.subhead}</p>
 							{/if}
 						</header>
 					{/if}
@@ -152,22 +164,39 @@
 							subhead={block.subhead}
 							note={block.note}
 							overlays={block.overlays ?? []}
+							headingId={chartHeadingId(block.chartId)}
+							subheadId={hasText(block.subhead) ? chartSubheadId(block.chartId) : undefined}
 						/>
 					<!-- {:else if block.chartId === "semanticsScopeTiles"}
 						<Scope note={block.note} overlays={block.overlays ?? []} /> -->
 					{:else if block.chartId === "concretenessDistribution"}
-						<ConcretenessKde annotation={block.annotation} />
+						<ConcretenessKde
+							annotation={block.annotation}
+							headingId={chartHeadingId(block.chartId)}
+							subheadId={hasText(block.subhead) ? chartSubheadId(block.chartId) : undefined}
+						/>
 					{:else if block.chartId === "concretenessBands"}
-						<ConcretenessBands note={block.note} overlays={block.overlays ?? []} />
+						<ConcretenessBands
+							note={block.note}
+							overlays={block.overlays ?? []}
+							headingId={chartHeadingId(block.chartId)}
+							subheadId={hasText(block.subhead) ? chartSubheadId(block.chartId) : undefined}
+						/>
 					{:else if block.chartId === "posDiagram"}
-						<PosWaffle note={block.note} />
+						<PosWaffle
+							note={block.note}
+							headingId={chartHeadingId(block.chartId)}
+							subheadId={hasText(block.subhead) ? chartSubheadId(block.chartId) : undefined}
+						/>
 					{:else if block.chartId === "adverbsAdded"}
-						<PosAdverbs />
+						<PosAdverbs headingId={chartHeadingId(block.chartId)} />
 					{:else if block.chartId === "semanticsScopeArcs"}
 						<ScopeArcs
 							noteSummary={block.noteSummary}
 							noteDetails={block.noteDetails}
 							overlays={block.overlays ?? []}
+							headingId={chartHeadingId(block.chartId)}
+							subheadId={hasText(block.subhead) ? chartSubheadId(block.chartId) : undefined}
 						/>
 					{:else}
 						<div class="chart-placeholder" data-chart-id={block.chartId}>

@@ -1,6 +1,8 @@
 <script>
 	import { getContext, onMount } from "svelte";
 
+	let { headingId = undefined } = $props();
+
 	const getData = getContext("data");
 
 	const rows = $derived(getData?.()?.posRows ?? []);
@@ -19,11 +21,20 @@
 	});
 </script>
 
-<div class="pos-adverbs">
+<div
+	class="pos-adverbs"
+	role={headingId ? "region" : undefined}
+	aria-labelledby={headingId}
+>
 	{#if adverbWords.length}
-		<div class="pos-adverbs-grid" aria-label="Added adverbs">
+		<div
+			class="pos-adverbs-grid"
+			role="list"
+			aria-label={headingId ? undefined : "Added adverbs from the 2023 word list"}
+			aria-labelledby={headingId}
+		>
 			{#each (displayAdverbs.length ? displayAdverbs : adverbWords) as word}
-				<span class="pos-adverbs-word">{word}</span>
+				<span class="pos-adverbs-word" role="listitem">{word}</span>
 			{/each}
 		</div>
 	{:else}

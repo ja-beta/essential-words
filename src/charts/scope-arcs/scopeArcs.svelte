@@ -5,7 +5,7 @@
 	import { subscribePrefersReducedMotion } from "$utils/prefersReducedMotion.js";
 	import useWindowDimensions, { getHeight } from "$runes/useWindowDimensions.svelte.js";
 
-	let { noteSummary = "", noteDetails = "", overlays = [] } = $props();
+	let { noteSummary = "", noteDetails = "", overlays = [], headingId = undefined, subheadId = undefined } = $props();
 
 	const getData = getContext("data");
 	const win = new useWindowDimensions(150);
@@ -252,7 +252,13 @@
 	});
 </script>
 
-<div class="scope-arcs" class:scope-arcs--overview={isOverview}>
+<div
+	class="scope-arcs"
+	class:scope-arcs--overview={isOverview}
+	role={headingId ? "region" : undefined}
+	aria-labelledby={headingId}
+	aria-describedby={subheadId}
+>
 	{#if payloadError}
 		<p class="scope-arcs-error" role="alert">{payloadError}</p>
 	{:else if !payload}
@@ -266,7 +272,12 @@
 						<span class="scope-arcs-header scope-arcs-header--right">2023 list</span>
 					</div>
 					<div class="scope-arcs-chart-panel">
-						<div class="scope-arcs-chart" bind:this={chartMount}></div>
+						<div
+							class="scope-arcs-chart"
+							role={headingId ? "img" : undefined}
+							aria-labelledby={headingId}
+							bind:this={chartMount}
+						></div>
 					</div>
 				</div>
 			</div>
@@ -295,7 +306,7 @@
 			class:scope-arcs-legend-shell--visible={legendVisible}
 			aria-hidden={!legendVisible}
 		>
-			<div class="scope-arcs-legend">
+			<div class="scope-arcs-legend" aria-label="Word list change legend">
 				<span class="scope-arcs-legend-item">
 					<span class="scope-arcs-swatch scope-arcs-swatch--remained"></span>
 					remained (in both lists)

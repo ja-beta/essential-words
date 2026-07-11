@@ -2,7 +2,7 @@
 	import { getContext, onDestroy, onMount } from "svelte";
 	import { observeChartVisibility } from "$utils/chartVisibility.js";
 
-	let { note = "" } = $props();
+	let { note = "", headingId = undefined, subheadId = undefined } = $props();
 
 	const getData = getContext("data");
 	const rows = $derived(getData?.()?.posRows ?? []);
@@ -303,6 +303,9 @@
 	bind:this={rootMount}
 	style:--pos-cell-size={`${cellSize}px`}
 	style:--pos-cell-gap={`${cellGap}px`}
+	role={headingId ? "region" : undefined}
+	aria-labelledby={headingId}
+	aria-describedby={subheadId}
 >
 	{#if lists[0]?.posCells && lists[1]?.posCells}
 		{#if gridMounted}
@@ -313,7 +316,9 @@
 			class:pos-waffle-inner--static={!interactive}
 			class:pos-waffle-inner--butterfly={isButterflyLayout}
 			role="group"
-			aria-label="Parts of speech waffle chart"
+			aria-labelledby={headingId}
+			aria-label={headingId ? undefined : "Parts of speech waffle chart"}
+			aria-describedby={subheadId}
 			onmouseover={interactive ? handleCellOver : undefined}
 			onmouseout={interactive ? handleCellOut : undefined}
 			onmousemove={interactive ? handleCellMove : undefined}
@@ -447,7 +452,7 @@
 				</div>
 			{/if}
 
-			<div class="pos-legend-container">
+			<div class="pos-legend-container" aria-label="Parts of speech color legend">
 					<div class="pos-legend-item">
 						<div class="pos-legend-item-color" style="background: var(--pos-color-remained);"></div>
 						<div class="pos-legend-item-label">in both lists</div>
@@ -472,6 +477,7 @@
 			class:pos-tooltip--remained={tooltipSet === "remained"}
 			style:left={`${tooltipX}px`}
 			style:top={`${tooltipY}px`}
+			aria-hidden="true"
 		>
 			{tooltipWord}
 		</div>

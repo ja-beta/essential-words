@@ -7,7 +7,7 @@
 	import { CHART_ONSCREEN_MARGIN, observeChartVisibility } from "$utils/chartVisibility.js";
 	import { subscribePrefersReducedMotion } from "$utils/prefersReducedMotion.js";
 
-	let { note = "", overlays = [] } = $props();
+	let { note = "", overlays = [], headingId = undefined, subheadId = undefined } = $props();
 
 	const getData = getContext("data");
 	const DEFAULT_STEP_FOCUS = [
@@ -256,7 +256,14 @@
 	});
 </script>
 
-<div class="concr-bands" class:is-overlay-active={overlayModeActive} bind:this={rootMount}>
+<div
+	class="concr-bands"
+	class:is-overlay-active={overlayModeActive}
+	bind:this={rootMount}
+	role={headingId ? "region" : undefined}
+	aria-labelledby={headingId}
+	aria-describedby={subheadId}
+>
 	{#if payloadError}
 		<p class="concr-bands-error" role="alert">{payloadError}</p>
 	{:else if !payload}
@@ -265,7 +272,12 @@
 		<div class="chart-overlay-scrolly" bind:this={scrollyMount}>
 			<div class="chart-overlay-stage concr-bands-stage">
 				<div class="concr-bands-chart-wrap" bind:this={chartWrap}>
-					<div class="concr-bands-chart" bind:this={chartMount}></div>
+					<div
+						class="concr-bands-chart"
+						role={headingId ? "img" : undefined}
+						aria-labelledby={headingId}
+						bind:this={chartMount}
+					></div>
 				</div>
 			</div>
 			{#if overlaySteps.length}

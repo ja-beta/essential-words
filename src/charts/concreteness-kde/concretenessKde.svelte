@@ -4,7 +4,7 @@
 	import { CONCRETENESS_KDE_CONFIG as cfg, renderConcretenessKde } from "./concretenessKdeChart.js";
 	import { observeChartVisibility } from "$utils/chartVisibility.js";
 
-	let { annotation = "" } = $props();
+	let { annotation = "", headingId = undefined, subheadId = undefined } = $props();
 
 	const getData = getContext("data");
 
@@ -97,7 +97,12 @@
 	});
 </script>
 
-<div class="concr-kde">
+<div
+	class="concr-kde"
+	role={headingId ? "region" : undefined}
+	aria-labelledby={headingId}
+	aria-describedby={subheadId}
+>
 	{#if payloadError}
 		<p class="concr-kde-error" role="alert" style={errorStyle}>
 			Could not build concreteness chart: {payloadError}
@@ -108,7 +113,12 @@
 		{#if annotation}
 			<div class="concr-kde-annotation">{@html annotation}</div>
 		{/if}
-		<div class="concr-kde-chart" bind:this={chartMount}></div>
+		<div
+			class="concr-kde-chart"
+			role={headingId ? "img" : undefined}
+			aria-labelledby={headingId}
+			bind:this={chartMount}
+		></div>
 		<p class="chart-note" style={sourceStyle}>
 			Kernel density estimation, bandwidth {payload.bandwidth} · Data source: Brysbaert et al. (2014)
 		</p>

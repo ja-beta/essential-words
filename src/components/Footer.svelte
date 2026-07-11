@@ -114,7 +114,7 @@
 						<a href="https://pudding.cool/subscribe">
 							<img
 								src="{base}/assets/stickers/subscribe-footer@2x.png"
-								alt="donate sticker"
+								alt="subscribe sticker"
 							/>
 						</a>
 					</div>
@@ -134,8 +134,8 @@
 			</div>
 
 			<section class="links">
-				<a class="img-wrapper" href="https://pudding.cool">
-					<span class="wordmark">{@html wordmark}</span>
+				<a class="img-wrapper" href="https://pudding.cool" aria-label="The Pudding">
+					<span class="wordmark" aria-hidden="true">{@html wordmark}</span>
 				</a>
 				<div class="inner">
 					<div class="about">

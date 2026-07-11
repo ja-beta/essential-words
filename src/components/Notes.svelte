@@ -6,11 +6,11 @@
 </script>
 
 {#if notesBlocks.length}
-	<section class="story-section story-section--notes" id="notes">
+	<section class="story-section story-section--notes" id="notes" aria-labelledby="notes-heading">
 		{#each notesBlocks as block}
 			<div class="content-container story-prose story-notes">
 				{#if hasText(block.title)}
-					<h2 class="story-notes-title">{block.title}</h2>
+					<h2 id="notes-heading" class="story-notes-title">{block.title}</h2>
 				{/if}
 
 				{#if Array.isArray(block.intro) && block.intro.length}

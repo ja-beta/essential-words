@@ -19,6 +19,7 @@
 
 <div
 	class="intro-word-grid intro-word-grid--{variant} {className}"
+	aria-hidden="true"
 	class:is-reduced-motion={prefersReducedMotion}
 	class:is-write-reveal={writeReveal}
 	class:is-focus-drop={focusDrop}

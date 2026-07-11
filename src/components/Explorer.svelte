@@ -72,6 +72,16 @@
 		if (isOpen) closeExplorer();
 		else openExplorer();
 	}
+
+	function wordAriaLabel(text, status, list) {
+		const statusText =
+			status === "removed"
+				? "removed from 2023 list"
+				: status === "added"
+					? "added to 2023 list"
+					: "in both lists";
+		return `${text}, ${statusText}, ${list} list`;
+	}
 </script>
 
 <button
@@ -147,6 +157,8 @@
 		<div
 			class="explorer-panel"
 			id="explorer-panel"
+			role="region"
+			aria-label="Word list comparison"
 			inert={!isOpen}
 		>
 			<div class="explorer-columns">
@@ -163,12 +175,13 @@
 								<p class="exp-col-desc removed">removed words</p>
 							</div>
 						</div>
-						<ul class="exp-word-list">
+						<ul class="exp-word-list" aria-label="1953 General Service List">
 							{#each list1953 as word (word.text + word.status)}
 								<li
 									class="exp-word"
 									class:exp-word--removed={word.status === "removed"}
 									class:exp-word--remained={word.status === "remained"}
+									aria-label={wordAriaLabel(word.text, word.status, "1953")}
 								>
 									{word.text}
 								</li>
@@ -189,12 +202,13 @@
 								<p class="exp-col-desc added">added words</p>
 							</div>
 						</div>
-						<ul class="exp-word-list">
+						<ul class="exp-word-list" aria-label="2023 New General Service List">
 							{#each list2023 as word (word.text + word.status)}
 								<li
 									class="exp-word"
 									class:exp-word--added={word.status === "added"}
 									class:exp-word--remained={word.status === "remained"}
+									aria-label={wordAriaLabel(word.text, word.status, "2023")}
 								>
 									{word.text}
 								</li>
