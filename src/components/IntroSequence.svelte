@@ -610,6 +610,7 @@
 		--intro-highlight-serif: 1.15em;
 		--intro-highlight-y-serif: 100%;
 		--intro-highlight-y-sans: 50%;
+		--intro-highlight-bleed: 0.12rem;
 		--intro-grid-font-size-serif: 0.95rem;
 		--intro-grid-highlight-pos-sans: 0.1rem;
 		--intro-grid-highlight-pos-serif: 0.2rem;
@@ -759,6 +760,7 @@
 	.intro-copy--part3-mobile :global(.ngsl),
 	.intro-copy--part3-mobile :global(.remained) {
 		padding: 0;
+		margin: 0;
 		background-image: linear-gradient(transparent, transparent);
 		background-repeat: no-repeat;
 		background-size: 0% var(--intro-highlight-sans);
@@ -767,7 +769,8 @@
 		transition:
 			background-size var(--intro-highlight-fade-ms) ease,
 			color var(--intro-highlight-fade-ms) ease,
-			padding var(--intro-highlight-fade-ms) ease;
+			padding var(--intro-highlight-fade-ms) ease,
+			margin var(--intro-highlight-fade-ms) ease;
 	}
 
 	.intro-copy-layer--part3 :global(.gsl),
@@ -786,7 +789,8 @@
 	.intro-copy--part3-mobile.is-highlight-drop :global(.gsl) {
 		background-image: linear-gradient(var(--color-gsl-highlight), var(--color-gsl-highlight));
 		background-size: 100% var(--intro-highlight-serif);
-		padding: 0 0.35rem;
+		padding: 0 var(--intro-highlight-bleed);
+		margin: 0 calc(-1 * var(--intro-highlight-bleed));
 		color: var(--color-highlight-text);
 	}
 
@@ -794,7 +798,8 @@
 	.intro-copy--part3-mobile.is-highlight-add :global(.ngsl) {
 		background-image: linear-gradient(var(--color-ngsl-highlight), var(--color-ngsl-highlight));
 		background-size: 100% var(--intro-highlight-sans);
-		padding: 0 0.35rem;
+		padding: 0 var(--intro-highlight-bleed);
+		margin: 0 calc(-1 * var(--intro-highlight-bleed));
 		color: var(--color-highlight-text);
 	}
 
@@ -802,7 +807,8 @@
 	.intro-copy--part3-mobile.is-highlight-remain :global(.remained) {
 		background-image: linear-gradient(var(--color-remained-highlight), var(--color-remained-highlight));
 		background-size: 100% var(--intro-highlight-sans);
-		padding: 0 0.35rem;
+		padding: 0 var(--intro-highlight-bleed);
+		margin: 0 calc(-1 * var(--intro-highlight-bleed));
 		color: var(--color-highlight-text);
 	}
 
