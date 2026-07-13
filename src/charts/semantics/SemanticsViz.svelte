@@ -313,22 +313,34 @@
 		--sem-mobile-plot-max: 0;
 		--sem-ribbon-marquee: 1;
 		--sem-debug-layout: 0;
-		--sem-ribbon-up: #f493ff;
-		--sem-ribbon-down: #ffaa4a;
-		--sem-ribbon-tan: #b2a47f;
-		--sem-ribbon-up-text: #db6ae8;
-		--sem-ribbon-down-text: #ed9027;
-		--sem-ribbon-tan-text: #988f77;
-		--sem-ribbon-label: #8f8a77;
+
+		--sem-ribbon-up: #F493FF;
+		--sem-ribbon-down: #FFAA4A;
+		--sem-ribbon-tan: #D9D2B8;
+
+		--sem-ribbon-up-text: #76207F; /* #db6ae8 */
+		--sem-ribbon-down-text: #714008; /* #ed9027 */
+		--sem-ribbon-tan-text: #5C594C; /* #988f77 */
+
+		--sem-ribbon-up-focus: var(--sem-ribbon-up);
+		--sem-ribbon-down-focus: var(--sem-ribbon-down);
+		--sem-ribbon-tan-focus: var(--sem-ribbon-tan);
+
+		--sem-ribbon-label: #8f8a77; 
 		--sem-ribbon-header: #706b66;
+
+		--sem-pct-cap-up-fill: #FACCF9;
+		--sem-pct-cap-down-fill: #FFD59E;
+		--sem-pct-cap-tan-fill: #E6E0CC;
+		--sem-pct-cap-up-text: #76207F; /* #962FA2 */
+		--sem-pct-cap-down-text: #714008; /* #9B5B12 */
+		--sem-pct-cap-tan-text: #5C594C; /* #635D43 */
+
 		--sem-pct-cap-width: 50;
 		--sem-pct-cap-threshold: 17;
 		--sem-pct-cap-label-bottom: 2;
 		--sem-ribbon-cap-trim: -1;
-		--sem-pct-cap-up-text: #962FA2;
-		--sem-pct-cap-down-text: #9B5B12;
-		--sem-pct-cap-tan-text: #635D43;
-		--sem-chart-bg: var(--color-bg, #fffff1);
+
 		--chart-overlay-stage-top: 10vh;
 		--chart-overlay-stage-height: 100vh;
 		--sem-stage-top: 32px;

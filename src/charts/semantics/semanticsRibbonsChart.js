@@ -23,66 +23,6 @@ function cssString(styles, name, fallback = "") {
 	return value || fallback;
 }
 
-const RIBBON_COLOR_DEFAULTS = {
-	up: "#f493ff",
-	down: "#ffaa4a",
-	tan: "#b2a47f"
-};
-
-const PCT_CAP_TEXT_DEFAULTS = {
-	up: "#962FA2",
-	down: "#9B5B12",
-	tan: "#635D43"
-};
-
-function parseColorToRgb(color) {
-	const s = String(color ?? "").trim();
-	if (!s) return null;
-	if (s.startsWith("#")) {
-		let h = s.slice(1);
-		if (h.length === 3) h = h.split("").map((ch) => ch + ch).join("");
-		if (h.length !== 6) return null;
-		return {
-			r: Number.parseInt(h.slice(0, 2), 16),
-			g: Number.parseInt(h.slice(2, 4), 16),
-			b: Number.parseInt(h.slice(4, 6), 16)
-		};
-	}
-	const match = s.match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)/i);
-	if (!match) return null;
-	return { r: Number(match[1]), g: Number(match[2]), b: Number(match[3]) };
-}
-
-function rgbToHex({ r, g, b }) {
-	const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
-	const hex = (v) => clamp(v).toString(16).padStart(2, "0");
-	return `#${hex(r)}${hex(g)}${hex(b)}`;
-}
-
-function blendColors(foreground, background, alpha) {
-	const fg = parseColorToRgb(foreground);
-	const bg = parseColorToRgb(background);
-	if (!fg || !bg) return foreground;
-	return rgbToHex({
-		r: fg.r * alpha + bg.r * (1 - alpha),
-		g: fg.g * alpha + bg.g * (1 - alpha),
-		b: fg.b * alpha + bg.b * (1 - alpha)
-	});
-}
-
-function resolveCssColor(styles, cssVar, defaults, key) {
-	const fromCss = cssString(styles, cssVar);
-	return fromCss || defaults[key] || defaults.tan;
-}
-
-function resolvedRibbonHex(styles, key) {
-	return resolveCssColor(styles, `--sem-ribbon-${key}`, RIBBON_COLOR_DEFAULTS, key);
-}
-
-function resolvedPctCapTextColor(styles, key) {
-	return resolveCssColor(styles, `--sem-pct-cap-${key}-text`, PCT_CAP_TEXT_DEFAULTS, key);
-}
-
 function splitLabelTwoLines(text, targetChars) {
 	const raw = String(text ?? "").trim();
 	if (!raw) return [""];
@@ -251,7 +191,7 @@ function appendBandFocusOutline(parent, c, pathD) {
 		.attr("class", "band-focus-outline")
 		.attr("d", pathD)
 		.attr("fill", "none")
-		.attr("stroke", c.dirColor)
+		.attr("stroke", c.pctCapFill)
 		.attr("stroke-width", 0)
 		.attr("stroke-opacity", 0)
 		.attr("stroke-linejoin", "round")
@@ -599,8 +539,6 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const marqueeSpeed = 25;
 	const antsSpeed = 18;
 	const focusRibbonFillOpacity = 1;
-	const focusRibbonBlendAlpha = 0.4;
-	const restRibbonBlendAlpha = 0.5;
 	const focusRibbonStrokeOpacity = 1;
 	const focusRibbonStrokeWidth = 1;
 	const ribbonCapTrim = cssNumber(chartStyles, "--sem-ribbon-cap-trim", 0.5) * verticalScale;
@@ -609,9 +547,9 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		const c = group.datum();
 		const ribbonSel = group.select(".ribbon").interrupt();
 		const outlineSel = group.select(".band-focus-outline").interrupt();
-		const targetFill = focused ? c?.dirFillFocused : c?.dirFillRest;
+		const targetFill = focused ? c?.ribbonFillFocused : c?.ribbonFill;
 
-		ribbonSel.attr("fill", targetFill ?? c?.dirColor).attr("fill-opacity", focusRibbonFillOpacity);
+		ribbonSel.attr("fill", targetFill).attr("fill-opacity", focusRibbonFillOpacity);
 		ribbonSel.attr("stroke-width", 0).attr("stroke-opacity", 0);
 
 		const outlineDuration = c?._thin ? 0 : duration;
@@ -646,18 +584,13 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	stackBandColumn(cats, "ngslPct", "ngslY0", "ngslY1", margin.top, bandArea, bandGap, minBandH);
 	H = margin.top + plotH + margin.bottom;
 
-	const chartBg =
-		cssString(chartStyles, "--sem-chart-bg") ||
-		cssString(chartStyles, "--color-bg", "#FFFFF1");
-
 	cats.forEach((c) => {
 		const key = categoryColorKey(c);
-		const ribbonHex = resolvedRibbonHex(chartStyles, key);
-		c.dirColor = `var(--sem-ribbon-${key})`;
+		c.ribbonFill = `var(--sem-ribbon-${key})`;
+		c.ribbonFillFocused = `var(--sem-ribbon-${key}-focus)`;
+		c.pctCapFill = `var(--sem-pct-cap-${key}-fill)`;
 		c.dirTextColor = `var(--sem-ribbon-${key}-text)`;
-		c.dirPctCapTextColor = resolvedPctCapTextColor(chartStyles, key);
-		c.dirFillRest = blendColors(ribbonHex, chartBg, restRibbonBlendAlpha);
-		c.dirFillFocused = blendColors(ribbonHex, chartBg, focusRibbonBlendAlpha);
+		c.dirPctCapTextColor = `var(--sem-pct-cap-${key}-text)`;
 	});
 
 	const svg = d3
@@ -779,9 +712,9 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		cg
 			.append("path")
 			.attr("d", ribbonBandPath(c, ribbonLeft, ribbonRight, mx, ribbonCapTrim))
-			.attr("fill", c.dirFillRest)
+			.attr("fill", c.ribbonFill)
 			.attr("fill-opacity", focusRibbonFillOpacity)
-			.attr("stroke", c.dirColor)
+			.attr("stroke", c.pctCapFill)
 			.attr("stroke-width", 0)
 			.attr("stroke-opacity", 0)
 			.attr("shape-rendering", "geometricPrecision")
@@ -905,14 +838,14 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			y: c.gslY0,
 			w: pctCapWidth,
 			h: gH,
-			fill: c.dirColor
+			fill: c.pctCapFill
 		});
 		appendPercentCapRect(cg, {
 			x: ngslX0 - pctCapWidth,
 			y: c.ngslY0,
 			w: pctCapWidth,
 			h: nH,
-			fill: c.dirColor
+			fill: c.pctCapFill
 		});
 
 		const focusOutlineD = c._thin
@@ -970,7 +903,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 			cg.insert("path", ".band-focus-outline")
 				.attr("class", "thin-band-focus-fill")
 				.attr("d", expandedRibbonPath(c, ribbonLeft, ribbonRight, mx, thinThreshold))
-				.attr("fill", c.dirFillFocused)
+				.attr("fill", c.ribbonFillFocused)
 				.attr("fill-opacity", focusRibbonFillOpacity)
 				.attr("stroke", "none")
 				.style("pointer-events", "none")
@@ -1012,9 +945,18 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		);
 	}
 
+	function hasActiveFocus() {
+		return (forcedFocusSet?.size ?? 0) > 0 || hoverEngagedIndex != null;
+	}
+
+	function isCategoryFocused(i) {
+		if (forcedFocusSet?.has(i)) return true;
+		return hoverEngagedIndex === i;
+	}
+
 	function shouldAnimateMarquee(i, c, prefersReducedMotion) {
 		if (prefersReducedMotion) return isCategoryEngaged(c, i);
-		if (forcedFocusSet) return forcedFocusSet.has(i);
+		if (hasActiveFocus()) return isCategoryFocused(i);
 		return true;
 	}
 
@@ -1022,7 +964,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		? createMarqueeLoop({
 				halfRate: viewportW <= 768,
 				isEngaged: () => {
-					if (forcedFocusSet) return forcedFocusSet.size > 0;
+					if (hasActiveFocus()) return true;
 					return cats.some((c, i) => isCategoryEngaged(c, i));
 				},
 				tick(dt, prefersReducedMotion) {
