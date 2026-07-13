@@ -302,6 +302,19 @@
 <style>
 	
 	.concr-bands {
+		--concr-bands-removed-bg: #FFAA4A;
+		--concr-bands-added-bg: #F493FF;
+		--concr-bands-removed-bg-row: #FFD59E;
+		--concr-bands-added-bg-row: #FACCF9;
+		--concr-bands-removed-text: #714008;
+		--concr-bands-added-text: #76207F;
+		--concr-bands-primary: #7B746E;
+		--concr-bands-grid: #CCC5BB;
+		--concr-bands-grid-text: #7B746E;
+		--concr-bands-muted: #b9afa6;
+		--concr-bands-axis-label-bg: var(--color-bg, #FFFFF1);
+		--concr-bands-background: transparent;
+
 		--concr-bands-compact-breakpoint: 935;
 		--concr-bands-phone-breakpoint: 520;
 		--concr-bands-margin-top: 100px;
@@ -339,8 +352,6 @@
 		--concr-bands-annot-text-inset: 6px;
 		--concr-bands-annot-dot-r: 2.5px;
 		--concr-bands-annot-font-size: 16px;
-		--concr-bands-removed-bg-row: rgba(237, 144, 39, 0.12);
-		--concr-bands-added-bg-row: rgba(219, 106, 232, 0.12);
 
 		
 
@@ -392,7 +403,7 @@
     .concr-bands-chart :global(.endpoint-text) {
         font-family: var(--font-mono);
         text-transform: uppercase;
-        color: var(--color-primary);
+        color: var(--concr-bands-primary);
         font-weight: 500;
         letter-spacing: 0.02em;
     }

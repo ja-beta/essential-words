@@ -213,18 +213,18 @@ export const CONCRETENESS_BANDS_CONFIG = {
 		repeat: 2
 	},
 	colors: {
-		primary: "var(--color-primary)",
-		background: "transparent",
-		removedBg: "var(--concr-bands-removed-bg, rgba(237,144,39,0.25))",
-		removedBgRow: "var(--concr-bands-removed-bg-row, var(--concr-bands-removed-bg, rgba(237,144,39,0.25)))",
-		removedText: "var(--color-gsl)",
-		addedBg: "var(--concr-bands-added-bg, rgba(219,106,232,0.25))",
-		addedBgRow: "var(--concr-bands-added-bg-row, var(--concr-bands-added-bg, rgba(219,106,232,0.25)))",
-		addedText: "var(--color-ngsl)",
-		grid: "var(--concr-bands-grid, #d5d0c8)",
-		gridText: "var(--concr-bands-grid-text, #a8a098)",
-		muted: "var(--concr-bands-muted, #8F8A77)",
-		axisLabelBg: "var(--color-bg, #FFFFF1)"
+		primary: "var(--concr-bands-primary)",
+		background: "var(--concr-bands-background)",
+		removedBg: "var(--concr-bands-removed-bg)",
+		removedBgRow: "var(--concr-bands-removed-bg-row)",
+		removedText: "var(--concr-bands-removed-text)",
+		addedBg: "var(--concr-bands-added-bg)",
+		addedBgRow: "var(--concr-bands-added-bg-row)",
+		addedText: "var(--concr-bands-added-text)",
+		grid: "var(--concr-bands-grid)",
+		gridText: "var(--concr-bands-grid-text)",
+		muted: "var(--concr-bands-muted)",
+		axisLabelBg: "var(--concr-bands-axis-label-bg)"
 	},
 	// typography: {
 	// 	sansFont: 'var(--font-sans, "Source Sans 3", system-ui, sans-serif)',
@@ -396,7 +396,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 		y: dirY,
 		textAnchor: "end",
 		arrowAnchor: "end",
-		fill: colors.removed.text,
+		fill: cfg.colors.primary,
+		// fill: "#717A47",
 		size: m.dirLabelSizePx,
 		lines: removedDirLines,
 		lineHeight: m.dirLabelLineHeight,
@@ -410,7 +411,8 @@ export function renderConcretenessBands(container, payload, { width }) {
 		y: dirY,
 		textAnchor: "start",
 		arrowAnchor: "start",
-		fill: colors.added.text,
+		fill: cfg.colors.primary,
+		// fill: "#717A47",
 		size: m.dirLabelSizePx,
 		lines: addedDirLines,
 		lineHeight: m.dirLabelLineHeight,
@@ -482,7 +484,7 @@ export function renderConcretenessBands(container, payload, { width }) {
 			.attr("font-family", cfg.typography.monoFont)
 			.attr("font-size", `${isWhole ? m.axisWholeSizePx : m.axisHalfSizePx}px`)
 			.attr("font-weight", 500)
-			.attr("fill", isWhole ? cfg.colors.muted : cfg.colors.gridText)
+			.attr("fill", isWhole ? cfg.colors.gridText : cfg.colors.muted)
 			.text(isWhole ? String(v) : v.toFixed(1));
 	}
 
