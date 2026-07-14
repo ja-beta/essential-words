@@ -372,11 +372,12 @@ export function renderScopeArcsChart(container, payload) {
 	}
 
 
-	function drawHitArc(g, cx, cy, r, start, end, width) {
+	function drawHitArc(g, cx, cy, r, start, end, width, arcKey) {
 		const d = arcPath(cx, cy, r, start, end, 1);
 		if (!d) return;
 		g.append("path")
 			.attr("class", "sarc-ring-hit")
+			.attr("data-arc", arcKey)
 			.attr("d", d)
 			.attr("fill", "none")
 			.attr("stroke", "#000")
@@ -386,12 +387,13 @@ export function renderScopeArcsChart(container, payload) {
 			.style("pointer-events", "none");
 	}
 
-	function drawBandArc(g, className, cx, cy, r, start, end, color, strokeW) {
+	function drawBandArc(g, className, cx, cy, r, start, end, color, strokeW, arcKey) {
 		const d = arcPath(cx, cy, r, start, end, 1);
 		if (!d) return null;
 		g
 			.append("path")
 			.attr("class", `sarc-arc ${className}`)
+			.attr("data-arc", arcKey)
 			.attr("d", d)
 			.attr("fill", "none")
 			.attr("stroke", color)
@@ -423,7 +425,7 @@ export function renderScopeArcsChart(container, payload) {
 		return path.node();
 	}
 
-	/** @type {Array<{ ring: number, textEl: SVGTextElement, tpNode: SVGTextPathElement, offset: number, cycleLen: number, cycleText: string, font: { family: string, style: string, weight: string | number }, opticalScale: number, baseCycleLen: number, baseFontSize: number }>} */
+	/** @type {Array<{ ring: number, arcKey: string, textEl: SVGTextElement, tpNode: SVGTextPathElement, offset: number, cycleLen: number, cycleText: string, font: { family: string, style: string, weight: string | number }, opticalScale: number, baseCycleLen: number, baseFontSize: number }>} */
 	const marqueeTracks = [];
 
 	/** @type {Array<{ ring: number, node: SVGPathElement, r: number, start: number, end: number, restThick: number }>} */
@@ -484,7 +486,7 @@ export function renderScopeArcsChart(container, payload) {
 		if (leftSegs.remained) {
 			hasLeftRem = !!drawBandArc(
 				g, "sarc-arc--remained", svgCx, svgCy, R_L,
-				leftSegs.remained.start, leftSegs.remained.end, COLORS.bandRemained, thickL
+				leftSegs.remained.start, leftSegs.remained.end, COLORS.bandRemained, thickL, "left-remained"
 			);
 			if (hasLeftRem) {
 				registerTextPath(leftRemTextId, svgCx, svgCy, R_L, leftSegs.remained.start, leftSegs.remained.end, ringNum);
@@ -495,7 +497,7 @@ export function renderScopeArcsChart(container, payload) {
 		if (leftSegs.partial) {
 			hasRemoved = !!drawBandArc(
 				g, "sarc-arc--removed", svgCx, svgCy, R_L,
-				leftSegs.partial.start, leftSegs.partial.end, COLORS.bandRemoved, thickL
+				leftSegs.partial.start, leftSegs.partial.end, COLORS.bandRemoved, thickL, "left-removed"
 			);
 			if (hasRemoved) {
 				registerTextPath(removedTextId, svgCx, svgCy, R_L, leftSegs.partial.start, leftSegs.partial.end, ringNum);
@@ -506,7 +508,7 @@ export function renderScopeArcsChart(container, payload) {
 		if (rightSegs.remained) {
 			hasRightRem = !!drawBandArc(
 				g, "sarc-arc--remained", svgCx, svgCy, R_R,
-				rightSegs.remained.start, rightSegs.remained.end, COLORS.bandRemained, thickR
+				rightSegs.remained.start, rightSegs.remained.end, COLORS.bandRemained, thickR, "right-remained"
 			);
 			if (hasRightRem) {
 				registerTextPath(rightRemTextId, svgCx, svgCy, R_R, rightSegs.remained.start, rightSegs.remained.end, ringNum);
@@ -517,7 +519,7 @@ export function renderScopeArcsChart(container, payload) {
 		if (rightSegs.partial) {
 			hasAdded = !!drawBandArc(
 				g, "sarc-arc--added", svgCx, svgCy, R_R,
-				rightSegs.partial.start, rightSegs.partial.end, COLORS.bandAdded, thickR
+				rightSegs.partial.start, rightSegs.partial.end, COLORS.bandAdded, thickR, "right-added"
 			);
 			if (hasAdded) {
 				registerTextPath(addedTextId, svgCx, svgCy, R_R, rightSegs.partial.start, rightSegs.partial.end, ringNum);
@@ -536,7 +538,7 @@ export function renderScopeArcsChart(container, payload) {
 			.attr("class", "sarc-words")
 			.attr("data-ring", ringNum)
 			.style("pointer-events", "none");
-		const addWords = (pathId, clipId, words, font, color) => {
+		const addWords = (pathId, clipId, words, font, color, arcKey) => {
 			if (!words?.length || !pathId || !clipId) return;
 			const cycleText = buildWordStr(words);
 			const repeated = cycleText.repeat(marqueeRepeat);
@@ -562,6 +564,7 @@ export function renderScopeArcsChart(container, payload) {
 			if (tpNode) {
 				marqueeTracks.push({
 					ring: ringNum,
+					arcKey,
 					textEl: tEl.node(),
 					tpNode,
 					offset: 0,
@@ -575,19 +578,19 @@ export function renderScopeArcsChart(container, payload) {
 			}
 		};
 
-		if (hasLeftRem) addWords(leftRemTextId, leftRemClipId, ring.remainedWords, FONTS.remained, COLORS.textRemained);
-		if (hasRemoved) addWords(removedTextId, removedClipId, ring.removedWords, FONTS.removed, COLORS.textRemoved);
-		if (hasRightRem) addWords(rightRemTextId, rightRemClipId, ring.remainedWords, FONTS.remained, COLORS.textRemained);
-		if (hasAdded) addWords(addedTextId, addedClipId, ring.addedWords, FONTS.added, COLORS.textAdded);
+		if (hasLeftRem) addWords(leftRemTextId, leftRemClipId, ring.remainedWords, FONTS.remained, COLORS.textRemained, "left-remained");
+		if (hasRemoved) addWords(removedTextId, removedClipId, ring.removedWords, FONTS.removed, COLORS.textRemoved, "left-removed");
+		if (hasRightRem) addWords(rightRemTextId, rightRemClipId, ring.remainedWords, FONTS.remained, COLORS.textRemained, "right-remained");
+		if (hasAdded) addWords(addedTextId, addedClipId, ring.addedWords, FONTS.added, COLORS.textAdded, "right-added");
 
 		// Constant on-screen gap between the partial and remained segments.
 		if (leftSegs.boundary != null) drawSeparator(g, svgCx, svgCy, R_L, leftSegs.boundary, thickL);
 		if (rightSegs.boundary != null) drawSeparator(g, svgCx, svgCy, R_R, rightSegs.boundary, thickR);
 
-		if (leftSegs.remained) drawHitArc(g, svgCx, svgCy, R_L, leftSegs.remained.start, leftSegs.remained.end, hitL);
-		if (leftSegs.partial) drawHitArc(g, svgCx, svgCy, R_L, leftSegs.partial.start, leftSegs.partial.end, hitL);
-		if (rightSegs.remained) drawHitArc(g, svgCx, svgCy, R_R, rightSegs.remained.start, rightSegs.remained.end, hitR);
-		if (rightSegs.partial) drawHitArc(g, svgCx, svgCy, R_R, rightSegs.partial.start, rightSegs.partial.end, hitR);
+		if (leftSegs.remained) drawHitArc(g, svgCx, svgCy, R_L, leftSegs.remained.start, leftSegs.remained.end, hitL, "left-remained");
+		if (leftSegs.partial) drawHitArc(g, svgCx, svgCy, R_L, leftSegs.partial.start, leftSegs.partial.end, hitL, "left-removed");
+		if (rightSegs.remained) drawHitArc(g, svgCx, svgCy, R_R, rightSegs.remained.start, rightSegs.remained.end, hitR, "right-remained");
+		if (rightSegs.partial) drawHitArc(g, svgCx, svgCy, R_R, rightSegs.partial.start, rightSegs.partial.end, hitR, "right-added");
 
 		if (ringNum === 1) {
 			const lines = ring.name.toUpperCase().split(/[\s-]+/).filter(Boolean);
@@ -654,6 +657,8 @@ export function renderScopeArcsChart(container, payload) {
 
 	let scrollState = { visibleRings: 1, focusedRing: 1, overview: false };
 	let hoveredRing = null;
+	/** @type {string | null} */
+	let hoveredArcKey = null;
 	let marqueePaused = false;
 	let marqueeResumeTimer = 0;
 	let prefersReducedMotion = getPrefersReducedMotion();
@@ -666,9 +671,23 @@ export function renderScopeArcsChart(container, payload) {
 	function trackMarqueeActive(track) {
 		if (marqueePaused) return false;
 		const { visibleRings, focusedRing, overview } = scrollState;
-		if (overview) return hoveredRing != null && track.ring === hoveredRing;
-		if (!focusedRing) return false;
-		return track.ring === focusedRing && track.ring <= visibleRings;
+		if (track.ring > visibleRings) return false;
+		if (overview) {
+			if (hoveredRing == null || track.ring !== hoveredRing) return false;
+			// RM: only the hovered arc scrolls; other arcs stay visible but still.
+			if (prefersReducedMotion) return track.arcKey === hoveredArcKey;
+			return true;
+		}
+		if (!focusedRing || track.ring !== focusedRing) return false;
+		if (prefersReducedMotion) return track.arcKey === hoveredArcKey;
+		return true;
+	}
+
+	function ringAcceptsPointer(ring) {
+		const { visibleRings, focusedRing, overview } = scrollState;
+		if (ring > visibleRings) return false;
+		if (overview) return true;
+		return prefersReducedMotion && ring === focusedRing;
 	}
 
 	let marqueeInitialized = false;
@@ -748,10 +767,9 @@ export function renderScopeArcsChart(container, payload) {
 
 	const marqueeLoop = createMarqueeLoop({
 		isEngaged: () => marqueeTracks.some(trackMarqueeActive),
-		tick(dt, prefersReducedMotion) {
+		tick(dt) {
 			for (const track of marqueeTracks) {
 				if (!trackMarqueeActive(track)) continue;
-				if (prefersReducedMotion) continue;
 				track.offset = wrapPathOffset(track.offset + marqueeSpeed * dt, track.cycleLen);
 				track.tpNode.setAttribute("startOffset", track.offset);
 			}
@@ -798,7 +816,9 @@ export function renderScopeArcsChart(container, payload) {
 			.style("visibility", function () {
 				return ringVisible(Number(this.getAttribute("data-ring"))) ? "visible" : "hidden";
 			})
-			.style("cursor", overview ? "pointer" : null)
+			.style("cursor", function () {
+				return ringAcceptsPointer(Number(this.getAttribute("data-ring"))) ? "pointer" : null;
+			})
 			.transition("ring-vis")
 			.delay(fadeDelay)
 			.duration(fadeDuration)
@@ -807,13 +827,15 @@ export function renderScopeArcsChart(container, payload) {
 				return focusOpacity(Number(this.getAttribute("data-ring")));
 			});
 
-		ringLayer
-			.selectAll(".sarc-ring-hit")
-			.style("pointer-events", overview ? "stroke" : "none");
+		ringLayer.selectAll(".sarc-ring-hit").style("pointer-events", function () {
+			const ring = Number(this.parentNode?.getAttribute?.("data-ring"));
+			return ringAcceptsPointer(ring) ? "stroke" : "none";
+		});
 
-		ringLayer
-			.selectAll(".sarc-arc")
-			.style("pointer-events", overview ? "stroke" : "none");
+		ringLayer.selectAll(".sarc-arc").style("pointer-events", function () {
+			const ring = Number(this.parentNode?.getAttribute?.("data-ring"));
+			return ringAcceptsPointer(ring) ? "stroke" : "none";
+		});
 
 		const arcStroke = ringLayer.selectAll(".sarc-arc").interrupt("band-w");
 		const nextStrokeWidth = function () {
@@ -931,30 +953,52 @@ export function renderScopeArcsChart(container, payload) {
 		marqueeLoop.syncEngagement();
 	}
 
-	function setHoveredRing(ring) {
-		if (!scrollState.overview) return;
-		const next = ring == null ? null : Number(ring);
-		if (hoveredRing === next) return;
-		hoveredRing = next;
-		applyVisualState(true, true, false, hoverMs);
+	function setHoveredArc(ring, arcKey) {
+		const nextRing = ring == null ? null : Number(ring);
+		const nextArc = arcKey ?? null;
+
+		if (scrollState.overview) {
+			const ringChanged = hoveredRing !== nextRing;
+			const arcChanged = hoveredArcKey !== nextArc;
+			if (!ringChanged && !arcChanged) return;
+			hoveredRing = nextRing;
+			hoveredArcKey = nextArc;
+			if (ringChanged) {
+				applyVisualState(true, true, false, hoverMs);
+			} else {
+				marqueeLoop.syncEngagement();
+			}
+			return;
+		}
+
+		
+		if (!prefersReducedMotion) return;
+		const effectiveRing = nextRing != null && nextRing === scrollState.focusedRing ? nextRing : null;
+		const effectiveArc = effectiveRing != null ? nextArc : null;
+		if (hoveredRing === effectiveRing && hoveredArcKey === effectiveArc) return;
+		hoveredRing = effectiveRing;
+		hoveredArcKey = effectiveArc;
+		marqueeLoop.syncEngagement();
 	}
 
 	const svgNode = svg.node();
-	ringLayer
+	const arcTargets = ringLayer.selectAll(".sarc-ring-hit, .sarc-arc");
+	arcTargets
 		.on("pointerenter", function () {
-			if (!scrollState.overview) return;
-			setHoveredRing(Number(this.getAttribute("data-ring")));
+			const ring = Number(this.parentNode?.getAttribute?.("data-ring"));
+			const arc = this.getAttribute("data-arc");
+			if (!Number.isFinite(ring) || !arc) return;
+			setHoveredArc(ring, arc);
 		})
 		.on("pointerleave", function (event) {
-			if (!scrollState.overview) return;
 			const related = event.relatedTarget;
-			if (related && this.contains(related)) return;
-			setHoveredRing(null);
+			const ringG = this.parentNode;
+			if (related && ringG?.contains?.(related)) return;
+			setHoveredArc(null, null);
 		});
 	d3.select(svgNode).on("pointerleave", (event) => {
-		if (!scrollState.overview) return;
 		if (event.relatedTarget && svgNode.contains(event.relatedTarget)) return;
-		setHoveredRing(null);
+		setHoveredArc(null, null);
 	});
 
 	function applyScrollState(next, animate = true) {
@@ -964,7 +1008,10 @@ export function renderScopeArcsChart(container, payload) {
 			overview: scrollState.overview
 		});
 		scrollState = { ...scrollState, ...next };
-		if (!scrollState.overview || !wasOverview) hoveredRing = null;
+		if (!scrollState.overview || !wasOverview) {
+			hoveredRing = null;
+			hoveredArcKey = null;
+		}
 		const nextScale = zoomScaleForState({
 			focusedRing: scrollState.focusedRing,
 			overview: scrollState.overview
