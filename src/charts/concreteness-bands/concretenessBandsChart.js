@@ -149,14 +149,10 @@ function computeDirectionLabelTopPad({ dirY, fontSize, lineCount, lineHeight }) 
 }
 
 
-function computeAnnotationBottomPad(m, maxStacked = 2) {
-	const lineH = m.annotFontSize * 1.2;
-	const textBlock = m.annotFontSize + lineH;
-	const textGap = Math.max(m.annotTextGap, m.annotTextGapBelow);
-	const annotDepth =
-		m.annotLeader + Math.max(0, maxStacked - 1) * m.annotStack + textGap + textBlock + m.annotDotR;
+function computeAnnotationBottomPad(m) {
+
 	const endpointDepth = m.endpointOffsetBottom + m.endpointSizePx * 1.4;
-	return Math.ceil(Math.max(m.margin.bottom, annotDepth, endpointDepth) + 6);
+	return Math.ceil(Math.max(m.margin.bottom, endpointDepth) + 6);
 }
 
 export function readConcretenessBandsMetrics(containerEl) {

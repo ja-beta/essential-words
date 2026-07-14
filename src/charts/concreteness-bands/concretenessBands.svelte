@@ -366,6 +366,7 @@
 		width: 100%;
 		max-width: 100vw;
 		margin-inline: calc(50% - 50vw) calc(50% - 50vw + var(--explorer-rail-width));
+		margin-top: 1.5rem;
 		box-sizing: border-box;
 	}
 
