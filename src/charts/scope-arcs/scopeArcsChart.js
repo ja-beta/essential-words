@@ -662,6 +662,20 @@ export function renderScopeArcsChart(container, payload) {
 	let marqueePaused = false;
 	let marqueeResumeTimer = 0;
 	let prefersReducedMotion = getPrefersReducedMotion();
+	/** RM + tablet-and-down + touch-primary: tap toggles marquee instead of hover. */
+	let tapToggleActive = false;
+
+	const tabletDownMq =
+		typeof window !== "undefined" ? window.matchMedia("(max-width: 1024px)") : null;
+	const finePointerMq =
+		typeof window !== "undefined"
+			? window.matchMedia("(hover: hover) and (pointer: fine)")
+			: null;
+
+	function computeTapToggleActive() {
+		if (!prefersReducedMotion || !tabletDownMq || !finePointerMq) return false;
+		return tabletDownMq.matches && !finePointerMq.matches;
+	}
 
 	function setMarqueePaused(paused) {
 		marqueePaused = paused;
@@ -672,12 +686,8 @@ export function renderScopeArcsChart(container, payload) {
 		if (marqueePaused) return false;
 		const { visibleRings, focusedRing, overview } = scrollState;
 		if (track.ring > visibleRings) return false;
-		if (overview) {
-			if (hoveredRing == null || track.ring !== hoveredRing) return false;
-			// RM: only the hovered arc scrolls; other arcs stay visible but still.
-			if (prefersReducedMotion) return track.arcKey === hoveredArcKey;
-			return true;
-		}
+		// Overview: no word ribbons / marquees on smaller screens
+		if (overview) return false;
 		if (!focusedRing || track.ring !== focusedRing) return false;
 		if (prefersReducedMotion) return track.arcKey === hoveredArcKey;
 		return true;
@@ -685,8 +695,8 @@ export function renderScopeArcsChart(container, payload) {
 
 	function ringAcceptsPointer(ring) {
 		const { visibleRings, focusedRing, overview } = scrollState;
+		if (overview) return false;
 		if (ring > visibleRings) return false;
-		if (overview) return true;
 		return prefersReducedMotion && ring === focusedRing;
 	}
 
@@ -785,7 +795,7 @@ export function renderScopeArcsChart(container, payload) {
 
 	function wordsOpacity(ring) {
 		const { visibleRings, focusedRing, overview } = scrollState;
-		if (overview) return ring === hoveredRing ? 1 : 0;
+		if (overview) return 0;
 		return ring === focusedRing && ring <= visibleRings ? 1 : 0;
 	}
 
@@ -803,11 +813,8 @@ export function renderScopeArcsChart(container, payload) {
 		const ringVisible = (ring) => ring <= visibleRings;
 
 		
-		const activeRing = overview
-			? hoveredRing
-			: focusedRing && focusedRing <= visibleRings
-				? focusedRing
-				: null;
+		const activeRing =
+			!overview && focusedRing && focusedRing <= visibleRings ? focusedRing : null;
 		const swellWidth = (resting) =>
 			activeRing == null ? resting : Math.max(resting, wordsBandPx / Math.max(scale, 0.01));
 
@@ -953,26 +960,36 @@ export function renderScopeArcsChart(container, payload) {
 		marqueeLoop.syncEngagement();
 	}
 
-	function setHoveredArc(ring, arcKey) {
-		const nextRing = ring == null ? null : Number(ring);
-		const nextArc = arcKey ?? null;
+	function clearArcEngagement() {
+		if (hoveredRing == null && hoveredArcKey == null) return;
+		hoveredRing = null;
+		hoveredArcKey = null;
+		marqueeLoop.syncEngagement();
+	}
 
-		if (scrollState.overview) {
-			const ringChanged = hoveredRing !== nextRing;
-			const arcChanged = hoveredArcKey !== nextArc;
-			if (!ringChanged && !arcChanged) return;
-			hoveredRing = nextRing;
-			hoveredArcKey = nextArc;
-			if (ringChanged) {
-				applyVisualState(true, true, false, hoverMs);
-			} else {
-				marqueeLoop.syncEngagement();
-			}
+	function engageArc(ring, arcKey) {
+		const nextRing = Number(ring);
+		const nextArc = arcKey;
+		if (!Number.isFinite(nextRing) || !nextArc) return;
+		if (!ringAcceptsPointer(nextRing)) return;
+
+		if (hoveredRing === nextRing && hoveredArcKey === nextArc) {
+			clearArcEngagement();
 			return;
 		}
 
-		
+		hoveredRing = nextRing;
+		hoveredArcKey = nextArc;
+		marqueeLoop.syncEngagement();
+	}
+
+	function setHoveredArc(ring, arcKey) {
+		if (tapToggleActive) return;
+		if (scrollState.overview) return;
 		if (!prefersReducedMotion) return;
+
+		const nextRing = ring == null ? null : Number(ring);
+		const nextArc = arcKey ?? null;
 		const effectiveRing = nextRing != null && nextRing === scrollState.focusedRing ? nextRing : null;
 		const effectiveArc = effectiveRing != null ? nextArc : null;
 		if (hoveredRing === effectiveRing && hoveredArcKey === effectiveArc) return;
@@ -981,25 +998,61 @@ export function renderScopeArcsChart(container, payload) {
 		marqueeLoop.syncEngagement();
 	}
 
+	function syncTapToggleMode() {
+		const next = computeTapToggleActive();
+		if (next === tapToggleActive) return;
+		tapToggleActive = next;
+		// Drop sticky tap engagement when leaving toggle mode (resize / fine pointer / RM off).
+		clearArcEngagement();
+		applyVisualState(false);
+	}
+
+	const onTabletMqChange = () => syncTapToggleMode();
+	const onFinePointerMqChange = () => syncTapToggleMode();
+	tabletDownMq?.addEventListener("change", onTabletMqChange);
+	finePointerMq?.addEventListener("change", onFinePointerMqChange);
+	tapToggleActive = computeTapToggleActive();
+
 	const svgNode = svg.node();
 	const arcTargets = ringLayer.selectAll(".sarc-ring-hit, .sarc-arc");
 	arcTargets
 		.on("pointerenter", function () {
+			if (tapToggleActive) return;
 			const ring = Number(this.parentNode?.getAttribute?.("data-ring"));
 			const arc = this.getAttribute("data-arc");
 			if (!Number.isFinite(ring) || !arc) return;
 			setHoveredArc(ring, arc);
 		})
 		.on("pointerleave", function (event) {
+			if (tapToggleActive) return;
 			const related = event.relatedTarget;
 			const ringG = this.parentNode;
 			if (related && ringG?.contains?.(related)) return;
 			setHoveredArc(null, null);
+		})
+		.on("click", function (event) {
+			if (!tapToggleActive || !prefersReducedMotion) return;
+			const ring = Number(this.parentNode?.getAttribute?.("data-ring"));
+			const arc = this.getAttribute("data-arc");
+			if (!Number.isFinite(ring) || !arc) return;
+			event.preventDefault();
+			event.stopPropagation();
+			engageArc(ring, arc);
 		});
 	d3.select(svgNode).on("pointerleave", (event) => {
+		if (tapToggleActive) return;
 		if (event.relatedTarget && svgNode.contains(event.relatedTarget)) return;
 		setHoveredArc(null, null);
 	});
+
+	function onOutsidePointerDown(event) {
+		if (!tapToggleActive || !prefersReducedMotion) return;
+		if (hoveredRing == null && hoveredArcKey == null) return;
+		const target = event.target;
+		if (target instanceof Element && target.closest(".sarc-ring-hit, .sarc-arc")) return;
+		clearArcEngagement();
+	}
+	document.addEventListener("pointerdown", onOutsidePointerDown, true);
 
 	function applyScrollState(next, animate = true) {
 		const wasOverview = scrollState.overview;
@@ -1030,9 +1083,13 @@ export function renderScopeArcsChart(container, payload) {
 		setMarqueeActive: marqueeLoop.setMarqueeActive,
 		setPrefersReducedMotion(reduced) {
 			const next = Boolean(reduced);
-			if (next === prefersReducedMotion) return;
+			if (next === prefersReducedMotion) {
+				syncTapToggleMode();
+				return;
+			}
 			prefersReducedMotion = next;
 			marqueeLoop.setPrefersReducedMotion(prefersReducedMotion);
+			syncTapToggleMode();
 			applyVisualState(true, false, false);
 		},
 		destroy() {
@@ -1040,6 +1097,9 @@ export function renderScopeArcsChart(container, payload) {
 				clearTimeout(marqueeResumeTimer);
 				marqueeResumeTimer = 0;
 			}
+			tabletDownMq?.removeEventListener("change", onTabletMqChange);
+			finePointerMq?.removeEventListener("change", onFinePointerMqChange);
+			document.removeEventListener("pointerdown", onOutsidePointerDown, true);
 			marqueeLoop.destroy();
 			container.innerHTML = "";
 		}
