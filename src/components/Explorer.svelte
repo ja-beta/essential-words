@@ -221,6 +221,7 @@
 								<p class="exp-col-desc removed">removed words</p>
 							</div>
 						</div>
+						<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 						<ul class="exp-word-list" aria-label="1953 General Service List" tabindex="0">
 							{#each list1953 as word (word.text + word.status)}
 								<li
@@ -248,6 +249,7 @@
 								<p class="exp-col-desc added">added words</p>
 							</div>
 						</div>
+						<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 						<ul class="exp-word-list" aria-label="2023 New General Service List" tabindex="0">
 							{#each list2023 as word (word.text + word.status)}
 								<li
