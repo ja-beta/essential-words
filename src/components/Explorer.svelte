@@ -34,19 +34,15 @@
 	});
 
 	$effect(() => {
-		if (!browser || !visible || !isOpen) return;
+		if (!browser || !isOpen) return;
 
 		function isOutsideDrawer(event) {
-			if (!asideEl) return true;
-			return !event.composedPath().includes(asideEl);
+			const path = event.composedPath();
+			if (asideEl && path.includes(asideEl)) return false;
+			return true;
 		}
 
 		function handlePointerDown(event) {
-			if (!isOutsideDrawer(event)) return;
-			closeExplorer();
-		}
-
-		function handleTouchStart(event) {
 			if (!isOutsideDrawer(event)) return;
 			closeExplorer();
 		}
@@ -58,12 +54,10 @@
 		}
 
 		document.addEventListener("pointerdown", handlePointerDown, true);
-		document.addEventListener("touchstart", handleTouchStart, { capture: true, passive: true });
 		document.addEventListener("keydown", handleKeyDown);
 
 		return () => {
 			document.removeEventListener("pointerdown", handlePointerDown, true);
-			document.removeEventListener("touchstart", handleTouchStart, true);
 			document.removeEventListener("keydown", handleKeyDown);
 		};
 	});
@@ -145,6 +139,15 @@
 	});
 </script>
 
+{#if isOpen}
+	<!-- Outside the transformed aside so position:fixed covers the full viewport on mobile. -->
+	<button
+		type="button"
+		class="explorer-backdrop"
+		aria-label="Close word lists"
+		onclick={() => closeExplorer()}
+	></button>
+{/if}
 <aside
 	class="explorer"
 	class:is-open={isOpen}
@@ -156,14 +159,6 @@
 	onfocusin={handleExplorerFocus}
 	onfocusout={handleExplorerBlur}
 >
-	{#if isOpen}
-		<button
-			type="button"
-			class="explorer-backdrop"
-			aria-label="Close word lists"
-			onclick={() => closeExplorer()}
-		></button>
-	{/if}
 	<div class="explorer-drawer">
 		<button
 			type="button"
@@ -213,7 +208,7 @@
 						<div class="explorer-column-header">
 							<h3 class="exp-col-name">1953 list</h3>
 							<div class="exp-col-desc-container">
-								<div class="exp-col-desc-icon" aria-hidden="true">
+								<div class="exp-col-desc-icon removed" aria-hidden="true">
 	                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
 	                                    <line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
 	                                </svg>
@@ -230,7 +225,14 @@
 									class:exp-word--remained={word.status === "remained"}
 									aria-label={wordAriaLabel(word.text, word.status, "1953")}
 								>
-									{word.text}
+									{#if word.status === "removed"}
+										<span class="exp-word-icon" aria-hidden="true">
+											<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<line x1="3" y1="9" x2="11" y2="9" stroke="currentColor" stroke-width="2" />
+											</svg>
+										</span>
+									{/if}
+									<span class="exp-word-text">{word.text}</span>
 								</li>
 							{/each}
 						</ul>
@@ -240,7 +242,7 @@
 						<div class="explorer-column-header">
 							<h3 class="exp-col-name">2023 list</h3>
 							<div class="exp-col-desc-container">
-								<div class="exp-col-desc-icon" aria-hidden="true">
+								<div class="exp-col-desc-icon added" aria-hidden="true">
 	                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
 	                                    <line x1="7" y1="3" x2="7" y2="11" stroke="currentColor" stroke-width="2" />
 	                                    <line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
@@ -258,7 +260,17 @@
 									class:exp-word--remained={word.status === "remained"}
 									aria-label={wordAriaLabel(word.text, word.status, "2023")}
 								>
-									{word.text}
+									{#if word.status === "added"}
+										<span class="exp-word-icon" aria-hidden="true">
+											<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+												<g transform="translate(0,2)">
+													<line x1="7" y1="3" x2="7" y2="11" stroke="currentColor" stroke-width="2" />
+													<line x1="3" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width="2" />
+												</g>
+											</svg>
+										</span>
+									{/if}
+									<span class="exp-word-text">{word.text}</span>
 								</li>
 							{/each}
 						</ul>
@@ -617,7 +629,8 @@
 
     .exp-col-desc{
         margin: 0;
-        font-size: 0.875rem;
+        font-size: 0.813rem;
+		color: var(--color-secondary);
     }
 
     .exp-col-desc-container{
@@ -627,11 +640,11 @@
         gap: 0.25rem;
     }
 
-    .exp-col-desc-container:has(.exp-col-desc.added) {
+	.exp-col-desc-icon.added {
         color: var(--color-ngsl);
     }
 
-    .exp-col-desc-container:has(.exp-col-desc.removed) {
+    .exp-col-desc-icon.removed {
         color: var(--color-gsl);
     }
 
@@ -646,21 +659,49 @@
 	}
 
 	.exp-word {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
 		font-family: var(--font-mono);
 		font-size: 15px;
 		line-height: 1.2;
         hyphens: auto;
         font-weight: 400;
         margin-bottom: 1rem;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
 
-    .exp-word--removed{
+	.exp-word-icon {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 14px;
+		height: 14px;
+	}
+
+	.exp-word-icon svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.exp-word-text {
+		min-width: 0;
+	}
+
+    .exp-word--removed .exp-word-icon{
         color: var(--color-gsl);
     }
 
-    .exp-word--added{
+    .exp-word--added .exp-word-icon{
         color: var(--color-ngsl);
     }
+
+	.exp-word--remained{
+		margin-left: 1.125rem;
+	}
 
 
 

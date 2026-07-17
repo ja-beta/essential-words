@@ -41,6 +41,16 @@
 	const EXPLORER_FOOTER_SHOW_PX = 140;
 	const CHART_FAB_HIDE_TOP_PX = 64;
 
+	function isStickyStageEngaged(stage) {
+		const stageTop = stage.getBoundingClientRect().top;
+		const stickyTop = Number.parseFloat(getComputedStyle(stage).top);
+
+		if (Number.isFinite(stickyTop)) {
+			return stageTop <= stickyTop + 1;
+		}
+		return stageTop <= CHART_FAB_HIDE_TOP_PX;
+	}
+
 	function isChartOverlayActive() {
 		const vh = getHeight();
 
@@ -55,7 +65,7 @@
 			const stage = scrolly.querySelector(".chart-overlay-stage");
 			if (!stage) continue;
 
-			if (stage.getBoundingClientRect().top <= CHART_FAB_HIDE_TOP_PX) return true;
+			if (isStickyStageEngaged(stage)) return true;
 		}
 
 		return false;
