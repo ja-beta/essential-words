@@ -10,7 +10,8 @@
 
 	version();
 
-	const preloadFont = ["/fonts/source-serif-4/source-serif-4-regular.woff2"];
+
+	const preloadFont = ["./fonts/source-serif-4/source-serif-4-regular.woff2"];
 
 	const meta = copy.meta ?? {};
 	const title = meta.title ?? copy.title ?? "";

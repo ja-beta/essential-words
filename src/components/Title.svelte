@@ -87,8 +87,6 @@
         letter-spacing: -14%;
     }
 
-    #g-t{
-    }
 
     @media (max-width: 920px) {
 
