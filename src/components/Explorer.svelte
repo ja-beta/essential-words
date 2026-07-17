@@ -630,7 +630,7 @@
     .exp-col-desc{
         margin: 0;
         font-size: 0.813rem;
-		color: var(--color-secondary);
+		color: var(--color-small-text);
     }
 
     .exp-col-desc-container{
@@ -667,7 +667,7 @@
 		line-height: 1.2;
         hyphens: auto;
         font-weight: 400;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	}
