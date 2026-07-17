@@ -308,6 +308,14 @@ export function renderConcretenessBands(container, payload, { width }) {
 		.style("display", "block")
 		.style("overflow", "visible");
 
+	const DESC_ID = "concreteness-bands-desc";
+	svg
+		.append("desc")
+		.attr("id", DESC_ID)
+		.text(
+			"This chart compares words removed from the 1953 list with words added to the 2023 list, arranged by concreteness, on a scale of 1-5, 1 being highly abstract, and 5 being highly concrete. Most of the words removed from the 1953 list were highly concrete; most of the words added to the 2023 list were abstract."
+		);
+
 	svg.append("rect").attr("width", W).attr("height", chartH).attr("fill", cfg.colors.background);
 
 	const defs = svg.append("defs");
@@ -1081,6 +1089,7 @@ function applyFocusState() {
 	});
 
 	container.replaceChildren(svg.node());
+	container.setAttribute("aria-describedby", DESC_ID);
 	measureBandCycles();
 	applyMarqueePositions();
 
@@ -1124,6 +1133,7 @@ function applyFocusState() {
 			}
 			bandsG.selectAll(".band-group").attr("opacity", 1);
 			clearHoverLayer();
+			container.removeAttribute("aria-describedby");
 			svg.remove();
 		}
 	};
