@@ -593,6 +593,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		c.dirPctCapTextColor = `var(--sem-pct-cap-${key}-text)`;
 	});
 
+	const DESC_ID = "semantics-ribbons-desc";
 	const svg = d3
 		.select(containerEl)
 		.append("svg")
@@ -601,6 +602,14 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		.style("width", `${W}px`)
 		.style("height", `${H}px`)
 		.style("overflow", "visible");
+
+	svg
+		.append("desc")
+		.attr("id", DESC_ID)
+		.text(
+			"A chart comparing how the 1953 and 2023 word lists break down across 21 semantic categories. The newer list saw an increase in abstract ideas, mental processes, and commerce, while categories like objects, the body, food, living things, and emotion all decreased in their relative share."
+		);
+	containerEl.setAttribute("aria-describedby", DESC_ID);
 
 	svg.append("rect").attr("width", W).attr("height", H).attr("fill", "transparent");
 
@@ -1198,6 +1207,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		destroy() {
 			marqueeAlive = false;
 			marqueeLoop.destroy();
+			containerEl.removeAttribute("aria-describedby");
 			svg.remove();
 		}
 	};
