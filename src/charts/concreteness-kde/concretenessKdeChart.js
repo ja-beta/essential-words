@@ -193,7 +193,7 @@ export const CONCRETENESS_KDE_CONFIG = {
 	sourceNote: {
 		fontSize: "13px",
 		fontFamily: "var(--font-sans)",
-		color: "var(--color-secondary)"
+		color: "var(--color-small-text)"
 	}
 };
 

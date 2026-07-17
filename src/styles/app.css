@@ -330,7 +330,7 @@ svg {
 	margin: 1rem auto 2.5rem auto;
 	text-align: center;
 	font-size: var(--note-font-size);
-	color: var(--color-secondary);
+	color: var(--color-small-text);
 }
 
 .note-list{
