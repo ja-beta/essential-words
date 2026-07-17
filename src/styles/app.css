@@ -61,7 +61,8 @@
 	--color-footer-bg: #e4e4a9;
 	--color-fg: var(--color-gray-900);
 	--color-fg-light: var(--color-gray-500);
-	--color-primary: #5B5B5B;
+	--color-primary: #575757; /*5b5b5b */
+	--color-primary-mobile: #464646;
 	--color-secondary: #787463; /* #8F8A77 */
 	--color-accent: #5b6c14; /* #BACB73 */
 	--color-link: var(--color-primary);
@@ -416,6 +417,7 @@ svg {
 
 @media (max-width: 920px) {
 	:root {
+		--color-primary: var(--color-primary-mobile);
 		--story-inline-margin: 2rem;
 
 		--explorer-rail-offset: var(--explorer-rail-width);

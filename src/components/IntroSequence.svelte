@@ -616,9 +616,6 @@
 		--intro-highlight-y-serif: 100%;
 		--intro-highlight-y-sans: 50%;
 		--intro-highlight-bleed: 0.12rem;
-		--intro-grid-font-size-serif: 0.95rem;
-		--intro-grid-highlight-pos-sans: 0.1rem;
-		--intro-grid-highlight-pos-serif: 0.2rem;
 		--intro-write-ms-min: 140ms;
 		--intro-write-ms-max: 500ms;
 		--intro-write-ms-per-ch: 180ms;
@@ -797,6 +794,8 @@
 		padding: 0 var(--intro-highlight-bleed);
 		margin: 0 calc(-1 * var(--intro-highlight-bleed));
 		color: var(--color-highlight-text);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
 
 	.intro-copy-layer--part3.is-highlight-add :global(.ngsl),

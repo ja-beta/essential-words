@@ -56,6 +56,11 @@
 
 <style>
 	.intro-word-grid {
+		--intro-grid-font-size: 1rem;
+		--intro-grid-sans-scale: 1.1;
+		--intro-grid-highlight-height: calc(
+			var(--intro-grid-font-size) * var(--intro-grid-sans-scale) * 1.25
+		);
 		display: grid;
 		width: 100%;
 		pointer-events: none;
@@ -73,17 +78,14 @@
 
 	.intro-word-grid--flow {
 		grid-auto-rows: minmax(1.35rem, auto);
+		gap: 1rem;
 	}
 
 	.intro-word-grid--mobile-sticky {
 		flex: 0 0 auto;
 		max-height: 26vh;
 		grid-auto-rows: minmax(0, 1fr);
-	}
-
-	.intro-word-grid--flow, 
-	.intro-word-grid--mobile-sticky {
-		gap: 1rem;
+		gap: 1rem 0.5rem;
 	}
 
 	.intro-word-cell {
@@ -96,9 +98,13 @@
 	}
 
 	.word {
+		display: inline-flex;
+		align-items: center;
+		height: var(--intro-grid-highlight-height);
 		font-family: var(--font-sans);
 		font-style: italic;
-		font-size: calc(1rem * var(--highlight-sans-scale));
+		font-size: calc(var(--intro-grid-font-size) * var(--intro-grid-sans-scale));
+		line-height: 1;
 		text-transform: uppercase;
 		letter-spacing: 3%;
 		color: var(--color-secondary);
@@ -106,8 +112,8 @@
 		/* opacity: 0.85; */
 		padding: 0 0.35rem;
 		background-repeat: no-repeat;
-		background-size: 0% var(--intro-highlight-sans);
-		background-position: 0 var(--intro-grid-highlight-pos-sans);
+		background-size: 0% 100%;
+		background-position: 0 0;
 		box-decoration-break: clone;
 		transition:
 			background-size var(--intro-highlight-fade-ms) ease,
@@ -117,10 +123,16 @@
 
 	.word--removed {
 		font-family: var(--font-serif);
-		font-size: var(--intro-grid-font-size-serif);
-		background-position: 0 var(--intro-grid-highlight-pos-serif);
-		position: relative;
-		top: -0.163em;
+		font-size: var(--intro-grid-font-size);
+	}
+
+	.word--removed .word-write {
+		transform: translateY(var(--intro-grid-serif-nudge, 0px));
+	}
+
+	.word--added .word-write,
+	.word--remained .word-write {
+		transform: translateY(var(--intro-grid-sans-nudge, 0px));
 	}
 
 	.word-write {
@@ -166,21 +178,21 @@
 
 	.intro-word-grid.is-focus-drop .word--removed {
 		background-image: linear-gradient(var(--color-gsl-highlight), var(--color-gsl-highlight));
-		background-size: 100% var(--intro-highlight-serif);
+		background-size: 100% 100%;
 		opacity: 1;
 		color: var(--color-highlight-text);
 	}
 
 	.intro-word-grid.is-focus-add .word--added {
 		background-image: linear-gradient(var(--color-ngsl-highlight), var(--color-ngsl-highlight));
-		background-size: 100% var(--intro-highlight-sans);
+		background-size: 100% 100%;
 		opacity: 1;
 		color: var(--color-highlight-text);
 	}
 
 	.intro-word-grid.is-focus-remain .word--remained {
 		background-image: linear-gradient(var(--color-remained-highlight), var(--color-remained-highlight));
-		background-size: 100% var(--intro-highlight-sans);
+		background-size: 100% 100%;
 		opacity: 1;
 		color: var(--color-highlight-text);
 	}
@@ -211,17 +223,17 @@
 
 	.intro-word-grid.is-reduced-motion .word--removed {
 		--intro-hl-color: var(--color-gsl-highlight);
-		background-size: 100% var(--intro-highlight-serif);
+		background-size: 100% 100%;
 	}
 
 	.intro-word-grid.is-reduced-motion .word--added {
 		--intro-hl-color: var(--color-ngsl-highlight);
-		background-size: 100% var(--intro-highlight-sans);
+		background-size: 100% 100%;
 	}
 
 	.intro-word-grid.is-reduced-motion .word--remained {
 		--intro-hl-color: var(--color-remained-highlight);
-		background-size: 100% var(--intro-highlight-sans);
+		background-size: 100% 100%;
 	}
 
 	.intro-word-grid.is-reduced-motion.is-focus-drop .word--removed,
@@ -244,12 +256,15 @@
 	}
 
 	@media (max-width: 768px) {
+		.intro-word-grid {
+			--intro-grid-font-size: 0.875rem;
+		}
+
 		.intro-word-grid--stage {
 			margin: 0 1rem;
 		}
 
 		.word {
-			font-size: 0.875rem;
 			opacity: 1;
 		}
 	}

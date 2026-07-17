@@ -20,7 +20,8 @@ export const INTRO_SEQUENCE_DEFAULTS = {
 	baseSeed: 117,
 	removedSeed: 202,
 	exclusionSeed: 3001,
-	emptyShuffleSeed: 21013
+	emptyShuffleSeed: 21013,
+	maxWordLength: 10 
 };
 
 
@@ -79,8 +80,10 @@ export function pickWordsForScreen(
 	pools,
 	screenIndex,
 	count = 150,
-	allowedSets = INTRO_SCREEN_SETS[screenIndex] ?? INTRO_SCREEN_SETS.at(-1)
+	allowedSets = INTRO_SCREEN_SETS[screenIndex] ?? INTRO_SCREEN_SETS.at(-1),
+	options = {}
 ) {
+	const maxLen = options.maxWordLength ?? INTRO_SEQUENCE_DEFAULTS.maxWordLength;
 	const bySet = {
 		removed: pools.removed,
 		remained: pools.remained,
@@ -88,7 +91,10 @@ export function pickWordsForScreen(
 	};
 
 	const sources = allowedSets
-		.map((set) => ({ set, list: bySet[set] ?? [] }))
+		.map((set) => ({
+			set,
+			list: (bySet[set] ?? []).filter((w) => w.length <= maxLen)
+		}))
 		.filter((s) => s.list.length);
 
 	if (!sources.length) return [];
@@ -181,7 +187,8 @@ export function buildIntroSequenceGrid(pools, options = {}) {
 		pools,
 		options.baseSeed ?? INTRO_SEQUENCE_DEFAULTS.baseSeed,
 		Math.floor(cols * rows * (options.baseWordRequestFraction ?? INTRO_SEQUENCE_DEFAULTS.baseWordRequestFraction)),
-		["added", "remained"]
+		["added", "remained"],
+		{ maxWordLength: options.maxWordLength }
 	);
 	const baseGrid = placeWordsInGrid(baseWords, options.baseSeed ?? INTRO_SEQUENCE_DEFAULTS.baseSeed, cols, rows, {
 		blockedIndices: blocked,
@@ -204,9 +211,13 @@ export function buildIntroSequenceGrid(pools, options = {}) {
 		0,
 		Math.floor(empties.length * (options.removedFillRatio ?? INTRO_SEQUENCE_DEFAULTS.removedFillRatio))
 	);
-	const removedWords = pickWordsForScreen(pools, options.removedSeed ?? INTRO_SEQUENCE_DEFAULTS.removedSeed, removedCount, [
-		"removed"
-	]);
+	const removedWords = pickWordsForScreen(
+		pools,
+		options.removedSeed ?? INTRO_SEQUENCE_DEFAULTS.removedSeed,
+		removedCount,
+		["removed"],
+		{ maxWordLength: options.maxWordLength }
+	);
 	for (let i = 0; i < removedWords.length && i < empties.length; i++) {
 		cells[empties[i]] = removedWords[i];
 	}
@@ -226,7 +237,9 @@ export function buildIntroFlowGrid(pools, options = {}) {
 	const seed = options.seed ?? screenIndex * 7919;
 	const allowedSets = options.allowedSets ?? INTRO_SCREEN_SETS[screenIndex] ?? INTRO_SCREEN_SETS.at(-1);
 	const count = cols * rows;
-	const words = pickWordsForScreen(pools, seed, count, allowedSets);
+	const words = pickWordsForScreen(pools, seed, count, allowedSets, {
+		maxWordLength: options.maxWordLength
+	});
 
 	return placeWordsInGrid(words, seed, cols, rows, { fillFraction: 1 });
 }
