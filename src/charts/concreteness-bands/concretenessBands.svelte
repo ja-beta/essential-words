@@ -437,6 +437,14 @@
 		--chart-overlay-stage-top: 22vh;
 	}
 
+	@media (max-width: 1200px) {
+		.concr-bands{
+			--concr-bands-annot-stack: 72px;
+			--concr-bands-annot-text-gap: 8px;
+			--concr-bands-annot-text-gap-below: 8px;
+		}
+	}
+
 	@media (max-width: 935px) {
 		.concr-bands {
 			--concr-bands-margin-top: 120px;
@@ -451,10 +459,10 @@
 			--concr-bands-axis-half-size: 13px;
 			--concr-bands-endpoint-size: 13px;
 			--concr-bands-annot-font-size: 14px;
-			--concr-bands-annot-stack: 48px;
+			--concr-bands-annot-stack: 56px;
 			--concr-bands-annot-leader: 12px;
 			/* Steps 2–3 annotate below bands; hanging baseline reads tighter than step 1 above. */
-			--concr-bands-annot-text-gap-below: 22px;
+			--concr-bands-annot-text-gap-below: 8px;
 			--chart-overlay-steps-top-pad: 45vh;
 			--chart-overlay-steps-bottom-pad: 40vh;
 			--chart-overlay-step-spacer-h: 40vh;
@@ -476,7 +484,7 @@
 	@media (max-width: 520px) {
 		.concr-bands {
 			--concr-bands-band-h: 28px;
-			--concr-bands-band-gap: 18px;
+			--concr-bands-band-gap: 28px;
 			--concr-bands-marquee-font-size: 18px;
 			--concr-bands-margin-top: 96px;
 			/* --concr-bands-axis-tick-offset: 48px; */
@@ -491,10 +499,10 @@
 			--concr-bands-axis-half-size: 10px;
 			--concr-bands-endpoint-size: 13px;
 			--concr-bands-annot-font-size: 13px;
-			--concr-bands-annot-stack: 44px;
-			--concr-bands-annot-leader: 14px;
+			--concr-bands-annot-stack: 64px;
+			--concr-bands-annot-leader: 24px;
 			--concr-bands-annot-text-gap: 8px;
-			--concr-bands-annot-text-gap-below: 16px;
+			--concr-bands-annot-text-gap-below: 8px;
 			--concr-bands-annot-text-inset: 2px;
 			--chart-overlay-step-min-h: 140vh;
 		}
@@ -503,13 +511,6 @@
 		.concr-bands-stage {
 			--chart-overlay-stage-height: auto;
 			--chart-overlay-stage-top: 10vh;
-		}
-	}
-
-	@media (max-width: 400px){
-		.concr-bands{
-			--concr-bands-annot-font-size: 12px;
-
 		}
 	}
 
