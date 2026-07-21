@@ -768,20 +768,20 @@ export function renderConcretenessBands(container, payload, { width }) {
 		return interactionLocked && focusRanges.length > 0;
 	}
 
+	function isBandHoverEngaged(band) {
+		return hoveredBand === band;
+	}
+
 	function shouldAnimateBand(band, prefersReducedMotion) {
+		if (prefersReducedMotion) return isBandHoverEngaged(band);
 		if (hasForcedFocus()) return isBandFocused(band);
 		if (hoveredBand) return band === hoveredBand;
-		if (prefersReducedMotion) return band.hovered;
 		return true;
 	}
 
 	const marqueeLoop = createMarqueeLoop({
 		halfRate: isPhone,
-		isEngaged: () => {
-			if (hasForcedFocus()) return allBands.some((band) => isBandFocused(band));
-			if (hoveredBand) return true;
-			return allBands.some((band) => band.hovered);
-		},
+		isEngaged: () => hoveredBand != null,
 		tick(dt, prefersReducedMotion) {
 			for (const band of allBands) {
 				if (!shouldAnimateBand(band, prefersReducedMotion)) continue;

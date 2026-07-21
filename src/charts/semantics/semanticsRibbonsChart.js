@@ -945,15 +945,6 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	let hoverEngagedIndex = null;
 	const focusTransitionMs = 240;
 
-	function isCategoryEngaged(c, i) {
-		return (
-			c._hoverActive ||
-			c._forcedActive ||
-			hoverEngagedIndex === i ||
-			Boolean(forcedFocusSet?.has(i))
-		);
-	}
-
 	function hasActiveFocus() {
 		return (forcedFocusSet?.size ?? 0) > 0 || hoverEngagedIndex != null;
 	}
@@ -963,8 +954,12 @@ export function renderSemanticsRibbons(containerEl, payload) {
 		return hoverEngagedIndex === i;
 	}
 
+	function isCategoryHoverEngaged(c, i) {
+		return c._hoverActive || hoverEngagedIndex === i;
+	}
+
 	function shouldAnimateMarquee(i, c, prefersReducedMotion) {
-		if (prefersReducedMotion) return isCategoryEngaged(c, i);
+		if (prefersReducedMotion) return isCategoryHoverEngaged(c, i);
 		if (hasActiveFocus()) return isCategoryFocused(i);
 		return true;
 	}
@@ -972,10 +967,7 @@ export function renderSemanticsRibbons(containerEl, payload) {
 	const marqueeLoop = showRibbonMarquee
 		? createMarqueeLoop({
 				halfRate: viewportW <= 768,
-				isEngaged: () => {
-					if (hasActiveFocus()) return true;
-					return cats.some((c, i) => isCategoryEngaged(c, i));
-				},
+				isEngaged: () => cats.some((c, i) => isCategoryHoverEngaged(c, i)),
 				tick(dt, prefersReducedMotion) {
 					for (let i = 0; i < cats.length; i++) {
 						const c = cats[i];
