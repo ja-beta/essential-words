@@ -12,14 +12,22 @@ export const INTRO_SEQUENCE_DEFAULTS = {
 	rowScale: 4.2, // rows = round(cols * rowScale) when rows not explicitly set
 	rows: null,
 	baseWordRequestFraction: 0.5,
-	baseFillFraction: 0.4,
-	removedFillRatio: 0.5,
+	baseFillFraction: 0.5,
+	removedFillRatio: 0.4,
 	centerExclusionWidth: 0.5,
-	centerExclusionHeight: 0.7,
-	centerExclusionNoise: 0.15,
-	baseSeed: 117,
-	removedSeed: 202,
-	exclusionSeed: 3001,
+	centerExclusionHeight: 0.7, //0.7
+	centerExclusionNoise: 0.01, //0.15
+
+	headerExclusionCells: [
+		[4, 1],
+		[5, 1],
+		[4, 2],
+		[5, 2]
+	],
+
+	baseSeed: 148, //147
+	removedSeed: 255, //202
+	exclusionSeed: 3001, //3001
 	emptyShuffleSeed: 21013,
 	maxWordLength: 10 
 };
@@ -84,6 +92,7 @@ export function pickWordsForScreen(
 	options = {}
 ) {
 	const maxLen = options.maxWordLength ?? INTRO_SEQUENCE_DEFAULTS.maxWordLength;
+	const exclude = options.exclude ?? null;
 	const bySet = {
 		removed: pools.removed,
 		remained: pools.remained,
@@ -91,23 +100,54 @@ export function pickWordsForScreen(
 	};
 
 	const sources = allowedSets
-		.map((set) => ({
-			set,
-			list: (bySet[set] ?? []).filter((w) => w.length <= maxLen)
-		}))
+		.map((set) => {
+			const seen = new Set();
+			const list = [];
+			for (const w of bySet[set] ?? []) {
+				if (w.length > maxLen) continue;
+				const key = w.toLowerCase();
+				if (seen.has(key) || exclude?.has(key)) continue;
+				seen.add(key);
+				list.push(w);
+			}
+			return { set, list };
+		})
 		.filter((s) => s.list.length);
 
 	if (!sources.length) return [];
 
-	const out = [];
+	
 	let seed = screenIndex * 7919;
+	for (const source of sources) {
+		const { list } = source;
+		for (let i = list.length - 1; i > 0; i--) {
+			seed += 17;
+			const j = Math.floor(seededUnit(seed) * (i + 1));
+			[list[i], list[j]] = [list[j], list[i]];
+		}
+	}
+
+	const out = [];
+	const used = new Set(exclude ? [...exclude] : []);
+	const cursors = sources.map(() => 0);
 
 	for (let i = 0; i < count; i++) {
-		seed += i * 17;
-		const si = i % sources.length;
-		const { set, list } = sources[si];
-		const j = Math.floor(seededUnit(seed) * list.length);
-		out.push({ text: list[j], set });
+		let placed = false;
+		for (let attempt = 0; attempt < sources.length; attempt++) {
+			const si = (i + attempt) % sources.length;
+			const { set, list } = sources[si];
+			while (cursors[si] < list.length) {
+				const text = list[cursors[si]++];
+				const key = text.toLowerCase();
+				if (used.has(key)) continue;
+				used.add(key);
+				out.push({ text, set });
+				placed = true;
+				break;
+			}
+			if (placed) break;
+		}
+		if (!placed) break;
 	}
 
 	return out;
@@ -172,6 +212,16 @@ function buildCenterExclusionMask(cols, rows, opts = {}) {
 	return blocked;
 }
 
+function applyHeaderExclusion(blocked, cols, rows, cells = INTRO_SEQUENCE_DEFAULTS.headerExclusionCells) {
+	for (const pair of cells ?? []) {
+		const col = Math.round(pair[0]) - 1;
+		const row = Math.round(pair[1]) - 1;
+		if (col < 0 || col >= cols || row < 0 || row >= rows) continue;
+		blocked.add(row * cols + col);
+	}
+	return blocked;
+}
+
 
 export function buildIntroSequenceGrid(pools, options = {}) {
 	const { cols, rows } = resolveGridSize(options);
@@ -182,6 +232,12 @@ export function buildIntroSequenceGrid(pools, options = {}) {
 		edgeNoise: options.centerExclusionNoise ?? INTRO_SEQUENCE_DEFAULTS.centerExclusionNoise,
 		seedBase: options.exclusionSeed ?? INTRO_SEQUENCE_DEFAULTS.exclusionSeed
 	});
+	applyHeaderExclusion(
+		blocked,
+		cols,
+		rows,
+		options.headerExclusionCells ?? INTRO_SEQUENCE_DEFAULTS.headerExclusionCells
+	);
 
 	const baseWords = pickWordsForScreen(
 		pools,
@@ -211,12 +267,15 @@ export function buildIntroSequenceGrid(pools, options = {}) {
 		0,
 		Math.floor(empties.length * (options.removedFillRatio ?? INTRO_SEQUENCE_DEFAULTS.removedFillRatio))
 	);
+	const placedKeys = new Set(
+		cells.filter(Boolean).map((cell) => cell.text.toLowerCase())
+	);
 	const removedWords = pickWordsForScreen(
 		pools,
 		options.removedSeed ?? INTRO_SEQUENCE_DEFAULTS.removedSeed,
 		removedCount,
 		["removed"],
-		{ maxWordLength: options.maxWordLength }
+		{ maxWordLength: options.maxWordLength, exclude: placedKeys }
 	);
 	for (let i = 0; i < removedWords.length && i < empties.length; i++) {
 		cells[empties[i]] = removedWords[i];
